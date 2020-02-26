@@ -1,0 +1,57 @@
+﻿{
+  "94261": {
+    "matchid": "94261",
+    "name": "川麻",
+    "recurl": "MahJong4"
+  },
+  "97761": {
+    "matchid": "97761", 
+    "name": "二七十", 
+    "recurl": "ErQiShi"
+  },
+  "98861": {
+    "matchid": "98861",
+    "name": "幺鸡麻将",
+    "recurl": "MahJong4_YaoJi"
+  }, 
+  "99461": {
+    "matchid": "99461",
+    "name": "四川跑得快",
+    "recurl": "PaoDeKuai_SC"
+  },
+  "99061": {
+    "matchid": "99061", 
+    "name": "三人两房",
+    "recurl": "MahJong4_3"
+  },
+  "99561": {
+    "matchid": "99561", 
+    "name": "成都斗地主",
+    "recurl": "DDZ_CD"
+  },
+  "99661": {
+    "matchid": "99661", 
+    "name": "一房七张", 
+    "recurl": "MahJong4_3_2"
+  },
+  "99761": {
+    "matchid": "99761", 
+    "name": "二鬼",
+    "recurl": "TwoGhost"
+  },
+  "91161": {
+    "matchid": "91161", 
+    "name": "眉山斗十四", 
+    "recurl": "msdou14"
+  },
+  "91561": {
+    "matchid": "91561",
+    "name": "两人斗地主",
+    "recurl": "DDZ_CD_2"
+  }, 
+  "99861": {
+    "matchid": "99861",
+    "name": "幺鸡两房", 
+    "recurl": "MahJong4_YaoJi_3_2"
+  }
+}

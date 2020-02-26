@@ -1,0 +1,55 @@
+﻿body {margin:0px;padding:0px; background:#3B6EA5;font-family:"宋体";font-size:12px;}
+ul{margin:0px; padding:0px; list-style:none; width:146px; padding-left:10px;}
+li{margin:0px; padding:0px; list-style:none; }
+.menu_title
+{
+	background:url(/common/images/bg_title.gif);
+	height:24px;
+	color:#FFFFFF;
+	padding-left:40px;
+	font-weight:bold;
+	line-height:24px;
+}
+.menu_list
+{
+	background:url(/common/images/bg_list.gif);
+	height:29px;
+	line-height:29px;
+	color:#FFFFFF;
+	padding-left:30px;
+}
+a
+{
+	font-size: 12px;
+	color: #333333;
+}
+a:link
+{
+	text-decoration: none;
+}
+a:visited
+{
+	text-decoration: none;
+	color: #333333;
+}
+a:hover
+{
+	text-decoration: underline;
+	color: #FF0000;
+}
+a:active
+{
+	text-decoration: none;
+	color: #FF0000;
+}
+/*其他*/
+.white,a.white,a.white:visited
+{
+	color:#ffffff;
+	text-decoration: none;
+}
+a.white:hover
+{
+	color:#ffffff;
+	text-decoration:underline;
+}

@@ -1,0 +1,541 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4D12BD85-CF92-4BBE-A956-447BAA49FC7A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MF.Admin.UI</RootNamespace>
+    <AssemblyName>MF.Admin.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>14.0</OldToolsVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MF.Common">
+      <HintPath>..\..\MF.Common.DLL\MF.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="MF.Data.ExtendChannel">
+      <HintPath>..\..\MF.Common.DLL\MF.Data.ExtendChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="MF.WebControls">
+      <HintPath>..\..\MF.Common.DLL\MF.WebControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\MF.Common.DLL\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Extensions.Design" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="common\images\ajax_loading.gif" />
+    <Content Include="common\images\bg_list.gif" />
+    <Content Include="common\images\bg_main.gif" />
+    <Content Include="common\images\bg_title.gif" />
+    <Content Include="common\images\icon_drop.gif" />
+    <Content Include="common\images\icon_edit.gif" />
+    <Content Include="common\images\logo.jpg" />
+    <Content Include="common\images\no.gif" />
+    <Content Include="common\images\ok.gif" />
+    <Content Include="common\images\pager\first.gif" />
+    <Content Include="common\images\pager\first1.gif" />
+    <Content Include="common\images\pager\last.gif" />
+    <Content Include="common\images\pager\last1.gif" />
+    <Content Include="common\images\pager\next.gif" />
+    <Content Include="common\images\pager\next1.gif" />
+    <Content Include="common\images\pager\pre.gif" />
+    <Content Include="common\images\pager\pre1.gif" />
+    <Content Include="common\images\reset.gif" />
+    <Content Include="common\images\submit.gif" />
+    <Content Include="common\images\top_line.gif" />
+    <Content Include="common\images\top_menu_01.gif" />
+    <Content Include="common\images\top_menu_02.gif" />
+    <Content Include="common\images\window.jpg" />
+    <Content Include="common\js\ajax.js" />
+    <Content Include="common\js\common.js" />
+    <Content Include="common\js\game.js" />
+    <Content Include="common\js\jquery-ui-1.8.18.custom.min.js" />
+    <Content Include="common\js\jquery1.8.1.js" />
+    <Content Include="common\js\json2.js" />
+    <Content Include="common\js\JsonPager.js" />
+    <Content Include="common\js\MD5.js" />
+    <Content Include="common\styles\layer.css" />
+    <Content Include="common\styles\main.css" />
+    <Content Include="common\styles\Menu.css" />
+    <Content Include="common\styles\style.css" />
+    <Content Include="Default.aspx" />
+    <Content Include="common\js\echarts.min.js" />
+    <Content Include="M\Charge\RecordList.aspx" />
+    <Content Include="M\Currency\BeanRecord.aspx" />
+    <Content Include="M\Currency\CurrencyRecord.aspx" />
+    <Content Include="M\Currency\DZCurrencyRecord.aspx" />
+    <Content Include="M\Currency\ExchangeRecord.aspx" />
+    <Content Include="M\Currency\HappyCardRecord.aspx" />
+    <Content Include="M\Currency\RoomCard.aspx" />
+    <Content Include="M\Currency\StrongBox.aspx" />
+    <Content Include="M\Default.aspx" />
+    <Content Include="M\game\auditblacklist.aspx" />
+    <Content Include="M\game\closeroom.aspx" />
+    <Content Include="M\game\gameblacklist.aspx" />
+    <Content Include="M\game\roomlist.aspx" />
+    <Content Include="M\Guild\ApplyInfo.aspx" />
+    <Content Include="M\Guild\ApplyRecord.aspx" />
+    <Content Include="M\Guild\clubactive.aspx" />
+    <Content Include="M\Guild\ClubLink.aspx" />
+    <Content Include="M\Guild\clubmembers.aspx" />
+    <Content Include="M\Guild\ClubMembersList.aspx" />
+    <Content Include="M\Guild\GuildInfo.aspx" />
+    <Content Include="M\Guild\GuildList.aspx" />
+    <Content Include="M\Guild\LeagueClubMembers.aspx" />
+    <Content Include="M\Guild\RecomClubsList.aspx" />
+    <Content Include="M\Guild\SetSuggestGuild.aspx" />
+    <Content Include="M\Guild\UserList.aspx" />
+    <Content Include="M\menu.aspx" />
+    <Content Include="M\Pager.ascx" />
+    <Content Include="M\Report\Bean.aspx" />
+    <Content Include="M\Report\Charge.aspx" />
+    <Content Include="M\Report\Currency.aspx" />
+    <Content Include="M\Report\ExtendChannel.aspx" />
+    <Content Include="M\Report\Game.aspx" />
+    <Content Include="M\Report\HappyCard.aspx" />
+    <Content Include="M\Report\Promot.aspx" />
+    <Content Include="M\Report\RegReport.aspx" />
+    <Content Include="M\Report\Scene.aspx" />
+    <Content Include="M\Report\zywystatic.aspx" />
+    <Content Include="M\Setting\FlushGameServer.aspx" />
+    <Content Include="M\SysManage\LoginLog.aspx" />
+    <Content Include="M\SysManage\OprLog.aspx" />
+    <Content Include="M\SysManage\PushNews.aspx" />
+    <Content Include="M\top.aspx" />
+    <Content Include="M\Users\SubUserList.aspx" />
+    <Content Include="M\Users\UserInfo.aspx" />
+    <Content Include="M\Users\UserList.aspx" />
+    <Content Include="M\wellcome.aspx" />
+    <Content Include="robots.txt" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HandlerDownFile.ashx.cs">
+      <DependentUpon>HandlerDownFile.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Charge\RecordList.aspx.cs">
+      <DependentUpon>RecordList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Charge\RecordList.aspx.designer.cs">
+      <DependentUpon>RecordList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Currency\BeanRecord.aspx.cs">
+      <DependentUpon>BeanRecord.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Currency\BeanRecord.aspx.designer.cs">
+      <DependentUpon>BeanRecord.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Currency\CurrencyRecord.aspx.cs">
+      <DependentUpon>CurrencyRecord.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Currency\CurrencyRecord.aspx.designer.cs">
+      <DependentUpon>CurrencyRecord.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Currency\DZCurrencyRecord.aspx.cs">
+      <DependentUpon>DZCurrencyRecord.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Currency\DZCurrencyRecord.aspx.designer.cs">
+      <DependentUpon>DZCurrencyRecord.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Currency\ExchangeRecord.aspx.cs">
+      <DependentUpon>ExchangeRecord.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Currency\ExchangeRecord.aspx.designer.cs">
+      <DependentUpon>ExchangeRecord.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Currency\HappyCardRecord.aspx.designer.cs">
+      <DependentUpon>HappyCardRecord.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Currency\RoomCard.aspx.cs">
+      <DependentUpon>RoomCard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Currency\RoomCard.aspx.designer.cs">
+      <DependentUpon>RoomCard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Currency\StrongBox.aspx.cs">
+      <DependentUpon>StrongBox.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Currency\StrongBox.aspx.designer.cs">
+      <DependentUpon>StrongBox.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\game\auditblacklist.aspx.cs">
+      <DependentUpon>auditblacklist.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\game\auditblacklist.aspx.designer.cs">
+      <DependentUpon>auditblacklist.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\game\closeroom.aspx.cs">
+      <DependentUpon>closeroom.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\game\closeroom.aspx.designer.cs">
+      <DependentUpon>closeroom.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\game\gameblacklist.aspx.cs">
+      <DependentUpon>gameblacklist.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\game\gameblacklist.aspx.designer.cs">
+      <DependentUpon>gameblacklist.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\game\roomlist.aspx.cs">
+      <DependentUpon>roomlist.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\game\roomlist.aspx.designer.cs">
+      <DependentUpon>roomlist.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Guild\ApplyInfo.aspx.cs">
+      <DependentUpon>ApplyInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Guild\ApplyInfo.aspx.designer.cs">
+      <DependentUpon>ApplyInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Guild\ApplyRecord.aspx.cs">
+      <DependentUpon>ApplyRecord.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Guild\ApplyRecord.aspx.designer.cs">
+      <DependentUpon>ApplyRecord.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Guild\clubactive.aspx.cs">
+      <DependentUpon>clubactive.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Guild\clubactive.aspx.designer.cs">
+      <DependentUpon>clubactive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Guild\ClubLink.aspx.cs">
+      <DependentUpon>ClubLink.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Guild\ClubLink.aspx.designer.cs">
+      <DependentUpon>ClubLink.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Guild\clubmembers.aspx.cs">
+      <DependentUpon>clubmembers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Guild\clubmembers.aspx.designer.cs">
+      <DependentUpon>clubmembers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Guild\ClubMembersList.aspx.cs">
+      <DependentUpon>ClubMembersList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Guild\ClubMembersList.aspx.designer.cs">
+      <DependentUpon>ClubMembersList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Guild\GuildInfo.aspx.cs">
+      <DependentUpon>GuildInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Guild\GuildInfo.aspx.designer.cs">
+      <DependentUpon>GuildInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Guild\GuildList.aspx.cs">
+      <DependentUpon>GuildList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Guild\GuildList.aspx.designer.cs">
+      <DependentUpon>GuildList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Guild\LeagueClubMembers.aspx.cs">
+      <DependentUpon>LeagueClubMembers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Guild\LeagueClubMembers.aspx.designer.cs">
+      <DependentUpon>LeagueClubMembers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Guild\RecomClubsList.aspx.cs">
+      <DependentUpon>RecomClubsList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Guild\RecomClubsList.aspx.designer.cs">
+      <DependentUpon>RecomClubsList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Guild\SetSuggestGuild.aspx.cs">
+      <DependentUpon>SetSuggestGuild.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Guild\SetSuggestGuild.aspx.designer.cs">
+      <DependentUpon>SetSuggestGuild.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Guild\UserList.aspx.cs">
+      <DependentUpon>UserList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Guild\UserList.aspx.designer.cs">
+      <DependentUpon>UserList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\main.Master.cs">
+      <DependentUpon>main.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\main.Master.designer.cs">
+      <DependentUpon>main.Master</DependentUpon>
+    </Compile>
+    <Compile Include="M\menu.aspx.cs">
+      <DependentUpon>menu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\menu.aspx.designer.cs">
+      <DependentUpon>menu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Pager.ascx.cs">
+      <DependentUpon>Pager.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Pager.ascx.designer.cs">
+      <DependentUpon>Pager.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Report\Currency.aspx.cs">
+      <DependentUpon>Currency.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Report\Currency.aspx.designer.cs">
+      <DependentUpon>Currency.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Report\ExtendChannel.aspx.cs">
+      <DependentUpon>ExtendChannel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Report\ExtendChannel.aspx.designer.cs">
+      <DependentUpon>ExtendChannel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Report\Game.aspx.cs">
+      <DependentUpon>Game.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Report\Game.aspx.designer.cs">
+      <DependentUpon>Game.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Report\Scene.aspx.cs">
+      <DependentUpon>Scene.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Report\Scene.aspx.designer.cs">
+      <DependentUpon>Scene.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Report\zywystatic.aspx.cs">
+      <DependentUpon>zywystatic.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Report\zywystatic.aspx.designer.cs">
+      <DependentUpon>zywystatic.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Setting\FlushGameServer.aspx.cs">
+      <DependentUpon>FlushGameServer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Setting\FlushGameServer.aspx.designer.cs">
+      <DependentUpon>FlushGameServer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\SysManage\LoginLog.aspx.cs">
+      <DependentUpon>LoginLog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\SysManage\LoginLog.aspx.designer.cs">
+      <DependentUpon>LoginLog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\SysManage\OprLog.aspx.cs">
+      <DependentUpon>OprLog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\SysManage\OprLog.aspx.designer.cs">
+      <DependentUpon>OprLog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\SysManage\PushNews.aspx.cs">
+      <DependentUpon>PushNews.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\SysManage\PushNews.aspx.designer.cs">
+      <DependentUpon>PushNews.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\top.aspx.cs">
+      <DependentUpon>top.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\top.aspx.designer.cs">
+      <DependentUpon>top.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Users\SubUserList.aspx.cs">
+      <DependentUpon>SubUserList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Users\SubUserList.aspx.designer.cs">
+      <DependentUpon>SubUserList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Users\UserInfo.aspx.cs">
+      <DependentUpon>UserInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Users\UserInfo.aspx.designer.cs">
+      <DependentUpon>UserInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Users\UserList.aspx.cs">
+      <DependentUpon>UserList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Users\UserList.aspx.designer.cs">
+      <DependentUpon>UserList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\wellcome.aspx.cs">
+      <DependentUpon>wellcome.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\wellcome.aspx.designer.cs">
+      <DependentUpon>wellcome.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="common\images\loading.gif" />
+    <Content Include="common\images\logo.gif" />
+    <Content Include="common\styles\jquery-ui-1.8.18.custom.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MF.Admin.BLL\MF.Admin.BLL.csproj">
+      <Project>{52786722-bd61-49e2-b54f-81a3fae69eed}</Project>
+      <Name>MF.Admin.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MF.Data\MF.Data.csproj">
+      <Project>{c870302c-31e4-43fe-b1b3-a092402072d5}</Project>
+      <Name>MF.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="M\Gift\" />
+    <Folder Include="M\Guild\setversion\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="db.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="M\main.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="HandlerDownFile.ashx" />
+    <Content Include="common\js\gameback.json" />
+    <Content Include="common\js\gamerec.json" />
+    <None Include="Properties\PublishProfiles\admin.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>3073</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:89</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

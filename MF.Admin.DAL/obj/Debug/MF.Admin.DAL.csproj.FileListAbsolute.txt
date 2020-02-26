@@ -1,0 +1,15 @@
+E:\code\mf.admin\MF.Admin.DAL\bin\Debug\MF.Admin.DAL.dll
+E:\code\mf.admin\MF.Admin.DAL\bin\Debug\MF.Admin.DAL.pdb
+E:\code\mf.admin\MF.Admin.DAL\bin\Debug\MF.Common.dll
+E:\code\mf.admin\MF.Admin.DAL\bin\Debug\MF.Data.dll
+E:\code\mf.admin\MF.Admin.DAL\bin\Debug\MF.Data.ExtendChannel.dll
+E:\code\mf.admin\MF.Admin.DAL\bin\Debug\MF.Protocol.dll
+E:\code\mf.admin\MF.Admin.DAL\bin\Debug\Newtonsoft.Json.dll
+E:\code\mf.admin\MF.Admin.DAL\bin\Debug\MF.Enum.dll
+E:\code\mf.admin\MF.Admin.DAL\bin\Debug\MF.Data.pdb
+E:\code\mf.admin\MF.Admin.DAL\bin\Debug\MF.Data.ExtendChannel.xml
+E:\code\mf.admin\MF.Admin.DAL\bin\Debug\Newtonsoft.Json.xml
+E:\code\mf.admin\MF.Admin.DAL\obj\Debug\MF.Admin.DAL.csprojAssemblyReference.cache
+E:\code\mf.admin\MF.Admin.DAL\obj\Debug\MF.Admin.DAL.csproj.CopyComplete
+E:\code\mf.admin\MF.Admin.DAL\obj\Debug\MF.Admin.DAL.dll
+E:\code\mf.admin\MF.Admin.DAL\obj\Debug\MF.Admin.DAL.pdb

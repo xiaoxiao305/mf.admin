@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+此文件由 Web 项目的发布/打包过程使用。可以通过编辑此 MSBuild 文件
+自定义此过程的行为。为了解与此相关的更多内容，请访问 https://go.microsoft.com/fwlink/?LinkID=208121。 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>E:\code\public\kf.2255-web.com</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/MF.Admin.BLL.dll">
+      <publishTime>02/24/2020 18:07:36</publishTime>
+    </File>
+    <File Include="bin/MF.Admin.BLL.pdb">
+      <publishTime>02/24/2020 18:07:36</publishTime>
+    </File>
+    <File Include="bin/MF.Admin.DAL.dll">
+      <publishTime>02/24/2020 16:56:07</publishTime>
+    </File>
+    <File Include="bin/MF.Admin.DAL.pdb">
+      <publishTime>02/24/2020 16:56:07</publishTime>
+    </File>
+    <File Include="bin/MF.Common.dll">
+      <publishTime>06/21/2017 15:36:33</publishTime>
+    </File>
+    <File Include="bin/MF.Data.dll">
+      <publishTime>02/24/2020 16:50:58</publishTime>
+    </File>
+    <File Include="bin/MF.Data.ExtendChannel.dll">
+      <publishTime>11/01/2018 16:01:14</publishTime>
+    </File>
+    <File Include="bin/MF.Data.pdb">
+      <publishTime>02/24/2020 16:50:58</publishTime>
+    </File>
+    <File Include="bin/MF.Enum.dll">
+      <publishTime>12/19/2017 11:44:07</publishTime>
+    </File>
+    <File Include="bin/MF.KF.UI.dll">
+      <publishTime>02/24/2020 18:14:33</publishTime>
+    </File>
+    <File Include="bin/MF.KF.UI.pdb">
+      <publishTime>02/24/2020 18:14:33</publishTime>
+    </File>
+    <File Include="bin/MF.Protocol.dll">
+      <publishTime>11/01/2018 16:01:14</publishTime>
+    </File>
+    <File Include="bin/MF.WebControls.dll">
+      <publishTime>06/21/2017 15:36:33</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>12/19/2017 11:44:07</publishTime>
+    </File>
+    <File Include="bin/RedisManager.dll">
+      <publishTime>02/12/2018 12:50:23</publishTime>
+    </File>
+    <File Include="bin/ServiceStack.Common.dll">
+      <publishTime>06/21/2017 15:36:33</publishTime>
+    </File>
+    <File Include="bin/ServiceStack.Interfaces.dll">
+      <publishTime>06/21/2017 15:36:33</publishTime>
+    </File>
+    <File Include="bin/ServiceStack.Redis.dll">
+      <publishTime>06/21/2017 15:36:33</publishTime>
+    </File>
+    <File Include="bin/ServiceStack.Text.dll">
+      <publishTime>06/21/2017 15:36:33</publishTime>
+    </File>
+    <File Include="common/images/add.png">
+      <publishTime>10/26/2018 16:44:44</publishTime>
+    </File>
+    <File Include="common/images/ajax_loading.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/bg_list.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/bg_main.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/bg_title.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/del.png">
+      <publishTime>10/26/2018 16:44:44</publishTime>
+    </File>
+    <File Include="common/images/icon_drop.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/icon_edit.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/loading.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/logo.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/logo.jpg">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/no.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/ok.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/ok.png">
+      <publishTime>10/26/2018 16:44:44</publishTime>
+    </File>
+    <File Include="common/images/pager/first.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/pager/first1.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/pager/last.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/pager/last1.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/pager/next.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/pager/next1.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/pager/pre.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/pager/pre1.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/reset.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/submit.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/top_line.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/top_menu_01.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/top_menu_02.gif">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/images/window.jpg">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/js/ajax.js">
+      <publishTime>02/23/2020 14:46:33</publishTime>
+    </File>
+    <File Include="common/js/common.js">
+      <publishTime>02/23/2020 14:54:37</publishTime>
+    </File>
+    <File Include="common/js/echarts.min.js">
+      <publishTime>01/03/2020 17:14:37</publishTime>
+    </File>
+    <File Include="common/js/game.js">
+      <publishTime>02/24/2020 18:10:59</publishTime>
+    </File>
+    <File Include="common/js/gameback.json">
+      <publishTime>02/21/2020 10:42:21</publishTime>
+    </File>
+    <File Include="common/js/gamerec.json">
+      <publishTime>02/21/2020 10:42:34</publishTime>
+    </File>
+    <File Include="common/js/jquery-ui-1.8.18.custom.min.js">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/js/jquery1.8.1.js">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/js/json2.js">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/js/JsonPager.js">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/js/MD5.js">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/styles/jquery-ui-1.8.18.custom.css">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/styles/layer.css">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/styles/main.css">
+      <publishTime>01/03/2020 17:14:37</publishTime>
+    </File>
+    <File Include="common/styles/Menu.css">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="common/styles/style.css">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="db.config">
+      <publishTime>10/18/2018 11:25:20</publishTime>
+    </File>
+    <File Include="Default.aspx">
+      <publishTime>06/22/2017 17:32:20</publishTime>
+    </File>
+    <File Include="HandlerDownFile.ashx">
+      <publishTime>02/19/2020 10:09:29</publishTime>
+    </File>
+    <File Include="M/Charge/RecordList.aspx">
+      <publishTime>01/03/2020 17:14:37</publishTime>
+    </File>
+    <File Include="M/club/clubactive.aspx">
+      <publishTime>02/22/2020 16:28:09</publishTime>
+    </File>
+    <File Include="M/club/clublink.aspx">
+      <publishTime>02/11/2019 15:43:01</publishTime>
+    </File>
+    <File Include="M/club/clubmembers.aspx">
+      <publishTime>02/07/2020 17:26:38</publishTime>
+    </File>
+    <File Include="M/club/club_statistic_day.aspx">
+      <publishTime>11/15/2018 17:40:32</publishTime>
+    </File>
+    <File Include="M/club/guildlink.aspx">
+      <publishTime>12/07/2019 14:14:48</publishTime>
+    </File>
+    <File Include="M/club/guildlist.aspx">
+      <publishTime>02/22/2020 16:28:13</publishTime>
+    </File>
+    <File Include="M/club/memberactive.aspx">
+      <publishTime>12/13/2019 15:53:22</publishTime>
+    </File>
+    <File Include="M/Currency/CurrencyRecord.aspx">
+      <publishTime>01/03/2020 17:14:37</publishTime>
+    </File>
+    <File Include="M/Default.aspx">
+      <publishTime>06/23/2017 18:25:18</publishTime>
+    </File>
+    <File Include="M/game/auditblacklist.aspx">
+      <publishTime>02/24/2020 17:16:30</publishTime>
+    </File>
+    <File Include="M/game/closeroom.aspx">
+      <publishTime>12/25/2019 15:33:51</publishTime>
+    </File>
+    <File Include="M/game/flushgameserver.aspx">
+      <publishTime>02/12/2020 13:59:22</publishTime>
+    </File>
+    <File Include="M/game/gameblacklist.aspx">
+      <publishTime>02/24/2020 17:16:24</publishTime>
+    </File>
+    <File Include="M/game/gameincome.aspx">
+      <publishTime>02/22/2020 16:28:30</publishTime>
+    </File>
+    <File Include="M/game/gamerec.aspx">
+      <publishTime>02/19/2020 18:50:12</publishTime>
+    </File>
+    <File Include="M/game/recsearch.aspx">
+      <publishTime>02/22/2020 16:28:37</publishTime>
+    </File>
+    <File Include="M/main.Master">
+      <publishTime>02/24/2020 17:46:58</publishTime>
+    </File>
+    <File Include="M/menu.aspx">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="M/Pager.ascx">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="M/top.aspx">
+      <publishTime>01/06/2020 11:58:34</publishTime>
+    </File>
+    <File Include="M/Users/UserInfo.aspx">
+      <publishTime>01/13/2020 18:11:15</publishTime>
+    </File>
+    <File Include="M/Users/UserList.aspx">
+      <publishTime>06/23/2017 18:25:18</publishTime>
+    </File>
+    <File Include="M/wellcome.aspx">
+      <publishTime>05/26/2017 18:07:44</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>02/20/2020 12:16:00</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

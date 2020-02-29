@@ -43,7 +43,7 @@ namespace MF.Admin.DAL
                 string param = "{\"module\":\"club\",\"func\":\"get_club\",\"args\":{\"" + key + "\":\"" + value.Trim() + "\"}}";
                 var res = PostClubServer<ClubsModelServer>(ClubsURI, param);
                 if (res != null && res.ret == 0 && res.msg != null)
-                    SetCacheClubName(res.msg.Id.ToString(),res.msg.Name); 
+                    SetCacheClubName(res.msg.Id.ToString(), res.msg.Name);
                 return res;
             }
             catch (Exception ex)
@@ -59,7 +59,7 @@ namespace MF.Admin.DAL
                 if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
                     return null;
                 string param = "{\"module\":\"club\",\"func\":\"get_club\",\"args\":{\"" + key + "\":\"" + value.Trim() + "\"}}";
-                var res= PostClubServer<ClubsListServer>(ClubsURI, param); 
+                var res = PostClubServer<ClubsListServer>(ClubsURI, param);
                 return res;
             }
             catch (Exception ex)
@@ -73,27 +73,27 @@ namespace MF.Admin.DAL
         {
             if (string.IsNullOrEmpty(club_id)) return null;
             string param = "{\"module\":\"club_member\",\"func\":\"get_member_all_data\",\"args\":{\"club_id\":\"" + club_id + "\"}}";
-            Base.WriteLog("dal getclubmembers param:", param);
+            //Base.WriteLog("dal getclubmembers param:", param);
             var res = PostClubServer<ClubsRes<Dictionary<string, object>[]>>(ClubsURI, param);
             if (res == null || res.ret != 0) return null;
             var data = res.msg;
             var members = new List<Dictionary<string, object>>();
             foreach (var m1 in data)
             {
-                Base.WriteLog("dal getclubmembers m1 :", m1);
+                //Base.WriteLog("dal getclubmembers m1 :", m1);
                 if (!string.IsNullOrEmpty(member_id) && m1["member_id"].ToString().ToUpper() != member_id.ToUpper()) continue;
                 var clubMember = GetClubMemberModel(m1);
                 if (clubMember == null || clubMember.Count < 1) continue;
                 clubMember.Add("clubname", GetCacheClubName(club_id));
                 members.Add(clubMember);
-                Base.WriteLog("dal getclubmembers for add end.");
+                //Base.WriteLog("dal getclubmembers for add end.");
             }
-            Base.WriteLog("dal getclubmembers end.");
+            //Base.WriteLog("dal getclubmembers end.");
             return members;
         }
         public static Dictionary<string, object> GetClubMemberModel(Dictionary<string, object> m)
         {
-            Base.WriteLog("dal GetClubMemberModel :");
+            //Base.WriteLog("dal GetClubMemberModel :");
             var info = new Dictionary<string, object>();
             var user = m["user"] as IDictionary<string, Newtonsoft.Json.Linq.JToken>;
             if (user == null || user.Count < 1)
@@ -101,7 +101,7 @@ namespace MF.Admin.DAL
                 WriteError("获取友谊圈成员出错,成员信息不存在2.", m["user"], m["user"].GetType().ToString());
                 return null;
             }
-            Base.WriteLog("dal GetClubMemberModel user:", user, " m:", m, " nick:", user["Nickname"]);
+            //Base.WriteLog("dal GetClubMemberModel user:", user, " m:", m, " nick:", user["Nickname"]);
             info.Add("user", m["user"]);
             info.Add("id", m["member_id"]);//成员ID
             //info.Add("sponsor", m["sponsor"]);//推广人ID
@@ -126,7 +126,7 @@ namespace MF.Admin.DAL
             //if (items.ContainsKey("tag")) info["tag"] = items["tag"];//目前使用中
             //if (items.ContainsKey("coin")) info["coin"] = items["coin"];
             //if (items.ContainsKey("credit")) info["credit"] = items["credit"];
-            Base.WriteLog("dal GetClubMemberModel info id end:", info["id"]);
+            //Base.WriteLog("dal GetClubMemberModel info id end:", info["id"]);
             return info;
         }
         public static string ConvertIcon(string icon)
@@ -170,7 +170,17 @@ namespace MF.Admin.DAL
                 string param = "{\"module\":\"club_member\",\"func\":\"get_player_clubs\",\"args\":{\"player_id\":\"" + member_id + "\"}}";
                 var res = PostClubServer<ClubsRes<Dictionary<string, object>>>(ClubsURI, param);
                 if (res == null || res.ret != 0) return null;
-                return res.msg as Dictionary<string, object>;
+                var msgRes = res.msg as Dictionary<string, object>;
+                if (msgRes != null && msgRes.Count > 0 && msgRes.ContainsKey("clubs"))
+                {
+                    var clubList = msgRes["clubs"] as Newtonsoft.Json.Linq.JArray;
+                    if (clubList != null)
+                    {
+                        var clubs = clubList.ToObject<List<string>>();
+                        SetCacheClubId(member_id, clubs);
+                    }
+                }
+                return msgRes;
             }
             catch (Exception ex)
             {
@@ -663,6 +673,26 @@ namespace MF.Admin.DAL
                 BaseDAL.WriteError("DelClubStatisticClubId ex:", e.Message);
             }
         }
+        public Dictionary<string, List<string>> GetClubByChargeId(List<string> chargeId)
+        {
+            try
+            {
+                if (chargeId==null || chargeId.Count < 1) return null;
+                string param = "{\"module\":\"club_member\",\"func\":\"get_player_clubs\",\"args\":{\"player_id_list\":" + JsonConvert.SerializeObject(chargeId) + "}}";
+                var res = PostClubServer<ClubsRes<Dictionary<string, List<string>>>>(ClubsURI, param);
+                if (res == null || res.ret != 0) return null;
+                foreach (string item in chargeId)
+                {
+                    SetCacheClubId(item, res.msg[item]);
+                }
+                return res.msg;
+            }
+            catch (Exception ex)
+            {
+                WriteError("GuildDAL GetClubByChargeId ex:", ex.Message);
+            }
+            return null;
+        }
         public string GetCacheClubName(string clubId)
         {
             try
@@ -673,14 +703,15 @@ namespace MF.Admin.DAL
                 ClubsModelServer gs = GetClubModelList("Id", clubId);
                 if (gs != null && gs.ret == 0 && gs.msg != null)
                     return gs.msg.Name;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Base.WriteError("GetCacheClubName ex:", ex.Message);
             }
             return "";
         }
-        public void SetCacheClubName(string clubId,string name)
-        { 
+        public void SetCacheClubName(string clubId, string name)
+        {
             try
             {
                 if (string.IsNullOrEmpty(clubId) || string.IsNullOrEmpty(name)) return;
@@ -688,10 +719,45 @@ namespace MF.Admin.DAL
                     Cache.CacheClubName.Add(clubId, name);
                 else
                     Cache.CacheClubName[clubId] = name;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Base.WriteError("setcacheclubname ex:", ex.Message);
             }
         }
+        public List<string> GetCacheClubId(string chargeId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(chargeId)) return null;
+                if (Cache.CacheClubId != null && Cache.CacheClubId.ContainsKey(chargeId))
+                    return Cache.CacheClubId[chargeId];
+                //var listinfos = GetMembersList(chargeId);
+                //if (listinfos == null || listinfos.Count < 1 || !listinfos.ContainsKey("clubs")) return null;
+                //return (listinfos["clubs"] as Newtonsoft.Json.Linq.JArray).ToObject<List<string>>();
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Base.WriteError("GetCacheClubId ex:", ex.Message);
+            }
+            return null;
+        }
+        public void SetCacheClubId(string chargeId, List<string> clubId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(chargeId) || clubId == null || clubId.Count < 1) return;
+                if (Cache.CacheClubId == null || !Cache.CacheClubId.ContainsKey(chargeId))
+                    Cache.CacheClubId.Add(chargeId, clubId);
+                else
+                    Cache.CacheClubId[chargeId] = clubId;
+            }
+            catch (Exception ex)
+            {
+                Base.WriteError("SetCacheClubId ex:", ex.Message);
+            }
+        }
+
     }
 }

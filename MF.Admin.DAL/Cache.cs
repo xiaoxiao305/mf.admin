@@ -10,9 +10,23 @@ namespace MF.Admin.DAL
     {
         public static Dictionary<string, List<string[]>> MatchList { get; set; }
         public static Dictionary<string, string> GameList { get; set; }
+        /// <summary>
+        /// {account:CacheUser}
+        /// </summary>
         public static Dictionary<string, CacheUser> CacheAccountList = new Dictionary<string, CacheUser>();
+        /// <summary>
+        /// {chargeid:CacheUser}
+        /// </summary>
         public static Dictionary<string, CacheUser> CacheChargeidList = new Dictionary<string, CacheUser>();
+        /// <summary>
+        /// {clubId:clubName}
+        /// </summary>
         public static Dictionary<string, string> CacheClubName = new Dictionary<string, string>();
+        /// <summary>
+        /// {chargeId:List<clubId>}
+        /// </summary>
+        public static Dictionary<string, List<string>> CacheClubId = new Dictionary<string, List<string>>();
+
 
         private static string configpath = ConfigurationManager.AppSettings["configpath"];
         public static void LoadGameList()

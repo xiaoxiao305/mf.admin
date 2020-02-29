@@ -87,7 +87,7 @@ namespace MF.Admin.BLL
         {
             try
             {
-                Base.WriteLog("bll getclubmembers start.");
+                //Base.WriteLog("bll getclubmembers start.");
                 if (string.IsNullOrEmpty(club_id))
                     return null;
                 return dal.GetClubmembersList(club_id, member_id);

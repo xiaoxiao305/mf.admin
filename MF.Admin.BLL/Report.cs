@@ -65,7 +65,7 @@ namespace MF.Admin.BLL
             {
                 try
                 {
-                    WriteLog("checktime:",checktime.ToString());
+                    //WriteLog("checktime:",checktime.ToString());
                     List <ExtendChannel> list = RedisManager.ChannelRedis.CountRedisData(DateTime.Now);//统计今日及时数据
                     if (list == null)
                         return list;

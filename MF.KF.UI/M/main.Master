@@ -23,14 +23,12 @@
             for (var i = 0; i < aList.length; i++) {
                 if ($.trim(aList[i].href).toLowerCase().indexOf("javascript:") < 0 && $.trim(aList[i].href).toLowerCase() != "")
                     aList[i].target = "_blank";
-            } 
-        });
-        window.onload = function () {
+            }
             var scripts = document.getElementsByTagName("script");
             for (var s = 0; s < scripts.length; s++) {
                 scripts[s].src += "?v=" + new Date().getTime() + Math.floor(Math.random() * 900 + 1);
             }
-        } 
+        });
     </script> 
     <asp:ContentPlaceHolder id="h" runat="server"></asp:ContentPlaceHolder>
 </head>

@@ -11,11 +11,11 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
 namespace MF.KF.UI
-{
+{ 
     public partial class Default : BasePage, IRequiresSessionState, IReadOnlySessionState
     {
         protected void Page_Load(object sender, EventArgs e)
-        {
+        { 
             txtDyPwd.Attributes["autocomplete"] = "off";
             txtCode.Attributes["autocomplete"] = "off";
             txtAccount.Attributes["autocomplete"] = "off";

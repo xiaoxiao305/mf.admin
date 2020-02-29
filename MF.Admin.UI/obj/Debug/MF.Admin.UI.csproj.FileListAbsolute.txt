@@ -23,3 +23,4 @@ E:\code\mf.admin\MF.Admin.UI\bin\MF.Admin.DAL.pdb
 E:\code\mf.admin\MF.Admin.UI\obj\Debug\MF.Admin.UI.csproj.CopyComplete
 E:\code\mf.admin\MF.Admin.UI\obj\Debug\MF.Admin.UI.dll
 E:\code\mf.admin\MF.Admin.UI\obj\Debug\MF.Admin.UI.pdb
+E:\code\mf.admin\MF.Admin.UI\bin\Newtonsoft.Json.xml

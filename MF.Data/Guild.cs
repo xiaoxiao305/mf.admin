@@ -258,4 +258,48 @@ namespace MF.Data
         public List<string> InterestList { get; set; }
 
     }
+    /// <summary>
+    /// 自动巡场
+    /// </summary>
+    [Serializable]
+    public class AutoPatrol
+    {
+        /// <summary>
+        /// 游戏时间
+        /// </summary>
+        public int TimeStamp { get; set; }
+        public DateTime DateTime { get; set; }
+        /// <summary>
+        /// 玩家ID列表
+        /// </summary>
+        public List<string> ChargeIds { get; set; }
+        /// <summary>
+        /// 玩家昵称列表
+        /// </summary>
+        public List<string> NickNames { get; set; }
+        /// <summary>
+        /// 俱乐部ID列表
+        /// </summary>
+        public string ClubId { get; set; }
+        /// <summary>
+        /// 俱乐部ID列表
+        /// </summary>
+        public List<string> ClubIds { get; set; }
+        /// <summary>
+        ///游戏ID
+        /// </summary>
+        public string GameId { get; set; }
+        /// <summary>
+        ///游戏名称
+        /// </summary>
+        public string GameName { get; set; }
+        /// <summary>
+        /// 包间号ID
+        /// </summary>
+        public string RoomId { get; set; }
+        /// <summary>
+        /// 局号
+        /// </summary>
+        public int Round { get; set; }
+    }
 }

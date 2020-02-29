@@ -131,12 +131,14 @@ namespace MF.Admin.BLL
 
                 
                 functions.Add("getclubmemberslist", "GetClubmembersList");
+                functions.Add("getlastgamerecords", "GetLastGameRecords");
+                
             }
         }
 
         public void GetClubmembersList(long pageSize, long pageIndex, string club_id, string member_id)
         {
-            Base.WriteLog("ajax getclubmembers club_id:", club_id, " uid:", member_id);
+            //Base.WriteLog("ajax getclubmembers club_id:", club_id, " uid:", member_id);
             var res = new PagerResult<List<Dictionary<string, object>>>();
             var list = GuildBLL.GetClubmembersList(club_id.Trim(), member_id.Trim());
             res.result = list;
@@ -146,7 +148,7 @@ namespace MF.Admin.BLL
             if (list != null)
                 res.rowCount = list.Count;
             string json = Json.SerializeObject(res);
-            Base.WriteLog("ajax getclubmembers end:", json);
+            //Base.WriteLog("ajax getclubmembers end:", json);
             Response.Write(json);
         }
 
@@ -180,6 +182,26 @@ namespace MF.Admin.BLL
             catch (Exception ex)
             {
                 WriteError("GetGameIncome ajax ex :", ex.Message);
+            }
+        }
+        public void GetLastGameRecords(long pageSize, long pageIndex)
+        {
+            try
+            {
+                var res = new PagerResult<List<AutoPatrol>>();
+                var list = GameBLL.GetLastGameRecords();
+                res.result = list;
+                res.code = 1;
+                res.msg = "";
+                res.index = (int)pageIndex;
+                if (list != null)
+                    res.rowCount = list.Count;
+                string json = Json.SerializeObject(res);
+                Response.Write(json);
+            }
+            catch (Exception ex)
+            {
+                WriteError("GetLastGameRecords ajax ex :", ex.Message);
             }
         }
         public void GetGameBlackUsers(long pageSize, long pageIndex, long gameId, long field, string value)
@@ -500,8 +522,8 @@ namespace MF.Admin.BLL
         }
         public void AddBlackUser(string gameIds,  string account, string values, string levelStrs, string remark, string token)
         {
-            Base.WriteLog("ajax addblackuser.gameids:", gameIds, " account:", account,
-                " values:", values, " values:", values, " levelStrs:", levelStrs, " remark:", remark);
+            //Base.WriteLog("ajax addblackuser.gameids:", gameIds, " account:", account,
+            //    " values:", values, " values:", values, " levelStrs:", levelStrs, " remark:", remark);
             string[] gameidList = gameIds.Split('|'); 
             string[] valueList = values.Split('|');
             string[] levelStrList = levelStrs.Split('|');

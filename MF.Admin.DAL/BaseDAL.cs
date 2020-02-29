@@ -239,7 +239,7 @@ namespace MF.Admin.DAL
                     }
                     catch (Exception ex2)
                     {
-                        WriteError("PostServer Deserialize Convert ex：", ex2.Message, ";URL: ", request.RequestUri.PathAndQuery, ";res：", res);
+                        WriteError("PostServer Deserialize Convert ex：", ex2.Message, ";URL: ", request.RequestUri.PathAndQuery, " requestUrl is ", requestUrl, ".param is ", param, ";res：", res);
                         response.Close();
                     }
                 }
@@ -283,7 +283,7 @@ namespace MF.Admin.DAL
                     }
                     catch (Exception ex2)
                     {
-                        WriteError("PostServer Deserialize Convert ex：", ex2.Message, ";URL: ", request.RequestUri.PathAndQuery, ";res：", res);
+                        WriteError("PostServer Deserialize Convert ex：", ex2.Message, ";URL: ", request.RequestUri.PathAndQuery, " requestUrl is ", requestUrl, ".param is ", param, ";res：", res);
                         response.Close();
                     }
                 }
@@ -294,15 +294,13 @@ namespace MF.Admin.DAL
             }
             return default(T);
         }
-
-        public static T GetServer<T>(string requestUrl, string param)
+        public static string GetServer(string requestUrl, string param)
         {
-            try
-            {
+            try {
                 if (string.IsNullOrEmpty(requestUrl))
                 {
                     WriteError("GetServer requestUrl is empty.");
-                    return default(T);
+                    return "";
                 }
                 WriteDebug("GetServer requestUrl is ", requestUrl, ".param is ", param);
 
@@ -312,7 +310,26 @@ namespace MF.Admin.DAL
                 wrq.Method = "GET";
                 System.Net.WebResponse wrp = wrq.GetResponse();
                 System.IO.StreamReader sr = new System.IO.StreamReader(wrp.GetResponseStream(), System.Text.Encoding.GetEncoding("UTF-8"));
-               var  res = sr.ReadToEnd();
+                var res = sr.ReadToEnd();
+                WriteDebug("GetServer res is ", res);
+                return res;
+            }
+            catch(Exception ex) {
+
+                WriteError("GetServer str ex:",ex.Message);
+            }
+            return "";
+        }
+        public static T GetServer<T>(string requestUrl, string param)
+        {
+            try
+            {
+                var res=GetServer(requestUrl, param);
+                if (res == "")
+                {
+                    WriteError("GetServer str res is empty.");
+                    return default(T);
+                }
                 try
                 {
                     var t = JsonConvert.DeserializeObject<T>(res);
@@ -498,7 +515,7 @@ namespace MF.Admin.DAL
                         }
                         catch (Exception ex2)
                         {
-                            Base.WriteError("PostServer Deserialize Convert ex：", ex2.Message, ";URL: ", request.RequestUri.PathAndQuery, ";res：", res);
+                            Base.WriteError("PostServer Deserialize Convert ex：", ex2.Message, ";URL: ", request.RequestUri.PathAndQuery, " requestUrl is ", requestUrl, ".param is ", param, ";res：", res);
                             response.Close();
                             return default(T);
                         }
@@ -563,11 +580,11 @@ namespace MF.Admin.DAL
         {
             try
             {
-                if (string.IsNullOrEmpty(param))
-                {
-                    Base.WriteError("Post<T> param is empty.");
-                    return "";
-                }
+                //if (string.IsNullOrEmpty(param))
+                //{
+                //    Base.WriteError("Post<T> param is empty.");
+                //    return "";
+                //}
                 return requestServerUrl(requestUrl, param);
             }
             catch (Exception ex2)

@@ -80,7 +80,7 @@ namespace MF.Admin.DAL
             string gameid = gameId > 0?gameId.ToString():"";
             string auditTag = audit == 2 ? "NO" : "YES";
             par = string.Format(par, gameid, account, chargeid, auditTag);
-            WriteLog("getblackuser par:", par);
+            //WriteLog("getblackuser par:", par);
             var res = Post<List<GameBlackUserInfo>>(BlackURI + "getusers", par);
             return res;
         } 
@@ -156,6 +156,13 @@ namespace MF.Admin.DAL
             var res = Post(GameIncome + "income", args);
             return res;
         }
+
+        public string GetLastGameRecords()
+        {
+            string res = GetServer(ShiChuiURI + "api/game/getlastgamerecords", "");
+            return res;
+        }
+        
         public string GetGameRec(long start, long end, string type, string chargeid, string roomid, string number)
         {
             string args = string.Format("start={0}&end={1}&gameid={2}&chargeid={3}&roomid={4}&number={5}", start, end, type, chargeid, roomid, number);

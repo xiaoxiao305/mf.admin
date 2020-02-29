@@ -10,7 +10,7 @@
             $("#ddlshour").append("<option value=\"" + h + "\">" + hStr + "</option>");
             $("#ddlehour").append("<option value=\"" + h + "\">" + hStr + "</option>");
         }
-         for (var m = 0; m <= 59; m++) {
+        for (var m = 0; m <= 59; m++) {
             var mStr = m;
             if (m < 10) mStr = "0" + m;
             $("#ddlsmin").append("<option value=\"" + m + "\">" + mStr + "</option>");

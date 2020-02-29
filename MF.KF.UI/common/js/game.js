@@ -588,3 +588,41 @@ function checkAll(o) {
         });
     }
 }
+function initNick(nickList) {
+    if (nickList == "") {
+        return "";
+    }
+    var nickArr = nickList.split(",");
+    var list = "";
+    for (var j = 0; j < nickArr.length; j++) {
+        var nick = getEmoji(nickArr[j]);
+        list += nick + "</br>";
+    }
+    return list;
+}
+
+function getEmoji(nick) {
+    if (nick == "") {
+        return "";
+    }
+    if (nick.indexOf("\\U000") >= 0) {
+        var nicks = nick.split(" ");
+        var newNick = "";
+        for (var i = 0; i < nicks.length; i++) {
+            var emojiIndex = nicks[i].indexOf("\\U000");
+            if (emojiIndex >= 0) {
+                var before = nicks[i].substring(0, emojiIndex) || "";
+                var emojiTmp = nicks[i].substring(emojiIndex, emojiIndex + 10);
+                var emojiStr = emojiTmp.replace("\\U000", "0x");
+                var emoji = String.fromCodePoint(emojiStr) || "";
+                var after = nicks[i].substring(emojiIndex + 10) || "";
+                newNick += before + emoji + after + " ";
+            } else
+                newNick += nicks[i] + " ";
+        }
+        return newNick;
+    }
+    else {
+        return nick;
+    }
+}

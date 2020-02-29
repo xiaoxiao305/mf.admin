@@ -11,6 +11,8 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Text;
 using Newtonsoft.Json.Linq;
+using System.Linq;
+
 
 namespace MF.Admin.BLL
 {
@@ -268,7 +270,7 @@ namespace MF.Admin.BLL
             }
             catch (Exception ex)
             {
-                WriteError("GuildBLL GetMembersList ex:", ex.Message);
+                WriteError("GuildBLL GetGameBlackUsers ex:", ex.Message);
             }
             return null;
         }
@@ -455,12 +457,12 @@ namespace MF.Admin.BLL
         {
             try
             {
-                if (start < 1 || end < 1 || string.IsNullOrEmpty(type) || (string.IsNullOrEmpty(chargeid) && string.IsNullOrEmpty(roomid)))
+                if (start< 1 || end< 1 || string.IsNullOrEmpty(type) || (string.IsNullOrEmpty(chargeid) && string.IsNullOrEmpty(roomid)))
                     return null;
                 //List<GameIncome> list= dal.GetGameIncome(start, end, type, chargeid, roomid, number);
                 string listStr = dal.GetGameIncome2(start, end, type, chargeid, roomid, number);
-                listStr = listStr.Replace("\\U000", "[emoji]").Replace("\\u000", "[emoji]");
-                List<GameIncome> list = new List<GameIncome>();
+        listStr = listStr.Replace("\\U000", "[emoji]").Replace("\\u000", "[emoji]");
+        List<GameIncome> list = new List<GameIncome>();
                 try
                 {
                     list = JsonConvert.DeserializeObject<List<GameIncome>>(listStr);
@@ -470,7 +472,7 @@ namespace MF.Admin.BLL
                     Base.WriteError("GetGameIncome Deserialize Convert ex：", ex2.Message);
                     return null;
                 }
-                if (list == null || list.Count < 1) return list;
+                if (list == null || list.Count< 1) return list;
                 List<GameIncome> newList = new List<GameIncome>();
                 foreach (GameIncome income in list)
                 {
@@ -525,6 +527,72 @@ namespace MF.Admin.BLL
             catch (Exception ex)
             {
                 Base.WriteError("GetGameIncome ex:", ex.Message);
+            }
+            return null;
+        }
+        
+        public static List<AutoPatrol> GetLastGameRecords()
+        {
+            try
+            {
+                string listStr = dal.GetLastGameRecords();
+                if (string.IsNullOrEmpty(listStr)) return null;
+                listStr = listStr.Replace("\\U000", "[emoji]").Replace("\\u000", "[emoji]");
+                List<AutoPatrol> list = new List<AutoPatrol>();
+                try
+                {
+                    list = JsonConvert.DeserializeObject<List<AutoPatrol>>(listStr);
+                }
+                catch (Exception ex2)
+                {
+                    Base.WriteError("GetLastGameRecords Deserialize Convert ex：", ex2.Message);
+                    return null;
+                }
+                if (list == null || list.Count < 1) return list;
+                List<AutoPatrol> newList = new List<AutoPatrol>();
+                List<string> allChargeIds = new List<string>();
+                foreach (AutoPatrol p in list)
+                {
+                    allChargeIds = allChargeIds.Union(p.ChargeIds).ToList();
+                } 
+                new GuildDAL().GetClubByChargeId(allChargeIds);
+                foreach (AutoPatrol patrol in list)
+                {
+                    if (patrol == null) continue;
+                    if (patrol.ChargeIds != null && patrol.ChargeIds.Count > 0)
+                    {
+                        foreach (string chargeid in patrol.ChargeIds)
+                        {
+                            if (patrol.ClubIds == null)
+                                patrol.ClubIds = new List<string>();
+                            List<string> clubs = new GuildDAL().GetCacheClubId(chargeid);
+                            if (clubs != null && clubs.Count > 0)
+                            {
+                                string clubStr = String.Join(",", clubs).Replace(",", ". ");
+                                patrol.ClubIds.Add(clubStr);
+                                //patrol.ClubIds.AddRange(clubs);
+                            }
+                            else
+                                patrol.ClubIds.Add("");
+                        }
+                    }
+                    if (patrol.NickNames !=null && patrol.NickNames.Count > 0)
+                    {
+                        List<string> nickNewList = new List<string>();
+                        foreach (string nick in patrol.NickNames)
+                        {
+                            string newNick = (nick.IndexOf("[emoji]") >= 0) ? nick.Replace("[emoji]", "\\U000"):nick;
+                            nickNewList.Add(newNick);
+                        }
+                        patrol.NickNames = nickNewList;
+                    }
+                    newList.Add(patrol);
+                }
+                return newList;
+            }
+            catch (Exception ex)
+            {
+                Base.WriteError("GetLastGameRecords ex:", ex.Message);
             }
             return null;
         }

@@ -126,8 +126,14 @@
     <Content Include="M\Currency\StrongBox.aspx" />
     <Content Include="M\Default.aspx" />
     <Content Include="M\game\auditblacklist.aspx" />
+    <Content Include="M\game\autopatrol.aspx" />
     <Content Include="M\game\closeroom.aspx" />
+    <Content Include="M\game\gamealertconfig.aspx" />
     <Content Include="M\game\gameblacklist.aspx" />
+    <Content Include="M\game\gameincome.aspx" />
+    <Content Include="M\game\gamerec.aspx" />
+    <Content Include="M\game\gamewinneralert.aspx" />
+    <Content Include="M\game\recsearch.aspx" />
     <Content Include="M\game\roomlist.aspx" />
     <Content Include="M\Guild\ApplyInfo.aspx" />
     <Content Include="M\Guild\ApplyRecord.aspx" />
@@ -135,9 +141,12 @@
     <Content Include="M\Guild\ClubLink.aspx" />
     <Content Include="M\Guild\clubmembers.aspx" />
     <Content Include="M\Guild\ClubMembersList.aspx" />
+    <Content Include="M\Guild\club_statistic_day.aspx" />
     <Content Include="M\Guild\GuildInfo.aspx" />
+    <Content Include="M\Guild\guildlink.aspx" />
     <Content Include="M\Guild\GuildList.aspx" />
     <Content Include="M\Guild\LeagueClubMembers.aspx" />
+    <Content Include="M\Guild\memberactive.aspx" />
     <Content Include="M\Guild\RecomClubsList.aspx" />
     <Content Include="M\Guild\SetSuggestGuild.aspx" />
     <Content Include="M\Guild\UserList.aspx" />
@@ -247,6 +256,13 @@
     <Compile Include="M\game\auditblacklist.aspx.designer.cs">
       <DependentUpon>auditblacklist.aspx</DependentUpon>
     </Compile>
+    <Compile Include="M\game\autopatrol.aspx.cs">
+      <DependentUpon>autopatrol.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\game\autopatrol.aspx.designer.cs">
+      <DependentUpon>autopatrol.aspx</DependentUpon>
+    </Compile>
     <Compile Include="M\game\closeroom.aspx.cs">
       <DependentUpon>closeroom.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -254,12 +270,47 @@
     <Compile Include="M\game\closeroom.aspx.designer.cs">
       <DependentUpon>closeroom.aspx</DependentUpon>
     </Compile>
+    <Compile Include="M\game\gamealertconfig.aspx.cs">
+      <DependentUpon>gamealertconfig.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\game\gamealertconfig.aspx.designer.cs">
+      <DependentUpon>gamealertconfig.aspx</DependentUpon>
+    </Compile>
     <Compile Include="M\game\gameblacklist.aspx.cs">
       <DependentUpon>gameblacklist.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="M\game\gameblacklist.aspx.designer.cs">
       <DependentUpon>gameblacklist.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\game\gameincome.aspx.cs">
+      <DependentUpon>gameincome.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\game\gameincome.aspx.designer.cs">
+      <DependentUpon>gameincome.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\game\gamerec.aspx.cs">
+      <DependentUpon>gamerec.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\game\gamerec.aspx.designer.cs">
+      <DependentUpon>gamerec.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\game\gamewinneralert.aspx.cs">
+      <DependentUpon>gamewinneralert.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\game\gamewinneralert.aspx.designer.cs">
+      <DependentUpon>gamewinneralert.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\game\recsearch.aspx.cs">
+      <DependentUpon>recsearch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\game\recsearch.aspx.designer.cs">
+      <DependentUpon>recsearch.aspx</DependentUpon>
     </Compile>
     <Compile Include="M\game\roomlist.aspx.cs">
       <DependentUpon>roomlist.aspx</DependentUpon>
@@ -310,12 +361,26 @@
     <Compile Include="M\Guild\ClubMembersList.aspx.designer.cs">
       <DependentUpon>ClubMembersList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="M\Guild\club_statistic_day.aspx.cs">
+      <DependentUpon>club_statistic_day.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Guild\club_statistic_day.aspx.designer.cs">
+      <DependentUpon>club_statistic_day.aspx</DependentUpon>
+    </Compile>
     <Compile Include="M\Guild\GuildInfo.aspx.cs">
       <DependentUpon>GuildInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="M\Guild\GuildInfo.aspx.designer.cs">
       <DependentUpon>GuildInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Guild\guildlink.aspx.cs">
+      <DependentUpon>guildlink.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Guild\guildlink.aspx.designer.cs">
+      <DependentUpon>guildlink.aspx</DependentUpon>
     </Compile>
     <Compile Include="M\Guild\GuildList.aspx.cs">
       <DependentUpon>GuildList.aspx</DependentUpon>
@@ -330,6 +395,13 @@
     </Compile>
     <Compile Include="M\Guild\LeagueClubMembers.aspx.designer.cs">
       <DependentUpon>LeagueClubMembers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Guild\memberactive.aspx.cs">
+      <DependentUpon>memberactive.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Guild\memberactive.aspx.designer.cs">
+      <DependentUpon>memberactive.aspx</DependentUpon>
     </Compile>
     <Compile Include="M\Guild\RecomClubsList.aspx.cs">
       <DependentUpon>RecomClubsList.aspx</DependentUpon>

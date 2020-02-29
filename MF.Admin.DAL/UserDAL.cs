@@ -362,6 +362,21 @@ namespace MF.Admin.DAL
                 Base.WriteError("SetCacheChargeList ex:", ex.Message, "chargeid:", chargeid);
             }
         }
+        public string GetAccByChargeId(string chargeId)
+        {
+            if (string.IsNullOrEmpty(chargeId)) return "";
+            chargeId = chargeId.ToUpper();
+            if (Cache.CacheChargeidList != null && Cache.CacheChargeidList.Count > 0 && Cache.CacheChargeidList.ContainsKey(chargeId))
+            {
+                CacheUser cacheUser = Cache.CacheChargeidList[chargeId];
+                if (cacheUser != null)
+                    return cacheUser.Account;
+            }
+            int row = 0;
+            List<Users> list = GetUserList("",chargeId, out row);
+            if (list == null || list.Count < 1) return "";
+            return list[0].Account;
+        }
         public string GetChargeIdByAcc(string account)
         {
             if (string.IsNullOrEmpty(account)) return "";
@@ -392,6 +407,7 @@ namespace MF.Admin.DAL
             if (list == null || list.Count < 1) return "";
             return list[0].Nickname;
         }
+       
        
     }
 }

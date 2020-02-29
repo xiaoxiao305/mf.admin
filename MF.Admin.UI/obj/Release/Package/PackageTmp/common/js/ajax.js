@@ -799,6 +799,117 @@
             }
         });
     },
-
+    getClubStatisticDay: function (args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: {
+                m: "clubstatisticday",
+                args: JSON.stringify(args),
+                r: Math.random()
+            },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },
+    getClubStatisticDay: function (args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: {
+                m: "clubstatisticday",
+                args: JSON.stringify(args),
+                r: Math.random()
+            },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },
+    DelClubStatisticClubId: function (method, args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: method, args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },
+    getGuildLinkList: function (args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: "guildlinklist", args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },
+    setClubLink: function (method, args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: method, args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },
+    getMemberActive: function (args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: "getmemberactive", args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },
+    getGameIncome: function (args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: "getgameincome", args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },
+    GetLastGameRecords: function (args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: "getlastgamerecords", args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },
     
 };

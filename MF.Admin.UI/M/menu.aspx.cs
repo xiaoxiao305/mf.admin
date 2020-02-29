@@ -30,21 +30,28 @@ namespace MF.Admin.UI.M
         <li class='menu_list'><a href ='/m/charge/recordlist.aspx' target='main' class='white'>充值明细</a></li>");
             //俱乐部每日统计  俱乐部游戏设置  俱乐部成员活跃
             menuList.Add(2, @"<li class='menu_title'>俱乐部管理</li> 
+        <li class='menu_list'><a href ='/m/guild/club_statistic_day.aspx' target='main' class='white'>俱乐部每日统计</a></li>
+        <li class='menu_list'><a href ='/m/guild/memberactive.aspx' target='main' class='white'>俱乐部成员活跃</a></li>
+        <li class='menu_list'><a href ='/m/guild/guildlink.aspx' target='main' class='white'>俱乐部游戏设置</a></li>
         <li class='menu_list'><a href ='/m/guild/guildlist.aspx' target='main' class='white'>俱乐部列表</a></li>
         <li class='menu_list'><a href ='/m/guild/clublink.aspx' target='main' class='white'>俱乐部关联</a></li>
-<li class='menu_list'><a href ='/m/guild/leagueclubmembers.aspx' target='main' class='white'>联盟俱乐部成员</a></li>
-<li class='menu_list'><a href ='/m/guild/clubmembers.aspx' target='main' class='white'>成员所在俱乐部</a></li>
-<li class='menu_list'><a href ='/m/guild/clubactive.aspx' target='main' class='white'>俱乐部活跃</a></li>
-<li class='menu_list'><a href ='/m/guild/clubmemberslist.aspx' target='main' class='white'>俱乐部成员</a></li>");
+        <li class='menu_list'><a href ='/m/guild/leagueclubmembers.aspx' target='main' class='white'>联盟俱乐部成员</a></li>
+        <li class='menu_list'><a href ='/m/guild/clubmembers.aspx' target='main' class='white'>成员所在俱乐部</a></li>
+        <li class='menu_list'><a href ='/m/guild/clubactive.aspx' target='main' class='white'>俱乐部活跃</a></li>
+        <li class='menu_list'><a href ='/m/guild/clubmemberslist.aspx' target='main' class='white'>俱乐部成员</a></li>");
             //游戏录像 游戏收益查询 录像查询 自动巡场
             menuList.Add(3, @"<li class='menu_title'>游戏管理</li> 
         <li class='menu_list'><a href ='/m/report/game.aspx' target='main' class='white'>游戏报表</a></li>
         <li class='menu_list'><a href ='/m/report/scene.aspx' target='main' class='white'>场数据</a></li>
         <li class='menu_list'><a href ='/m/setting/flushgameserver.aspx' target='main' class='white'>刷新游戏配置</a></li>
         <li class='menu_list'><a href ='/m/game/closeroom.aspx' target='main' class='white'>解散游戏</a></li>
+        <li class='menu_list'><a href ='/m/game/gamerec.aspx' target='main' class='white'>游戏录像</a></li>
+        <li class='menu_list'><a href ='/m/game/gameincome.aspx' target='main' class='white'>游戏收益查询</a></li>
+        <li class='menu_list'><a href ='/m/game/autopatrol.aspx' target='main' class='white'>自动巡场</a></li>
         <li class='menu_list'><a href ='/m/game/roomlist.aspx' target='main' class='white'>重置包间配置</a></li>
         <li class='menu_list'><a href ='/m/game/gameblacklist.aspx' target='main' class='white'>游戏黑名单</a></li>
-        <li class='menu_list'><a href = '/m/game/auditblacklist.aspx' target='main' class='white'>待审核黑名单</a></li>");
+        <li class='menu_list'><a href = '/m/game/auditblacklist.aspx' target='main' class='white'>待审核黑名单</a></li>
+        <li class='menu_list'><a href = '/m/game/gamewinneralert.aspx' target='main' class='white'>输赢值警告</a></li>");
             menuList.Add(4, @"<li class='menu_title'>报表管理</li> 
         <li class='menu_list'><a href ='/m/report/RegReport.aspx' target='main' class='white'>注册报表</a></li>
         <li class='menu_list'><a href ='/m/report/charge.aspx' target='main' class='white'>充值报表</a></li>        

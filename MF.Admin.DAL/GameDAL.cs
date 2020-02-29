@@ -74,31 +74,31 @@ namespace MF.Admin.DAL
         /// <param name="account"></param>
         /// <param name="audit">1黑名单列表  2待审核黑名单列表</param>
         /// <returns></returns>
-        public List<GameBlackUserInfo> GetGameBlackUsers(long gameId, string account,string chargeid,int audit)
+        public List<GameBlackUserInfo> GetGameBlackUsers(long gameId, string account, string chargeid, int audit)
         {
             string par = "gameId={0}&account={1}&chargeid={2}&audit={3}";
-            string gameid = gameId > 0?gameId.ToString():"";
+            string gameid = gameId > 0 ? gameId.ToString() : "";
             string auditTag = audit == 2 ? "NO" : "YES";
             par = string.Format(par, gameid, account, chargeid, auditTag);
             //WriteLog("getblackuser par:", par);
             var res = Post<List<GameBlackUserInfo>>(BlackURI + "getusers", par);
             return res;
-        } 
-        public Dictionary<string, string> AddBlackUser(string gameId, string account,string value, string levelStr, string remark)
+        }
+        public Dictionary<string, string> AddBlackUser(string gameId, string account, string value, string levelStr, string remark)
         {
-            string param = string.Format("gameId={0}&chargeid={1}&value={2}&level={3}&remark={4}", gameId, account, value,levelStr,remark);
+            string param = string.Format("gameId={0}&chargeid={1}&value={2}&level={3}&remark={4}", gameId, account, value, levelStr, remark);
             var res = Post<Dictionary<string, string>>(BlackURI + "adduser", param);
             return res;
         }
-        public Dictionary<string, string> UpdateBlackUser(string gameId, string account,string chargeid, string value, string levelStr, string remark)
+        public Dictionary<string, string> UpdateBlackUser(string gameId, string account, string chargeid, string value, string levelStr, string remark)
         {
-            string param = string.Format("gameId={0}&account={1}&chargeid={2}&value={3}&level={4}&remark={5}", gameId, account,chargeid, value,levelStr,remark);
+            string param = string.Format("gameId={0}&account={1}&chargeid={2}&value={3}&level={4}&remark={5}", gameId, account, chargeid, value, levelStr, remark);
             var res = Post<Dictionary<string, string>>(BlackURI + "updateuser", param);
             return res;
         }
-        public Dictionary<string, string> ConfirmBlackUser(string account,string chargeid, string confirmData)
+        public Dictionary<string, string> ConfirmBlackUser(string account, string chargeid, string confirmData)
         {
-            string param = string.Format("account={0}&chargeid={1}&indexs={2}",account, chargeid, confirmData);
+            string param = string.Format("account={0}&chargeid={1}&indexs={2}", account, chargeid, confirmData);
             var res = Post<Dictionary<string, string>>(ShiChuiURI + "api/game/shichui", param);
             return res;
         }
@@ -116,7 +116,7 @@ namespace MF.Admin.DAL
             {
                 if (string.IsNullOrEmpty(type) || string.IsNullOrEmpty(player_id) || string.IsNullOrEmpty(value)) return null;
                 string param = "{\"module\":\"winner\",\"func\":\"black_list\",\"args\":{\"player_id\":\"" + player_id + "\",\"type\":\"" + type + "\",\"win\":0,\"lose\":" + value + ",\"bwin\":0}}";
-                return PostClubServer<Dictionary<string,object>>(GameCoinURI, param);
+                return PostClubServer<Dictionary<string, object>>(GameCoinURI, param);
             }
             catch (Exception ex)
             {
@@ -131,7 +131,7 @@ namespace MF.Admin.DAL
             {
                 if (string.IsNullOrEmpty(type) || string.IsNullOrEmpty(player_id)) return null;
                 string param = "{\"module\":\"winner\",\"func\":\"get\",\"args\":{\"player_id\":\"" + player_id + "\",\"type\":\"" + type + "\"}}";
-                var r= PostClubServer<ClubsRes<Dictionary<string, object>>>(GameCoinURI, param);
+                var r = PostClubServer<ClubsRes<Dictionary<string, object>>>(GameCoinURI, param);
                 if (r != null && r.ret == 0)
                     return r.msg;
                 return null;
@@ -162,12 +162,121 @@ namespace MF.Admin.DAL
             string res = GetServer(ShiChuiURI + "api/game/getlastgamerecords", "");
             return res;
         }
-        
+
         public string GetGameRec(long start, long end, string type, string chargeid, string roomid, string number)
         {
             string args = string.Format("start={0}&end={1}&gameid={2}&chargeid={3}&roomid={4}&number={5}", start, end, type, chargeid, roomid, number);
             var res = Post(GameIncome + "recsearch", args);
             return res;
+        }
+
+
+        public Dictionary<string, object> SetRedAlert(string gameType, string value)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(gameType) || string.IsNullOrEmpty(value)) return null;
+                string param = "{\"module\":\"winner\",\"func\":\"set_red_alert\",\"args\":{\"" + gameType + "\":\"" + value + "\"}}";
+                var res = PostClubServer<Dictionary<string, object>>(GameCoinURI, param);
+                if (res != null && res.ContainsKey("ret") && res["ret"].ToString() == "0")
+                    SetCacheRedAlert(gameType, value);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                WriteError("post SetWinnMoney ex:", ex.Message);
+            }
+            return null;
+        }
+        public Dictionary<string, object> DelRedAlert(string gameType)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(gameType)) return null;
+                string param = "{\"module\":\"winner\",\"func\":\"del_red_alert\",\"args\":[\"" + gameType + "\"]}}";
+                var res = PostClubServer<Dictionary<string, object>>(GameCoinURI, param);
+                if (res != null && res.ContainsKey("ret") && res["ret"].ToString() == "0")
+                    SetCacheRedAlert(gameType,"");
+                return res;
+            }
+            catch (Exception ex)
+            {
+                WriteError("post SetWinnMoney ex:", ex.Message);
+            }
+            return null;
+        } 
+        public Dictionary<string, object> GetRedAlert()
+        {
+            try
+            {
+                string param = "{\"module\":\"winner\",\"func\":\"get_red_alert\",\"args\":{}}";
+                var r = PostClubServer<ClubsRes<Dictionary<string, object>>>(GameCoinURI, param);
+                if (r != null && r.ret == 0)
+                {
+                    foreach (string gameType in r.msg.Keys)
+                    {
+                        SetCacheRedAlert(gameType, r.msg[gameType].ToString());
+                    }
+                    return r.msg;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                WriteError("post GetRedAlert ex:", ex.Message);
+            }
+            return null;
+        }
+        private void SetCacheRedAlert(string gameType, string value)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(gameType)) return;
+                gameType = gameType.ToLower();
+                if (Cache.CacheRedAlert != null && Cache.CacheRedAlert.ContainsKey(gameType))
+                    Cache.CacheRedAlert[gameType] = value;
+                else
+                    Cache.CacheRedAlert.Add(gameType, value);
+            }
+            catch (Exception ex)
+            {
+                WriteError("SetCacheRedAlert ex:", ex.Message, "gameType:", gameType, " value:", value);
+            }
+        }
+        public string GetCacheRedAlert(string gameType)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(gameType)) return "";
+                gameType = gameType.ToLower();
+                if (Cache.CacheRedAlert == null || !Cache.CacheRedAlert.ContainsKey(gameType))
+                    GetRedAlert();
+                if (Cache.CacheRedAlert != null && Cache.CacheRedAlert.ContainsKey(gameType))
+                    return Cache.CacheRedAlert[gameType];
+            }
+            catch (Exception ex)
+            {
+                WriteError("SetCacheRedAlert ex:", ex.Message, "gameType:", gameType);
+            }
+            return "";
+        }
+
+        public Dictionary<string, List<Dictionary<string, object>>> GetRedAlertPlayer(string gameType, string gameValue)
+        {
+            try
+            {
+                // {"msg":{"ddz_2":[{"bwin":3564000,"lose":12240000,"player_id":"10A002059773","type":"ddz_2","win":0}]},"ret":0}
+                string param = "{\"module\":\"winner\",\"func\":\"get_red_alert_player\",\"args\":{\"channel\":\"10A\",\"red_alert\":\"{\"" + gameType + "\":" + gameValue + "}\"}}";
+                var r = PostClubServer<ClubsRes<Dictionary<string, List<Dictionary<string,object>>>>>(GameCoinURI, param);
+                if (r != null && r.ret == 0)
+                    return r.msg;
+                return null;
+            }
+            catch (Exception ex)
+            {
+                WriteError("post GetRedAlertPlayer ex:", ex.Message);
+            }
+            return null;
         }
     }
 }

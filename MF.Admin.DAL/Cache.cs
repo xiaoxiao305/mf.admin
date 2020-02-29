@@ -26,7 +26,10 @@ namespace MF.Admin.DAL
         /// {chargeId:List<clubId>}
         /// </summary>
         public static Dictionary<string, List<string>> CacheClubId = new Dictionary<string, List<string>>();
-
+        /// <summary>
+        /// {gameType:Value}
+        /// </summary>
+        public static Dictionary<string, string> CacheRedAlert = new Dictionary<string, string>();
 
         private static string configpath = ConfigurationManager.AppSettings["configpath"];
         public static void LoadGameList()

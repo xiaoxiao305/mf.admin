@@ -44,6 +44,7 @@
             var pagerTitles = ["选择","Id", "名称", "人数", "房卡数量","创建者", "创建时间", "状态","类型","操作"];
             jsonPager.init(ajax.getGuildList, [], searchResult, pagerTitles, "list_table", "container", "pager", insertRow);
             jsonPager.dataBind(1, 0);
+            search();
         });
         function showClubMembers(clubId) {
             currentClubId = clubId;

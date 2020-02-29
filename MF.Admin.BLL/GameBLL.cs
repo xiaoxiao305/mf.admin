@@ -20,6 +20,7 @@ namespace MF.Admin.BLL
     public class GameBLL : Base
     {
         private static GameDAL dal = new GameDAL();
+        private static UserDAL userDal = new UserDAL();
         /// <summary>
         /// 游戏场列表
         /// </summary>
@@ -109,7 +110,7 @@ namespace MF.Admin.BLL
         /// <param name="key">JSON文件中的key值</param>
         /// <returns>JSON文件中的value值</returns>
         public static Dictionary<string, object> Readjson(string key, string filePath)
-        { 
+        {
             using (StreamReader file = File.OpenText(filePath))
             {
                 var jsonText = file.ReadToEnd();
@@ -130,7 +131,7 @@ namespace MF.Admin.BLL
                 {
                     accList.Add(item.Account);
                 }
-                List<Dictionary<string, string>> infoList = new UserDAL().GetUserInfoList(accList.ToArray());
+                List<Dictionary<string, string>> infoList = userDal.GetUserInfoList(accList.ToArray());
                 if (infoList == null || infoList.Count < 1) return list;
                 List<GameBlackUserInfo> newList2 = new List<GameBlackUserInfo>();
                 foreach (GameBlackUserInfo info in list)
@@ -217,13 +218,13 @@ namespace MF.Admin.BLL
                     accList.Add(blackUser.Account);
                 }
                 if (accList.Count > 0)
-                    new UserDAL().GetUserInfoList(accList.ToArray());
+                    userDal.GetUserInfoList(accList.ToArray());
                 List<GameBlackUserInfo> newList2 = new List<GameBlackUserInfo>();
                 foreach (GameBlackUserInfo info in list)
                 {
-                    info.NickName = new UserDAL().GetNickByAcc(info.Account);
+                    info.NickName = userDal.GetNickByAcc(info.Account);
                     if (string.IsNullOrEmpty(info.ChargeId))
-                        info.ChargeId = new UserDAL().GetChargeIdByAcc(info.Account);
+                        info.ChargeId = userDal.GetChargeIdByAcc(info.Account);
                     newList2.Add(info);
                 }
                 return newList2;
@@ -241,13 +242,13 @@ namespace MF.Admin.BLL
         /// <param name="gameType"></param>
         /// <param name="account"></param> 
         /// <returns></returns>
-        public static List<GameBlackUserInfo> GetGameBlackUsers(long gameId,long field, string value)
+        public static List<GameBlackUserInfo> GetGameBlackUsers(long gameId, long field, string value)
         {
             //if (gameId < 1 || string.IsNullOrEmpty(gameType))
             //    return null;
             string account = field == 2 ? value : "";
-            string chargeid = field == 1 ? value : ""; 
-            List<GameBlackUserInfo> list = GetGameBlackUsers(gameId,  account,chargeid);
+            string chargeid = field == 1 ? value : "";
+            List<GameBlackUserInfo> list = GetGameBlackUsers(gameId, account, chargeid);
             if (list == null || list.Count < 1) return null;
             //return list;
             return GetBlackUsersDetail(list);
@@ -256,7 +257,7 @@ namespace MF.Admin.BLL
         {
             string account = field == 2 ? value : "";
             string chargeid = field == 1 ? value : "";
-            List<GameBlackUserInfo> list = dal.GetGameBlackUsers(gameId,account,chargeid, 2);
+            List<GameBlackUserInfo> list = dal.GetGameBlackUsers(gameId, account, chargeid, 2);
             if (list == null || list.Count < 1) return null;
             //return list;
             return GetBlackUsersDetail(list);
@@ -266,7 +267,7 @@ namespace MF.Admin.BLL
             try
             {
                 //if (gameId < 1) return null;
-                return dal.GetGameBlackUsers(gameId, account,chargeid, 1);
+                return dal.GetGameBlackUsers(gameId, account, chargeid, 1);
             }
             catch (Exception ex)
             {
@@ -457,12 +458,12 @@ namespace MF.Admin.BLL
         {
             try
             {
-                if (start< 1 || end< 1 || string.IsNullOrEmpty(type) || (string.IsNullOrEmpty(chargeid) && string.IsNullOrEmpty(roomid)))
+                if (start < 1 || end < 1 || string.IsNullOrEmpty(type) || (string.IsNullOrEmpty(chargeid) && string.IsNullOrEmpty(roomid)))
                     return null;
                 //List<GameIncome> list= dal.GetGameIncome(start, end, type, chargeid, roomid, number);
                 string listStr = dal.GetGameIncome2(start, end, type, chargeid, roomid, number);
-        listStr = listStr.Replace("\\U000", "[emoji]").Replace("\\u000", "[emoji]");
-        List<GameIncome> list = new List<GameIncome>();
+                listStr = listStr.Replace("\\U000", "[emoji]").Replace("\\u000", "[emoji]");
+                List<GameIncome> list = new List<GameIncome>();
                 try
                 {
                     list = JsonConvert.DeserializeObject<List<GameIncome>>(listStr);
@@ -472,7 +473,7 @@ namespace MF.Admin.BLL
                     Base.WriteError("GetGameIncome Deserialize Convert ex：", ex2.Message);
                     return null;
                 }
-                if (list == null || list.Count< 1) return list;
+                if (list == null || list.Count < 1) return list;
                 List<GameIncome> newList = new List<GameIncome>();
                 foreach (GameIncome income in list)
                 {
@@ -530,7 +531,7 @@ namespace MF.Admin.BLL
             }
             return null;
         }
-        
+
         public static List<AutoPatrol> GetLastGameRecords()
         {
             try
@@ -554,7 +555,7 @@ namespace MF.Admin.BLL
                 foreach (AutoPatrol p in list)
                 {
                     allChargeIds = allChargeIds.Union(p.ChargeIds).ToList();
-                } 
+                }
                 new GuildDAL().GetClubByChargeId(allChargeIds);
                 foreach (AutoPatrol patrol in list)
                 {
@@ -576,12 +577,12 @@ namespace MF.Admin.BLL
                                 patrol.ClubIds.Add("");
                         }
                     }
-                    if (patrol.NickNames !=null && patrol.NickNames.Count > 0)
+                    if (patrol.NickNames != null && patrol.NickNames.Count > 0)
                     {
                         List<string> nickNewList = new List<string>();
                         foreach (string nick in patrol.NickNames)
                         {
-                            string newNick = (nick.IndexOf("[emoji]") >= 0) ? nick.Replace("[emoji]", "\\U000"):nick;
+                            string newNick = (nick.IndexOf("[emoji]") >= 0) ? nick.Replace("[emoji]", "\\U000") : nick;
                             nickNewList.Add(newNick);
                         }
                         patrol.NickNames = nickNewList;
@@ -617,6 +618,50 @@ namespace MF.Admin.BLL
             }
             return null;
         }
+
+        public static Dictionary<string, object> SetRedAlert(string gameType, string value)
+        {
+            if (string.IsNullOrEmpty(gameType) || string.IsNullOrEmpty(value)) return null;
+            return dal.SetRedAlert(gameType, value);
+        }
+        public static Dictionary<string, object> DelRedAlert(string gameType )
+        {
+            if (string.IsNullOrEmpty(gameType)) return null;
+            return dal.DelRedAlert(gameType);
+        }
+        public static Dictionary<string, object> GetRedAlert()
+        {
+            return dal.GetRedAlert();
+        }
+        public static List<Dictionary<string, object>> GetRedAlertPlayer(string gameType, long field, string value)
+        {
+            List<Dictionary<string, object>> newList = new List<Dictionary<string, object>>();
+            try
+            { // {"msg":{"ddz_2":[{"bwin":3564000,"lose":12240000,"player_id":"10A002059773","type":"ddz_2","win":0}]},"ret":0}
+              //Type Account  ChargeId NickName  Lose                
+                string gameValue = dal.GetCacheRedAlert(gameType);
+                var res = dal.GetRedAlertPlayer(gameType, gameValue);
+                if (res != null && res.ContainsKey(gameType))
+                {
+                    string account = "";
+                    List<Dictionary<string, object>> list= res[gameType];
+                    foreach (var item in list)
+                    {
+                        if (!item.ContainsKey("player_id")) continue;
+                        account = userDal.GetAccByChargeId(item["player_id"].ToString());
+                        item.Add("Account", account);
+                        item.Add("NickName", userDal.GetNickByAcc(account));
+                        newList.Add(item);
+                    } 
+                }
+            }
+            catch(Exception ex)
+            {
+                WriteError("BLL GetRedAlertPlayer ex:", ex.Message);
+            }
+            return newList;
+        }
+
 
     }
 }

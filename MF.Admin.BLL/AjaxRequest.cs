@@ -132,10 +132,130 @@ namespace MF.Admin.BLL
                 
                 functions.Add("getclubmemberslist", "GetClubmembersList");
                 functions.Add("getlastgamerecords", "GetLastGameRecords");
+
+                //游戏输赢值异常警报
+                functions.Add("setredalert", "SetRedAlert");
+                functions.Add("getredalert", "GetRedAlert");
+                functions.Add("delredalert", "DelRedAlert");
+                functions.Add("getredalertplayer", "GetRedAlertPlayer");
                 
+
             }
         }
-
+        
+        public void GetRedAlertPlayer(long pageSize, long pageIndex,string gameType,long field,string value)
+        {
+            try
+            {
+                var res = new PagerResult<List<Dictionary<string, object>>>();
+                var list = GameBLL.GetRedAlertPlayer(gameType,field,value);
+                res.result = list;
+                res.code = 1;
+                res.msg = "";
+                res.index = (int)pageIndex;
+                if (list != null)
+                    res.rowCount = list.Count;
+                string json = Json.SerializeObject(res);
+                Response.Write(json);
+            }
+            catch (Exception ex)
+            {
+                WriteError("GetRedAlertPlayer ajax ex :", ex.Message);
+            }
+        }
+        public void GetRedAlert(long pageSize, long pageIndex)
+        {
+            try
+            {
+                var res = new PagerResult<Dictionary<string, object>>();
+                var list = GameBLL.GetRedAlert();
+                res.result = list;
+                res.code = 1;
+                res.msg = "";
+                res.index = (int)pageIndex;
+                if (list != null)
+                    res.rowCount = list.Count;
+                string json = Json.SerializeObject(res);
+                Response.Write(json);
+            }
+            catch (Exception ex)
+            {
+                WriteError("GetRedAlert ajax ex :", ex.Message);
+            }
+        }
+        public void DelRedAlert(string gameType)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(gameType))
+                {
+                    Response.Write("{\"code\":0,\"msg\":\"参数有误\"}");
+                    return;
+                }
+                AjaxResult<bool> res = new AjaxResult<bool>() { code = 0, msg = "" };
+                Dictionary<string, object> r = GameBLL.DelRedAlert(gameType);
+                int oprState = 0;
+                string msg = string.Format("删除游戏{0}输赢值异常警报配置失败。", gameType);
+                if (r != null)
+                {
+                    if (r.ContainsKey("ret"))
+                    {
+                        if (r["ret"].ToString() == "0")
+                        {
+                            oprState = 1;
+                            msg += "成功";
+                        }
+                        else
+                            msg += "失败。" + r["msg"];
+                    }
+                    else
+                        msg += "失败";
+                }
+                AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "AjaxRequest.DelRedAlert", oprState, SystemLogEnum.DELREDALERT);
+                Response.Write("{\"code\":" + oprState + ",\"msg\":\"" + msg + "\"}");
+                return;
+            }
+            catch (Exception ex)
+            {
+                WriteError("DelRedAlert ex:" + ex.Message + ",gameType:", gameType);
+            }
+        }
+        public void SetRedAlert(string gameType, string value)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(gameType) || string.IsNullOrEmpty(value))
+                {
+                    Response.Write("{\"code\":0,\"msg\":\"参数有误\"}");
+                    return;
+                }
+                AjaxResult<bool> res = new AjaxResult<bool>() { code = 0, msg = "" };
+                Dictionary<string, object> r = GameBLL.SetRedAlert(gameType, value);
+                int oprState = 0;
+                string msg = string.Format("设置游戏{0}输赢值异常警报配置为{1}", gameType, value);
+                if (r != null)
+                {
+                    if (r.ContainsKey("ret"))
+                    {
+                        if (r["ret"].ToString() == "0")
+                        {
+                            oprState = 1;
+                            msg += "成功";
+                        }
+                        else
+                            msg += "失败。"+r["msg"];
+                    }
+                    else
+                        msg += "失败";
+                }
+                AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "AjaxRequest.SetRedAlert", oprState, SystemLogEnum.SETREDALERT);
+                Response.Write("{\"code\":" + oprState + ",\"msg\":\"" + msg + "\"}");
+                return;
+            }catch(Exception ex)
+            {
+                WriteError("SetRedAlert ex:"+ex.Message+",gameType:", gameType, " value:", value);
+            }
+        }
         public void GetClubmembersList(long pageSize, long pageIndex, string club_id, string member_id)
         {
             //Base.WriteLog("ajax getclubmembers club_id:", club_id, " uid:", member_id);
@@ -261,7 +381,7 @@ namespace MF.Admin.BLL
             }
             Dictionary<string, object> r = GameBLL.SetWinnMoney(gameId, account, type, player_id, value);
             int oprState = 0;
-            string msg = string.Format("设置账号{0}【{1}】输赢值为{2}失败。", player_id, type, value);
+            string msg = string.Format("设置账号{0}【{1}】输赢值为{2}", player_id, type, value);
             if (r != null)
             {
                 if (r.ContainsKey("ret"))
@@ -269,16 +389,15 @@ namespace MF.Admin.BLL
                     if (r["ret"].ToString() == "0")
                     {
                         oprState = 1;
-                        //var msgTmp = r["msg"] as IDictionary<string, Newtonsoft.Json.Linq.JToken>;
-                        //msg = msgTmp["player_id"].ToString();
-                        msg = account;
+                        msg += "成功";
                     }
                     else
-                        msg += r["msg"];
+                        msg += "失败。" + r["msg"];
                 }
                 else
-                    msg += " res is err";
+                    msg += "失败";
             }
+            msg = oprState == 1 ? account : msg;
             AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "AjaxRequest.SetWinnMoney", oprState, SystemLogEnum.SETWINMONEY);
             Response.Write("{\"code\":" + oprState + ",\"msg\":\"" + msg + "\"}");
             return;

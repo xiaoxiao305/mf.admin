@@ -133,6 +133,14 @@ namespace MF.Data
         /// <summary>
         /// 审核黑名单【确认实锤】
         /// </summary>
-        CONFIRMBLACKUSER = 22
+        CONFIRMBLACKUSER = 22,
+        /// <summary>
+        /// 设置输赢值异常警报
+        /// </summary>
+        SETREDALERT = 23,
+        /// <summary>
+        /// 删除输赢值异常警报
+        /// </summary>
+        DELREDALERT = 24
     }
 }

@@ -112,7 +112,7 @@
     <div class="toolbar">俱乐部统计数据</div>
     <div class="search">&nbsp;&nbsp; 
             统计时间<input type="text" id="starttime" class="box w100" readonly="readonly" />
-            <input type="button" value="查询" onclick="search ()" class="ui-button-icon-primary" id="btnsearch" /> 
+            <input type="button" value="查询" onclick="search()" class="ui-button-icon-primary" id="btnsearch" /> 
     </div>
     <div id="container" style="display:none;"></div>
     <table class="list_table" style="border-bottom:none;" id="tbcon">

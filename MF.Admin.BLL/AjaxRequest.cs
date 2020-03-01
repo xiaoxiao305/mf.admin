@@ -156,6 +156,7 @@ namespace MF.Admin.BLL
                 if (list != null)
                     res.rowCount = list.Count;
                 string json = Json.SerializeObject(res);
+                WriteLog("ajax request res:",json);
                 Response.Write(json);
             }
             catch (Exception ex)

@@ -11,7 +11,7 @@
             $("#loading").show();
             var gameid = parseInt($("#game").val());
             var field = parseInt($("#field").val());
-            var args = [gameid,  field, $("#account").val()];
+            var args = [gameid, field, $("#account").val()];
             jsonPager.queryArgs = args;
             jsonPager.pageSize = 1000;
             ajax.getGameBlackUsers(jsonPager.makeArgs(1), searchResult);
@@ -81,7 +81,7 @@
                 $("#valLi" + area).hide();
                 $("#tokenLi" + area).hide();
             }
-        } 
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="p" runat="server">

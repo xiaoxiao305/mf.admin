@@ -911,5 +911,90 @@
             }
         });
     },
+    getClubGameLink: function (args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: "clubgamelink", args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },
+    getGameRec: function (args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: "getgamerec", args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },    
+
+
+
+
+
+    setRedAlert: function (method, args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: method, args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },
+
+    getRedAlert: function (args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: "getredalert", args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },
+    //delRedAlert: function (method, args, callback) {
+    //    $.ajax({
+    //        url: ajax.url,
+    //        data: { m: method, args: JSON.stringify(args), r: Math.random() },
+    //        dataType: "json",
+    //        cache: false,
+    //        success: callback,
+    //        error: function (xhr, status, err) {
+    //            $("#loading").hide();
+    //            alert(err);
+    //        }
+    //    });
+    //},
     
+
+    getRedAlertPlayer: function (args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: "getredalertplayer", args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },
 };

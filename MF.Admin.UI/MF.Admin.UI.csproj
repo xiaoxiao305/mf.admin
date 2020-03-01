@@ -83,11 +83,13 @@
     <Content Include="common\images\bg_list.gif" />
     <Content Include="common\images\bg_main.gif" />
     <Content Include="common\images\bg_title.gif" />
+    <Content Include="common\images\del.png" />
     <Content Include="common\images\icon_drop.gif" />
     <Content Include="common\images\icon_edit.gif" />
     <Content Include="common\images\logo.jpg" />
     <Content Include="common\images\no.gif" />
     <Content Include="common\images\ok.gif" />
+    <Content Include="common\images\ok.png" />
     <Content Include="common\images\pager\first.gif" />
     <Content Include="common\images\pager\first1.gif" />
     <Content Include="common\images\pager\last.gif" />
@@ -141,7 +143,7 @@
     <Content Include="M\Guild\ClubLink.aspx" />
     <Content Include="M\Guild\clubmembers.aspx" />
     <Content Include="M\Guild\ClubMembersList.aspx" />
-    <Content Include="M\Guild\club_statistic_day.aspx" />
+    <Content Include="M\Guild\ClubStatisticDay.aspx" />
     <Content Include="M\Guild\GuildInfo.aspx" />
     <Content Include="M\Guild\guildlink.aspx" />
     <Content Include="M\Guild\GuildList.aspx" />
@@ -361,12 +363,12 @@
     <Compile Include="M\Guild\ClubMembersList.aspx.designer.cs">
       <DependentUpon>ClubMembersList.aspx</DependentUpon>
     </Compile>
-    <Compile Include="M\Guild\club_statistic_day.aspx.cs">
-      <DependentUpon>club_statistic_day.aspx</DependentUpon>
+    <Compile Include="M\Guild\ClubStatisticDay.aspx.cs">
+      <DependentUpon>ClubStatisticDay.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="M\Guild\club_statistic_day.aspx.designer.cs">
-      <DependentUpon>club_statistic_day.aspx</DependentUpon>
+    <Compile Include="M\Guild\ClubStatisticDay.aspx.designer.cs">
+      <DependentUpon>ClubStatisticDay.aspx</DependentUpon>
     </Compile>
     <Compile Include="M\Guild\GuildInfo.aspx.cs">
       <DependentUpon>GuildInfo.aspx</DependentUpon>

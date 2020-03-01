@@ -1,4 +1,4 @@
-﻿<%@ Page Title=" 俱乐部管理》俱乐部游戏" MasterPageFile="~/M/main.Master" Language="C#" AutoEventWireup="true"  %>
+﻿<%@ Page Title=" 俱乐部管理》俱乐部游戏设置" MasterPageFile="~/M/main.Master" Language="C#" AutoEventWireup="true"  %>
 <asp:Content ID="Content1" ContentPlaceHolderID="h" runat="server">
     <link href="/common/styles/layer.css" type="text/css" rel="Stylesheet" />
     <script language="javascript" type="text/javascript" src="/common/js/game.js"></script>
@@ -73,7 +73,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="p" runat="server">
-    <div class="toolbar">俱乐部列表</div>
+    <div class="toolbar">俱乐部游戏设置</div>
     <div class="search">&nbsp;&nbsp;
         <select id="game">
             <option value="0">请选择游戏名称</option>

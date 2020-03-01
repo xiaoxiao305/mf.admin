@@ -356,7 +356,7 @@ namespace MF.Admin.BLL
                 else
                     msg += " res is err";
             }
-            AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "AjaxRequest.DelBlackUser", oprState, SystemLogEnum.ADDBLACKUSER);
+            AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "AjaxRequest.DelBlackUser", oprState, SystemLogEnum.DELBLACKUSER);
             //set
             if (!string.IsNullOrEmpty(value) && !string.IsNullOrEmpty(player_id) && oprState == 1)
                 return dal.SetWinnMoney(type, player_id, value);
@@ -635,11 +635,15 @@ namespace MF.Admin.BLL
         }
         public static List<Dictionary<string, object>> GetRedAlertPlayer(string gameType, long field, string value)
         {
+
+            WriteLog("GetRedAlertPlayer parms. gameType:", gameType, " field:", field.ToString(), " value:", value);
             List<Dictionary<string, object>> newList = new List<Dictionary<string, object>>();
+            value = value.ToLower();
             try
             { // {"msg":{"ddz_2":[{"bwin":3564000,"lose":12240000,"player_id":"10A002059773","type":"ddz_2","win":0}]},"ret":0}
               //Type Account  ChargeId NickName  Lose                
                 string gameValue = dal.GetCacheRedAlert(gameType);
+                gameValue=string.IsNullOrEmpty(gameValue)?"0":gameValue;
                 var res = dal.GetRedAlertPlayer(gameType, gameValue);
                 if (res != null && res.ContainsKey(gameType))
                 {
@@ -649,6 +653,14 @@ namespace MF.Admin.BLL
                     {
                         if (!item.ContainsKey("player_id")) continue;
                         account = userDal.GetAccByChargeId(item["player_id"].ToString());
+                        WriteLog("player account:", account);
+                        if (!string.IsNullOrEmpty(value))
+                        {
+                            if(field == 1 && !item["player_id"].ToString().ToLower().Equals(value)) continue;
+                            if (field == 2 && account.ToLower().Equals(value)) continue;
+                        }
+                        string nick = userDal.GetNickByAcc(account);
+                        WriteLog("player nick:", nick);
                         item.Add("Account", account);
                         item.Add("NickName", userDal.GetNickByAcc(account));
                         newList.Add(item);

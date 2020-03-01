@@ -31,7 +31,7 @@ namespace MF.KF.UI.M.game
                 gameId = Request["gameId"].ToString();
             if (Request["roomId"] != null && !string.IsNullOrEmpty(Request["roomId"].ToString()))
                 roomId = Request["roomId"].ToString();
-            Admin.BLL.Base.WriteLog("gameincome request parm:", string.Format("time:{0},hour:{1},min:{2},gameid:{3},roomid:{4}", time, hour, min, gameId, roomId));
+            //Admin.BLL.Base.WriteLog("gameincome request parm:", string.Format("time:{0},hour:{1},min:{2},gameid:{3},roomid:{4}", time, hour, min, gameId, roomId));
         }
     }
 }

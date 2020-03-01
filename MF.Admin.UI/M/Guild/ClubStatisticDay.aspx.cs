@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace MF.Admin.UI.M.Guild
 {
-    public partial class club_statistic_day : BasePage
+    public partial class ClubStatisticDay : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

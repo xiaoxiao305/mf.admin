@@ -1,4 +1,213 @@
-﻿var blackGameInfo2 = [];
+﻿var gamesconfig = [
+    { "ID": 1, "TopID": 0, "Name": "眉山贰柒拾" },
+    { "ID": 2, "TopID": 0, "Name": "乐山贰柒拾" },
+    { "ID": 3, "TopID": 0, "Name": "犍为贰柒拾" },
+    { "ID": 4, "TopID": 0, "Name": "十四张三人" },
+    { "ID": 5, "TopID": 0, "Name": "十四张四人" },
+    { "ID": 6, "TopID": 0, "Name": "十四张四人(血战)" },
+    { "ID": 7, "TopID": 0, "Name": "两人贰柒拾(犍为)" },
+    { "ID": 8, "TopID": 0, "Name": "两人贰柒拾(乐山)" },
+    { "ID": 9, "TopID": 0, "Name": "两人贰柒拾(眉山)" },
+    { "ID": 10, "TopID": 0, "Name": "四川麻将" },
+    { "ID": 11, "TopID": 0, "Name": "四川麻将(血流)" },
+    { "ID": 12, "TopID": 0, "Name": "三人两房" },
+    { "ID": 13, "TopID": 0, "Name": "一房七张" },
+    { "ID": 14, "TopID": 0, "Name": "幺鸡麻将" },
+    { "ID": 15, "TopID": 0, "Name": "四川斗地主" },
+    { "ID": 16, "TopID": 0, "Name": "四川斗地主(坨坨)" },
+    { "ID": 17, "TopID": 0, "Name": "成都跑得快" },
+    { "ID": 18, "TopID": 0, "Name": "老庄二鬼" },
+    { "ID": 19, "TopID": 0, "Name": "疯子二鬼" },
+    { "ID": 20, "TopID": 0, "Name": "眉山斗十四" },
+    { "ID": 21, "TopID": 0, "Name": "明牌斗牛" },
+    { "ID": 22, "TopID": 0, "Name": "三张牌" },
+    { "ID": 23, "TopID": 0, "Name": "二人斗地主" },
+
+    //眉山贰柒拾
+    { "ID": 24, "TopID": 1, "Name": "0.5元", "Value": 5000 },
+    { "ID": 25, "TopID": 1, "Name": "1元", "Value": 10000 },
+    { "ID": 26, "TopID": 1, "Name": "2元", "Value": 20000 },
+    { "ID": 27, "TopID": 1, "Name": "3元", "Value": 30000 },
+    { "ID": 28, "TopID": 1, "Name": "4元", "Value": 40000 },
+    { "ID": 29, "TopID": 1, "Name": "5元", "Value": 50000 },
+
+    //乐山贰柒拾
+    { "ID": 30, "TopID": 2, "Name": "0.5元", "Value": 5000 },
+    { "ID": 31, "TopID": 2, "Name": "1元", "Value": 10000 },
+    { "ID": 32, "TopID": 2, "Name": "2元", "Value": 20000 },
+    { "ID": 33, "TopID": 2, "Name": "3元", "Value": 30000 },
+    { "ID": 34, "TopID": 2, "Name": "4元", "Value": 40000 },
+    { "ID": 35, "TopID": 2, "Name": "5元", "Value": 50000 },
+
+    //犍为贰柒拾
+    { "ID": 36, "TopID": 3, "Name": "0.5元", "Value": 5000 },
+    { "ID": 37, "TopID": 3, "Name": "1元", "Value": 10000 },
+    { "ID": 38, "TopID": 3, "Name": "2元", "Value": 20000 },
+    { "ID": 39, "TopID": 3, "Name": "3元", "Value": 30000 },
+    { "ID": 40, "TopID": 3, "Name": "4元", "Value": 40000 },
+    { "ID": 41, "TopID": 3, "Name": "5元", "Value": 50000 },
+
+    //十四张三人
+    { "ID": 42, "TopID": 4, "Name": "0.3元", "Value": 3000 },
+    { "ID": 43, "TopID": 4, "Name": "0.5元", "Value": 5000 },
+    { "ID": 44, "TopID": 4, "Name": "0.8元", "Value": 8000 },
+    { "ID": 45, "TopID": 4, "Name": "1元", "Value": 10000 },
+    { "ID": 46, "TopID": 4, "Name": "2元", "Value": 20000 },
+    { "ID": 47, "TopID": 4, "Name": "3元", "Value": 30000 },
+
+    //十四张四人
+    { "ID": 48, "TopID": 5, "Name": "0.3元", "Value": 3000 },
+    { "ID": 49, "TopID": 5, "Name": "0.5元", "Value": 5000 },
+    { "ID": 50, "TopID": 5, "Name": "0.8元", "Value": 8000 },
+    { "ID": 51, "TopID": 5, "Name": "1元", "Value": 10000 },
+    { "ID": 52, "TopID": 5, "Name": "2元", "Value": 20000 },
+    { "ID": 53, "TopID": 5, "Name": "3元", "Value": 30000 },
+
+    //十四张四人(血战)
+    { "ID": 54, "TopID": 6, "Name": "0.5元", "Value": 5000 },
+    { "ID": 55, "TopID": 6, "Name": "1元", "Value": 10000 },
+    { "ID": 56, "TopID": 6, "Name": "2元", "Value": 20000 },
+    { "ID": 57, "TopID": 6, "Name": "3元", "Value": 30000 },
+    { "ID": 58, "TopID": 6, "Name": "4元", "Value": 40000 },
+    { "ID": 59, "TopID": 6, "Name": "5元", "Value": 50000 },
+
+    //眉山贰柒拾(犍为)
+    { "ID": 60, "TopID": 7, "Name": "0.5元", "Value": 5000 },
+    { "ID": 61, "TopID": 7, "Name": "1元", "Value": 10000 },
+    { "ID": 62, "TopID": 7, "Name": "2元", "Value": 20000 },
+    { "ID": 63, "TopID": 7, "Name": "3元", "Value": 30000 },
+    { "ID": 64, "TopID": 7, "Name": "4元", "Value": 40000 },
+    { "ID": 65, "TopID": 7, "Name": "5元", "Value": 50000 },
+
+    //两人贰柒拾(乐山)
+    { "ID": 66, "TopID": 8, "Name": "0.5元", "Value": 5000 },
+    { "ID": 67, "TopID": 8, "Name": "1元", "Value": 10000 },
+    { "ID": 68, "TopID": 8, "Name": "2元", "Value": 20000 },
+    { "ID": 69, "TopID": 8, "Name": "3元", "Value": 30000 },
+    { "ID": 70, "TopID": 8, "Name": "4元", "Value": 40000 },
+    { "ID": 71, "TopID": 8, "Name": "5元", "Value": 50000 },
+
+    //两人贰柒拾(眉山)
+    { "ID": 72, "TopID": 9, "Name": "0.5元", "Value": 5000 },
+    { "ID": 73, "TopID": 9, "Name": "1元", "Value": 10000 },
+    { "ID": 74, "TopID": 9, "Name": "2元", "Value": 20000 },
+    { "ID": 75, "TopID": 9, "Name": "3元", "Value": 30000 },
+    { "ID": 76, "TopID": 9, "Name": "4元", "Value": 40000 },
+    { "ID": 77, "TopID": 9, "Name": "5元", "Value": 50000 },
+
+    //四川麻将
+    { "ID": 78, "TopID": 10, "Name": "0.3元", "Value": 3000 },
+    { "ID": 79, "TopID": 10, "Name": "0.5元", "Value": 5000 },
+    { "ID": 80, "TopID": 10, "Name": "1元", "Value": 10000 },
+    { "ID": 81, "TopID": 10, "Name": "2元", "Value": 20000 },
+    { "ID": 82, "TopID": 10, "Name": "3元", "Value": 30000 },
+    { "ID": 83, "TopID": 10, "Name": "5元", "Value": 50000 },
+
+    //四川麻将(血流)
+    { "ID": 84, "TopID": 11, "Name": "0.1元", "Value": 1000 },
+    { "ID": 85, "TopID": 11, "Name": "0.3元", "Value": 3000 },
+    { "ID": 86, "TopID": 11, "Name": "0.5元", "Value": 5000 },
+    { "ID": 87, "TopID": 11, "Name": "0.8元", "Value": 8000 },
+    { "ID": 88, "TopID": 11, "Name": "1元", "Value": 10000 },
+    { "ID": 89, "TopID": 11, "Name": "2元", "Value": 20000 },
+
+    //三人两房
+    { "ID": 90, "TopID": 12, "Name": "0.3元", "Value": 3000 },
+    { "ID": 91, "TopID": 12, "Name": "0.5元", "Value": 5000 },
+    { "ID": 92, "TopID": 12, "Name": "1元", "Value": 10000 },
+    { "ID": 93, "TopID": 12, "Name": "2元", "Value": 20000 },
+    { "ID": 94, "TopID": 12, "Name": "3元", "Value": 30000 },
+    { "ID": 95, "TopID": 12, "Name": "5元", "Value": 50000 },
+
+    //一房七张
+    { "ID": 96, "TopID": 13, "Name": "0.3元", "Value": 3000 },
+    { "ID": 97, "TopID": 13, "Name": "0.5元", "Value": 5000 },
+    { "ID": 98, "TopID": 13, "Name": "0.8元", "Value": 8000 },
+    { "ID": 99, "TopID": 13, "Name": "1元", "Value": 10000 },
+    { "ID": 100, "TopID": 13, "Name": "2元", "Value": 20000 },
+    { "ID": 101, "TopID": 13, "Name": "3元", "Value": 30000 },
+
+    //幺鸡麻将
+    { "ID": 102, "TopID": 14, "Name": "0.2元", "Value": 2000 },
+    { "ID": 103, "TopID": 14, "Name": "0.3元", "Value": 3000 },
+    { "ID": 104, "TopID": 14, "Name": "0.5元", "Value": 5000 },
+    { "ID": 105, "TopID": 14, "Name": "1元", "Value": 10000 },
+    { "ID": 106, "TopID": 14, "Name": "2元", "Value": 20000 },
+    { "ID": 107, "TopID": 14, "Name": "3元", "Value": 30000 },
+
+    //四川斗地主
+    { "ID": 108, "TopID": 15, "Name": "0.3元", "Value": 3000 },
+    { "ID": 109, "TopID": 15, "Name": "0.5元", "Value": 5000 },
+    { "ID": 110, "TopID": 15, "Name": "1元", "Value": 10000 },
+    { "ID": 111, "TopID": 15, "Name": "2元", "Value": 20000 },
+    { "ID": 112, "TopID": 15, "Name": "3元", "Value": 30000 },
+    { "ID": 113, "TopID": 15, "Name": "5元", "Value": 50000 },
+
+    //四川斗地主(坨坨)
+    { "ID": 114, "TopID": 16, "Name": "0.1元", "Value": 1000 },
+    { "ID": 115, "TopID": 16, "Name": "0.3元", "Value": 3000 },
+    { "ID": 116, "TopID": 16, "Name": "0.5元", "Value": 5000 },
+    { "ID": 117, "TopID": 16, "Name": "0.8元", "Value": 8000 },
+    { "ID": 118, "TopID": 16, "Name": "1元", "Value": 10000 },
+    { "ID": 119, "TopID": 16, "Name": "2元", "Value": 20000 },
+
+    //成都跑得快
+    { "ID": 120, "TopID": 17, "Name": "0.3元", "Value": 3000 },
+    { "ID": 121, "TopID": 17, "Name": "0.5元", "Value": 5000 },
+    { "ID": 122, "TopID": 17, "Name": "1元", "Value": 10000 },
+    { "ID": 123, "TopID": 17, "Name": "2元", "Value": 20000 },
+    { "ID": 124, "TopID": 17, "Name": "3元", "Value": 30000 },
+    { "ID": 125, "TopID": 17, "Name": "5元", "Value": 50000 },
+
+    //老庄二鬼
+    { "ID": 126, "TopID": 18, "Name": "0.3元", "Value": 3000 },
+    { "ID": 127, "TopID": 18, "Name": "0.5元", "Value": 5000 },
+    { "ID": 128, "TopID": 18, "Name": "1元", "Value": 10000 },
+    { "ID": 129, "TopID": 18, "Name": "2元", "Value": 20000 },
+    { "ID": 130, "TopID": 18, "Name": "5元", "Value": 50000 },
+    { "ID": 131, "TopID": 18, "Name": "10元", "Value": 100000 },
+
+    //疯子二鬼
+    { "ID": 132, "TopID": 19, "Name": "0.3元", "Value": 3000 },
+    { "ID": 133, "TopID": 19, "Name": "0.5元", "Value": 5000 },
+    { "ID": 134, "TopID": 19, "Name": "1元", "Value": 10000 },
+    { "ID": 135, "TopID": 19, "Name": "2元", "Value": 20000 },
+    { "ID": 136, "TopID": 19, "Name": "3元", "Value": 30000 },
+    { "ID": 137, "TopID": 19, "Name": "5元", "Value": 50000 },
+
+    //眉山斗十四
+    { "ID": 138, "TopID": 20, "Name": "0.1元", "Value": 1000 },
+    { "ID": 139, "TopID": 20, "Name": "0.3元", "Value": 3000 },
+    { "ID": 140, "TopID": 20, "Name": "0.5元", "Value": 5000 },
+    { "ID": 141, "TopID": 20, "Name": "0.8元", "Value": 8000 },
+    { "ID": 142, "TopID": 20, "Name": "1元", "Value": 10000 },
+    { "ID": 143, "TopID": 20, "Name": "2元", "Value": 20000 },
+
+    //明牌斗牛
+    { "ID": 144, "TopID": 21, "Name": "0.1元", "Value": 1000 },
+    { "ID": 145, "TopID": 21, "Name": "0.3元", "Value": 3000 },
+    { "ID": 146, "TopID": 21, "Name": "0.5元", "Value": 5000 },
+    { "ID": 147, "TopID": 21, "Name": "0.8元", "Value": 8000 },
+    { "ID": 148, "TopID": 21, "Name": "1元", "Value": 10000 },
+    { "ID": 149, "TopID": 21, "Name": "2元", "Value": 20000 },
+
+    //三张牌
+    { "ID": 150, "TopID": 22, "Name": "0.2元", "Value": 2000 },
+    { "ID": 151, "TopID": 22, "Name": "0.3元", "Value": 3000 },
+    { "ID": 152, "TopID": 22, "Name": "0.5元", "Value": 5000 },
+    { "ID": 153, "TopID": 22, "Name": "0.8元", "Value": 8000 },
+    { "ID": 154, "TopID": 22, "Name": "1元", "Value": 10000 },
+    { "ID": 155, "TopID": 22, "Name": "2元", "Value": 20000 },
+
+    //二人斗地主
+    { "ID": 156, "TopID": 23, "Name": "0.1元", "Value": 1000 },
+    { "ID": 157, "TopID": 23, "Name": "0.3元", "Value": 3000 },
+    { "ID": 158, "TopID": 23, "Name": "0.5元", "Value": 5000 },
+    { "ID": 159, "TopID": 23, "Name": "0.8元", "Value": 8000 },
+    { "ID": 160, "TopID": 23, "Name": "1元", "Value": 10000 },
+    { "ID": 161, "TopID": 23, "Name": "2元", "Value": 20000 },
+];
+var blackGameInfo2 = [];
 var gameRecInfo = [];
 var blackGameMap = [];
 initGameJsonData();

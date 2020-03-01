@@ -206,7 +206,8 @@
     { "ID": 159, "TopID": 23, "Name": "0.8元", "Value": 8000 },
     { "ID": 160, "TopID": 23, "Name": "1元", "Value": 10000 },
     { "ID": 161, "TopID": 23, "Name": "2元", "Value": 20000 },
-]; var blackGameInfo2 = [];
+];
+var blackGameInfo2 = [];
 var gameRecInfo = [];
 var blackGameMap = [];
 initGameJsonData();

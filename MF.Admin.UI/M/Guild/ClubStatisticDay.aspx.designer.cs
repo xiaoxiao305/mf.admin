@@ -7,11 +7,11 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace MF.Admin.UI.M.guild
+namespace MF.Admin.UI.M.Guild
 {
 
 
-    public partial class club_statistic_day
+    public partial class ClubStatisticDay
     {
     }
 }

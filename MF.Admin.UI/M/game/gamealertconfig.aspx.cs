@@ -11,7 +11,6 @@ namespace MF.Admin.UI.M.game
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

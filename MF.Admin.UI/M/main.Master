@@ -26,6 +26,10 @@
             aList[i].target="_blank";
         }
       //  setInterval(chkhdinfo, 5000);
+        var scripts = document.getElementsByTagName("script");
+        for (var s = 0; s < scripts.length; s++) {
+            scripts[s].src += "?v=" + new Date().getTime() + Math.floor(Math.random() * 900 + 1);
+        }
     });
     function chkhdinfo()
     {
@@ -37,13 +41,7 @@
             alert(res.msg);
             window.location.href = "/";
         }
-        }
-        window.onload = function () {
-            var scripts = document.getElementsByTagName("script");
-            for (var s = 0; s < scripts.length; s++) {
-                scripts[s].src += "?v=" + new Date().getTime() + Math.floor(Math.random() * 900 + 1);
-            }
-        } 
+    }   
     </script> 
     <asp:ContentPlaceHolder id="h" runat="server"></asp:ContentPlaceHolder>
 </head>

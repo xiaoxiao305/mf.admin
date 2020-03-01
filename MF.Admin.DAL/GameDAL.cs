@@ -266,7 +266,7 @@ namespace MF.Admin.DAL
             try
             {
                 // {"msg":{"ddz_2":[{"bwin":3564000,"lose":12240000,"player_id":"10A002059773","type":"ddz_2","win":0}]},"ret":0}
-                string param = "{\"module\":\"winner\",\"func\":\"get_red_alert_player\",\"args\":{\"channel\":\"10A\",\"red_alert\":\"{\"" + gameType + "\":" + gameValue + "}\"}}";
+                string param = "{\"module\":\"winner\",\"func\":\"get_red_alert_player\",\"args\":{\"channel\":\"10A\",\"red_alert\":{\"" + gameType + "\":" + gameValue + "}}}";
                 var r = PostClubServer<ClubsRes<Dictionary<string, List<Dictionary<string,object>>>>>(GameCoinURI, param);
                 if (r != null && r.ret == 0)
                     return r.msg;

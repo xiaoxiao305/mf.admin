@@ -6,7 +6,7 @@
    </style>
     <link href="/common/styles/layer.css" type="text/css" rel="Stylesheet" /> 
     <script language="javascript" type="text/javascript"> 
-        var games =  <%=blackGameList %>;       
+        var games =  <%=blackGameList %>;
         function search() {
             $("#loading").show();
             var gameid = parseInt($("#game").val());

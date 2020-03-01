@@ -1,4 +1,4 @@
-﻿<%@ Page Title=" 俱乐部管理 》 俱乐部每日统计" MasterPageFile="~/M/main.Master" Language="C#" AutoEventWireup="true" CodeBehind="club_statistic_day.aspx.cs" Inherits="MF.Admin.UI.M.guild.club_statistic_day" %>
+﻿<%@ Page Title=" 俱乐部管理 》 俱乐部每日统计" MasterPageFile="~/M/main.Master" Language="C#" AutoEventWireup="true" CodeBehind="ClubStatisticDay.aspx.cs" Inherits="MF.Admin.UI.M.Guild.ClubStatisticDay" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="h" runat="server">
     <style type="text/css">
 .box2

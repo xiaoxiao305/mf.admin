@@ -241,7 +241,7 @@ namespace MF.Admin.DAL
             p.func = "select";
             p.args = clubIds;
             var res = PostClubServer<ClubsRes<List<List<ClubsLink>>>>(ClubsURI, Json.SerializeObject(p));
-            if (res.ret != 0) return null;
+            if (res ==null || res.ret != 0) return null;
             Dictionary<string, ClubsLink> dic = new Dictionary<string, ClubsLink>();
             foreach (List<ClubsLink> items in res.msg)
             {

@@ -647,7 +647,6 @@ namespace MF.Admin.BLL
                 var res = dal.GetRedAlertPlayer(gameType, gameValue);
                 if (res != null && res.ContainsKey(gameType))
                 {
-                    string account = "";
                     List<Dictionary<string, object>> list= res[gameType];
                     List<string> chargeIdList = new List<string>();
                     foreach (var item in list)
@@ -661,9 +660,21 @@ namespace MF.Admin.BLL
                     }
                     if (chargeIdList != null && chargeIdList.Count > 0)
                         userDal.GetMemberInfo(chargeIdList.ToArray());
+                    CacheUser cacheUser = new CacheUser();
+                    string account = "", nick = "";
+                    int regiTime = 0;
                     foreach (var item in list)
                     {
                         if (!item.ContainsKey("player_id")) continue;
+                        cacheUser = userDal.GetCacheUserByChargeId(item["player_id"].ToString());
+                        if (cacheUser != null) {
+                            account = cacheUser.Account;
+                            nick = cacheUser.Nickname;
+                            regiTime = cacheUser.RegTime;
+                        }else
+                        {
+                            account = "";nick = "";regiTime = 0;
+                        }
                         account = userDal.GetAccByChargeId(item["player_id"].ToString());
                         if (!string.IsNullOrEmpty(value))
                         {
@@ -671,7 +682,8 @@ namespace MF.Admin.BLL
                             if (field == 2 && !account.ToLower().Equals(value)) continue;
                         }  
                         item.Add("account", account);
-                        item.Add("nick", userDal.GetNickByAcc(account));
+                        item.Add("nick", nick);
+                        item.Add("regTime", regiTime);
                         newList.Add(item);
                     }
                 }

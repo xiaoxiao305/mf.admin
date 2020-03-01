@@ -22,6 +22,10 @@ namespace MF.Data
         /// 用户UID对应数据库ChargeId
         /// </summary>
         public string ChargeId { get; set; }
+        /// <summary>
+        /// 注册时间
+        /// </summary>
+        public int RegTime { get; set; }
     }
     /// <summary>
     /// 用户数据实体类

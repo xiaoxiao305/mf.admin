@@ -72,7 +72,7 @@ namespace MF.Admin.DAL
                 rowCount = res.Code;
                 if (res.R[0] != null)
                 {
-                    CacheUser cacheUser = new CacheUser() { Account = res.R[0].Account, ChargeId = res.R[0].ChargeId, Nickname = res.R[0].Nickname };
+                    CacheUser cacheUser = new CacheUser() { Account = res.R[0].Account, ChargeId = res.R[0].ChargeId, Nickname = res.R[0].Nickname,RegTime=res.R[0].Regitime };
                     if (!string.IsNullOrEmpty(account))
                         SetCacheAccountList(account, cacheUser);
                     if (!string.IsNullOrEmpty(chargeid))
@@ -261,7 +261,7 @@ namespace MF.Admin.DAL
         /// <returns></returns>
         public ClubsRes<Dictionary<string, object>> QueryUserList(string[] member_id)
         {
-            string param = "{\"module\":\"query\",\"func\":\"get\",\"args\":" + Json.SerializeObject(new Dictionary<string, object> { { "fields", new string[] { "Nickname", "Icon", "Account" } }, { "id", member_id } }) + "}";
+            string param = "{\"module\":\"query\",\"func\":\"get\",\"args\":" + Json.SerializeObject(new Dictionary<string, object> { { "fields", new string[] { "Nickname", "Icon", "Account","Regitime" } }, { "id", member_id } }) + "}";
             var res= PostClubServer<ClubsRes<Dictionary<string, object>>>(RecordServerUrl + "do", param);
             if (res != null && res.ret == 0)
             {
@@ -275,7 +275,8 @@ namespace MF.Admin.DAL
                     {
                         Account = r2["Account"].ToString(),
                         ChargeId = uid,
-                        Nickname = r2["Nickname"].ToString()
+                        Nickname = r2["Nickname"].ToString(),
+                        RegTime = (r2["Regitime"] == null || r2["Regitime"].ToString() == "") ?0: int.Parse(r2["Regitime"].ToString())
                     };
                     SetCacheAccountList(cacheUser.Account, cacheUser);
                     SetCacheChargeList(uid, cacheUser);
@@ -316,11 +317,12 @@ namespace MF.Admin.DAL
         }
         public List<Dictionary<string, string>> GetUserInfoList(string[] accounts)
         {
-            string param = "{\"module\":\"query\",\"func\":\"get\",\"args\":" + Json.SerializeObject(new Dictionary<string, object> { { "fields", new string[] { "Nickname", "ChargeId", "Account" } }, { "accounts", accounts } }) + "}";
+            string param = "{\"module\":\"query\",\"func\":\"get\",\"args\":" + Json.SerializeObject(new Dictionary<string, object> { { "fields", new string[] { "Nickname", "ChargeId", "Account","Regitime" } }, { "accounts", accounts } }) + "}";
             var v = PostClubServer<ClubsRes<Dictionary<string, object>>>(RecordServerUrl + "do", param);
             if (v == null || v.ret != 0) return null;
             List<Dictionary<string, string>> list = new List<Dictionary<string, string>>();
             string acc = "",chargeid="",nick="";
+            int regTime = 0;
             foreach (string uid in v.msg.Keys)
             {
                 Dictionary<string, string> dic = new Dictionary<string, string>();
@@ -330,17 +332,20 @@ namespace MF.Admin.DAL
                 acc = res["Account"] == null ? "" : res["Account"].ToString();
                 chargeid = res["ChargeId"] == null ? "" : res["ChargeId"].ToString();
                 nick = res["Nickname"] == null ? "" : res["Nickname"].ToString();
+                regTime = res["Regitime"] == null ?0 :int.Parse(res["Regitime"].ToString());
                 dic.Add("UID", uid);
                 dic.Add("Account", acc);
                 dic.Add("ChargeId", chargeid);
                 dic.Add("Nickname", nick);
+                dic.Add("Regitime", regTime.ToString()); 
                 list.Add(dic);
                 //cache
                 CacheUser cacheUser = new CacheUser()
                 {
                     Account = acc,
                     ChargeId = chargeid,
-                    Nickname = nick
+                    Nickname = nick,
+                    RegTime= regTime
                 };
                 SetCacheAccountList(acc, cacheUser);
                 SetCacheChargeList(chargeid, cacheUser);
@@ -380,6 +385,30 @@ namespace MF.Admin.DAL
             {
                 Base.WriteError("SetCacheChargeList ex:", ex.Message, "chargeid:", chargeid);
             }
+        }
+        public CacheUser GetCacheUserByChargeId(string chargeId)
+        {
+            if (string.IsNullOrEmpty(chargeId)) return null;
+            chargeId = chargeId.ToUpper();
+            if (Cache.CacheChargeidList != null && Cache.CacheChargeidList.Count > 0 
+                && Cache.CacheChargeidList.ContainsKey(chargeId))
+                return Cache.CacheChargeidList[chargeId];
+            int row = 0;
+            List<Users> list = GetUserList("", chargeId, out row);
+            if (list == null || list.Count < 1) return null;
+            return InitCacheUserModel(list[0]);
+        }
+        private CacheUser InitCacheUserModel(Users users)
+        {
+            if (users == null) return null;
+            return new CacheUser()
+            {
+                Account = users.Account,
+                ChargeId = users.ChargeId,
+                Nickname = users.Name,
+                ID = users.ID,
+                RegTime = users.Regitime
+            };
         }
         public string GetAccByChargeId(string chargeId)
         {

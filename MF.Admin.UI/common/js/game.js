@@ -644,3 +644,108 @@ function getEmoji(nick) {
         return nick;
     }
 }
+//输赢值异常设置
+var oprGameType;
+var oprGameValue;
+function setRedAlert() {
+    showAddMoneyWin(1);
+    $("#msgtitle").text("设置预警输赢值");
+}
+function setRedAlertConfirm() {
+    var type = $("#game1").val();
+    var val = $("#value").val();
+    if (!type || type == "") {
+        $("#lblerr").text("请选择游戏");
+        return;
+    } else if (!val || val == "" || parseInt(val) < -1) {
+        $("#lblerr").text("请输入设置值");
+        return;
+    }
+    oprGameType = type;
+    oprGameValue = val;
+    ajax.setRedAlert("setredalert", [type, val], setwinresult);
+}
+function setwinresult(res) {
+    $("#loading").hide();
+    if (res.code == 1) {
+        alert("操作成功");
+        $('.theme-popover-mask').hide();
+        $('.theme-popover').slideUp(200);
+        var dataOld = jsonPager.data;
+        dataOld.push({ "type": oprGameType, "value": oprGameValue });
+        oprGameType = null;
+        oprGameValue = null;
+        jsonPager.data = dataOld;
+        jsonPager.dataBind(res.index, dataOld.length);
+    } else {
+        if (res.msg != "")
+            alert(res.msg);
+        else
+            alert("操作失败：" + res.code);
+    }
+}
+
+
+function searchAlertConfig() {
+    var pagerTitles = ["游戏", "值", "操作"];
+    jsonPager.init(ajax.getRedAlert, [], searchAlertConfigResult, pagerTitles, "list_table", "container", "pager", insertAlertConfigRow);
+    jsonPager.dataBind(1, 0);
+
+    $("#loading").show();
+    jsonPager.queryArgs = [];
+    jsonPager.pageSize = 1000;
+    ajax.getRedAlert(jsonPager.makeArgs(1), searchAlertConfigResult);
+}
+
+
+function searchAlertConfigResult(data) {
+    $("#loading").hide();
+    if (data.code == 1) {
+        var newResult = [];
+        for (var key in data.result) {
+            newResult.push({ "type": key, "value": data.result[key] });
+        }
+        jsonPager.data = newResult;
+        jsonPager.dataBind(data.index, data.rowCount);
+    } else {
+        alert(data.msg);
+    }
+}
+function insertAlertConfigRow(o, tr) {
+    addCell = function (tr, text, i) {
+        var td = tr.insertCell(i);
+        td.innerHTML = text;
+    };
+    addCell(tr, GetGameNameByType(o.type), 0);
+    addCell(tr, o.value, 1);
+    addCell(tr, "<a href='javascript:;' onclick='delRedAlert(\"" + o.type + "\")'>删除</a>", 2);
+    return tr;
+}
+function delRedAlert(gameType) {
+    oprGameType = gameType;
+    ajax.setRedAlert("delredalert", [gameType], delwinresult);
+}
+
+function delwinresult(res) {
+    $("#loading").hide();
+    if (res.code == 1) {
+        alert("操作成功");
+        var dataOld = jsonPager.data;
+        var index = 0;
+        for (var i = 0; i < dataOld.length; i++) {
+            if (dataOld[i]["type"].trim().toUpperCase() == oprGameType) {
+                index = i;
+                break;
+            }
+        }
+        dataOld.splice(index, 1);
+        oprGameType = null;
+        jsonPager.data = dataOld;
+        jsonPager.dataBind(res.index, dataOld.length);
+    } else {
+        if (res.msg != "")
+            alert(res.msg);
+        else
+            alert("操作失败：" + res.code);
+    }
+}

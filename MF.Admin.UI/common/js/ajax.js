@@ -982,8 +982,6 @@
     //        }
     //    });
     //},
-    
-
     getRedAlertPlayer: function (args, callback) {
         $.ajax({
             url: ajax.url,

@@ -65,43 +65,6 @@
                     alert("操作失败：" + res.code);
             }
         }
-        function setRedAlert() {
-            showAddMoneyWin(1);
-            $("#msgtitle").text("设置预警输赢值");
-        }
-        function setRedAlertConfirm() {
-            var type = $("#game").val();
-            var val = $("#value").val(); 
-            if (!type || type == "") {
-                $("#lblerr").text("请选择游戏");
-                return;
-            } else if (!val || val == "" || parseInt(val) < -1) {
-                $("#lblerr").text("请输入设置值");
-                return;
-            }
-            oprGameType = type;
-            oprGameValue = val;
-            ajax.setRedAlert("setredalert", [type, val], setwinresult);
-        }
-        function setwinresult(res) {
-            $("#loading").hide();
-            if (res.code == 1) {
-                alert("操作成功");
-                $('.theme-popover-mask').hide();
-                $('.theme-popover').slideUp(200);
-                var dataOld = jsonPager.data;
-                dataOld.push({ "type": oprGameType, "value": oprGameValue });
-                oprGameType = null;
-                oprGameValue = null;
-                jsonPager.data = dataOld;
-                jsonPager.dataBind(res.index, dataOld.length);
-            } else {
-                if (res.msg != "")
-                    alert(res.msg);
-                else
-                    alert("操作失败：" + res.code);
-            }
-        }
         $(document).ready(function () {
             for (var id in blackGameMap) {
                 if (blackGameMap.hasOwnProperty(id)) {
@@ -118,7 +81,7 @@
     <div class="toolbar">输赢值预警设置</div>
     <div class="search">&nbsp;&nbsp;
         <input type="button" value="查询" onclick="search()" class="ui-button-icon-primary" />　
-        <input type="button" value="设置输赢值" onclick="setRedAlert()" class="ui-button-icon-primary oprbutton"/> 
+        <input type="button" value="设置输赢值" onclick="searchAlertConfig()" class="ui-button-icon-primary oprbutton"/> 
     </div>
     <p></p>
     <div id="container"></div>

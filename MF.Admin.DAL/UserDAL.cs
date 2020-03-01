@@ -261,8 +261,27 @@ namespace MF.Admin.DAL
         /// <returns></returns>
         public ClubsRes<Dictionary<string, object>> QueryUserList(string[] member_id)
         {
-            string param = "{\"module\":\"query\",\"func\":\"get\",\"args\":" + Json.SerializeObject(new Dictionary<string, object> { { "fields", new string[] { "Nickname", "Icon" } }, { "id", member_id } }) + "}";
-            return PostClubServer<ClubsRes<Dictionary<string, object>>>(RecordServerUrl + "do", param);
+            string param = "{\"module\":\"query\",\"func\":\"get\",\"args\":" + Json.SerializeObject(new Dictionary<string, object> { { "fields", new string[] { "Nickname", "Icon", "Account" } }, { "id", member_id } }) + "}";
+            var res= PostClubServer<ClubsRes<Dictionary<string, object>>>(RecordServerUrl + "do", param);
+            if (res != null && res.ret == 0)
+            {
+                List<Dictionary<string, object>> list = new List<Dictionary<string, object>>();
+                foreach (string uid in res.msg.Keys)
+                {
+                    var r2 = res.msg[uid] as IDictionary<string, Newtonsoft.Json.Linq.JToken>;
+                    if (r2 == null || r2.Count < 1) continue;
+                    //cache
+                    CacheUser cacheUser = new CacheUser()
+                    {
+                        Account = r2["Account"].ToString(),
+                        ChargeId = uid,
+                        Nickname = r2["Nickname"].ToString()
+                    };
+                    SetCacheAccountList(cacheUser.Account, cacheUser);
+                    SetCacheChargeList(uid, cacheUser);
+                }
+            }  
+            return res;
         }
 
         public List<Dictionary<string, object>> GetMemberInfo(string[] member_id)
@@ -351,7 +370,7 @@ namespace MF.Admin.DAL
             try
             {
                 if (string.IsNullOrEmpty(chargeid) || chargeid ==""|| cacheUser == null) return;
-                chargeid = chargeid.ToLower();
+                chargeid = chargeid.ToUpper();
                 if (Cache.CacheChargeidList != null && Cache.CacheChargeidList.ContainsKey(chargeid))
                     Cache.CacheChargeidList[chargeid] = cacheUser;
                 else

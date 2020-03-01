@@ -240,6 +240,23 @@ function GetGameName(gameid) {
         return gameModel.name;
     return "";
 }
+function GetGameBlackModelByType(gameType) {
+    if (gameType == "") return null;
+    gameType = gameType.toLowerCase();
+    for (var i = 0; i < blackGameInfo2.length; i++) {
+        if (blackGameInfo2[i]["type"].toLowerCase() == gameType) {
+            return blackGameInfo2[i];
+        }
+    }
+}
+function GetGameNameByType(gameType) {
+    if (gameType == "") return "";
+    gameType = gameType.toLowerCase();
+    var gameModel = GetGameBlackModelByType(gameType);
+    if (gameModel && gameModel != null)
+        return gameModel.name;
+    return "";
+}
 
 function GetGameRecModel(gameid) {
     if (gameid < 1) return null;

@@ -649,22 +649,31 @@ namespace MF.Admin.BLL
                 {
                     string account = "";
                     List<Dictionary<string, object>> list= res[gameType];
+                    List<string> chargeIdList = new List<string>();
+                    foreach (var item in list)
+                    {
+                        if (!item.ContainsKey("player_id")) continue;
+                        if (Cache.CacheChargeidList == null || Cache.CacheChargeidList.Count<1 
+                            || !Cache.CacheChargeidList.ContainsKey(item["player_id"].ToString().ToUpper()))
+                        {
+                            chargeIdList.Add(item["player_id"].ToString());
+                        }
+                    }
+                    if (chargeIdList != null && chargeIdList.Count > 0)
+                        userDal.GetMemberInfo(chargeIdList.ToArray());
                     foreach (var item in list)
                     {
                         if (!item.ContainsKey("player_id")) continue;
                         account = userDal.GetAccByChargeId(item["player_id"].ToString());
-                        WriteLog("player account:", account);
                         if (!string.IsNullOrEmpty(value))
                         {
-                            if(field == 1 && !item["player_id"].ToString().ToLower().Equals(value)) continue;
-                            if (field == 2 && account.ToLower().Equals(value)) continue;
-                        }
-                        string nick = userDal.GetNickByAcc(account);
-                        WriteLog("player nick:", nick);
-                        item.Add("Account", account);
-                        item.Add("NickName", userDal.GetNickByAcc(account));
+                            if (field == 1 && !item["player_id"].ToString().ToLower().Equals(value)) continue;
+                            if (field == 2 && !account.ToLower().Equals(value)) continue;
+                        }  
+                        item.Add("account", account);
+                        item.Add("nick", userDal.GetNickByAcc(account));
                         newList.Add(item);
-                    } 
+                    }
                 }
             }
             catch(Exception ex)

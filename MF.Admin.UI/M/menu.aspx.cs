@@ -51,7 +51,7 @@ namespace MF.Admin.UI.M
         <li class='menu_list'><a href ='/m/game/roomlist.aspx' target='main' class='white'>重置包间配置</a></li>
         <li class='menu_list'><a href ='/m/game/gameblacklist.aspx' target='main' class='white'>游戏黑名单</a></li>
         <li class='menu_list'><a href = '/m/game/auditblacklist.aspx' target='main' class='white'>待审核黑名单</a></li>
-<li class='menu_list'><a href = '/m/game/gamealertconfig.aspx' target='main' class='white'>输赢值警报异常测试</a></li>");
+<li class='menu_list'><a href = '/m/game/gamealertplayer.aspx' target='main' class='white'>输赢值异常预警</a></li>");
             menuList.Add(4, @"<li class='menu_title'>报表管理</li> 
         <li class='menu_list'><a href ='/m/report/RegReport.aspx' target='main' class='white'>注册报表</a></li>
         <li class='menu_list'><a href ='/m/report/charge.aspx' target='main' class='white'>充值报表</a></li>        

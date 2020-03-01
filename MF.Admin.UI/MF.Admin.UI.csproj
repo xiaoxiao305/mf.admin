@@ -134,7 +134,7 @@
     <Content Include="M\game\gameblacklist.aspx" />
     <Content Include="M\game\gameincome.aspx" />
     <Content Include="M\game\gamerec.aspx" />
-    <Content Include="M\game\gamewinneralert.aspx" />
+    <Content Include="M\game\gamealertplayer.aspx" />
     <Content Include="M\game\recsearch.aspx" />
     <Content Include="M\game\roomlist.aspx" />
     <Content Include="M\Guild\ApplyInfo.aspx" />
@@ -300,12 +300,12 @@
     <Compile Include="M\game\gamerec.aspx.designer.cs">
       <DependentUpon>gamerec.aspx</DependentUpon>
     </Compile>
-    <Compile Include="M\game\gamewinneralert.aspx.cs">
-      <DependentUpon>gamewinneralert.aspx</DependentUpon>
+    <Compile Include="M\game\gamealertplayer.aspx.cs">
+      <DependentUpon>gamealertplayer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="M\game\gamewinneralert.aspx.designer.cs">
-      <DependentUpon>gamewinneralert.aspx</DependentUpon>
+    <Compile Include="M\game\gamealertplayer.aspx.designer.cs">
+      <DependentUpon>gamealertplayer.aspx</DependentUpon>
     </Compile>
     <Compile Include="M\game\recsearch.aspx.cs">
       <DependentUpon>recsearch.aspx</DependentUpon>

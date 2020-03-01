@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace MF.Admin.UI.M.game
 {
-    public partial class gamewinneralert : System.Web.UI.Page
+    public partial class gamealertplayer : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -6,20 +6,24 @@
    </style>
     <link href="/common/styles/layer.css" type="text/css" rel="Stylesheet" /> 
     <script language="javascript" type="text/javascript">
+        var gameTypesData = [];
         function search() {
-            if ($("#game").val() == "") {
-                alert("请选择游戏");
-                return
-            }
-
             var pagerTitles = ["游戏", "账号", "UID", "昵称", "注册时间", "输赢值"];
             jsonPager.init(ajax.getRedAlertPlayer, [], searchResult, pagerTitles, "list_table", "container", "pager", insertRow);
             jsonPager.dataBind(1, 0);
 
             $("#loading").show();
             var gameType = $("#game").val();
+            var gameTypes = gameTypesData;
+            if (gameType != "-1") {
+                gameTypes = [];
+                gameTypes.push(gameType);
+            }
+            var gameTypeStr = gameTypes.join(",");
             var field = parseInt($("#field").val());
-            var args = [gameType, field, $("#account").val()];
+            var time = $("#time").val();
+            var stime = new Date(time.replace(/-/g, "/")).dateDiff("s");
+            var args = [gameTypeStr, field, $("#account").val(), stime];
             jsonPager.queryArgs = args;
             jsonPager.pageSize = 1000;
             ajax.getRedAlertPlayer(jsonPager.makeArgs(1), searchResult);
@@ -67,27 +71,29 @@
             return tr;
         }
         $(document).ready(function () {
+            gameTypesData = [];
             for (var id in blackGameMap) {
                 if (blackGameMap.hasOwnProperty(id)) {
                     $("#game").append("<option value=\"" + blackGameMap[id].type + "\">" + blackGameMap[id].name + "</option>");
                     $("#game1").append("<option value=\"" + blackGameMap[id].type + "\">" + blackGameMap[id].name + "</option>");
+                    gameTypesData.push(blackGameMap[id].type);
                 }
             }
+            attachCalenderbox('#time', null, null, new Date().dateAdd("d",-2).Format("yyyy-MM-dd"), null);
         });
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="p" runat="server">
     <div class="toolbar">输赢值异常预警</div>
     <div class="search">&nbsp;&nbsp;
-        <select id="game"><option value="">所有游戏</option></select>
+        <select id="game"><option value="-1">所有游戏</option></select>
         <select id="field"><option value="1">UID</option><option value="2">账号</option></select>
         <input type="text" id="account"/>
+        注册时间<input type="text" id="time" class="box w100" readonly="readonly" />至今
         <select id="order"><option value="1">注册时间</option><option value="2">输赢值</option></select>
         <input type="checkbox" checked="checked" id="orderType"  />倒序
-        <input type="button" value="查询" onclick="search()" class="ui-button-icon-primary" />　
-        
-        <input type="button" value="查询输赢值配置" onclick="searchAlertConfig()" class="ui-button-icon-primary" />　
-        <input type="button" value="设置输赢值" onclick="setRedAlert()" class="ui-button-icon-primary oprbutton"/> 
+        <input type="button" value="查询" onclick="search()" class="ui-button-icon-primary" />
+        <input type="button" value="查询输赢值配置" onclick="searchAlertConfig()" class="ui-button-icon-primary"  style="margin-left:30px;"/><input type="button" value="设置输赢值" onclick="setRedAlert()" class="ui-button-icon-primary oprbutton"/> 
     </div>
     <p></p>
     <div id="container"></div>

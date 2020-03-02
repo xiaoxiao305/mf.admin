@@ -624,7 +624,7 @@ namespace MF.Admin.BLL
             if (string.IsNullOrEmpty(gameType) || string.IsNullOrEmpty(value)) return null;
             return dal.SetRedAlert(gameType, value);
         }
-        public static Dictionary<string, object> DelRedAlert(string gameType )
+        public static Dictionary<string, object> DelRedAlert(string gameType)
         {
             if (string.IsNullOrEmpty(gameType)) return null;
             return dal.DelRedAlert(gameType);
@@ -633,54 +633,51 @@ namespace MF.Admin.BLL
         {
             return dal.GetRedAlert();
         }
-        public static List<Dictionary<string, object>> GetRedAlertPlayer(string gameType, long field, string value)
+        public static List<Dictionary<string, object>> GetRedAlertPlayer(string[] gameTypes, long field, string value, long time)
         {
 
-            WriteLog("GetRedAlertPlayer parms. gameType:", gameType, " field:", field.ToString(), " value:", value);
+            //WriteLog("GetRedAlertPlayer parms. gameType:", gameTypes.ToString(), " field:", field.ToString(), " value:", value, "time:", time.ToString());
             List<Dictionary<string, object>> newList = new List<Dictionary<string, object>>();
-            value = value.ToLower();
+            value = value.ToUpper();
             try
-            { // {"msg":{"ddz_2":[{"bwin":3564000,"lose":12240000,"player_id":"10A002059773","type":"ddz_2","win":0}]},"ret":0}
-              //Type Account  ChargeId NickName  Lose                
-                string gameValue = dal.GetCacheRedAlert(gameType);
-                gameValue=string.IsNullOrEmpty(gameValue)?"0":gameValue;
-                var res = dal.GetRedAlertPlayer(gameType, gameValue);
-                if (res != null && res.ContainsKey(gameType))
+            {
+                foreach (var gameType in gameTypes)
                 {
-                    List<Dictionary<string, object>> list= res[gameType];
-                    List<string> chargeIdList = new List<string>();
-                    foreach (var item in list)
-                    {
-                        if (!item.ContainsKey("player_id")) continue;
-                        if (Cache.CacheChargeidList == null || Cache.CacheChargeidList.Count<1 
-                            || !Cache.CacheChargeidList.ContainsKey(item["player_id"].ToString().ToUpper()))
-                        {
-                            chargeIdList.Add(item["player_id"].ToString());
-                        }
-                    }
+                    string gameValue = dal.GetCacheRedAlert(gameType);
+                    gameValue = string.IsNullOrEmpty(gameValue) ? "0" : gameValue;
+                    var res = dal.GetRedAlertPlayer(gameType, gameValue);
+                    if (res == null || !res.ContainsKey(gameType)) return newList;
+                    List<Dictionary<string, object>> list = res[gameType];
+                    //组装没有缓存的chargeid集合
+                    List<object> chargeIdList = list.Select(t => t.ContainsKey("player_id") ? t["player_id"] : "").ToList();
                     if (chargeIdList != null && chargeIdList.Count > 0)
-                        userDal.GetMemberInfo(chargeIdList.ToArray());
+                        userDal.GetMemberInfo(chargeIdList.ConvertAll(obj => string.Format("{0}", obj)).ToArray());
+                    //重组数据
                     CacheUser cacheUser = new CacheUser();
-                    string account = "", nick = "";
+                    string account = "", nick = "", player_id="";
                     int regiTime = 0;
                     foreach (var item in list)
                     {
-                        if (!item.ContainsKey("player_id")) continue;
-                        cacheUser = userDal.GetCacheUserByChargeId(item["player_id"].ToString());
-                        if (cacheUser != null) {
+                        if (!item.ContainsKey("player_id") || item["player_id"] == null
+                            || item["player_id"].ToString() == "" || item["player_id"].ToString().ToUpper() == "NULL") continue;
+                        player_id = item["player_id"].ToString().ToUpper();
+                        cacheUser = userDal.GetCacheUserByChargeId(player_id);
+                        if (cacheUser != null)
+                        {
                             account = cacheUser.Account;
                             nick = cacheUser.Nickname;
                             regiTime = cacheUser.RegTime;
-                        }else
-                        {
-                            account = "";nick = "";regiTime = 0;
                         }
-                        account = userDal.GetAccByChargeId(item["player_id"].ToString());
+                        else
+                        {
+                            account = ""; nick = ""; regiTime = 0;
+                        }
+                        if (time > 0 && regiTime < time) continue;
                         if (!string.IsNullOrEmpty(value))
                         {
-                            if (field == 1 && !item["player_id"].ToString().ToLower().Equals(value)) continue;
-                            if (field == 2 && !account.ToLower().Equals(value)) continue;
-                        }  
+                            if (field == 1 && !player_id.Equals(value)) continue;
+                            if (field == 2 && !account.ToUpper().Equals(value)) continue;
+                        }
                         item.Add("account", account);
                         item.Add("nick", nick);
                         item.Add("regTime", regiTime);
@@ -688,7 +685,7 @@ namespace MF.Admin.BLL
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 WriteError("BLL GetRedAlertPlayer ex:", ex.Message);
             }

@@ -143,12 +143,12 @@ namespace MF.Admin.BLL
             }
         }
         
-        public void GetRedAlertPlayer(long pageSize, long pageIndex,string gameType,long field,string value)
+        public void GetRedAlertPlayer(long pageSize, long pageIndex,string gameTypes,long field,string value,long time)
         {
             try
             {
                 var res = new PagerResult<List<Dictionary<string, object>>>();
-                var list = GameBLL.GetRedAlertPlayer(gameType,field,value);
+                var list = GameBLL.GetRedAlertPlayer(gameTypes.Split(','), field,value,time);
                 res.result = list;
                 res.code = 1;
                 res.msg = "";
@@ -156,7 +156,6 @@ namespace MF.Admin.BLL
                 if (list != null)
                     res.rowCount = list.Count;
                 string json = Json.SerializeObject(res);
-                WriteLog("ajax request res:",json);
                 Response.Write(json);
             }
             catch (Exception ex)

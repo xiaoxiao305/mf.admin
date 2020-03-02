@@ -835,7 +835,7 @@ namespace MF.Admin.DAL
         {
             try
             {
-                WriteLog("dal GetStaticData region:", region.ToString(), " start:", start.ToString(), " end:", end.ToString());
+                //WriteLog("dal GetStaticData region:", region.ToString(), " start:", start.ToString(), " end:", end.ToString());
                 ZywyStatic z = new ZywyStatic();
                 z.Index = new Random().Next(100000000, 999999999).ToString();
                 z.Time = DateTimeToUnixTime(DateTime.Now);

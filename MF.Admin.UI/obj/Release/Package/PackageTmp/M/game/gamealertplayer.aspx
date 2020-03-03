@@ -7,23 +7,30 @@
     <link href="/common/styles/layer.css" type="text/css" rel="Stylesheet" /> 
     <script language="javascript" type="text/javascript">
         var gameTypesData = [];
+        var gameIdData = [];
         function search() {
-            var pagerTitles = ["游戏", "账号", "UID", "昵称", "注册时间", "输赢值"];
+            var pagerTitles = ["游戏", "账号", "UID", "昵称", "注册时间","俱乐部", "输赢值","黑名单"];
             jsonPager.init(ajax.getRedAlertPlayer, [], searchResult, pagerTitles, "list_table", "container", "pager", insertRow);
             jsonPager.dataBind(1, 0);
 
             $("#loading").show();
             var gameType = $("#game").val();
             var gameTypes = gameTypesData;
+            var gameIds = gameIdData;
             if (gameType != "-1") {
                 gameTypes = [];
                 gameTypes.push(gameType);
+                gameIds = [];
+                var model = GetGameBlackModelByType(gameType);
+                if (model && model.matchid)
+                    gameIds.push(model.matchid);
             }
             var gameTypeStr = gameTypes.join(",");
+            var gameIdStr = gameIds.join(",");
             var field = parseInt($("#field").val());
             var time = $("#time").val();
             var stime = new Date(time.replace(/-/g, "/")).dateDiff("s");
-            var args = [gameTypeStr, field, $("#account").val(), stime];
+            var args = [gameIdStr,gameTypeStr, field, $("#account").val(), stime];
             jsonPager.queryArgs = args;
             jsonPager.pageSize = 1000;
             ajax.getRedAlertPlayer(jsonPager.makeArgs(1), searchResult);
@@ -57,17 +64,24 @@
             }
             return data;
         }
+        var blackTypes = ["","黑名单","待审核"];
         function insertRow(o, tr) {
             addCell = function (tr, text, i) {
                 var td = tr.insertCell(i);
                 td.innerHTML = text;
             };
-            addCell(tr, GetGameNameByType(o.type), 0);
+            var gameModel = GetGameBlackModelByType(o.type);
+            var gameName = (gameModel && gameModel != null) ? gameModel.name : "";
+            var gameId = (gameModel && gameModel != null) ? gameModel.matchid : 0;
+            var etime = new Date().dateDiff("s");
+            addCell(tr, gameName, 0);
             addCell(tr, o.account, 1);
-            addCell(tr, o.player_id, 2);
+            addCell(tr, "<a href='/m/game/gameincome.aspx?time=" + o.regTime + "&etime=" + etime + "&gameId=" + gameId + "&chargeId=" + o.player_id + "' target='_blank'>" + o.player_id + "</a>", 2); 
             addCell(tr, o.nick, 3);
             addCell(tr, (new Date("2012/10/1")).dateAdd("s", o.regTime).format("yyyy-MM-dd hh:mm:ss"), 4);
-            addCell(tr, o.lose, 5);
+            addCell(tr, o.clubId, 5);
+            addCell(tr, o.lose, 6);
+            addCell(tr, blackTypes[o.blackType], 7);
             return tr;
         }
         $(document).ready(function () {
@@ -77,6 +91,7 @@
                     $("#game").append("<option value=\"" + blackGameMap[id].type + "\">" + blackGameMap[id].name + "</option>");
                     $("#game1").append("<option value=\"" + blackGameMap[id].type + "\">" + blackGameMap[id].name + "</option>");
                     gameTypesData.push(blackGameMap[id].type);
+                    gameIdData.push(id);
                 }
             }
             attachCalenderbox('#time', null, null, new Date().dateAdd("d",-2).Format("yyyy-MM-dd"), null);

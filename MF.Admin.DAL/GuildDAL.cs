@@ -725,6 +725,20 @@ namespace MF.Admin.DAL
                 Base.WriteError("setcacheclubname ex:", ex.Message);
             }
         }
+        public List<string> GetCacheClubIdFromCache(string chargeId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(chargeId)) return null;
+                if (Cache.CacheClubId != null && Cache.CacheClubId.ContainsKey(chargeId))
+                    return Cache.CacheClubId[chargeId];
+            }
+            catch (Exception ex)
+            {
+                Base.WriteError("GetCacheClubId ex:", ex.Message);
+            }
+            return null;
+        }
         public List<string> GetCacheClubId(string chargeId)
         {
             try
@@ -732,10 +746,9 @@ namespace MF.Admin.DAL
                 if (string.IsNullOrEmpty(chargeId)) return null;
                 if (Cache.CacheClubId != null && Cache.CacheClubId.ContainsKey(chargeId))
                     return Cache.CacheClubId[chargeId];
-                //var listinfos = GetMembersList(chargeId);
-                //if (listinfos == null || listinfos.Count < 1 || !listinfos.ContainsKey("clubs")) return null;
-                //return (listinfos["clubs"] as Newtonsoft.Json.Linq.JArray).ToObject<List<string>>();
-                return null;
+                var listinfos = GetMembersList(chargeId);
+                if (listinfos == null || listinfos.Count < 1 || !listinfos.ContainsKey("clubs")) return null;
+                return (listinfos["clubs"] as Newtonsoft.Json.Linq.JArray).ToObject<List<string>>();
             }
             catch (Exception ex)
             {

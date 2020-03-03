@@ -11,13 +11,13 @@ namespace MF.Admin.DAL
         public static Dictionary<string, List<string[]>> MatchList { get; set; }
         public static Dictionary<string, string> GameList { get; set; }
         /// <summary>
-        /// {account:CacheUser}
+        /// {account:Users}
         /// </summary>
-        public static Dictionary<string, CacheUser> CacheAccountList = new Dictionary<string, CacheUser>();
+        public static Dictionary<string, Users> CacheAccountList = new Dictionary<string, Users>();
         /// <summary>
-        /// {chargeid:CacheUser}
+        /// {chargeid:Users}
         /// </summary>
-        public static Dictionary<string, CacheUser> CacheChargeidList = new Dictionary<string, CacheUser>();
+        public static Dictionary<string, Users> CacheChargeidList = new Dictionary<string, Users>();
         /// <summary>
         /// {clubId:clubName}
         /// </summary>

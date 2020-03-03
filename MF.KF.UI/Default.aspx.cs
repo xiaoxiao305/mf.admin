@@ -9,13 +9,15 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using MF.Data;
+using System.Linq;
 
 namespace MF.KF.UI
 { 
     public partial class Default : BasePage, IRequiresSessionState, IReadOnlySessionState
     {
         protected void Page_Load(object sender, EventArgs e)
-        { 
+        {
             txtDyPwd.Attributes["autocomplete"] = "off";
             txtCode.Attributes["autocomplete"] = "off";
             txtAccount.Attributes["autocomplete"] = "off";

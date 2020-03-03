@@ -1,4 +1,4 @@
-﻿<%@ Page Title=" 报表管理 》 待审核黑名单列表" MasterPageFile="~/M/main.Master" Language="C#" AutoEventWireup="true" CodeBehind="auditblacklist.aspx.cs" Inherits="MF.Admin.UI.M.game.auditblacklist" %>
+﻿<%@ Page Title=" 游戏管理 》 待审核黑名单列表" MasterPageFile="~/M/main.Master" Language="C#" AutoEventWireup="true" CodeBehind="auditblacklist.aspx.cs" Inherits="MF.Admin.UI.M.game.auditblacklist" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="h" runat="server">
     <style type="text/css">
        li {display:block; text-align:left;padding-left:10%;}
@@ -88,6 +88,9 @@
             var chargeid = oprObjTmp.ChargeId;
             var remark = $("#txtRemark3").val();
             var confirmData = $("#txtConfirm3").val();
+            if ($("#noneConfirm").is(':checked'))
+                confirmData = "NONE_" + gameid;
+            $("input:checkbox[name='chkGame']:checked")
             var token = $("#token3").val();
             if (gameid == "" || parseInt(gameid) < 1 || acc == "" || chargeid == "" || confirmData == "") {
                 $("#lblerr3").text("参数错误");
@@ -178,7 +181,7 @@
             <li>　　　UID:<label id="lblchargeid3"></label></li>
             <li>　　　　值：<label id="valTypeArea3"></label></li>     
             <li>　　备　注：<textarea id="txtRemark3"></textarea></li>
-               <li style="height: 40px;">　实锤数据：<textarea id="txtConfirm3" rows="3" cols="25"></textarea></li>
+               <li style="height: 40px;">　实锤数据：<textarea id="txtConfirm3" rows="3" cols="25"></textarea><input type="checkbox" id="noneConfirm"/>没有录像数据</li>
             <li class="err red center" id="lblerr3"></li>
             <li class="center"><input class="btn btn-primary" type="button" value=" 确 定" onclick="confirmUserConfirm()" /></li>
         </ul> 

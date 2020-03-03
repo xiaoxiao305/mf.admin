@@ -10,34 +10,34 @@
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/MF.Admin.BLL.dll">
-      <publishTime>03/02/2020 10:04:19</publishTime>
+      <publishTime>03/03/2020 19:49:05</publishTime>
     </File>
     <File Include="bin/MF.Admin.BLL.pdb">
-      <publishTime>03/02/2020 10:04:19</publishTime>
+      <publishTime>03/03/2020 19:49:05</publishTime>
     </File>
     <File Include="bin/MF.Admin.DAL.dll">
-      <publishTime>03/02/2020 10:04:18</publishTime>
+      <publishTime>03/03/2020 19:41:34</publishTime>
     </File>
     <File Include="bin/MF.Admin.DAL.pdb">
-      <publishTime>03/02/2020 10:04:18</publishTime>
+      <publishTime>03/03/2020 19:41:34</publishTime>
     </File>
     <File Include="bin/MF.Admin.UI.dll">
-      <publishTime>03/02/2020 10:04:21</publishTime>
+      <publishTime>03/03/2020 19:49:07</publishTime>
     </File>
     <File Include="bin/MF.Admin.UI.pdb">
-      <publishTime>03/02/2020 10:04:21</publishTime>
+      <publishTime>03/03/2020 19:49:07</publishTime>
     </File>
     <File Include="bin/MF.Common.dll">
       <publishTime>06/21/2017 15:36:33</publishTime>
     </File>
     <File Include="bin/MF.Data.dll">
-      <publishTime>03/01/2020 19:18:41</publishTime>
+      <publishTime>03/03/2020 13:27:12</publishTime>
     </File>
     <File Include="bin/MF.Data.ExtendChannel.dll">
       <publishTime>02/25/2020 11:03:03</publishTime>
     </File>
     <File Include="bin/MF.Data.pdb">
-      <publishTime>03/01/2020 19:18:41</publishTime>
+      <publishTime>03/03/2020 13:27:12</publishTime>
     </File>
     <File Include="bin/MF.Enum.dll">
       <publishTime>12/19/2017 11:44:07</publishTime>
@@ -148,16 +148,16 @@
       <publishTime>11/11/2016 12:40:23</publishTime>
     </File>
     <File Include="common/js/ajax.js">
-      <publishTime>03/01/2020 21:20:29</publishTime>
+      <publishTime>03/03/2020 19:48:20</publishTime>
     </File>
     <File Include="common/js/common.js">
-      <publishTime>02/23/2020 14:54:53</publishTime>
+      <publishTime>03/02/2020 18:59:34</publishTime>
     </File>
     <File Include="common/js/echarts.min.js">
       <publishTime>01/03/2020 17:14:37</publishTime>
     </File>
     <File Include="common/js/game.js">
-      <publishTime>03/01/2020 19:44:01</publishTime>
+      <publishTime>03/02/2020 17:49:29</publishTime>
     </File>
     <File Include="common/js/gameback.json">
       <publishTime>02/23/2020 16:20:12</publishTime>
@@ -232,25 +232,31 @@
       <publishTime>05/05/2017 20:15:33</publishTime>
     </File>
     <File Include="M/game/auditblacklist.aspx">
-      <publishTime>03/01/2020 09:02:27</publishTime>
+      <publishTime>03/03/2020 17:19:45</publishTime>
     </File>
     <File Include="M/game/autopatrol.aspx">
-      <publishTime>02/29/2020 16:02:16</publishTime>
+      <publishTime>03/03/2020 19:12:21</publishTime>
     </File>
     <File Include="M/game/closeroom.aspx">
       <publishTime>01/13/2020 18:11:15</publishTime>
+    </File>
+    <File Include="M/game/deskmate.aspx">
+      <publishTime>03/03/2020 13:28:48</publishTime>
     </File>
     <File Include="M/game/gamealertconfig.aspx">
       <publishTime>03/01/2020 18:48:23</publishTime>
     </File>
     <File Include="M/game/gamealertplayer.aspx">
-      <publishTime>03/02/2020 10:01:46</publishTime>
+      <publishTime>03/03/2020 18:58:58</publishTime>
     </File>
     <File Include="M/game/gameblacklist.aspx">
       <publishTime>03/01/2020 09:02:00</publishTime>
     </File>
     <File Include="M/game/gameincome.aspx">
-      <publishTime>02/29/2020 16:01:54</publishTime>
+      <publishTime>03/02/2020 19:41:47</publishTime>
+    </File>
+    <File Include="M/game/gamemoney.aspx">
+      <publishTime>03/03/2020 19:47:59</publishTime>
     </File>
     <File Include="M/game/gamerec.aspx">
       <publishTime>02/29/2020 16:01:43</publishTime>
@@ -374,6 +380,9 @@
     </File>
     <File Include="M/Users/UserList.aspx">
       <publishTime>02/11/2019 15:43:01</publishTime>
+    </File>
+    <File Include="M/Users/usertest.aspx">
+      <publishTime>03/02/2020 12:14:29</publishTime>
     </File>
     <File Include="M/wellcome.aspx">
       <publishTime>11/11/2016 12:40:23</publishTime>

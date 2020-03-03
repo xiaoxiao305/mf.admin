@@ -6,21 +6,29 @@
     var ho = "<%=hour%>";
     var min = "<%=min%>";
     var sec = "<%=sec%>";
+    var etime = "<%=etime%>";
+    var eho = "<%=ehour%>";
+    var emin = "<%=emin%>";
+    var esec = "<%=esec%>";
+
     var gameId = "<%=gameId%>";
     var roomId = "<%=roomId%>";
+    var chargeId = "<%=chargeId%>";
     var oprGame = null;
     $(document).ready(function () { 
-        if (time != "")
-            attachCalenderbox('#time', null, null, new Date(time).Format("yyyy-MM-dd"), null);
+        if (time != "" && etime != "")
+            attachCalenderbox('#time', '#etime', null, new Date(time).Format("yyyy-MM-dd"), new Date(etime).Format("yyyy-MM-dd"));
         else
-            attachCalenderbox('#time', null, null, null, null);
+            attachCalenderbox('#time', '#etime', null, null, null);
         var isSelected = "";
         for (var h = 0; h < 24; h++) {
             var hStr = h;
             if (h < 10) hStr = "0" + h;
             isSelected = ""; 
             if (hStr == ho) isSelected = "selected";
-            $("#ddlshour").append("<option value=\"" + h + "\" " + isSelected+">" + hStr + "</option>");
+            $("#ddlshour").append("<option value=\"" + h + "\" " + isSelected + ">" + hStr + "</option>");
+            isSelected = "";
+            if (hStr == eho) isSelected = "selected";
             $("#ddlehour").append("<option value=\"" + h + "\" " + isSelected +">" + hStr + "</option>");
         }
         for (var m = 0; m <= 59; m++) {
@@ -28,7 +36,9 @@
             if (m < 10) mStr = "0" + m;
             isSelected = "";
             if (mStr == min) isSelected = "selected";
-            $("#ddlsmin").append("<option value=\"" + m + "\" " + isSelected +">" + mStr + "</option>");
+            $("#ddlsmin").append("<option value=\"" + m + "\" " + isSelected + ">" + mStr + "</option>");
+            isSelected = "";
+            if (mStr == emin) isSelected = "selected";
             $("#ddlemin").append("<option value=\"" + m + "\" " + isSelected +">" + mStr + "</option>");
         }
         for (var s = 0;s <= 59; s++) {
@@ -37,6 +47,8 @@
             isSelected = "";
             if (sStr == sec) isSelected = "selected";
             $("#ddlssec").append("<option value=\"" + s + "\" " + isSelected + ">" + sStr + "</option>");
+            isSelected = "";
+            if (sStr == esec) isSelected = "selected";
             $("#ddlesec").append("<option value=\"" + s + "\" " + isSelected + ">" + sStr + "</option>");
         }
         for (var id in games) {
@@ -45,15 +57,17 @@
             $("#ddlGame").append("<option value=\"" + id + "\" " + isSelected +">" + games[id] + "</option>");
         }
         $("#roomid").val(roomId);
+        $("#chargeid").val(chargeId);
         var pagerTitles = ["游戏时间", "游戏编号", "场ID", "包间号", "局号", "UID", "昵称", "本局收益", "本局抽水","录像"];
         jsonPager.init(ajax.getGameIncome, [], searchResult, pagerTitles, "list_table", "container", "pager", insertRow);
         jsonPager.dataBind(1, 0);
-        if (time != "" && gameId != "" && roomId != "")
+        if (time != "" && gameId != "")
             search(1);
     }); 
     function search(type) {
         var d = $("#time").val();
-        if (d == "") {
+        var ed = $("#etime").val();
+        if (d == "" || ed=="") {
             alert("请选择查询日期");
             return;
         }
@@ -77,7 +91,7 @@
         var eh = $("#ddlehour").val() == "-1" ? "23" : $("#ddlehour").val();
         var em = $("#ddlemin").val() == "-1" ? "59" : $("#ddlemin").val();
         var es = $("#ddlesec").val() == "-1" ? "59" : $("#ddlesec").val();
-        var end = d + " " + eh + ":" + em + ":" + es;
+        var end = ed + " " + eh + ":" + em + ":" + es;
         start = new Date(start.replace(/-/g, "/")).dateDiff("s");
         end = new Date(end.replace(/-/g, "/")).dateDiff("s");
         oprGame = gameid;
@@ -156,7 +170,7 @@
         <select id="ddlshour" class="game"><option value="-1">时</option></select>
         <select id="ddlsmin" class="game"><option value="-1">分</option></select>
         <select id="ddlssec" class="game"><option value="-1">秒</option></select>
-        至:<select id="ddlehour" class="game"><option value="-1">时</option></select>
+        至:<input type="text" id="etime" class="box w100" readonly="readonly" /><select id="ddlehour" class="game"><option value="-1">时</option></select>
         <select id="ddlemin" class="game"><option value="-1">分</option></select>
         <select id="ddlesec" class="game"><option value="-1">秒</option></select>
         <select id="ddlGame" class="game"><option value="-1">请选择游戏</option></select>

@@ -651,14 +651,13 @@ function confirmopr(account, type) {
             ajax.setUserMoney("setusermoney", [account, type, parseFloat($("#hidNum").val()), $("#hidToken").val()], winresult);
     }
 }
-function GetGameBlackModel(gameid) {
-    if (gameid < 1) return null;
-    for (var i = 0; i < blackGameInfo.length; i++) {
-        if (blackGameInfo[i]["matchid"] == gameid) {
-            return blackGameInfo[i];
-        }
-    }
-}
-
-
+//function GetGameBlackModel(gameid) {
+//    if (gameid < 1) return null;
+//    for (var i = 0; i < blackGameInfo.length; i++) {
+//        if (blackGameInfo[i]["matchid"] == gameid) {
+//            return blackGameInfo[i];
+//        }
+//    }
+//}
+ 
 var currentClubId = "";

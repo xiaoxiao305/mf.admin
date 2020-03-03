@@ -206,7 +206,8 @@
     { "ID": 159, "TopID": 23, "Name": "0.8元", "Value": 8000 },
     { "ID": 160, "TopID": 23, "Name": "1元", "Value": 10000 },
     { "ID": 161, "TopID": 23, "Name": "2元", "Value": 20000 },
-]; var blackGameInfo2 = [];
+];
+var blackGameInfo2 = [];
 var gameRecInfo = [];
 var blackGameMap = [];
 initGameJsonData();
@@ -433,22 +434,27 @@ function addBlackUserConfirm() {
         var m = GetGameBlackModel(gameids[i]);
         if (m == null || (!m.low && !m.middle && !m.high) || (m.low == "" && m.middle == "" && m.high == "")) {
             levels.push([]);
-            levelStrs.push("");
+            levelStrs.push("DEFINE");
         }
         else {
             switch (level) {
                 case "1":
                     levels.push(m.low);
-                    levelStrs.push("低");
+                    levelStrs.push("LOW");
                     break;
                 case "2":
                     levels.push(m.middle);
-                    levelStrs.push("中");
+                    levelStrs.push("MIDDLE");
                     break;
                 case "3":
                     levels.push(m.high);
-                    levelStrs.push("高");
+                    levelStrs.push("HIGH");
                     break;
+                default:
+                    levels.push(m.high);
+                    levelStrs.push("DEFINE");
+                    break;
+
             }
         }
     }

@@ -256,8 +256,7 @@ function GetGameNameByType(gameType) {
     if (gameModel && gameModel != null)
         return gameModel.name;
     return "";
-}
-
+} 
 function GetGameRecModel(gameid) {
     if (gameid < 1) return null;
     for (var i = 0; i < gameRecInfo.length; i++) {

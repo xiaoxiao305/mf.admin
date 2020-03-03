@@ -911,6 +911,19 @@
             }
         });
     },
+    GetDeskMates: function (args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: "getdeskmates", args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },
     getClubGameLink: function (args, callback) {
         $.ajax({
             url: ajax.url,
@@ -995,4 +1008,18 @@
             }
         });
     },
+    GetGameMoney: function (args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: "getgamemoney", args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },
+    
 };

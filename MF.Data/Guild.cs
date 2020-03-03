@@ -301,5 +301,19 @@ namespace MF.Data
         /// 局号
         /// </summary>
         public int Round { get; set; }
+        /// <summary>
+        /// 注册时间戳列表
+        /// </summary>
+        public List<int> RegiTimes { get; set; }
+        /// <summary>
+        /// 最后一次登录IP列表
+        /// </summary>
+        public List<string> LastLoginIps { get; set; }
+
+        
+        /// <summary>
+        /// 同桌玩家，同桌次数
+        /// </summary>
+        public int Count { get; set; }
     }
 }

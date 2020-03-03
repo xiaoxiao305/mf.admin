@@ -15,8 +15,6 @@
         var device = {
             type: function () {
                 var u = navigator.userAgent.toLowerCase();
-                console.log("device u:", u);
-                console.log("device u:", u.indexOf("ipad") > -1);
                 var app = navigator.appVersion;
                 return {
                     Android: u.indexOf('android') > -1 || u.indexOf('adr') > -1,
@@ -27,7 +25,6 @@
                 };
             }()
         }
-        console.log("device ipad:", device.type.iPad);
         $ = function(id) { return document.getElementById(id); }
         function login() {
             if ($("txtAccount").value == "") {

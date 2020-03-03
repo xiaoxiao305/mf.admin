@@ -162,7 +162,12 @@ namespace MF.Admin.DAL
             string res = GetServer(ShiChuiURI + "api/game/getlastgamerecords", "");
             return res;
         }
-
+        public string GetDeskMates()
+        {
+            string res = GetServer(ShiChuiURI + "api/game/getdeskmates", "");
+            return res;
+        }
+        
         public string GetGameRec(long start, long end, string type, string chargeid, string roomid, string number)
         {
             string args = string.Format("start={0}&end={1}&gameid={2}&chargeid={3}&roomid={4}&number={5}", start, end, type, chargeid, roomid, number);
@@ -260,7 +265,21 @@ namespace MF.Admin.DAL
             }
             return "";
         }
-
+        public string GetCacheRedAlertFromCache(string gameType)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(gameType)) return "";
+                gameType = gameType.ToLower();
+                if (Cache.CacheRedAlert != null && Cache.CacheRedAlert.ContainsKey(gameType))
+                    return Cache.CacheRedAlert[gameType];
+            }
+            catch (Exception ex)
+            {
+                WriteError("GetCacheRedAlertFromCache ex:", ex.Message, "gameType:", gameType);
+            }
+            return "";
+        }
         public Dictionary<string, List<Dictionary<string, object>>> GetRedAlertPlayer(string gameType, string gameValue)
         {
             try

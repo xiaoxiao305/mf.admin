@@ -130,6 +130,7 @@
     <Content Include="M\game\auditblacklist.aspx" />
     <Content Include="M\game\autopatrol.aspx" />
     <Content Include="M\game\closeroom.aspx" />
+    <Content Include="M\game\gamemoney.aspx" />
     <Content Include="M\game\gamealertconfig.aspx" />
     <Content Include="M\game\gameblacklist.aspx" />
     <Content Include="M\game\gameincome.aspx" />
@@ -172,6 +173,7 @@
     <Content Include="M\Users\SubUserList.aspx" />
     <Content Include="M\Users\UserInfo.aspx" />
     <Content Include="M\Users\UserList.aspx" />
+    <Content Include="M\Users\usertest.aspx" />
     <Content Include="M\wellcome.aspx" />
     <Content Include="robots.txt" />
     <Content Include="Web.config">
@@ -271,6 +273,13 @@
     </Compile>
     <Compile Include="M\game\closeroom.aspx.designer.cs">
       <DependentUpon>closeroom.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\game\gamemoney.aspx.cs">
+      <DependentUpon>gamemoney.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\game\gamemoney.aspx.designer.cs">
+      <DependentUpon>gamemoney.aspx</DependentUpon>
     </Compile>
     <Compile Include="M\game\gamealertconfig.aspx.cs">
       <DependentUpon>gamealertconfig.aspx</DependentUpon>
@@ -537,6 +546,13 @@
     </Compile>
     <Compile Include="M\Users\UserList.aspx.designer.cs">
       <DependentUpon>UserList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Users\usertest.aspx.cs">
+      <DependentUpon>usertest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Users\usertest.aspx.designer.cs">
+      <DependentUpon>usertest.aspx</DependentUpon>
     </Compile>
     <Compile Include="M\wellcome.aspx.cs">
       <DependentUpon>wellcome.aspx</DependentUpon>

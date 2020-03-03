@@ -3,9 +3,9 @@
 namespace MF.Data
 {
     [Serializable]
-    public class CacheUser
+    public class CacheUser2
     {
-        public CacheUser() { }
+        public CacheUser2() { }
         /// <summary>
         /// 获取或设置用户的唯一ID
         /// </summary>
@@ -25,7 +25,11 @@ namespace MF.Data
         /// <summary>
         /// 注册时间
         /// </summary>
-        public int RegTime { get; set; }
+        public int Regitime { get; set; }
+        /// <summary>
+        ///用户最后一次登录ip
+        /// </summary>
+        public string LastLoginIp { get; set; }
     }
     /// <summary>
     /// 用户数据实体类
@@ -159,82 +163,5 @@ namespace MF.Data
         /// 获取或设置用户欢乐卡数量
         /// </summary>
         public long Silver { get; set; }
-
-
-
-
-
-
-
-
-        ///// <summary>
-        ///// 获取或设置用户充值总额
-        ///// </summary>
-        //public int ChargeTotal
-        //{ get; set; }
-        ///// <summary>
-        ///// 获取或设置用户金券数量
-        ///// </summary>
-        //public int Gold
-        //{ get; set; }
-
-        ///// <summary>
-        ///// 获取或设置用户头像地址
-        ///// </summary>
-        //public string Icon
-        //{ get; set; }
-        ///// <summary>
-        ///// 获取或设置用户第三方开放平台唯一ID
-        ///// </summary>
-        //public string OpenID
-        //{ get; set; }
-        ///// <summary>
-        ///// 获取或设置用户第三方开放平台ID
-        ///// </summary>
-        //public int OpenPlatform
-        //{ get; set; }
-        ///// <summary>
-        ///// 获取或设置用户绑定的邮箱
-        ///// </summary>
-        //public string Email
-        //{ get; set; }
-        ///// <summary>
-        ///// 获取或设置用户个性签名
-        ///// </summary>
-        //public string Intro
-        //{ get; set; }
-        ///// <summary>
-        ///// 获取或设置用户使用手机安全令的推送码
-        ///// </summary>
-        //public string PushCode
-        //{ get; set; }
-        ///// <summary>
-        ///// 获取或设置用户游戏的在线时长
-        ///// </summary>
-        //public int OnlineTime
-        //{ get; set; }
-        ///// <summary>
-        ///// 获取或设置用户的活动/任务数据
-        ///// </summary>
-        //public string Mission
-        //{ get; set; }
-        ///// <summary>
-        ///// 获取或设置用户的月卡到期时间
-        ///// </summary>
-        //public int MonthCardOverdue { get; set; }
-        ///// <summary>
-        ///// 获取或设置用户领取月卡奖励的时间与次数
-        ///// MonthCardReceive/10 为领取时间（精确到天）
-        ///// MonthCardReceive/%10 为领取次数（最多9次）
-        ///// </summary>
-        //public int MonthCardReceive { set; get; }
-        ///// <summary>
-        ///// 获取或设置用户上一次活跃时间(2012-10-01到当前的天数)
-        ///// </summary>
-        //public int TodayActive { get; set; }
-        ///// <summary>
-        ///// 获取或设置是否AI账号
-        ///// </summary>
-        //public bool IsBot { get; set; }
     }
 }

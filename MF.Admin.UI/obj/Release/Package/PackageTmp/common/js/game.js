@@ -257,7 +257,14 @@ function GetGameNameByType(gameType) {
         return gameModel.name;
     return "";
 }
-
+function GetGameModelByType(gameType) {
+    if (gameType == "") return "";
+    gameType = gameType.toLowerCase();
+    var gameModel = GetGameBlackModelByType(gameType);
+    if (gameModel && gameModel != null)
+        return gameModel.name;
+    return "";
+}
 function GetGameRecModel(gameid) {
     if (gameid < 1) return null;
     for (var i = 0; i < gameRecInfo.length; i++) {

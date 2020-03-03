@@ -21,6 +21,7 @@ namespace MF.Admin.BLL
     {
         private static GameDAL dal = new GameDAL();
         private static UserDAL userDal = new UserDAL();
+        private static GuildDAL guildDal = new GuildDAL();
         /// <summary>
         /// 游戏场列表
         /// </summary>
@@ -144,7 +145,7 @@ namespace MF.Admin.BLL
                             if (dic["ChargeId"] != null && !string.IsNullOrEmpty(dic["ChargeId"].ToString()))
                             {
                                 info.ChargeId = dic["ChargeId"].ToString();
-                                Dictionary<string, object> listinfos = new GuildDAL().GetMembersList(dic["ChargeId"].ToString());
+                                Dictionary<string, object> listinfos = guildDal.GetMembersList(dic["ChargeId"].ToString());
                                 if (listinfos != null && listinfos.Count > 0 && listinfos.ContainsKey("clubs"))
                                 {
                                     List<string> club_ids = (listinfos["clubs"] as Newtonsoft.Json.Linq.JArray).ToObject<List<string>>();
@@ -188,7 +189,7 @@ namespace MF.Admin.BLL
             try
             {
                 if (string.IsNullOrEmpty(chargeId) || string.IsNullOrEmpty(gameType)) return "0";
-                Dictionary<string, object> clubInfos = new GuildDAL().GetMembersList(chargeId);
+                Dictionary<string, object> clubInfos = guildDal.GetMembersList(chargeId);
                 if (clubInfos == null || clubInfos.Count < 1 || !clubInfos.ContainsKey("clubs")) return "0";
                 List<string> club_ids = (clubInfos["clubs"] as JArray).ToObject<List<string>>();
                 if (club_ids == null || club_ids.Count < 1) return "0";
@@ -248,7 +249,7 @@ namespace MF.Admin.BLL
             //    return null;
             string account = field == 2 ? value : "";
             string chargeid = field == 1 ? value : "";
-            List<GameBlackUserInfo> list = GetGameBlackUsers(gameId, account, chargeid);
+            List<GameBlackUserInfo> list = GetGameBlackUsersData(gameId, account, chargeid);
             if (list == null || list.Count < 1) return null;
             //return list;
             return GetBlackUsersDetail(list);
@@ -262,7 +263,7 @@ namespace MF.Admin.BLL
             //return list;
             return GetBlackUsersDetail(list);
         }
-        public static List<GameBlackUserInfo> GetGameBlackUsers(long gameId, string account, string chargeid)
+        public static List<GameBlackUserInfo> GetGameBlackUsersData(long gameId, string account, string chargeid)
         {
             try
             {
@@ -531,14 +532,128 @@ namespace MF.Admin.BLL
             }
             return null;
         }
-
+        //自动巡场
+        private static List<AutoPatrol> GetAutoPatrolModel(string listStr)
+        {
+            List<AutoPatrol> list = null;
+            if (!string.IsNullOrEmpty(listStr))
+            {
+                listStr = listStr.Replace("\\U000", "[emoji]").Replace("\\u000", "[emoji]");
+                if (!string.IsNullOrEmpty(listStr))
+                {
+                    try
+                    {
+                        list = JsonConvert.DeserializeObject<List<AutoPatrol>>(listStr);
+                    }
+                    catch (Exception ex2)
+                    {
+                        Base.WriteError("GetAutoPatrolModel Deserialize Convert ex：", ex2.Message);
+                    }
+                }
+            }
+            return list;
+        }
         public static List<AutoPatrol> GetLastGameRecords()
         {
             try
             {
+                //获取巡场数据+同桌巡场数据
                 string listStr = dal.GetLastGameRecords();
+                List<AutoPatrol> list = GetAutoPatrolModel(listStr);
+                string listStr2 = dal.GetDeskMates();
+                List<AutoPatrol> list2 = GetAutoPatrolModel(listStr2);
+                if (list2 != null)
+                {
+                    if (list == null)
+                        list = new List<AutoPatrol>();
+                    list.AddRange(list2);
+                }
+                if (list == null || list.Count < 1) return null;
+                //设置俱乐部+用户缓存
+                List<List<string>> chargeIdList = list.Select(t => t.ChargeIds).ToList();
+                if (chargeIdList != null && chargeIdList.Count > 0)
+                {
+                    List<string> allChargeIds = new List<string>();
+                    foreach (List<string> item in chargeIdList)
+                    {
+                        allChargeIds.AddRange(item);
+                    }
+                    guildDal.GetClubByChargeId(allChargeIds);
+                    userDal.QueryUserList(allChargeIds.ToArray());
+                }
+                //重组数据
+                List<AutoPatrol> newList = new List<AutoPatrol>();
+                foreach (AutoPatrol patrol in list)
+                {
+                    if (patrol == null) continue;
+                    if (patrol.NickNames != null && patrol.NickNames.Count > 0)
+                    {
+                        List<string> nickNewList = new List<string>();
+                        int blackCOunt = 0;
+                        foreach (string nick in patrol.NickNames)
+                        {
+                            //黑名单判断
+                            if (nick.IndexOf("黑名单") >= 0)
+                                blackCOunt++;
+                            string newNick = (nick.IndexOf("[emoji]") >= 0) ? nick.Replace("[emoji]", "\\U000") : nick;
+                            nickNewList.Add(newNick);
+                        }
+                        if (blackCOunt == patrol.NickNames.Count) continue;//屏蔽同时在黑名单内的用户 
+                        patrol.NickNames = nickNewList;
+                    }
+                    if (patrol.ChargeIds != null && patrol.ChargeIds.Count > 0)
+                    {
+                        //if (patrol.ChargeIds.Count == 2) continue;//屏蔽双人游戏+2人玩游戏
+                        foreach (string chargeid in patrol.ChargeIds)
+                        {
+                            //重组俱乐部数据
+                            if (patrol.ClubIds == null)
+                                patrol.ClubIds = new List<string>();
+                            List<string> clubs = guildDal.GetCacheClubIdFromCache(chargeid);
+                            if (clubs != null && clubs.Count > 0)
+                            {
+                                string clubStr = String.Join(",", clubs).Replace(",", ". ");
+                                patrol.ClubIds.Add(clubStr);
+                            }
+                            else
+                                patrol.ClubIds.Add("");
+                            //重组用户数据【注册时间、最后一次登录IP】
+                            if (patrol.RegiTimes == null)
+                                patrol.RegiTimes = new List<int>();
+                            if (patrol.LastLoginIps == null)
+                                patrol.LastLoginIps = new List<string>();
+                            Users cacheUser = userDal.GetCacheUserByChargeIdFromCache(chargeid);
+                            if (cacheUser != null)
+                            {
+                                patrol.RegiTimes.Add(cacheUser.Regitime);
+                                patrol.LastLoginIps.Add(cacheUser.LastIp);
+                            }
+                            else
+                            {
+                                patrol.RegiTimes.Add(0);
+                                patrol.LastLoginIps.Add("");
+                            }
+                        }
+                    }                    
+                    newList.Add(patrol);
+                }
+                return newList;
+            }
+            catch (Exception ex)
+            {
+                Base.WriteError("GetLastGameRecords ex:", ex.Message);
+            }
+            return null;
+        }
+        //同桌玩家
+        public static List<AutoPatrol> GetDeskMates()
+        {
+            try
+            {
+                string listStr = dal.GetDeskMates();
                 if (string.IsNullOrEmpty(listStr)) return null;
                 listStr = listStr.Replace("\\U000", "[emoji]").Replace("\\u000", "[emoji]");
+                if (string.IsNullOrEmpty(listStr)) return null;
                 List<AutoPatrol> list = new List<AutoPatrol>();
                 try
                 {
@@ -546,37 +661,102 @@ namespace MF.Admin.BLL
                 }
                 catch (Exception ex2)
                 {
-                    Base.WriteError("GetLastGameRecords Deserialize Convert ex：", ex2.Message);
+                    Base.WriteError("GetDeskMates Deserialize Convert ex：", ex2.Message);
                     return null;
                 }
                 if (list == null || list.Count < 1) return list;
+                //设置俱乐部+用户缓存
+                //List<List<string>> chargeIdList = list.Select(t => t.ChargeIds).ToList();
+                //if (chargeIdList != null && chargeIdList.Count > 0)
+                //{
+                //    List<string> allChargeIds = chargeIdList.ConvertAll(obj => string.Format("{0}", obj));
+                //    List<string> clubChargeIds = new List<string>();
+                //    List<string> userChargeIds = new List<string>();
+                //    List<string> clubCacheData = new List<string>();
+                //    Users userCacheData = new Users();
+                //    foreach (string chargeIdSearch in allChargeIds)
+                //    {
+                //        clubCacheData = guildDal.GetCacheClubIdFromCache(chargeIdSearch);
+                //        if (clubCacheData == null || clubCacheData.Count < 1)
+                //            clubChargeIds.Add(chargeIdSearch);
+                //        userCacheData = userDal.GetCacheUserByChargeIdFromCache(chargeIdSearch);
+                //        if (userCacheData == null)
+                //            userChargeIds.Add(chargeIdSearch);
+                //    }
+                //    if(clubChargeIds.Count>0)
+                //    guildDal.GetClubByChargeId(clubChargeIds);
+                //    if (userChargeIds.Count > 0)
+                //        userDal.GetMemberInfo(userChargeIds.ToArray());
+                //}
+                ////获取黑名单数据
+                //List<GameBlackUserInfo> blackList =new List<GameBlackUserInfo>();
+                //List<GameBlackUserInfo> auditBlackList = new List<GameBlackUserInfo>();
+                //List<GameBlackUserInfo> blackListTmp = new List<GameBlackUserInfo>();
+                //List<GameBlackUserInfo> auditBlackListTmp = new List<GameBlackUserInfo>();
+                //int gameId = 0;
+                //foreach (AutoPatrol patrol in list)
+                //{
+                //    if (patrol == null || string.IsNullOrEmpty(patrol.GameId) || patrol.GameId=="") continue;
+                //    int.TryParse(patrol.GameId, out gameId);
+                //    if (gameId < 1) continue;
+                //    blackList.AddRange(GetGameBlackUsersData(gameId, "", ""));
+                //    auditBlackList.AddRange(GetAuditBlackUsers(gameId, 0, ""));
+                //} 
+                ////重组数据
                 List<AutoPatrol> newList = new List<AutoPatrol>();
-                List<string> allChargeIds = new List<string>();
-                foreach (AutoPatrol p in list)
-                {
-                    allChargeIds = allChargeIds.Union(p.ChargeIds).ToList();
-                }
-                new GuildDAL().GetClubByChargeId(allChargeIds);
+                //IEnumerable<GameBlackUserInfo> isBlackList = null;
+                //IEnumerable<GameBlackUserInfo> isAuditBlackList = null;
+                //int blackUserCount=0;
                 foreach (AutoPatrol patrol in list)
                 {
                     if (patrol == null) continue;
-                    if (patrol.ChargeIds != null && patrol.ChargeIds.Count > 0)
-                    {
-                        foreach (string chargeid in patrol.ChargeIds)
-                        {
-                            if (patrol.ClubIds == null)
-                                patrol.ClubIds = new List<string>();
-                            List<string> clubs = new GuildDAL().GetCacheClubId(chargeid);
-                            if (clubs != null && clubs.Count > 0)
-                            {
-                                string clubStr = String.Join(",", clubs).Replace(",", ". ");
-                                patrol.ClubIds.Add(clubStr);
-                                //patrol.ClubIds.AddRange(clubs);
-                            }
-                            else
-                                patrol.ClubIds.Add("");
-                        }
-                    }
+                    //if (patrol.ChargeIds != null && patrol.ChargeIds.Count > 0)
+                    //{
+                    //    if (patrol.ChargeIds.Count == 2) continue;//屏蔽双人游戏+2人玩游戏
+                    //    foreach (string chargeid in patrol.ChargeIds)
+                    //    {
+                    //        //黑名单判断
+                    //        if (blackList != null && blackList.Count > 0)
+                    //            isBlackList = blackList.Where(a => a.ChargeId.ToUpper().Contains(chargeid)).ToList();
+                    //        if (isBlackList != null && isBlackList.Count() > 0)
+                    //            blackUserCount++;
+                    //        else
+                    //        {
+                    //            if (auditBlackList != null && auditBlackList.Count > 0)
+                    //                isAuditBlackList = auditBlackList.Where(a => a.ChargeId.ToUpper().Contains(chargeid)).ToList();
+                    //            if (isAuditBlackList != null && isAuditBlackList.Count() > 0)
+                    //                blackUserCount++;
+                    //        }
+                    //        if (blackUserCount == patrol.ChargeIds.Count) continue;//屏蔽同时在黑名单内的用户
+                    //        //重组俱乐部数据
+                    //        if (patrol.ClubIds == null)
+                    //            patrol.ClubIds = new List<string>();
+                    //        List<string> clubs = guildDal.GetCacheClubIdFromCache(chargeid);
+                    //        if (clubs != null && clubs.Count > 0)
+                    //        {
+                    //            string clubStr = String.Join(",", clubs).Replace(",", ". ");
+                    //            patrol.ClubIds.Add(clubStr);
+                    //        }
+                    //        else
+                    //            patrol.ClubIds.Add("");
+                    //        //重组用户数据【注册时间、最后一次登录IP】
+                    //        if (patrol.RegiTimes == null)
+                    //            patrol.RegiTimes = new List<int>();
+                    //        if (patrol.LastLoginIps == null)
+                    //            patrol.LastLoginIps = new List<string>();
+                    //        Users cacheUser = userDal.GetCacheUserByChargeIdFromCache(chargeid);
+                    //        if (cacheUser != null)
+                    //        {
+                    //            patrol.RegiTimes.Add(cacheUser.Regitime);
+                    //            patrol.LastLoginIps.Add(cacheUser.LastIp);
+                    //        }
+                    //        else
+                    //        {
+                    //            patrol.RegiTimes.Add(0);
+                    //            patrol.LastLoginIps.Add("");
+                    //        }
+                    //    }
+                    //}
                     if (patrol.NickNames != null && patrol.NickNames.Count > 0)
                     {
                         List<string> nickNewList = new List<string>();
@@ -593,10 +773,11 @@ namespace MF.Admin.BLL
             }
             catch (Exception ex)
             {
-                Base.WriteError("GetLastGameRecords ex:", ex.Message);
+                Base.WriteError("GetDeskMates ex:", ex.Message);
             }
             return null;
         }
+
         //游戏录像
         public static string GetGameRec(long start, long end, string type, string chargeid, string roomid, string number)
         {
@@ -633,17 +814,27 @@ namespace MF.Admin.BLL
         {
             return dal.GetRedAlert();
         }
-        public static List<Dictionary<string, object>> GetRedAlertPlayer(string[] gameTypes, long field, string value, long time)
+        public static List<Dictionary<string, object>> GetRedAlertPlayer(string[] gameIds, string[] gameTypes, long field, string value, long time)
         {
-
             //WriteLog("GetRedAlertPlayer parms. gameType:", gameTypes.ToString(), " field:", field.ToString(), " value:", value, "time:", time.ToString());
             List<Dictionary<string, object>> newList = new List<Dictionary<string, object>>();
             value = value.ToUpper();
             try
             {
+                //设置【游戏输赢值配置缓存】
                 foreach (var gameType in gameTypes)
                 {
-                    string gameValue = dal.GetCacheRedAlert(gameType);
+                    string gameValue = dal.GetCacheRedAlertFromCache(gameType);
+                    if (string.IsNullOrEmpty(gameValue))
+                    {
+                        dal.GetRedAlert();
+                        break;
+                    }
+                }
+                var index = 0;
+                foreach (var gameType in gameTypes)
+                {
+                    string gameValue = dal.GetCacheRedAlertFromCache(gameType);
                     gameValue = string.IsNullOrEmpty(gameValue) ? "0" : gameValue;
                     var res = dal.GetRedAlertPlayer(gameType, gameValue);
                     if (res == null || !res.ContainsKey(gameType)) return newList;
@@ -651,22 +842,29 @@ namespace MF.Admin.BLL
                     //组装没有缓存的chargeid集合
                     List<object> chargeIdList = list.Select(t => t.ContainsKey("player_id") ? t["player_id"] : "").ToList();
                     if (chargeIdList != null && chargeIdList.Count > 0)
-                        userDal.GetMemberInfo(chargeIdList.ConvertAll(obj => string.Format("{0}", obj)).ToArray());
+                    {
+                        List<string> newChargeIdList = chargeIdList.ConvertAll(obj => string.Format("{0}", obj));
+                        userDal.GetMemberInfo(newChargeIdList.ToArray());
+                        guildDal.GetClubByChargeId(newChargeIdList);
+                    }
+                    List<GameBlackUserInfo> blackList = GetGameBlackUsersData(int.Parse(gameIds[index]), "", "");
+                    List<GameBlackUserInfo> auditBlackList = GetAuditBlackUsers(int.Parse(gameIds[index]), 0, "");
+                    index++;
                     //重组数据
-                    CacheUser cacheUser = new CacheUser();
-                    string account = "", nick = "", player_id="";
-                    int regiTime = 0;
+                    Users cacheUser = new Users();
+                    string account = "", nick = "", player_id = "";
+                    int regiTime = 0, blackType = 0;
                     foreach (var item in list)
                     {
                         if (!item.ContainsKey("player_id") || item["player_id"] == null
                             || item["player_id"].ToString() == "" || item["player_id"].ToString().ToUpper() == "NULL") continue;
                         player_id = item["player_id"].ToString().ToUpper();
-                        cacheUser = userDal.GetCacheUserByChargeId(player_id);
+                        cacheUser = userDal.GetCacheUserByChargeIdFromCache(player_id);
                         if (cacheUser != null)
                         {
                             account = cacheUser.Account;
                             nick = cacheUser.Nickname;
-                            regiTime = cacheUser.RegTime;
+                            regiTime = cacheUser.Regitime;
                         }
                         else
                         {
@@ -681,6 +879,22 @@ namespace MF.Admin.BLL
                         item.Add("account", account);
                         item.Add("nick", nick);
                         item.Add("regTime", regiTime);
+                        List<string> clubIds = guildDal.GetCacheClubId(player_id);
+                        item.Add("clubId", clubIds);
+                        IEnumerable<GameBlackUserInfo> isBlackList = null;
+                        if (blackList != null && blackList.Count > 0)
+                            isBlackList = blackList.Where(a => a.ChargeId.ToUpper().Contains(player_id)).ToList();
+                        if (isBlackList != null && isBlackList.Count() > 0)
+                            blackType = 1;
+                        else
+                        {
+                            IEnumerable<GameBlackUserInfo> isAuditBlackList = null;
+                            if (auditBlackList != null && auditBlackList.Count > 0)
+                                isAuditBlackList = auditBlackList.Where(a => a.ChargeId.ToUpper().Contains(player_id)).ToList();
+                            if (isAuditBlackList != null && isAuditBlackList.Count() > 0)
+                                blackType = 2;
+                        }
+                        item.Add("blackType", blackType);
                         newList.Add(item);
                     }
                 }
@@ -691,7 +905,31 @@ namespace MF.Admin.BLL
             }
             return newList;
         }
+        public static List<Dictionary<string, object>> GetGameMoney(string[] gameTypes, string chargeId)
+        {
+            if (string.IsNullOrEmpty(chargeId)) return null;
+            List<Dictionary<string, object>> list = new List<Dictionary<string, object>>();
+            foreach (string gameType in gameTypes)
+            {
+                Dictionary<string, object> moneyDic = dal.GetWinnMoney(gameType, chargeId);
+                if (moneyDic == null) continue;
+                Users u = userDal.GetCacheUserByChargeId(chargeId);
+                if (u != null)
+                {
+                    moneyDic.Add("Account", u.Account);
+                    moneyDic.Add("Nickname", u.Nickname);
+                }
+                else
+                {
+                    moneyDic.Add("Account", "");
+                    moneyDic.Add("Nickname", "");
+                }
+                moneyDic.Add("GameType", gameType);
+                list.Add(moneyDic);
+            }
+            return list;
 
+        }
 
     }
 }

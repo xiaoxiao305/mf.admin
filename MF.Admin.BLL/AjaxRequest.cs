@@ -514,7 +514,6 @@ namespace MF.Admin.BLL
                 Response.Write("{\"code\":0,\"msg\":\"游戏ID有误\"}");
                 return;
             }
-            //else if (string.IsNullOrEmpty(account) || string.IsNullOrEmpty(chargeid))
             else if (string.IsNullOrEmpty(account))//老账号chargeid可为空
             {
                 Response.Write("{\"code\":0,\"msg\":\"账号有误\"}");
@@ -612,79 +611,8 @@ namespace MF.Admin.BLL
         /// <summary>
         /// 添加游戏黑名单 [parseInt(game), acc, val, token], winresult);
         /// </summary> 
-        public void AddBlackUser2(string gameId, string type, string account, string value, string levelStr, string remark, string token)
+        public void AddBlackUser(string gameIds,  string chargeId, string values, string levelStrs, string remark, long isConfirm)
         {
-
-            AjaxResult<bool> res = new AjaxResult<bool>() { code = 0, msg = "" };
-            if (string.IsNullOrEmpty(gameId))
-            {
-                Response.Write("{\"code\":0,\"msg\":\"游戏ID有误\"}");
-                return;
-            }
-            else if (string.IsNullOrEmpty(account))
-            {
-                Response.Write("{\"code\":0,\"msg\":\"UID有误\"}");
-                return;
-            }
-            else if (string.IsNullOrEmpty(value) || string.IsNullOrEmpty(levelStr))
-            {
-                Response.Write("{\"code\":0,\"msg\":\"设置值有误\"}");
-                return;
-            }
-            else if (string.IsNullOrEmpty(remark))
-            {
-                Response.Write("{\"code\":0,\"msg\":\"备注为空\"}");
-                return;
-            }
-            //else if (string.IsNullOrEmpty(token))
-            //{
-            //    Response.Write("{\"code\":0,\"msg\":\"安全令为空\"}");
-            //    return;
-            //}
-            if (!string.IsNullOrEmpty(token) && !Base.IsDebug)
-            {
-                if (!Token.CheckToken(token, Base.CurrentUser.Token))
-                {
-                    Response.Write("{\"code\":0,\"msg\":\"安全令有误\"}");
-                    return;
-                }
-            }
-            Dictionary<string, string> r = GameBLL.AddBlackUser(gameId, account, value, levelStr, remark);
-            int oprState = 0;
-            string msg = string.Format("操作游戏{0}，添加黑名单【{1}】值为【{2}】失败。", gameId, account, value);
-            if (r != null)
-            {
-                if (r.ContainsKey("succeed") && r.ContainsKey("message"))
-                {
-                    if (bool.Parse(r["succeed"].ToString()))
-                    {
-                        msg = string.Format("操作游戏{0}，添加黑名单【{1}】值为【{2}】成功", gameId, account, value);
-                        AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "AjaxRequest.AddBlackUser", oprState, SystemLogEnum.ADDBLACKUSER);
-                        var searchRes = new PagerResult<List<GameBlackUserInfo>>();
-                        var list = GameBLL.GetGameBlackUsersData(long.Parse(gameId), type, account.Trim());
-                        searchRes.result = list;
-                        searchRes.code = 1;
-                        searchRes.index = 1;
-                        if (list != null)
-                            searchRes.rowCount = list.Count;
-                        string json = Json.SerializeObject(searchRes);
-                        Response.Write(json);
-                        return;
-                    }
-                    else
-                        msg += r["message"];
-                }
-                else
-                    msg += " res is err";
-            }
-            AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "AjaxRequest.AddBlackUser", oprState, SystemLogEnum.ADDBLACKUSER);
-            Response.Write("{\"code\":" + oprState + ",\"msg\":\"" + msg + "\"}");
-            return;
-        }
-        public void AddBlackUser(string gameIds,  string account, string values, string levelStrs, string remark, string token)
-        {
-            //Base.WriteLog("ajax addblackuser.gameids:", gameIds, " account:", account,
-            //    " values:", values, " values:", values, " levelStrs:", levelStrs, " remark:", remark);
             string[] gameidList = gameIds.Split('|'); 
             string[] valueList = values.Split('|');
             string[] levelStrList = levelStrs.Split('|');
@@ -693,7 +621,7 @@ namespace MF.Admin.BLL
                 Response.Write("{\"code\":0,\"msg\":\"游戏ID有误\"}");
                 return;
             }
-            else if (string.IsNullOrEmpty(account))
+            else if (string.IsNullOrEmpty(chargeId))
             {
                 Response.Write("{\"code\":0,\"msg\":\"UID有误\"}");
                 return;
@@ -707,58 +635,18 @@ namespace MF.Admin.BLL
                 Response.Write("{\"code\":0,\"msg\":\"备注为空\"}");
                 return;
             }
-            if (!string.IsNullOrEmpty(token) && !Base.IsDebug)
-            {
-                if (!Token.CheckToken(token, Base.CurrentUser.Token))
-                {
-                    Response.Write("{\"code\":0,\"msg\":\"安全令有误\"}");
-                    return;
-                }
-            }
-            string gameId = ""; 
-            string value = "";
-            string levelStr = "";
-            for (int i = 0; i < gameidList.Length; i++)
-            {
-                gameId = gameidList[i]; 
-                value = valueList[i];
-                levelStr = levelStrList[i];
-                value = "[" + value + "]";
-                AddBlackUserOpr(gameId,account, value, levelStr,remark);
-            }
+            //if (!string.IsNullOrEmpty(token) && !Base.IsDebug)
+            //{
+            //    if (!Token.CheckToken(token, Base.CurrentUser.Token))
+            //    {
+            //        Response.Write("{\"code\":0,\"msg\":\"安全令有误\"}");
+            //        return;
+            //    }
+            //}
+            GameBLL.AddBlackUser(gameidList, chargeId, valueList, levelStrList, remark, isConfirm);
             Response.Write("{\"code\":1,\"msg\":\"\"}");
         }
-        private void AddBlackUserOpr(string gameId,string account,string value,string levelStr,string remark)
-        {
-            try
-            {
-                AjaxResult<bool> res = new AjaxResult<bool>() { code = 0, msg = "" };
-                Dictionary<string, string> r = GameBLL.AddBlackUser(gameId, account, value, levelStr, remark);
-                int oprState = 0;
-                string msg = string.Format("操作游戏{0}，添加黑名单【{1}】值为【{2}】失败。", gameId, account, value);
-                if (r != null)
-                {
-                    if (r.ContainsKey("succeed") && r.ContainsKey("message"))
-                    {
-                        if (bool.Parse(r["succeed"].ToString()))
-                        {
-                            msg = string.Format("操作游戏{0}，添加黑名单【{1}】值为【{2}】成功", gameId, account, value);
-                            AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "AjaxRequest.AddBlackUser", oprState, SystemLogEnum.ADDBLACKUSER);
-                        }
-                        else
-                            msg += r["message"];
-                    }
-                    else
-                        msg += " res is err";
-                }
-                AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "AjaxRequest.AddBlackUser", oprState, SystemLogEnum.ADDBLACKUSER);
-            }
-            catch(Exception ex)
-            {
-                WriteError("Ajax AddBlackUser ex:", ex.Message, " gameId:", gameId," account:", account," value:", value
-                    , " levelStr:",levelStr, " remark:", remark);
-            }
-        }
+      
         public void SetGameSetting(string clubId)
         {
             if (string.IsNullOrEmpty(clubId))

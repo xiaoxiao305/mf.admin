@@ -190,7 +190,7 @@
             <li>　　　UID：<input class="ipt" type="text" id="tacc4" /></li>
             <li>　　　　值：<label id="valTypeArea4"></label>
             </li>
-            <li style="height: 70px;">　　备　注：<textarea id="txtRemark4" rows="4" cols="25"></textarea></li>
+            <li style="height: 70px;">　　备　注：<textarea id="txtRemark4" rows="4" cols="25"></textarea><input type="checkbox" id="isConfirm" style="margin-left:60px;"  />确认实锤</li>
             <li class="err red center" id="lblerr4"></li>
             <li class="center"><input class="btn btn-primary" type="button" value=" 确 定" onclick="addBlackUserConfirm()" /></li>
         </ul> 

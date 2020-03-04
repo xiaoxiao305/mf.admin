@@ -11,7 +11,6 @@
         }
         function searchResult(data) {
             $("#loading").hide();
-            console.log("search memberslist:", data);
             if (data.code == 1) {
                 jsonPager.data = data.result;
                 jsonPager.dataBind(data.index, data.rowCount);

@@ -276,10 +276,70 @@ namespace MF.Admin.BLL
             }
             return null;
         }
-        public static Dictionary<string, string> AddBlackUser(string gameId, string account, string value, string levelStr, string remark)
+        public static Dictionary<string, string> AddBlackUser(string[] gameidList, string chargeId,
+            string[] valueList, string[] levelStrList, string remark, long isConfirm)
         {
-            if (string.IsNullOrEmpty(gameId) || string.IsNullOrEmpty(account) || string.IsNullOrEmpty(value) || string.IsNullOrEmpty(levelStr)) return null;
-            return dal.AddBlackUser(gameId, account.Trim(), value.Trim(), levelStr, remark);
+            try
+            {
+                if (gameidList == null || gameidList.Length < 1 || string.IsNullOrEmpty(chargeId)
+                || valueList == null || valueList.Length < 1
+                || levelStrList == null || levelStrList.Length < 1) return null;
+                string gameId = "";
+                string value = "";
+                string levelStr = "";
+                string account = "";
+                if (isConfirm == 1)
+                    account = userDal.GetAccByChargeId(chargeId);
+                for (int i = 0; i < gameidList.Length; i++)
+                {
+                    gameId = gameidList[i];
+                    value = valueList[i];
+                    levelStr = levelStrList[i];
+                    value = "[" + value + "]";
+                    AddBlackUser(gameId, chargeId, value, levelStr, remark);
+                    if (isConfirm == 1)
+                        ConfirmBlackUser(account, chargeId, "NONE_" + gameId);
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteError("BLL AddBlackUser ex:", ex.Message, " gameidList:", String.Join(",", gameidList),
+                    " chargeId:", chargeId, " valueList:", String.Join(",", valueList)
+                    , " levelStrList:", String.Join(",", levelStrList), " remark:", remark);
+            }
+            return null;
+        }
+        public static Dictionary<string, string> AddBlackUser(string gameId, string chargeId, string value, string levelStr, string remark)
+        {
+            try
+            {
+                AjaxResult<bool> res = new AjaxResult<bool>() { code = 0, msg = "" };
+                Dictionary<string, string> r = dal.AddBlackUser(gameId, chargeId.Trim(), value.Trim(), levelStr, remark);
+                int oprState = 0;
+                string msg = string.Format("操作游戏{0}，添加黑名单【{1}】值为【{2}】失败。", gameId, chargeId, value);
+                if (r != null)
+                {
+                    if (r.ContainsKey("succeed") && r.ContainsKey("message"))
+                    {
+                        if (bool.Parse(r["succeed"].ToString()))
+                        {
+                            msg = string.Format("操作游戏{0}，添加黑名单【{1}】值为【{2}】成功", gameId, chargeId, value);
+                            AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "BLL.AddBlackUser", oprState, SystemLogEnum.ADDBLACKUSER);
+                        }
+                        else
+                            msg += r["message"];
+                    }
+                    else
+                        msg += " res is err";
+                }
+                AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "AjaxRequest.AddBlackUser", oprState, SystemLogEnum.ADDBLACKUSER);
+            }
+            catch (Exception ex)
+            {
+                WriteError("BLL AddBlackUser ex:", ex.Message, " gameId:", gameId, " chargeId:", chargeId, " value:", value
+                    , " levelStr:", levelStr, " remark:", remark);
+            }
+            return null;
         }
         public static Dictionary<string, string> UpdateBlackUser(string gameId, string account, string chargeid, string value, string levelStr, string remark)
         {
@@ -307,27 +367,35 @@ namespace MF.Admin.BLL
         }
         public static Dictionary<string, string> ConfirmBlackUser(string account, string chargeid, string confirmData)
         {
-            if (string.IsNullOrEmpty(account) || string.IsNullOrEmpty(chargeid) || string.IsNullOrEmpty(confirmData)) return null;
-            Dictionary<string, string> r = dal.ConfirmBlackUser(account, chargeid, confirmData);
-            int oprState = 0;
-            string msg = string.Format("审核黑名单，确认实锤{0}数据为{1}失败。", chargeid, confirmData);
-            if (r != null)
+            try
             {
-                if (r.ContainsKey("succeed") && r.ContainsKey("message"))
+                if (string.IsNullOrEmpty(account) || string.IsNullOrEmpty(chargeid) || string.IsNullOrEmpty(confirmData)) return null;
+                Dictionary<string, string> r = dal.ConfirmBlackUser(account, chargeid, confirmData);
+                int oprState = 0;
+                string msg = string.Format("审核黑名单，确认实锤{0}数据为{1}失败。", chargeid, confirmData);
+                if (r != null)
                 {
-                    if (bool.Parse(r["succeed"].ToString()))
+                    if (r.ContainsKey("succeed") && r.ContainsKey("message"))
                     {
-                        oprState = 1;
-                        msg = string.Format("审核黑名单，确认实锤{0}数据为{1}成功。", chargeid, confirmData);
+                        if (bool.Parse(r["succeed"].ToString()))
+                        {
+                            oprState = 1;
+                            msg = string.Format("审核黑名单，确认实锤{0}数据为{1}成功。", chargeid, confirmData);
+                        }
+                        else
+                            msg += r["message"];
                     }
                     else
-                        msg += r["message"];
+                        msg += " res is err";
                 }
-                else
-                    msg += " res is err";
+                AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "GameBLL.ConfirmBlackUser", oprState, SystemLogEnum.CONFIRMBLACKUSER);
+                return r;
             }
-            AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "GameBLL.ConfirmBlackUser", oprState, SystemLogEnum.CONFIRMBLACKUSER);
-            return r;
+            catch (Exception ex)
+            {
+                WriteError("BLL ConfirmBlackUser ex:", ex.Message);
+            }
+            return null;
         }
 
         public static Dictionary<string, string> DelBlackUser(string gameId, string account)
@@ -593,12 +661,12 @@ namespace MF.Admin.BLL
                         foreach (string nick in patrol.NickNames)
                         {
                             //黑名单判断
-                            if (nick.IndexOf("黑名单") >= 0)
+                            if (patrol.Count > 0 && nick.IndexOf("黑名单") >= 0)
                                 blackCOunt++;
                             string newNick = (nick.IndexOf("[emoji]") >= 0) ? nick.Replace("[emoji]", "\\U000") : nick;
                             nickNewList.Add(newNick);
                         }
-                        if (blackCOunt == patrol.NickNames.Count) continue;//屏蔽同时在黑名单内的用户 
+                        if (patrol.Count > 0 && blackCOunt == patrol.NickNames.Count) continue;//同桌数据，屏蔽同时在黑名单内的用户 
                         patrol.NickNames = nickNewList;
                     }
                     if (patrol.ChargeIds != null && patrol.ChargeIds.Count > 0)
@@ -634,7 +702,7 @@ namespace MF.Admin.BLL
                                 patrol.LastLoginIps.Add("");
                             }
                         }
-                    }                    
+                    }
                     newList.Add(patrol);
                 }
                 return newList;

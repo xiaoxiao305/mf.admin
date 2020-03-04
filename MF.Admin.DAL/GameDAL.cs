@@ -84,9 +84,9 @@ namespace MF.Admin.DAL
             var res = Post<List<GameBlackUserInfo>>(BlackURI + "getusers", par);
             return res;
         }
-        public Dictionary<string, string> AddBlackUser(string gameId, string account, string value, string levelStr, string remark)
+        public Dictionary<string, string> AddBlackUser(string gameId, string chargeId, string value, string levelStr, string remark)
         {
-            string param = string.Format("gameId={0}&chargeid={1}&value={2}&level={3}&remark={4}", gameId, account, value, levelStr, remark);
+            string param = string.Format("gameId={0}&chargeid={1}&value={2}&level={3}&remark={4}", gameId, chargeId, value, levelStr, remark);
             var res = Post<Dictionary<string, string>>(BlackURI + "adduser", param);
             return res;
         }

@@ -26,6 +26,10 @@
             }
             var gameTypeStr = gameTypes.join(","); 
             var chargeId = $("#chargeId").val();
+            if (chargeId == "") {
+                alert("请输入UID");
+                return;
+            }
             jsonPager.queryArgs = [gameTypeStr, chargeId];
             jsonPager.pageSize = 1000;
             ajax.GetGameMoney(jsonPager.makeArgs(1), seaResult);
@@ -43,13 +47,12 @@
             addCell = function (tr, text, i) {
                 var td = tr.insertCell(i);
                 td.innerHTML = text;
-            };
-            var gameModel = GetGameModelByType(o.GameType);
-            addCell(tr, gameModel == null ? "" : gameModel.type, 0);
-            addCell(tr, o.ChargeId, 1);
+            }; 
+            addCell(tr, GetGameNameByType(o.GameType), 0);
+            addCell(tr, o.player_id, 1);
             addCell(tr, o.Account, 2);
             addCell(tr, o.NickName, 3);
-            addCell(tr, o.Lose, 4);
+            addCell(tr, o.lose, 4);
             return tr;
         }
     </script>
@@ -58,7 +61,7 @@
     <div class="toolbar">玩家输赢值</div>
     <div class="search">&nbsp;&nbsp;
         <select id="game"><option value="-1">所有游戏</option></select>
-        UID<input type="text" id="chargeid"/>
+        UID<input type="text" id="chargeId"/>
         <input type="button" value="查询" onclick="search()" class="ui-button-icon-primary" />
     </div>
     <p></p>

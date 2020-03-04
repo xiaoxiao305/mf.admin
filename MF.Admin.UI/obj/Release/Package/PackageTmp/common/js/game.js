@@ -256,15 +256,7 @@ function GetGameNameByType(gameType) {
     if (gameModel && gameModel != null)
         return gameModel.name;
     return "";
-}
-function GetGameModelByType(gameType) {
-    if (gameType == "") return "";
-    gameType = gameType.toLowerCase();
-    var gameModel = GetGameBlackModelByType(gameType);
-    if (gameModel && gameModel != null)
-        return gameModel.name;
-    return "";
-}
+} 
 function GetGameRecModel(gameid) {
     if (gameid < 1) return null;
     for (var i = 0; i < gameRecInfo.length; i++) {
@@ -442,8 +434,8 @@ function addBlackUserConfirm() {
         $("#lblerr4").text("请选择游戏");
         return;
     }
-    var acc = $("#tacc4").val();
-    if (acc == "") {
+    var chargeid = $("#tacc4").val();
+    if (chargeid == "") {
         $("#lblerr4").text("请输入UID");
         return;
     }
@@ -468,7 +460,7 @@ function addBlackUserConfirm() {
                     break;
                 case "2":
                     levels.push(m.middle);
-                    levelStrs.push("MIDDL");
+                    levelStrs.push("MIDDLE");
                     break;
                 case "3":
                     levels.push(m.high);
@@ -489,8 +481,11 @@ function addBlackUserConfirm() {
     var gameidsStr = gameids.join("|");
     var levelsStr = levels.join("|");
     var levelStrsStr = levelStrs.join("|");
-    var token = "";
-    ajax.addBlackUser("addblackuser", [gameidsStr, acc, levelsStr, levelStrsStr, remark, token], addwinresult);
+    var isConfirm = 0;
+    if ($('#isConfirm').is(':checked'))
+        isConfirm = 1;
+    console.log("isConfirm:", isConfirm);
+    ajax.addBlackUser("addblackuser", [gameidsStr, chargeid, levelsStr, levelStrsStr, remark, isConfirm], addwinresult);
 }
 function addwinresult(res) {
     $("#loading").hide();
@@ -730,10 +725,10 @@ function insertAlertConfigRow(o, tr) {
 }
 function delRedAlert(gameType) {
     oprGameType = gameType;
-    ajax.setRedAlert("delredalert", [gameType], delwinresult);
+    ajax.setRedAlert("delredalert", [gameType], delalertwinresult);
 }
 
-function delwinresult(res) {
+function delalertwinresult(res) {
     $("#loading").hide();
     if (res.code == 1) {
         alert("操作成功");

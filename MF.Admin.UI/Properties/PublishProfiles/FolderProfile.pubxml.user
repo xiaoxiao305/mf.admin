@@ -10,22 +10,22 @@
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/MF.Admin.BLL.dll">
-      <publishTime>03/03/2020 19:49:05</publishTime>
+      <publishTime>03/04/2020 14:29:14</publishTime>
     </File>
     <File Include="bin/MF.Admin.BLL.pdb">
-      <publishTime>03/03/2020 19:49:05</publishTime>
+      <publishTime>03/04/2020 14:29:14</publishTime>
     </File>
     <File Include="bin/MF.Admin.DAL.dll">
-      <publishTime>03/03/2020 19:41:34</publishTime>
+      <publishTime>03/04/2020 14:29:13</publishTime>
     </File>
     <File Include="bin/MF.Admin.DAL.pdb">
-      <publishTime>03/03/2020 19:41:34</publishTime>
+      <publishTime>03/04/2020 14:29:13</publishTime>
     </File>
     <File Include="bin/MF.Admin.UI.dll">
-      <publishTime>03/03/2020 19:49:07</publishTime>
+      <publishTime>03/04/2020 14:55:28</publishTime>
     </File>
     <File Include="bin/MF.Admin.UI.pdb">
-      <publishTime>03/03/2020 19:49:07</publishTime>
+      <publishTime>03/04/2020 14:55:28</publishTime>
     </File>
     <File Include="bin/MF.Common.dll">
       <publishTime>06/21/2017 15:36:33</publishTime>
@@ -157,7 +157,7 @@
       <publishTime>01/03/2020 17:14:37</publishTime>
     </File>
     <File Include="common/js/game.js">
-      <publishTime>03/02/2020 17:49:29</publishTime>
+      <publishTime>03/04/2020 14:55:09</publishTime>
     </File>
     <File Include="common/js/gameback.json">
       <publishTime>02/23/2020 16:20:12</publishTime>
@@ -232,10 +232,10 @@
       <publishTime>05/05/2017 20:15:33</publishTime>
     </File>
     <File Include="M/game/auditblacklist.aspx">
-      <publishTime>03/03/2020 17:19:45</publishTime>
+      <publishTime>03/04/2020 14:46:23</publishTime>
     </File>
     <File Include="M/game/autopatrol.aspx">
-      <publishTime>03/03/2020 19:12:21</publishTime>
+      <publishTime>03/03/2020 19:51:41</publishTime>
     </File>
     <File Include="M/game/closeroom.aspx">
       <publishTime>01/13/2020 18:11:15</publishTime>
@@ -250,13 +250,13 @@
       <publishTime>03/03/2020 18:58:58</publishTime>
     </File>
     <File Include="M/game/gameblacklist.aspx">
-      <publishTime>03/01/2020 09:02:00</publishTime>
+      <publishTime>03/04/2020 14:46:35</publishTime>
     </File>
     <File Include="M/game/gameincome.aspx">
-      <publishTime>03/02/2020 19:41:47</publishTime>
+      <publishTime>03/03/2020 20:40:48</publishTime>
     </File>
     <File Include="M/game/gamemoney.aspx">
-      <publishTime>03/03/2020 19:47:59</publishTime>
+      <publishTime>03/03/2020 20:40:48</publishTime>
     </File>
     <File Include="M/game/gamerec.aspx">
       <publishTime>02/29/2020 16:01:43</publishTime>
@@ -286,7 +286,7 @@
       <publishTime>12/11/2019 11:40:24</publishTime>
     </File>
     <File Include="M/Guild/ClubMembersList.aspx">
-      <publishTime>02/23/2020 16:25:39</publishTime>
+      <publishTime>03/03/2020 20:40:47</publishTime>
     </File>
     <File Include="M/Guild/ClubStatisticDay.aspx">
       <publishTime>03/01/2020 09:04:26</publishTime>
@@ -301,7 +301,7 @@
       <publishTime>03/01/2020 08:46:56</publishTime>
     </File>
     <File Include="M/Guild/GuildList.aspx">
-      <publishTime>02/26/2020 11:21:22</publishTime>
+      <publishTime>03/03/2020 20:40:47</publishTime>
     </File>
     <File Include="M/Guild/LeagueClubMembers.aspx">
       <publishTime>02/22/2020 16:27:32</publishTime>

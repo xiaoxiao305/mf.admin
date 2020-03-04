@@ -1,4 +1,4 @@
-﻿<%@ Page Title=" 报表管理 》 游戏黑名单报表" MasterPageFile="~/M/main.Master" Language="C#" AutoEventWireup="true" CodeBehind="gameblacklist.aspx.cs" Inherits="MF.Admin.UI.M.game.gameblacklist" %>
+﻿<%@ Page Title=" 游戏管理 》 游戏黑名单" MasterPageFile="~/M/main.Master" Language="C#" AutoEventWireup="true" CodeBehind="gameblacklist.aspx.cs" Inherits="MF.Admin.UI.M.game.gameblacklist" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="h" runat="server">
     <style type="text/css">
        li {display:block; text-align:left;padding-left:10%;}
@@ -98,7 +98,7 @@
     <div id="pager" class="pager"></div>
     <div class="loading" id="loading"></div>
      <!--弹出窗口开始-->
-    <div class="theme-popover" style="height: 400px;">
+    <div class="theme-popover" style="height: 430px;">
         <div class="theme-poptit">
             <a href="javascript:;" title="关闭" class="close">×</a>
             <h3 id="msgtitle"></h3>
@@ -141,7 +141,7 @@
             <li>　　　UID：<input class="ipt" type="text" id="tacc4" /></li>
             <li>　　　　值：<label id="valTypeArea4"></label>
             </li>
-            <li style="height: 70px;">　　备　注：<textarea id="txtRemark4" rows="4" cols="25"></textarea></li>
+            <li style="height: 70px;">　　备　注：<textarea id="txtRemark4" rows="4" cols="25"></textarea><input type="checkbox" id="isConfirm" style="margin-left:60px;" />确认实锤</li>
             <li class="err red center" id="lblerr4"></li>
             <li class="center"><input class="btn btn-primary" type="button" value=" 确 定" onclick="addBlackUserConfirm()" /></li>
         </ul> 

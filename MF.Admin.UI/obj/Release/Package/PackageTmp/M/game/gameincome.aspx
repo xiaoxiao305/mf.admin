@@ -135,7 +135,6 @@
         return tr;
     }
     function downUIDLog(time, chargeid, roomid, number) {
-        console.log("chargeid:", chargeid);
         $("#loading").show();
         if (oprGame==null || oprGame == "") return;
         var gameInfo = GetGameRecModel(oprGame);

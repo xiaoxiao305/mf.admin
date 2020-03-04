@@ -49,7 +49,6 @@
         function showClubMembers(clubId) {
             currentClubId = clubId;
             var url = "/m/guild/ClubMembersList.aspx?clubId=" + clubId;
-            console.log("go clubmembers url:", url);
             window.location.href = url;
         }
         function addClubRoomCard(id,name)

@@ -18,7 +18,6 @@
         }
         function seaResult(data) {
             $("#loading").hide();
-            console.log("data:", data.result);
             if (data.code == 1) {
                 jsonPager.data = data.result;
                 jsonPager.dataBind(data.index, data.rowCount);

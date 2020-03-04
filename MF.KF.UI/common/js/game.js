@@ -240,7 +240,23 @@ function GetGameName(gameid) {
         return gameModel.name;
     return "";
 }
-
+function GetGameBlackModelByType(gameType) {
+    if (gameType == "") return null;
+    gameType = gameType.toLowerCase();
+    for (var i = 0; i < blackGameInfo2.length; i++) {
+        if (blackGameInfo2[i]["type"].toLowerCase() == gameType) {
+            return blackGameInfo2[i];
+        }
+    }
+}
+function GetGameNameByType(gameType) {
+    if (gameType == "") return "";
+    gameType = gameType.toLowerCase();
+    var gameModel = GetGameBlackModelByType(gameType);
+    if (gameModel && gameModel != null)
+        return gameModel.name;
+    return "";
+}
 function GetGameRecModel(gameid) {
     if (gameid < 1) return null;
     for (var i = 0; i < gameRecInfo.length; i++) {
@@ -418,8 +434,8 @@ function addBlackUserConfirm() {
         $("#lblerr4").text("请选择游戏");
         return;
     }
-    var acc = $("#tacc4").val();
-    if (acc == "") {
+    var chargeid = $("#tacc4").val();
+    if (chargeid == "") {
         $("#lblerr4").text("请输入UID");
         return;
     }
@@ -434,7 +450,7 @@ function addBlackUserConfirm() {
         var m = GetGameBlackModel(gameids[i]);
         if (m == null || (!m.low && !m.middle && !m.high) || (m.low == "" && m.middle == "" && m.high == "")) {
             levels.push([]);
-            levelStrs.push("DEFINE");
+            levelStrs.push("");
         }
         else {
             switch (level) {
@@ -450,11 +466,6 @@ function addBlackUserConfirm() {
                     levels.push(m.high);
                     levelStrs.push("HIGH");
                     break;
-                default:
-                    levels.push(m.high);
-                    levelStrs.push("DEFINE");
-                    break;
-
             }
         }
     }
@@ -470,8 +481,10 @@ function addBlackUserConfirm() {
     var gameidsStr = gameids.join("|");
     var levelsStr = levels.join("|");
     var levelStrsStr = levelStrs.join("|");
-    var token = "";
-    ajax.addBlackUser("addblackuser", [gameidsStr, acc, levelsStr, levelStrsStr, remark, token], addwinresult);
+    var isConfirm = 0;
+    if ($('#isConfirm').is(':checked'))
+        isConfirm = 1;
+    ajax.addBlackUser("addblackuser", [gameidsStr, chargeid, levelsStr, levelStrsStr, remark, isConfirm], addwinresult);
 }
 function addwinresult(res) {
     $("#loading").hide();
@@ -630,5 +643,110 @@ function getEmoji(nick) {
     }
     else {
         return nick;
+    }
+}
+//输赢值异常设置
+var oprGameType;
+var oprGameValue;
+function setRedAlert() {
+    showAddMoneyWin(1);
+    $("#msgtitle").text("设置预警输赢值");
+}
+function setRedAlertConfirm() {
+    var type = $("#game1").val();
+    var val = $("#value").val();
+    if (!type || type == "") {
+        $("#lblerr").text("请选择游戏");
+        return;
+    } else if (!val || val == "" || parseInt(val) < -1) {
+        $("#lblerr").text("请输入设置值");
+        return;
+    }
+    oprGameType = type;
+    oprGameValue = val;
+    ajax.setRedAlert("setredalert", [type, val], setwinresult);
+}
+function setwinresult(res) {
+    $("#loading").hide();
+    if (res.code == 1) {
+        alert("操作成功");
+        $('.theme-popover-mask').hide();
+        $('.theme-popover').slideUp(200);
+        var dataOld = jsonPager.data;
+        dataOld.push({ "type": oprGameType, "value": oprGameValue });
+        oprGameType = null;
+        oprGameValue = null;
+        jsonPager.data = dataOld;
+        jsonPager.dataBind(res.index, dataOld.length);
+    } else {
+        if (res.msg != "")
+            alert(res.msg);
+        else
+            alert("操作失败：" + res.code);
+    }
+}
+
+
+function searchAlertConfig() {
+    var pagerTitles = ["游戏", "值", "操作"];
+    jsonPager.init(ajax.getRedAlert, [], searchAlertConfigResult, pagerTitles, "list_table", "container", "pager", insertAlertConfigRow);
+    jsonPager.dataBind(1, 0);
+
+    $("#loading").show();
+    jsonPager.queryArgs = [];
+    jsonPager.pageSize = 1000;
+    ajax.getRedAlert(jsonPager.makeArgs(1), searchAlertConfigResult);
+}
+
+
+function searchAlertConfigResult(data) {
+    $("#loading").hide();
+    if (data.code == 1) {
+        var newResult = [];
+        for (var key in data.result) {
+            newResult.push({ "type": key, "value": data.result[key] });
+        }
+        jsonPager.data = newResult;
+        jsonPager.dataBind(data.index, data.rowCount);
+    } else {
+        alert(data.msg);
+    }
+}
+function insertAlertConfigRow(o, tr) {
+    addCell = function (tr, text, i) {
+        var td = tr.insertCell(i);
+        td.innerHTML = text;
+    };
+    addCell(tr, GetGameNameByType(o.type), 0);
+    addCell(tr, o.value, 1);
+    addCell(tr, "<a href='javascript:;' onclick='delRedAlert(\"" + o.type + "\")'>删除</a>", 2);
+    return tr;
+}
+function delRedAlert(gameType) {
+    oprGameType = gameType;
+    ajax.setRedAlert("delredalert", [gameType], delalertwinresult);
+}
+
+function delalertwinresult(res) {
+    $("#loading").hide();
+    if (res.code == 1) {
+        alert("操作成功");
+        var dataOld = jsonPager.data;
+        var index = 0;
+        for (var i = 0; i < dataOld.length; i++) {
+            if (dataOld[i]["type"].trim().toUpperCase() == oprGameType) {
+                index = i;
+                break;
+            }
+        }
+        dataOld.splice(index, 1);
+        oprGameType = null;
+        jsonPager.data = dataOld;
+        jsonPager.dataBind(res.index, dataOld.length);
+    } else {
+        if (res.msg != "")
+            alert(res.msg);
+        else
+            alert("操作失败：" + res.code);
     }
 }

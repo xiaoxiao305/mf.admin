@@ -484,7 +484,6 @@ function addBlackUserConfirm() {
     var isConfirm = 0;
     if ($('#isConfirm').is(':checked'))
         isConfirm = 1;
-    console.log("isConfirm:", isConfirm);
     ajax.addBlackUser("addblackuser", [gameidsStr, chargeid, levelsStr, levelStrsStr, remark, isConfirm], addwinresult);
 }
 function addwinresult(res) {

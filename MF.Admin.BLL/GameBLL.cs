@@ -621,8 +621,132 @@ namespace MF.Admin.BLL
             }
             return list;
         }
+        public static List<AutoPatrol> GetLastGameRecords2(string gameIds)
+        {
+            try
+            {
+                //获取巡场数据+同桌巡场数据
+                string listStr = dal.GetLastGameRecords();
+                List<AutoPatrol> list = GetAutoPatrolModel(listStr);
+                string listStr2 = dal.GetDeskMates();
+                List<AutoPatrol> list2 = GetAutoPatrolModel(listStr2);
+                if (list2 != null)
+                {
+                    if (list == null)
+                        list = new List<AutoPatrol>();
+                    list.AddRange(list2);
+                }
+                if (list == null || list.Count < 1) return null;
+                //设置俱乐部+用户缓存
+                List<List<string>> chargeIdList = list.Select(t => t.ChargeIds).ToList();
+                if (chargeIdList != null && chargeIdList.Count > 0)
+                {
+                    List<string> allChargeIds = new List<string>();
+                    foreach (List<string> item in chargeIdList)
+                    {
+                        allChargeIds.AddRange(item);
+                    }
+                    guildDal.GetClubByChargeId(allChargeIds);
+                    userDal.QueryUserList(allChargeIds.ToArray());
+                }
+                //重组数据
+                List<AutoPatrol> newList = new List<AutoPatrol>();
+                string nick = "";
+                foreach (AutoPatrol patrol in list)
+                { 
+                    if (gameIds.Contains(patrol.GameId)) continue;
+                    if (patrol == null) continue;
+                    if ((patrol.ChargeIds == null || patrol.ChargeIds.Count < 1) && (patrol.NickNames == null || patrol.NickNames.Count < 1)) continue;
+                    if (patrol.Count < 1 && patrol.ChargeIds.Count == 2) continue;//巡场数据，屏蔽双人游戏+2人玩游戏
+                    List<string> nickNewList = new List<string>();
+                    Dictionary<string, string> nickClub = new Dictionary<string, string>();
+                    for (int i = 0; i < patrol.ChargeIds.Count; i++)
+                    {
+                        //俱乐部
+                        if (patrol.ClubIds == null)
+                            patrol.ClubIds = new List<string>();
+                        List<string> clubs = guildDal.GetCacheClubIdFromCache(patrol.ChargeIds[i]);
+                        if (clubs != null && clubs.Count > 0)
+                        {
+                            string clubStr = String.Join(",", clubs).Replace(",", ". ");
+                            patrol.ClubIds.Add(clubStr);
+                        }
+                        else
+                            patrol.ClubIds.Add("");
+                        //注册时间、最后一次登录IP
+                        if (patrol.RegiTimes == null)
+                            patrol.RegiTimes = new List<int>();
+                        if (patrol.LastLoginIps == null)
+                            patrol.LastLoginIps = new List<string>();
+                        Users cacheUser = userDal.GetCacheUserByChargeIdFromCache(patrol.ChargeIds[i]);
+                        if (cacheUser != null)
+                        {
+                            patrol.RegiTimes.Add(cacheUser.Regitime);
+                            patrol.LastLoginIps.Add(cacheUser.LastIp);
+                        }
+                        else
+                        {
+                            patrol.RegiTimes.Add(0);
+                            patrol.LastLoginIps.Add("");
+                        }
+                        if (patrol.NickNames != null && patrol.NickNames.Count > 0)
+                        {
+                            nick = patrol.NickNames[i];
+                            //黑名单
+                            if (nick.IndexOf("黑名单") >= 0)
+                            {
+                                if (!string.IsNullOrEmpty(patrol.ClubIds[i]) && !nickClub.ContainsKey(patrol.ClubIds[i]))
+                                    nickClub.Add(patrol.ClubIds[i], nick);
+                            }
+                            //巡场数据，屏蔽都是黑名单玩家
+                            if (patrol.Count > 0 || (patrol.Count < 1 && nickClub.Count != patrol.NickNames.Count))
+                            {
+                                //昵称
+                                string newNick = (nick.IndexOf("[emoji]") >= 0) ? nick.Replace("[emoji]", "\\U000") : nick;
+                                nickNewList.Add(newNick);
+                                patrol.NickNamesNew = nickNewList;
+                                //标注同一俱乐部
+                                if (patrol.IsBlackClub == null)
+                                    patrol.IsBlackClub = new List<int>();
+                                if (nickClub.Count > 0)
+                                {
+                                    bool isContain = false;
+                                    for (int clubI = 0; clubI < patrol.ClubIds.Count; clubI++)
+                                    {
+                                        if (string.IsNullOrEmpty(patrol.ClubIds[clubI])) continue;
+                                        if (nickClub.ContainsKey(patrol.ClubIds[clubI]))
+                                        {
+                                            if (patrol.ClubIds[i] == patrol.ClubIds[clubI]
+                                                && patrol.NickNames[i] != nickClub[patrol.ClubIds[clubI]])
+                                            {
+                                                isContain = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (isContain)
+                                        patrol.IsBlackClub.Add(1);
+                                    else
+                                        patrol.IsBlackClub.Add(0);
+                                }
+                                else
+                                    patrol.IsBlackClub.Add(0);
+                            }
+                        }
+                    }
+                    newList.Add(patrol);
+                }
+                return newList;
+            }
+            catch (Exception ex)
+            {
+                Base.WriteError("GetLastGameRecords ex:", ex.Message);
+            }
+            return null;
+        }
         public static List<AutoPatrol> GetLastGameRecords()
         {
+            WriteLog("GetLastGameRecords start:", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
             try
             {
                 //获取巡场数据+同桌巡场数据
@@ -657,21 +781,45 @@ namespace MF.Admin.BLL
                     if (patrol.NickNames != null && patrol.NickNames.Count > 0)
                     {
                         List<string> nickNewList = new List<string>();
-                        int blackCOunt = 0;
+                        int blackCount = 0;
+                        Dictionary<string, string> nickClub = new Dictionary<string, string>();
+                        int index = 0;
                         foreach (string nick in patrol.NickNames)
                         {
                             //黑名单判断
-                            if (patrol.Count > 0 && nick.IndexOf("黑名单") >= 0)
-                                blackCOunt++;
+                            if (nick.IndexOf("黑名单") >= 0)
+                            {
+                                nickClub.Add(patrol.ClubIds[index], nick);
+                                blackCount++;
+                            }
                             string newNick = (nick.IndexOf("[emoji]") >= 0) ? nick.Replace("[emoji]", "\\U000") : nick;
                             nickNewList.Add(newNick);
+                            index++;
                         }
-                        if (patrol.Count > 0 && blackCOunt == patrol.NickNames.Count) continue;//同桌数据，屏蔽同时在黑名单内的用户 
+                        if (patrol.Count < 1 && blackCount == patrol.NickNames.Count) continue;//巡场数据，屏蔽同时在黑名单内的用户 
                         patrol.NickNames = nickNewList;
+                        if (blackCount > 0)
+                        {
+                            if (patrol.IsBlackClub == null)
+                                patrol.IsBlackClub = new List<int>();
+                            index = 0;
+                            for (int i = 0; i < patrol.ClubIds.Count; i++)
+                            {
+                                if (nickClub.ContainsKey(patrol.ClubIds[i]))
+                                {
+                                    if (patrol.NickNames[i] != nickClub[patrol.ClubIds[i]])
+                                    {
+                                        patrol.IsBlackClub.Add(1);//标注同一俱乐部
+                                    }
+                                }
+                                else
+                                    patrol.IsBlackClub.Add(0);
+                            }
+                        }
                     }
                     if (patrol.ChargeIds != null && patrol.ChargeIds.Count > 0)
                     {
-                        //if (patrol.ChargeIds.Count == 2) continue;//屏蔽双人游戏+2人玩游戏
+                        if (patrol.Count < 1 && patrol.ChargeIds.Count == 2) continue;//巡场数据，屏蔽双人游戏+2人玩游戏
                         foreach (string chargeid in patrol.ChargeIds)
                         {
                             //重组俱乐部数据
@@ -705,12 +853,14 @@ namespace MF.Admin.BLL
                     }
                     newList.Add(patrol);
                 }
+                WriteLog("GetLastGameRecords end:", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
                 return newList;
             }
             catch (Exception ex)
             {
                 Base.WriteError("GetLastGameRecords ex:", ex.Message);
             }
+            WriteLog("GetLastGameRecords end222:", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
             return null;
         }
         //同桌玩家

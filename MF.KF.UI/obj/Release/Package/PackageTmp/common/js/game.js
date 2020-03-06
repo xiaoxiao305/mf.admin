@@ -484,7 +484,6 @@ function addBlackUserConfirm() {
     var isConfirm = 0;
     if ($('#isConfirm').is(':checked'))
         isConfirm = 1;
-    console.log("isConfirm:", isConfirm);
     ajax.addBlackUser("addblackuser", [gameidsStr, chargeid, levelsStr, levelStrsStr, remark, isConfirm], addwinresult);
 }
 function addwinresult(res) {
@@ -725,10 +724,10 @@ function insertAlertConfigRow(o, tr) {
 }
 function delRedAlert(gameType) {
     oprGameType = gameType;
-    ajax.setRedAlert("delredalert", [gameType], delwinresult);
+    ajax.setRedAlert("delredalert", [gameType], delalertwinresult);
 }
 
-function delwinresult(res) {
+function delalertwinresult(res) {
     $("#loading").hide();
     if (res.code == 1) {
         alert("操作成功");

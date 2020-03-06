@@ -278,6 +278,10 @@ namespace MF.Data
         /// </summary>
         public List<string> NickNames { get; set; }
         /// <summary>
+        /// 处理emoji后的--玩家昵称列表
+        /// </summary>
+        public List<string> NickNamesNew { get; set; }
+        /// <summary>
         /// 俱乐部ID列表
         /// </summary>
         public string ClubId { get; set; }
@@ -315,5 +319,10 @@ namespace MF.Data
         /// 同桌玩家，同桌次数
         /// </summary>
         public int Count { get; set; }
+        /// <summary>
+        /// 是否与黑名单用户同一俱乐部
+        /// 0否 1是
+        /// </summary>
+        public List<int> IsBlackClub { get; set; }
     }
 }

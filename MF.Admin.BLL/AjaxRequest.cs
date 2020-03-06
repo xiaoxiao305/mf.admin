@@ -346,12 +346,12 @@ namespace MF.Admin.BLL
                 WriteError("GetDeskMates ajax ex :", ex.Message);
             }
         }
-        public void GetLastGameRecords(long pageSize, long pageIndex)
+        public void GetLastGameRecords(long pageSize, long pageIndex,string gameIds)
         {
             try
             {
                 var res = new PagerResult<List<AutoPatrol>>();
-                var list = GameBLL.GetLastGameRecords();
+                var list = GameBLL.GetLastGameRecords2(gameIds);
                 res.result = list;
                 res.code = 1;
                 res.msg = "";

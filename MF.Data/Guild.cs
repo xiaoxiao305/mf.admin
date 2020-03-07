@@ -215,6 +215,7 @@ namespace MF.Data
         public string NickName { get; set; }
         public string ClubId { get; set; }
         public string Money { get; set; }
+        public string GUIDS { get; set; }
     }
     [Serializable]
     public class GameIncome
@@ -329,8 +330,8 @@ namespace MF.Data
         /// </summary>
         public List<int> IsBlackClub { get; set; }
         /// <summary>
-        /// 账号 列表
+        /// GUID 列表
         /// </summary>
-        //public List<string> AccountList { get; set; }
+        public List<string> GUIDList { get; set; }
     }
 }

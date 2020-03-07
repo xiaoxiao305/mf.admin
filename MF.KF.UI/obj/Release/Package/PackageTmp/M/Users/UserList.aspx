@@ -37,9 +37,9 @@
             guest = function (_guest) { if (_guest == 1) { return "游客"; } else if (_guest == 0) { return "注册用户"; } else if (_guest == 2) { return "游客转正"; } else { return _guest; } };
             device = function (_device) { if (_device == 0) { return "官网"; } else if (_device == 1) { return "web端"; } else if (_device == 2) { return "客户端"; } else if (_device == 3) { return "iPad"; } else if (_device == 4) { return "Android"; } else if (_device == 5) { return "iPhone"; } else if (_device == 6) { return "Pad"; } else if (_device == 7) { return "手机官网"; } else { return _device; } }
             if(db == 2)//实时
-                addCell(tr, "&nbsp;账号:" + o.Account + "　<a href='userinfo.aspx?db=2&acc=" + o.Account + "' target='_blank'>实时</a><br/>&nbsp;昵称:" + o.Nickname + "<br/>&nbsp;UID:" + o.ChargeId, 0);
+                addCell(tr, "&nbsp;账号:" + o.Account + "　<a href='/M/users/userinfo.aspx?db=2&acc=" + o.Account + "' target='_blank'>实时</a><br/>&nbsp;昵称:" + o.Nickname + "<br/>&nbsp;UID:" + o.ChargeId, 0);
             else
-                addCell(tr, "&nbsp;账号:" + o.Account + "　<a href='userinfo.aspx?db=1&acc=" + o.Account + "' target='_blank'>备份</a><br/>&nbsp;昵称:" + o.Nickname + "<br/>&nbsp;UID:" + o.ChargeId, 0);
+                addCell(tr, "&nbsp;账号:" + o.Account + "　<a href='/M/users/userinfo.aspx?db=1&acc=" + o.Account + "' target='_blank'>备份</a><br/>&nbsp;昵称:" + o.Nickname + "<br/>&nbsp;UID:" + o.ChargeId, 0);
             addCell(tr, state(o.Flag) + "<br/>" + guest(o.Guest), 1);
             addCell(tr, o.Currency, 2);
             addCell(tr, o.Bean, 3);

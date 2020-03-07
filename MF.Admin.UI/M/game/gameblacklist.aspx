@@ -44,11 +44,12 @@
             addCell(tr, o.Value, 5);
             addCell(tr, getBlackLevelStr(o.Level), 6);
             addCell(tr, o.Remark, 7);
+            addCell(tr, o.GUIDS, 8);
             addCell(tr, "<a href='javascript:;' onclick='updateBlackUser(" + JSON.stringify(o) + ")'>修改</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
                 "<a href='javascript:;' onclick='setWinMoney(" + JSON.stringify(o) + ")'>删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
                 "<a href='javascript:;' onclick='getGameMoney(" + JSON.stringify(o) + ")'>查看输赢值</a><br />" +
                 "<a href='javascript:;' onclick='downloadLog(" + JSON.stringify(o) + ",1)'>下载实锤</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-                "<a href='javascript:;' onclick='downloadLog(" + JSON.stringify(o) + ",2)'>全部录像</a><br/>", 8);
+                "<a href='javascript:;' onclick='downloadLog(" + JSON.stringify(o) + ",2)'>全部录像</a><br/>", 9);
             return tr;
         }
         $(document).ready(function () {
@@ -69,7 +70,7 @@
                 //$("#tgame4").append("<option value=\"" + id + "\">" + games[id] + "</option>");
                 $("#tgame3").append("<option value=\"" + id + "\">" + games[id] + "</option>");
             }
-            var pagerTitles = ["添加时间", "游戏", "账号", "UID", "昵称", "值", "档位", "备注", "操作"];
+            var pagerTitles = ["添加时间", "游戏", "账号", "UID", "昵称", "值", "档位", "备注", "GUID", "操作"];
             jsonPager.init(ajax.getGameBlackUsers, [], searchResult, pagerTitles, "list_table", "container", "pager", insertRow);
             jsonPager.dataBind(1, 0);
         });

@@ -7,10 +7,10 @@
                 $("#game").append("<input type='checkbox' name='chkGame' id=" + id
                     + " value=" + id + "><label for='" + id + "'>" + blackGameList[id] + "</label>&nbsp;&nbsp;&nbsp;");
             }
-            var pagerTitle = ["游戏时间", "游戏名称", "包间号", "UID", "昵称", "俱乐部", "注册时间", "最后一次登录IP"];
+            var pagerTitle = ["游戏时间", "游戏名称", "包间号", "UID", "昵称", "俱乐部", "注册时间", "GUID"];
             jsonPager.init(ajax.GetLastGameRecords, [], seaResult, pagerTitle, "list_table", "container", "pager", insertRow);
             jsonPager.dataBind(0, 1);
-             search();
+            search();
             setInterval(function () {
                 search();
             }, 600000);
@@ -57,7 +57,7 @@
             addCell(tr, chargeIdStr, 3);
             var nickStr = ""
             for (var n in o.NickNamesNew) {
-                nickStr += "<a href='/M/currency/CurrencyRecord.aspx?chargeid=" + o.ChargeIds[n] + "' target='_blank'>" + initNick(n) + "</a><br/>";
+                nickStr += "<a href='/M/currency/CurrencyRecord.aspx?chargeid=" + o.ChargeIds[n] + "' target='_blank'>" + initNick(o.NickNamesNew[n]) + "</a><br/>";
             }
             addCell(tr, nickStr, 4);
             var clubStr = "";
@@ -76,7 +76,7 @@
                 regiTimesStr += "<br/>"
             }
             addCell(tr, regiTimesStr, 6);
-            addCell(tr, o.LastLoginIps.toString().replace(/,/gi, "<br/>"), 7);
+            addCell(tr, o.GUIDList.toString().replace(/,/gi, "<br/>"), 7);
             return tr;
         }
         function showgame() {

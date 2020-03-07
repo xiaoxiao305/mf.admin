@@ -210,6 +210,7 @@ namespace MF.Admin.BLL
             try
             {
                 if (list == null || list.Count < 1) return null;
+
                 List<string> accList = new List<string>();
                 foreach (var blackUser in list)
                 {
@@ -263,6 +264,7 @@ namespace MF.Admin.BLL
             //return list;
             return GetBlackUsersDetail(list);
         }
+        
         public static List<GameBlackUserInfo> GetGameBlackUsersData(long gameId, string account, string chargeid)
         {
             try
@@ -684,18 +686,22 @@ namespace MF.Admin.BLL
                         //注册时间、最后一次登录IP
                         if (patrol.RegiTimes == null)
                             patrol.RegiTimes = new List<int>();
-                        if (patrol.LastLoginIps == null)
-                            patrol.LastLoginIps = new List<string>();
+                        //if (patrol.LastLoginIps == null)
+                        //    patrol.LastLoginIps = new List<string>();
+                        if (patrol.GUIDList == null)
+                            patrol.GUIDList = new List<string>();
                         Users cacheUser = userDal.GetCacheUserByChargeIdFromCache(patrol.ChargeIds[i]);
                         if (cacheUser != null)
                         {
                             patrol.RegiTimes.Add(cacheUser.Regitime);
-                            patrol.LastLoginIps.Add(cacheUser.LastIp); 
+                            //patrol.LastLoginIps.Add(cacheUser.LastIp); 
+                            patrol.GUIDList.Add(cacheUser.GUID);
                         }
                         else
                         {
                             patrol.RegiTimes.Add(0);
-                            patrol.LastLoginIps.Add(""); 
+                            //patrol.LastLoginIps.Add("");
+                            patrol.GUIDList.Add("");
                         }
                         if (patrol.NickNames != null && patrol.NickNames.Count > 0)
                         {

@@ -162,7 +162,7 @@
             var pagerTitles = ["时间","用户账号","游戏名称","场名称","变更类型","变更数量","原元宝数量","IP"];
             jsonPager.init(ajax.getCurrencyRecord, [], searchResult, pagerTitles, "list_table", "container", "pager", insertRow);
             jsonPager.dataBind(1, 0);            
-            if("<%=account%>" != "")
+            if ("<%=account%>" != "" || "<%=chargeId%>" != "")
                 search();
         });
     </script>

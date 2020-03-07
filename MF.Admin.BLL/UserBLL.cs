@@ -197,6 +197,15 @@ namespace MF.Admin.BLL
             AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "UserBLL.SetUserMoney",res==1?res:0,oprtypeenum);
             return res;
         }
-          
+
+
+        public static ClubsRes<Dictionary<string,object>> SetChargeIdCache(string[] chargeids)
+        {
+          return  dal.QueryUserList(chargeids);
+        }
+        public static Users GetChargeIdCache(string chargeid)
+        {
+            return dal.GetCacheUserByChargeIdFromCache(chargeid);
+        }
     }
 }

@@ -10,7 +10,7 @@
             var pagerTitle = ["游戏时间", "游戏名称", "包间号", "UID", "昵称", "俱乐部", "注册时间", "最后一次登录IP"];
             jsonPager.init(ajax.GetLastGameRecords, [], seaResult, pagerTitle, "list_table", "container", "pager", insertRow);
             jsonPager.dataBind(0, 1);
-             search();
+            search();
             setInterval(function () {
                 search();
             }, 600000);
@@ -48,15 +48,18 @@
             };
             addCell(tr, new Date("2012/10/01").dateAdd("s", o.TimeStamp).Format("yyyy-MM-dd hh:mm:ss"), 0);
             addCell(tr, o.GameName, 1);
-            //addCell(tr, "<a href='/m/game/gameincome.aspx?time=" + o.TimeStamp + "&gameId=" + o.GameId + "&roomId=" + o.RoomId + "' target='_blank'>" + o.RoomId + "</a>", 2);
-            addCell(tr,o.RoomId, 2);
+            addCell(tr, "<a href='/m/game/gameincome.aspx?time=" + o.TimeStamp + "&gameId=" + o.GameId + "&roomId=" + o.RoomId + "' target='_blank'>" + o.RoomId + "</a>", 2);
             var chargeIdStr = "";
             var stime = new Date(new Date().Format("yyyy-MM-dd 00:00:00")).dateDiff("s");
             for (var r in o.ChargeIds) {
                 chargeIdStr += "<a href='/m/game/gameincome.aspx?time=" + stime + "&etime=" + o.TimeStamp + "&gameId=" + o.GameId + "&chargeId=" + o.ChargeIds[r] + "' target='_blank'>" + o.ChargeIds[r] + "</a><br/>";
             }
             addCell(tr, chargeIdStr, 3);
-            addCell(tr, initNick(o.NickNamesNew.toString()), 4);
+            var nickStr = ""
+            for (var n in o.NickNamesNew) {
+                nickStr += "<a href='/M/currency/CurrencyRecord.aspx?chargeid=" + o.ChargeIds[n] + "' target='_blank'>" + initNick(o.NickNamesNew[n]) + "</a><br/>";
+            }
+            addCell(tr, nickStr, 4);
             var clubStr = "";
             for (var r2 in o.IsBlackClub) {
                 if (o.IsBlackClub[r2] == 1)

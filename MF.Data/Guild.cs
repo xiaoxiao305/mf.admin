@@ -259,7 +259,7 @@ namespace MF.Data
         /// <summary>
         /// 账号列表
         /// </summary>
-        public List<string> AccountList { get; set; }
+        //public List<string> AccountList { get; set; }
 
     }
     /// <summary>
@@ -328,5 +328,9 @@ namespace MF.Data
         /// 0否 1是
         /// </summary>
         public List<int> IsBlackClub { get; set; }
+        /// <summary>
+        /// 账号 列表
+        /// </summary>
+        //public List<string> AccountList { get; set; }
     }
 }

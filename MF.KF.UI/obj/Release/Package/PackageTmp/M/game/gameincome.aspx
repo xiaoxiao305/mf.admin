@@ -57,7 +57,7 @@
         }
         $("#roomid").val(roomId);
         $("#chargeid").val(chargeId);
-        var pagerTitles = ["游戏时间", "游戏编号", "场ID", "包间号", "局号", "UID", "账号", "昵称", "本局收益", "本局抽水", "录像"];
+        var pagerTitles = ["游戏时间", "游戏编号", "场ID", "包间号", "局号", "UID", "昵称", "本局收益", "本局抽水", "录像"];
         jsonPager.init(ajax.getGameIncome, [], searchResult, pagerTitles, "list_table", "container", "pager", insertRow);
         jsonPager.dataBind(1, 0);
         if (time != "" && gameId != "")
@@ -128,16 +128,14 @@
         var chargeidStr = "";
         if (o.ChargeIdList && o.ChargeIdList.length > 0) {
             for (var i = 0; i < o.ChargeIdList.length; i++) {
-                chargeidStr += "<a href='/M/currency/CurrencyRecord.aspx?account=" + o.AccountList[i] + "' target='_blank'>" + o.ChargeIdList[i] + "</a><br/>";
+                chargeidStr += "<a href='/M/currency/CurrencyRecord.aspx?chargeid=" + o.ChargeIdList[i] + "' target='_blank'>" + o.ChargeIdList[i] + "</a><br/>";
             }
         }
-        console.log("o.AccountList:", o.AccountList);
         addCell(tr, chargeidStr, 5);
-        addCell(tr, o.AccountList.toString().replace(/,/gi, "<br/>"), 6);
-        addCell(tr, initNick(o.NickList.toString()), 7);
-        addCell(tr, o.IncomeList.toString().replace(/,/gi, "<br/>"), 8);
-        addCell(tr, o.InterestList.toString().replace(/,/gi, "<br/>"), 9);
-        addCell(tr, "<a href='javascript:;' onclick=\"downUIDLog(" + o.Time + ",'" + o.ChargeIdList[0] + "','" + o.RoomId + "','" + o.Number + "')\">下载</a>", 10);
+        addCell(tr, initNick(o.NickList.toString()), 6);
+        addCell(tr, o.IncomeList.toString().replace(/,/gi, "<br/>"), 7);
+        addCell(tr, o.InterestList.toString().replace(/,/gi, "<br/>"), 8);
+        addCell(tr, "<a href='javascript:;' onclick=\"downUIDLog(" + o.Time + ",'" + o.ChargeIdList[0] + "','" + o.RoomId + "','" + o.Number + "')\">下载</a>", 9);
         return tr;
     }
     function downUIDLog(time, chargeid, roomid, number) {

@@ -38,8 +38,8 @@
             var date = new Date("2012/10/1");
             addCell(tr, date.dateAdd("s", o.CreateDate).format("yyyy-MM-dd hh:mm:ss"), 0);
             addCell(tr, GetGameName(o.GameId), 1);
-            addCell(tr, o.Account, 2);
-            addCell(tr, o.ChargeId, 3);
+            addCell(tr, o.Account, 2);            
+            addCell(tr, "<a href='/M/currency/CurrencyRecord.aspx?chargeid=" + o.ChargeId + "' target='_blank'>" + o.ChargeId + "</a>", 3);
             addCell(tr, o.NickName, 4);
             addCell(tr, o.Value, 5);
             addCell(tr, getBlackLevelStr(o.Level), 6);

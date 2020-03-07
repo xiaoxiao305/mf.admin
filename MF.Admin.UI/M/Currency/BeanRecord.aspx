@@ -19,7 +19,7 @@
                     return;
                 }
             }
-            var args = [parseInt($("#game").val()), parseInt($("#matchlist").val()),parseInt($("#type").val()),"<%=account%>", checktime, startTime, overTime,2];
+            var args = [parseInt($("#game").val()), parseInt($("#matchlist").val()),parseInt($("#type").val()),"<%=account%>","", checktime, startTime, overTime,2];
             jsonPager.queryArgs = args;
             $("#loading").show();
             ajax.getCurrencyRecord(jsonPager.makeArgs(1), searchResult);

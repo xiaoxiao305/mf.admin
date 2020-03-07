@@ -1761,11 +1761,11 @@ namespace MF.Admin.BLL
         /// <param name="checktime">是否按时间查询</param>
         /// <param name="startTime">查询开始时间</param>
         /// <param name="overTime">查询结束时间</param>
-        public void GetCurrencyRecord(long pageSize, long pageIndex, long gameid, long matchid, long type, string account, long checktime, long startTime, long overTime, long searchtype)
+        public void GetCurrencyRecord(long pageSize, long pageIndex, long gameid, long matchid, long type, string account, string chargeid, long checktime, long startTime, long overTime, long searchtype)
         {
             int rowCount = 0;
             var res = new PagerResult<List<CurrencyRecord>>();
-            var list = RecordBLL.GetCurrcryRecord(pageSize, pageIndex, gameid, matchid, type, account, checktime, startTime, overTime, searchtype, out rowCount);
+            var list = RecordBLL.GetCurrcryRecord(pageSize, pageIndex, gameid, matchid, type, account, chargeid, checktime, startTime, overTime, searchtype, out rowCount);
             res.result = list;
             res.code = 1;
             res.msg = "";

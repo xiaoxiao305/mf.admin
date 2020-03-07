@@ -55,7 +55,11 @@
                 chargeIdStr += "<a href='/m/game/gameincome.aspx?time=" + stime + "&etime=" + o.TimeStamp + "&gameId=" + o.GameId + "&chargeId=" + o.ChargeIds[r] + "' target='_blank'>" + o.ChargeIds[r] + "</a><br/>";
             }
             addCell(tr, chargeIdStr, 3);
-            addCell(tr, initNick(o.NickNamesNew.toString()), 4);
+            var nickStr = ""
+            for (var n in o.NickNamesNew) {
+                nickStr += "<a href='/M/currency/CurrencyRecord.aspx?chargeid=" + o.ChargeIds[n] + "' target='_blank'>" + initNick(o.NickNamesNew[n]) + "</a><br/>";
+            }
+            addCell(tr, nickStr, 4);
             var clubStr = "";
             for (var r2 in o.IsBlackClub) {
                 if (o.IsBlackClub[r2] == 1)

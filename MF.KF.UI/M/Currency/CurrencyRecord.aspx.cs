@@ -10,25 +10,17 @@ namespace MF.KF.UI.M.Currency
         protected string matchDic = "{}";
         protected string gameDic = "{}";
         protected string account = "";
+        protected string chargeId = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsLogin)
                 return;
             try
             {
-                if (Request.QueryString.Count != 1 || Request.QueryString.GetKey(0) != "account")
-                {
-                    ShowMessage("参数错误");
-                    Base.WriteError(ClientIP, " getuserCurrencyRecord(account:", Request["account"],") err.", Request.Url.PathAndQuery);
-                    return;
-                }
-                if (Request["account"] == null || string.IsNullOrEmpty(Request["account"].ToString()))
-                {
-                    ShowMessage("获取用户元宝信息失败,参数错误");
-                    Base.WriteError(ClientIP, " getuserCurrencyRecord(account:", Request["account"], ") err.args is err.", Request.Url.PathAndQuery);
-                    return;
-                }
-                account = Request["account"];
+                if (Request["account"] != null && !string.IsNullOrEmpty(Request["account"].ToString()))
+                    account = Request["account"];
+                if (Request["chargeid"] != null && !string.IsNullOrEmpty(Request["chargeid"].ToString()))
+                    chargeId = Request["chargeid"];
                 InitGameInfo();//加载游戏
             }
             catch (Exception ex)

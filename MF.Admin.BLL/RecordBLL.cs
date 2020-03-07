@@ -9,16 +9,21 @@ namespace MF.Admin.BLL
     public class RecordBLL : Base
     {
         private static RecordDAL dal = new RecordDAL();
-        public static List<CurrencyRecord> GetCurrcryRecord(long pageSize, long pageIndex, long gameid, long matchid, long type, string account, long checktime, long startTime, long overTime,long searchtype, out int rowCount)
+        public static List<CurrencyRecord> GetCurrcryRecord(long pageSize, long pageIndex, long gameid, long matchid, long type, string account, string chargeid, long checktime, long startTime, long overTime, long searchtype, out int rowCount)
         {
+            chargeid = chargeid.ToUpper();
             rowCount = 0;
-            if (string.IsNullOrEmpty(account))
-                return null;
             var search = new Search<CurrencyRecord>();
             search.PageSize = (int)pageSize;
             search.PageIndex = (int)pageIndex;
             CurrencyRecord model = new CurrencyRecord();
-            model.Account = account;
+            if (!string.IsNullOrEmpty(account))
+                model.Account = account;
+            else
+            {
+                if (!string.IsNullOrEmpty(chargeid))
+                    model.Account = new UserDAL().GetAccByChargeId(chargeid);
+            }
             if (gameid >= 0)
                 model.GameId = gameid;
             if (matchid > 0)
@@ -32,7 +37,7 @@ namespace MF.Admin.BLL
                 search.OverTime = overTime;
             }
             search.SearchObj = model;
-           List<CurrencyRecord> searchList= dal.GetCurrcryRecord(search,searchtype, out rowCount);
+            List<CurrencyRecord> searchList = dal.GetCurrcryRecord(search, searchtype, out rowCount);
             if (searchList == null || searchList.Count < 1)
                 return null;
             else
@@ -107,7 +112,7 @@ namespace MF.Admin.BLL
             search.StartTime = startTime;
             search.OverTime = overTime;
             search.SearchObj = model;
-            return dal.GetCurrcryRecord(search,1, out rowCount);
+            return dal.GetCurrcryRecord(search, 1, out rowCount);
         }
         public static List<CurrencyRecord> GetDZCurrencyRecord(long pageSize, long pageIndex, string account, long startTime, long overTime, out int rowCount)
         {
@@ -126,7 +131,7 @@ namespace MF.Admin.BLL
             search.StartTime = startTime;
             search.OverTime = overTime;
             search.SearchObj = model;
-            return dal.GetCurrcryRecord(search,1,out rowCount);
+            return dal.GetCurrcryRecord(search, 1, out rowCount);
         }
         public static List<QmallRecord> GetQmallRecord(long pageSize, long pageIndex, string account,
             long type, long flag, out int rowCount)
@@ -143,13 +148,13 @@ namespace MF.Admin.BLL
             if (type > 0)
             {
                 if (type == 100)
-                    types = new object[] { 5,6,7,8,9,10};
+                    types = new object[] { 5, 6, 7, 8, 9, 10 };
                 else
-                    types = new object[] { 1,2,3,4,11,12,13,14,15,16,17,18 };
+                    types = new object[] { 1, 2, 3, 4, 11, 12, 13, 14, 15, 16, 17, 18 };
                 model.Product_Id = types;
             }
             model.status = -1;
-            if (flag !=-1)
+            if (flag != -1)
                 model.status = flag;
             search.SearchObj = model;
             return dal.GetQmallRecord(search, out rowCount);
@@ -158,7 +163,7 @@ namespace MF.Admin.BLL
              long exact, long filed, string keyword, long checktime, long startTime, long overTime, out int rowCount)
         {
             rowCount = 0;
-           SystemLogSearch search = new SystemLogSearch();
+            SystemLogSearch search = new SystemLogSearch();
             if (type > 0)
                 search.Where += " AND [TYPE] = " + type;
             if (flag >= 0)
@@ -179,7 +184,7 @@ namespace MF.Admin.BLL
                     else if (filed == 2)
                         search.Where += string.Format(" and IP LIKE '%{0}%'", keyword);
                 }
-            } 
+            }
             if (checktime == 1 && overTime > startTime)
                 search.Where += string.Format(" AND OperTime BETWEEN '{0}' AND '{1}'", BaseDAL.ConvertSpanToDate("s", (int)startTime), BaseDAL.ConvertSpanToDate("s", (int)overTime));
             return dal.GetSystemlogRecord(search, out rowCount);
@@ -212,6 +217,6 @@ namespace MF.Admin.BLL
                 search.Where += string.Format(" AND LoginTime BETWEEN '{0}' AND '{1}'", DateTime.Parse("2012-10-01").AddSeconds(startTime), DateTime.Parse("2012-10-01").AddSeconds(overTime));
             return dal.GetLoginLogRecord(search, out rowCount);
         }
-        
+
     }
 }

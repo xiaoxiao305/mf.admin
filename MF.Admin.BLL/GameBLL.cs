@@ -560,22 +560,15 @@ namespace MF.Admin.BLL
                     if (income == null) continue;
                     if (income.NickList.Count > 0)
                     {
-                        List<string> nickNewList = new List<string>();
-                        List<string> accountNewList = new List<string>();
-                        if (income.AccountList == null)
-                            income.AccountList = new List<string>();
+                        List<string> nickNewList = new List<string>(); 
                         for (int i = 0; i < income.NickList.Count; i++)
                         {
                             string newNick = income.NickList[i];
                             if (newNick.IndexOf("[emoji]") >= 0)
                                 newNick = newNick.Replace("[emoji]", "\\U000");
-                            nickNewList.Add(newNick);
-                            Users cacheUser = userDal.GetCacheUserByChargeIdFromCache(income.ChargeIdList[i]);
-                            if (cacheUser != null)
-                                accountNewList.Add(cacheUser.Account);
+                            nickNewList.Add(newNick); 
                         } 
-                        income.NickList = nickNewList;
-                        income.AccountList = accountNewList;
+                        income.NickList = nickNewList; 
                     }
                     newList.Add(income);
                 }
@@ -697,12 +690,12 @@ namespace MF.Admin.BLL
                         if (cacheUser != null)
                         {
                             patrol.RegiTimes.Add(cacheUser.Regitime);
-                            patrol.LastLoginIps.Add(cacheUser.LastIp);
+                            patrol.LastLoginIps.Add(cacheUser.LastIp); 
                         }
                         else
                         {
                             patrol.RegiTimes.Add(0);
-                            patrol.LastLoginIps.Add("");
+                            patrol.LastLoginIps.Add(""); 
                         }
                         if (patrol.NickNames != null && patrol.NickNames.Count > 0)
                         {
@@ -755,7 +748,7 @@ namespace MF.Admin.BLL
             }
             catch (Exception ex)
             {
-                Base.WriteError("GetLastGameRecords ex:", ex.Message);
+                Base.WriteError("GetLastGameRecords2 ex:", ex.Message);
             }
             return null;
         }

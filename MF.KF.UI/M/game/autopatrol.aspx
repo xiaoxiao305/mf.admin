@@ -48,7 +48,8 @@
             };
             addCell(tr, new Date("2012/10/01").dateAdd("s", o.TimeStamp).Format("yyyy-MM-dd hh:mm:ss"), 0);
             addCell(tr, o.GameName, 1);
-            addCell(tr, "<a href='/m/game/gameincome.aspx?time=" + o.TimeStamp + "&gameId=" + o.GameId + "&roomId=" + o.RoomId + "' target='_blank'>" + o.RoomId + "</a>", 2);
+            //addCell(tr, "<a href='/m/game/gameincome.aspx?time=" + o.TimeStamp + "&gameId=" + o.GameId + "&roomId=" + o.RoomId + "' target='_blank'>" + o.RoomId + "</a>", 2);
+            addCell(tr,o.RoomId, 2);
             var chargeIdStr = "";
             var stime = new Date(new Date().Format("yyyy-MM-dd 00:00:00")).dateDiff("s");
             for (var r in o.ChargeIds) {

@@ -424,6 +424,18 @@ namespace MF.Admin.DAL
             if (list == null || list.Count < 1) return "";
             return list[0].Account;
         }
+        public string GetAccByChargeIdFrom(string chargeId)
+        {
+            if (string.IsNullOrEmpty(chargeId)) return "";
+            chargeId = chargeId.ToUpper();
+            if (Cache.CacheChargeidList != null && Cache.CacheChargeidList.Count > 0 && Cache.CacheChargeidList.ContainsKey(chargeId))
+            {
+                Users cacheUser = Cache.CacheChargeidList[chargeId];
+                if (cacheUser != null)
+                    return cacheUser.Account;
+            }
+            return "";
+        }
         public string GetChargeIdByAcc(string account)
         {
             if (string.IsNullOrEmpty(account)) return "";

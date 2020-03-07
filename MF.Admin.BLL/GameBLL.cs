@@ -543,24 +543,39 @@ namespace MF.Admin.BLL
                     return null;
                 }
                 if (list == null || list.Count < 1) return list;
+                 //设置俱乐部+用户缓存
+                List<List<string>> chargeIdList = list.Select(t => t.ChargeIdList).ToList();
+                if (chargeIdList != null && chargeIdList.Count > 0)
+                {
+                    List<string> allChargeIds = new List<string>();
+                    foreach (List<string> item in chargeIdList)
+                    {
+                        allChargeIds.AddRange(item);
+                    }
+                    userDal.QueryUserList(allChargeIds.ToArray());
+                } 
                 List<GameIncome> newList = new List<GameIncome>();
                 foreach (GameIncome income in list)
                 {
-                    if (income != null && income.NickList.Count > 0)
+                    if (income == null) continue;
+                    if (income.NickList.Count > 0)
                     {
                         List<string> nickNewList = new List<string>();
-                        foreach (string nick in income.NickList)
+                        List<string> accountNewList = new List<string>();
+                        if (income.AccountList == null)
+                            income.AccountList = new List<string>();
+                        for (int i = 0; i < income.NickList.Count; i++)
                         {
-                            string newNick = nick;
-                            if (nick.IndexOf("[emoji]") >= 0)
-                            {
-                                newNick = nick.Replace("[emoji]", "\\U000");
-                                //newNick = Emoji.GetEmoji(newNick);//暂时不可用---前端转emoji
-                                //WriteError("newnick2222:", newNick);
-                            }
+                            string newNick = income.NickList[i];
+                            if (newNick.IndexOf("[emoji]") >= 0)
+                                newNick = newNick.Replace("[emoji]", "\\U000");
                             nickNewList.Add(newNick);
-                        }
+                            Users cacheUser = userDal.GetCacheUserByChargeIdFromCache(income.ChargeIdList[i]);
+                            if (cacheUser != null)
+                                accountNewList.Add(cacheUser.Account);
+                        } 
                         income.NickList = nickNewList;
+                        income.AccountList = accountNewList;
                     }
                     newList.Add(income);
                 }
@@ -1062,7 +1077,7 @@ namespace MF.Admin.BLL
                     if (chargeIdList != null && chargeIdList.Count > 0)
                     {
                         List<string> newChargeIdList = chargeIdList.ConvertAll(obj => string.Format("{0}", obj));
-                        userDal.GetMemberInfo(newChargeIdList.ToArray());
+                        userDal.QueryUserList(newChargeIdList.ToArray());
                         guildDal.GetClubByChargeId(newChargeIdList);
                     }
                     List<GameBlackUserInfo> blackList = GetGameBlackUsersData(int.Parse(gameIds[index]), "", "");

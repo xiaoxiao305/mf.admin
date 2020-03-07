@@ -73,7 +73,10 @@
             var gameModel = GetGameBlackModelByType(o.type);
             var gameName = (gameModel && gameModel != null) ? gameModel.name : "";
             var gameId = (gameModel && gameModel != null) ? gameModel.matchid : 0;
-            var etime = new Date().dateDiff("s");
+            //var etime = new Date().dateDiff("s");
+            //var etime = (new Date("2012/10/1")).dateAdd("s", o.regTime).format("yyyy-MM-dd 00:00:00")
+            var etime = new Date((new Date("2012/10/1")).dateAdd("s", o.regTime).format("yyyy-MM-dd 23:59:59")).dateDiff("s");
+            console.log("etime:", etime);
             addCell(tr, gameName, 0);
             addCell(tr, o.account, 1);
             addCell(tr, "<a href='/m/game/gameincome.aspx?time=" + o.regTime + "&etime=" + etime + "&gameId=" + gameId + "&chargeId=" + o.player_id + "' target='_blank'>" + o.player_id + "</a>", 2); 

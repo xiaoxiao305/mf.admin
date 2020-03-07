@@ -256,6 +256,10 @@ namespace MF.Data
         /// 本局抽水列表
         /// </summary>
         public List<string> InterestList { get; set; }
+        /// <summary>
+        /// 账号列表
+        /// </summary>
+        public List<string> AccountList { get; set; }
 
     }
     /// <summary>

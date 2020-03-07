@@ -7,8 +7,7 @@ namespace MF.Admin.UI.M.game
         protected string time;
         protected string hour;
         protected string min;
-        protected string sec;
-        protected string etime;
+        protected string sec; 
         protected string ehour;
         protected string emin;
         protected string esec;
@@ -30,14 +29,13 @@ namespace MF.Admin.UI.M.game
                 if (Request["etime"] != null && !string.IsNullOrEmpty(Request["etime"].ToString()))
                 {
                     DateTime et = DateTime.Parse("2012-10-01").AddSeconds(int.Parse(Request["etime"].ToString()));
-                    etime = et.ToString("yyyy-MM-dd");
+                    //etime = et.ToString("yyyy-MM-dd");
                     ehour = et.ToString("HH");
                     emin = et.ToString("mm");
                     esec = et.ToString("ss");
                 }
                 else
                 {
-                    etime = time;
                     ehour = hour;
                     emin = min;
                     esec = sec;

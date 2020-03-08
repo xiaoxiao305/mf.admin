@@ -1,1 +1,13 @@
-E:\code\mf.admin\MF.ConsoleApp\obj\Debug\MF.ConsoleApp.csprojAssemblyReference.cache
+E:\code\mf.admin\MF.ConsoleApp\bin\Debug\MF.ConsoleApp.exe.config
+E:\code\mf.admin\MF.ConsoleApp\bin\Debug\MF.ConsoleApp.exe
+E:\code\mf.admin\MF.ConsoleApp\bin\Debug\MF.ConsoleApp.pdb
+E:\code\mf.admin\MF.ConsoleApp\bin\Debug\MF.Data.dll
+E:\code\mf.admin\MF.ConsoleApp\bin\Debug\MF.Protocol.dll
+E:\code\mf.admin\MF.ConsoleApp\bin\Debug\Newtonsoft.Json.dll
+E:\code\mf.admin\MF.ConsoleApp\bin\Debug\MF.Common.dll
+E:\code\mf.admin\MF.ConsoleApp\bin\Debug\MF.Enum.dll
+E:\code\mf.admin\MF.ConsoleApp\bin\Debug\Newtonsoft.Json.xml
+E:\code\mf.admin\MF.ConsoleApp\obj\Debug\MF.ConsoleApp.csproj.CopyComplete
+E:\code\mf.admin\MF.ConsoleApp\obj\Debug\MF.ConsoleApp.exe
+E:\code\mf.admin\MF.ConsoleApp\obj\Debug\MF.ConsoleApp.pdb
+E:\code\mf.admin\MF.ConsoleApp\bin\Debug\MF.Data.xml

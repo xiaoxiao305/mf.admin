@@ -119,6 +119,7 @@
     <Content Include="Default.aspx" />
     <Content Include="common\js\echarts.min.js" />
     <Content Include="M\Charge\RecordList.aspx" />
+    <Content Include="M\Currency\AllStrongBox.aspx" />
     <Content Include="M\Currency\BeanRecord.aspx" />
     <Content Include="M\Currency\CurrencyRecord.aspx" />
     <Content Include="M\Currency\DZCurrencyRecord.aspx" />
@@ -199,6 +200,13 @@
     </Compile>
     <Compile Include="M\Charge\RecordList.aspx.designer.cs">
       <DependentUpon>RecordList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\Currency\AllStrongBox.aspx.cs">
+      <DependentUpon>AllStrongBox.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Currency\AllStrongBox.aspx.designer.cs">
+      <DependentUpon>AllStrongBox.aspx</DependentUpon>
     </Compile>
     <Compile Include="M\Currency\BeanRecord.aspx.cs">
       <DependentUpon>BeanRecord.aspx</DependentUpon>

@@ -297,5 +297,15 @@ namespace MF.Admin.DAL
             }
             return null;
         }
+        public GameBlackUserInfoNew GetGameBlackUsersNew(long pageSize, long pageIndex, long gameId, string account, string chargeid, int audit)
+        {
+            string par = "gameId={0}&account={1}&chargeid={2}&audit={3}&PageIndex={4}&PageSize={5}";
+            string gameid = gameId > 0 ? gameId.ToString() : "";
+            string auditTag = audit == 2 ? "NO" : "YES";
+            par = string.Format(par, gameid, account, chargeid, auditTag,pageIndex,pageSize);
+            //WriteLog("getblackuser par:", par);
+            var res = Post<GameBlackUserInfoNew>(BlackURI + "getuserpage", par);
+            return res;
+        }
     }
 }

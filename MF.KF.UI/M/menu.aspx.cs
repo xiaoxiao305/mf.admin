@@ -35,12 +35,14 @@ namespace MF.KF.UI.M
         <li class='menu_list'><a href ='/m/club/memberactive.aspx' target='main' class='white'>俱乐部成员活跃</a></li>
         <li class='menu_list'><a href ='/m/club/clubactive.aspx' target='main' class='white'>俱乐部活跃</a></li>
         <li class='menu_list'><a href ='/m/club/clubmembers.aspx' target='main' class='white'>成员所在俱乐部</a></li>");
-            string gameLi = @"<li class='menu_title'>游戏管理</li><li class='menu_list'><a href ='/m/game/closeroom.aspx' target='main' class='white'>解散游戏</a></li>        
+            string gameLi = @"<li class='menu_title'>游戏管理</li><li class='menu_list'><a href ='/m/game/closeroom.aspx' target='main' class='white'>解散游戏</a></li>
+        <li class='menu_list'><a href ='/m/game/flushgameserver.aspx' target='main' class='white'>刷新游戏配置</a></li>
         <li class='menu_list'><a href ='/m/game/gamerec.aspx' target='main' class='white'>游戏录像</a></li>
         <li class='menu_list'><a href ='/m/game/gameincome.aspx' target='main' class='white'>游戏收益查询</a></li>
         <li class='menu_list'><a href ='/m/game/recsearch.aspx' target='main' class='white'>录像查询</a></li>
         <li class='menu_list'><a href ='/m/game/autopatrol.aspx' target='main' class='white'>自动巡场</a></li>
-        <li class='menu_list'><a href ='/m/game/flushgameserver.aspx' target='main' class='white'>刷新游戏配置</a></li>";
+        ";
+            //<li class='menu_list'><a href ='/m/game/addblackuserlist.aspx' target='main' class='white'>批量添加黑名单</a></li>
             string back = "";
             if (isAdmin == 1)
             {

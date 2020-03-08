@@ -47,7 +47,7 @@
                 o.Remark = o.Remark.replace(/\'/g, "");
             }
             addCell(tr, o.Remark, 7);
-            addCell(tr, o.GUIDS, 8);
+            addCell(tr, o.Guid, 8);
             addCell(tr, "<a href='javascript:;' onclick='updateBlackUser(" + JSON.stringify(o) + ")'>修改</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
                 "<a href='javascript:;' onclick='setWinMoney(" + JSON.stringify(o) + ")'>删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
                 "<a href='javascript:;' onclick='getGameMoney(" + JSON.stringify(o) + ")'>查看输赢值</a><br />" +

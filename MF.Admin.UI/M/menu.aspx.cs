@@ -25,7 +25,8 @@ namespace MF.Admin.UI.M
         {
             menuList = new Dictionary<int, string>();
             menuList.Add(0, @"<li class='menu_title'>用户管理</li> 
-        <li class='menu_list'><a href ='/m/users/userlist.aspx' target='main' class='white'>玩家数据</a></li>");
+        <li class='menu_list'><a href ='/m/users/userlist.aspx' target='main' class='white'>玩家数据</a></li>
+        <li class='menu_list'><a href ='/m/currency/AllStrongBox.aspx' target='main' class='white'>二级密码记录</a></li>");
             menuList.Add(1, @"<li class='menu_title'>充值管理</li> 
         <li class='menu_list'><a href ='/m/charge/recordlist.aspx' target='main' class='white'>充值明细</a></li>");
             menuList.Add(2, @"<li class='menu_title'>俱乐部管理</li> 

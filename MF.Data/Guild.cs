@@ -215,7 +215,7 @@ namespace MF.Data
         public string NickName { get; set; }
         public string ClubId { get; set; }
         public string Money { get; set; }
-        public string GUIDS { get; set; }
+        public string Guid { get; set; }
     }
     [Serializable]
     public class GameIncome
@@ -333,5 +333,19 @@ namespace MF.Data
         /// GUID 列表
         /// </summary>
         public List<string> GUIDList { get; set; }
+    }
+
+
+
+    [Serializable]
+    public class GameBlackUserInfoNew
+    {
+        public int TotalPages { get; set; }
+        public int TotalCount { get; set; }
+        public int PageIndex { get; set; }
+        public int PageSize { get; set; }
+        public bool IsPreviousPage { get; set; }
+        public bool IsNextPage { get; set; }
+        public List<GameBlackUserInfo> Items { get; set; } 
     }
 }

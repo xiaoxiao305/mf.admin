@@ -298,9 +298,18 @@ namespace MF.Admin.BLL
                     value = valueList[i];
                     levelStr = levelStrList[i];
                     value = "[" + value + "]";
-                    AddBlackUser(gameId, chargeId, value, levelStr, remark);
+                   var r= AddBlackUser(gameId, chargeId, value, levelStr, remark);
                     if (isConfirm == 1)
-                        ConfirmBlackUser(account, chargeId, "NONE_" + gameId);
+                    {
+                        if (r != null)
+                        {
+                            if (r.ContainsKey("succeed") && r.ContainsKey("message"))
+                            {
+                                if (bool.Parse(r["succeed"].ToString()))
+                                    ConfirmBlackUser(account, chargeId, "NONE_" + gameId);
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -1163,5 +1172,62 @@ namespace MF.Admin.BLL
 
         }
 
+
+        public static GameBlackUserInfoNew GetGameBlackUsersNew(long pageSize, long pageIndex, long gameId, long field, string value)
+        {
+            //if (gameId < 1 || string.IsNullOrEmpty(gameType))
+            //    return null;
+            string account = field == 2 ? value : "";
+            string chargeid = field == 1 ? value : "";
+            GameBlackUserInfoNew list = GetGameBlackUsersDataNew(pageSize,pageIndex, gameId, account, chargeid);
+            if (list == null || list.Items==null || list.Items.Count < 1) return null;
+            //return list;
+            return GetBlackUsersDetailNew(list);
+        }
+        public static GameBlackUserInfoNew GetGameBlackUsersDataNew(long pageSize, long pageIndex, long gameId, string account, string chargeid)
+        {
+            try
+            {
+                //if (gameId < 1) return null;
+                return dal.GetGameBlackUsersNew(pageSize,  pageIndex, gameId, account, chargeid, 1);
+            }
+            catch (Exception ex)
+            {
+                WriteError("GuildBLL GetGameBlackUsersDataNew ex:", ex.Message);
+            }
+            return null;
+        }
+        public static GameBlackUserInfoNew GetBlackUsersDetailNew(GameBlackUserInfoNew data)
+        {
+            try
+            {
+                List<GameBlackUserInfo> list = data.Items;
+                if (list == null || list.Count < 1) return data;
+                List<string> accList = new List<string>();
+                foreach (var blackUser in list)
+                {
+                    if (Cache.CacheAccountList != null &&
+                        Cache.CacheAccountList.ContainsKey(blackUser.Account.ToLower()))
+                        continue;
+                    accList.Add(blackUser.Account);
+                }
+                if (accList.Count > 0)
+                    userDal.GetUserInfoList(accList.ToArray());
+                List<GameBlackUserInfo> newList2 = new List<GameBlackUserInfo>();
+                foreach (GameBlackUserInfo info in list)
+                {
+                    info.NickName = userDal.GetNickByAcc(info.Account);
+                    if (string.IsNullOrEmpty(info.ChargeId))
+                        info.ChargeId = userDal.GetChargeIdByAcc(info.Account);
+                    newList2.Add(info);
+                }
+                 data.Items= newList2; 
+            }
+            catch (Exception ex)
+            {
+                Base.WriteError("GetBlackUsersDetail ex:", ex.Message);
+            }
+            return data;
+        }
     }
 }

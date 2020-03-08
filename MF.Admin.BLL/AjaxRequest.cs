@@ -116,7 +116,7 @@ namespace MF.Admin.BLL
                 functions.Add("setgamesetting", "SetGameSetting");
 
 
-                functions.Add("getgameblackusers", "GetGameBlackUsers");
+                functions.Add("getgameblackusers", "GetGameBlackUsers2");
                 functions.Add("addblackuser", "AddBlackUser");
                 functions.Add("delblackuser", "DelBlackUser");
                 functions.Add("setwinnmoney", "SetWinnMoney");
@@ -369,7 +369,7 @@ namespace MF.Admin.BLL
         public void GetGameBlackUsers(long pageSize, long pageIndex, long gameId, long field, string value)
         {
             var res = new PagerResult<List<GameBlackUserInfo>>();
-            var list = GameBLL.GetGameBlackUsers(gameId,  field, value.Trim());
+            var list = GameBLL.GetGameBlackUsers(gameId, field, value.Trim());
             res.result = list;
             res.code = 1;
             res.msg = "";
@@ -379,6 +379,19 @@ namespace MF.Admin.BLL
             string json = Json.SerializeObject(res);
             Response.Write(json);
         }
+        public void GetGameBlackUsers2(long pageSize, long pageIndex, long gameId, long field, string value)
+        {
+            var res = new PagerResult<List<GameBlackUserInfo>>();
+            var list = GameBLL.GetGameBlackUsersNew(pageSize, pageIndex, gameId, field, value.Trim());
+            res.result = (list == null || list.Items == null)?null:list.Items;
+            res.code = 1;
+            res.msg = "";
+            res.index = (int)pageIndex;
+            if (list != null)
+                res.rowCount = list.TotalCount;
+            string json = Json.SerializeObject(res);
+            Response.Write(json);
+        } 
         public void GetAuditBlackUsers(long pageSize, long pageIndex, long gameId, long field, string value)
         {
             var res = new PagerResult<List<GameBlackUserInfo>>();

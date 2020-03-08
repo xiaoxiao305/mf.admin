@@ -36,25 +36,15 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MF.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\work\MF.Common.DLL\MF.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="MF.Data.ExtendChannel, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\work\MF.Common.DLL\MF.Data.ExtendChannel.dll</HintPath>
+    <Reference Include="MF.Protocol">
+      <HintPath>..\..\MF.Common.DLL\MF.Protocol.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RedisHelp">
-      <HintPath>..\..\..\..\work\MF.Common.DLL\RedisHelp.dll</HintPath>
-    </Reference>
-    <Reference Include="StackExchange.Redis">
-      <HintPath>..\..\..\..\work\MF.Common.DLL\StackExchange.Redis.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -62,23 +52,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data.cs" />
+    <Compile Include="GameBLL.cs" />
+    <Compile Include="GameDAL.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="PostHelper.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="SearchCondition.cs" />
+    <Compile Include="UserBLL.cs" />
+    <Compile Include="UserDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MF.Admin.BLL\MF.Admin.BLL.csproj">
-      <Project>{52786722-bd61-49e2-b54f-81a3fae69eed}</Project>
-      <Name>MF.Admin.BLL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MF.Data\MF.Data.csproj">
-      <Project>{c870302c-31e4-43fe-b1b3-a092402072d5}</Project>
-      <Name>MF.Data</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

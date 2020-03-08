@@ -61,6 +61,7 @@
     <Content Include="M\club\guildlist.aspx" />
     <Content Include="M\club\memberactive.aspx" />
     <Content Include="M\Currency\CurrencyRecord.aspx" />
+    <Content Include="M\game\addblackuserlist.aspx" />
     <Content Include="M\game\auditblacklist.aspx" />
     <Content Include="M\game\closeroom.aspx" />
     <Content Include="M\game\flushgameserver.aspx" />
@@ -202,6 +203,13 @@
     <Compile Include="M\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\game\addblackuserlist.aspx.cs">
+      <DependentUpon>addblackuserlist.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\game\addblackuserlist.aspx.designer.cs">
+      <DependentUpon>addblackuserlist.aspx</DependentUpon>
     </Compile>
     <Compile Include="M\game\auditblacklist.aspx.cs">
       <DependentUpon>auditblacklist.aspx</DependentUpon>

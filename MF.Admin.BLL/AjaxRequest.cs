@@ -63,6 +63,7 @@ namespace MF.Admin.BLL
                 functions.Add("currencyrecord", "GetCurrencyRecord");
                 functions.Add("beanrecord", "GetUserBeanRecord");
                 functions.Add("strongboxrecord", "GetStrongBoxRecord");
+                functions.Add("allstrongboxrecord", "GetAllStrongBoxRecord");
                 functions.Add("chargerecord", "GetChargeRecord");
                 functions.Add("subuserlist", "GetSubUserList");
                 functions.Add("qmallrecord", "GetQmallRecord");
@@ -1685,6 +1686,20 @@ namespace MF.Admin.BLL
             int rowCount = 0;
             var res = new PagerResult<List<CurrencyRecord>>();
             var list = RecordBLL.GetStrongBoxRecord(pageSize, pageIndex, type, account, checktime, startTime, overTime, out rowCount);
+            res.result = list;
+            res.code = 1;
+            res.msg = "";
+            res.index = (int)pageIndex;
+            res.rowCount = rowCount;
+            string json = Json.SerializeObject(res);
+            Response.Write(json);
+        }
+        //[parseInt($("#type").val()), checktime, startTime, overTime,chargeid,account];
+        public void GetAllStrongBoxRecord(long pageSize, long pageIndex, long type, long checktime, long startTime, long overTime, string chargeid, string account)
+        {
+            int rowCount = 0;
+            var res = new PagerResult<List<StrongBoxRecord>>();
+            var list = RecordBLL.GetAllStrongBoxRecord(pageSize, pageIndex, type, checktime, startTime, overTime, chargeid, account, out rowCount);
             res.result = list;
             res.code = 1;
             res.msg = "";

@@ -10,37 +10,37 @@
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/MF.Admin.BLL.dll">
-      <publishTime>03/08/2020 15:45:08</publishTime>
+      <publishTime>03/09/2020 10:48:13</publishTime>
     </File>
     <File Include="bin/MF.Admin.BLL.pdb">
-      <publishTime>03/08/2020 15:45:08</publishTime>
+      <publishTime>03/09/2020 10:48:13</publishTime>
     </File>
     <File Include="bin/MF.Admin.DAL.dll">
-      <publishTime>03/08/2020 15:45:07</publishTime>
+      <publishTime>03/09/2020 10:38:39</publishTime>
     </File>
     <File Include="bin/MF.Admin.DAL.pdb">
-      <publishTime>03/08/2020 15:45:07</publishTime>
+      <publishTime>03/09/2020 10:38:39</publishTime>
     </File>
     <File Include="bin/MF.Common.dll">
       <publishTime>06/21/2017 15:36:33</publishTime>
     </File>
     <File Include="bin/MF.Data.dll">
-      <publishTime>03/08/2020 15:45:05</publishTime>
+      <publishTime>03/09/2020 10:27:53</publishTime>
     </File>
     <File Include="bin/MF.Data.ExtendChannel.dll">
       <publishTime>02/25/2020 11:03:03</publishTime>
     </File>
     <File Include="bin/MF.Data.pdb">
-      <publishTime>03/08/2020 15:45:05</publishTime>
+      <publishTime>03/09/2020 10:27:53</publishTime>
     </File>
     <File Include="bin/MF.Enum.dll">
       <publishTime>12/19/2017 11:44:07</publishTime>
     </File>
     <File Include="bin/MF.KF.UI.dll">
-      <publishTime>03/08/2020 15:52:55</publishTime>
+      <publishTime>03/09/2020 10:51:50</publishTime>
     </File>
     <File Include="bin/MF.KF.UI.pdb">
-      <publishTime>03/08/2020 15:52:55</publishTime>
+      <publishTime>03/09/2020 10:51:50</publishTime>
     </File>
     <File Include="bin/MF.Protocol.dll">
       <publishTime>11/01/2018 16:01:14</publishTime>
@@ -151,7 +151,7 @@
       <publishTime>05/26/2017 18:07:44</publishTime>
     </File>
     <File Include="common/js/ajax.js">
-      <publishTime>03/01/2020 08:54:56</publishTime>
+      <publishTime>03/09/2020 10:47:59</publishTime>
     </File>
     <File Include="common/js/common.js">
       <publishTime>02/27/2020 10:22:30</publishTime>
@@ -230,6 +230,9 @@
     </File>
     <File Include="M/club/memberactive.aspx">
       <publishTime>12/13/2019 15:53:22</publishTime>
+    </File>
+    <File Include="M/Currency/AllStrongBox.aspx">
+      <publishTime>03/09/2020 10:50:31</publishTime>
     </File>
     <File Include="M/Currency/CurrencyRecord.aspx">
       <publishTime>03/07/2020 14:21:33</publishTime>

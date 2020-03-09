@@ -28,7 +28,8 @@ namespace MF.KF.UI.M
         void initMenuList()
         {
             menuList = new Dictionary<int, string>();
-            menuList.Add(0, @"<li class='menu_title'>用户管理</li><li class='menu_list'><a href ='/m/users/userlist.aspx' target='main' class='white'>玩家数据</a></li>");
+            menuList.Add(0, @"<li class='menu_title'>用户管理</li><li class='menu_list'><a href ='/m/users/userlist.aspx' target='main' class='white'>玩家数据</a></li>
+<li class='menu_list'><a href ='/m/currency/AllStrongBox.aspx' target='main' class='white'>二级密码记录</a></li>");
             menuList.Add(1, @"<li class='menu_title'>俱乐部管理</li><li class='menu_list'><a href ='/m/club/club_statistic_day.aspx' target='main' class='white'>俱乐部每日统计</a></li>
         <li class='menu_list'><a href ='/m/club/guildlist.aspx' target='main' class='white'>俱乐部列表</a></li>
         <li class='menu_list'><a href ='/m/club/guildlink.aspx' target='main' class='white'>俱乐部游戏设置</a></li>

@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using MF.Data.Converter;
 using System.Collections.Generic;
-using System.Linq; 
+using System.Linq;
 
 namespace MF.Data
 {
@@ -298,6 +298,26 @@ namespace MF.Data
         public long Original { get; set; }
 
     }
+
+    [Serializable]
+    public class StrongBoxRecord
+    { 
+         public int ID { get; set; }
+        public long Date { get; set; }
+        public string Account { get; set; }
+        /// <summary>
+        /// 保险箱号
+        /// </summary>
+        public string BoxId { get; set; }
+        /// <summary>
+        ///  1:创建 2：存入 3：取出 4：销毁 5：找回 
+        /// </summary>
+        public long Type { get; set; }
+        public long Currency { get; set; }
+        public string Memo { get; set; }
+        public string ChargeId { get; set; } 
+        public Users info { get; set; }
+    }
     [Serializable]
     public class BeanRecord
     {
@@ -390,7 +410,7 @@ namespace MF.Data
 
 
 
-    
+
     /// <summary>
     /// 实现泛型集合到数组对象转换的静态扩展类
     /// </summary>
@@ -418,5 +438,5 @@ namespace MF.Data
 
             return array;
         }
-    }  
+    }
 }

@@ -2,8 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="h" runat="server">
     <script language="javascript" type="text/javascript">
-        var dicType={1:"定(即)时赛报名",2:"复活",3:"VIP每日赠送",4:"金券兑换", 5:"定(即)时赛获胜", 6:"定(即)时赛退赛",7:"兑换战斗力", 8:"邮箱提取", 9:"商城兑换",10:"注册赠送",15:"战斗力回兑",
-                        16:"领取救济",18:"存入保险箱",19:"保险箱取出",21:"开红包" ,22:"绑定手机",23:"完成俱乐部任务",24:"购买房卡",25:"系统赠送",26:"银票兑换",27:"管理员派发",28:"主/子账号互转"};
+        var boxType = ["","创建", "存入", "取出", "销毁","找回"];
         function search() {
             var checktime = $("#time").is(":checked") ? 1 : 0;
             var startTime = 0;
@@ -19,11 +18,19 @@
                     alert("查询截止时间不能小于开始时间");
                     return;
                 }
-            }
-            var args = [parseInt($("#type").val()),"<%=account%>", checktime, startTime, overTime];
+            } 
+            var chargeid = "", account = "", value = "";
+            value = $("#value").val();
+            if (value != "") {
+                if ($("#field").val() == 1)
+                    chargeid = value;
+                else
+                    account = value;
+            } 
+            var args = [parseInt($("#type").val()), checktime, startTime, overTime,chargeid,account];
             jsonPager.queryArgs = args;
             $("#loading").show();
-            ajax.getStrongBoxRecord(jsonPager.makeArgs(1), searchResult);
+            ajax.getAllStrongBoxRecord(jsonPager.makeArgs(1), searchResult);
         }
         function searchResult(data) {
             $("#loading").hide();
@@ -43,38 +50,45 @@
                 if (dicType[_type]) return dicType[_type];
                 return _type; 
             };
-            addCell(tr, new Date("2012/10/01").dateAdd("s",o.Time).Format("yyyy-MM-dd hh:mm:ss"), 0);
+            addCell(tr, new Date("2012/10/01").dateAdd("s",o.Date).Format("yyyy-MM-dd hh:mm:ss"), 0);
             addCell(tr, o.Account, 1); 
-            addCell(tr, getTypeName(o.Type), 2);
-            addCell(tr, o.Num, 3);
-            addCell(tr, o.Original, 4);
-            addCell(tr, o.IP.split(":")[0], 5);
+            addCell(tr, o.ChargeId, 2);
+            addCell(tr, o.Currency, 3);
+            addCell(tr, boxType[o.Type], 4);
+            addCell(tr, o.BoxId, 5);
+            addCell(tr, o.info == null ? "" : o.info.Identity, 6);
+            addCell(tr, o.info == null ? "" :o.info.Name, 7);
             return tr;
         }
         $(document).ready(function() {
             attachCalenderbox('#starttime', '#overtime', null,new Date().Format("yyyy-MM-dd") , new Date().Format("yyyy-MM-dd"));
             showTimeBox($$("time"));
-            var pagerTitles = ["时间","用户账号","变更类型","变更数量","原元宝数量","IP"];
-            jsonPager.init(ajax.getStrongBoxRecord, [], searchResult, pagerTitles, "list_table", "container", "pager", insertRow);
+            var pagerTitles = ["时间", "账号", "UID", "数量", "类型","保险箱号","身份证","姓名"];
+            jsonPager.init(ajax.getAllStrongBoxRecord, [], searchResult, pagerTitles, "list_table", "container", "pager", insertRow);
             jsonPager.dataBind(1, 0);
-            if("<%=account%>" != "")
-                search();
+            for (var id in boxType) {
+                if (boxType[id] == "") continue;
+                $("#type").append("<option value=\"" + id + "\">" + boxType[id] + "</option>");
+            }
         });
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="p" runat="server">
-            <div class="toolbar">查看用户二级密码记录</div>
+            <div class="toolbar">二级密码记录</div>
             <div class="search">&nbsp;&nbsp;
                 <select id="type">
 	                <option value="-1">变更类型</option>
-	                <option value="18">存入保险箱</option>
-	                <option value="19">保险箱取出</option>
                 </select>
                 <input id="time" type="checkbox"  onclick="showTimeBox(this)" /><label for="time">时间</label>
                 <span id="divTime" class="date" >
                     开始:<input type="text" id="starttime" class="box w100" readonly="readonly" />
                     截止:<input type="text" id="overtime" class="box w100" readonly="readonly" />
                 </span>
+                <select id="field">
+                    <option value="1">UID</option>
+                    <option value="2">账号</option>
+                </select>
+                <input type="text" id="value" />
                 <input type="button" value="查询" onclick="search()" class="ui-button-icon-primary" />
             </div>
             <div id="container"></div>

@@ -165,6 +165,19 @@
             }
         });
     },
+    getAllStrongBoxRecord: function (args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: "allstrongboxrecord", args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    }, 
     getRoomCardRecord: function (args, callback) {
         $.ajax({
             url: ajax.url,

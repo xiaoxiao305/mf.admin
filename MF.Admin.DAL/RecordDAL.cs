@@ -95,6 +95,31 @@ namespace MF.Admin.DAL
             }
             return null;
         }
+        public List<StrongBoxRecord> GetAllStrongBoxRecord(Search<StrongBoxRecord> search, out int rowCount)
+        {
+            rowCount = 0; try
+            {
+                SearchCondition<StrongBoxRecord> current = SearchCondition<StrongBoxRecord>.Current;
+                StrongBoxRecord model = search.SearchObj;
+                current.AddPage(search.PageIndex, search.PageSize);
+                current.Add(p => p.Account, model.Account);
+                current.Add(p => p.ChargeId, model.ChargeId);
+                if (model.Type > 0)
+                    current.AddInt(p => p.Type, model.Type);
+                if (search.IsChkTime)
+                    current.AddBetween(p => p.Date, search.StartTime, search.OverTime);
+                var res = PostRecordServer<StrongBoxRecord>(RecordServerUrl + "get_strongbox_list", current.ToString());
+                if (res == null || res.Code < 1)
+                    return null;
+                rowCount = res.Code;
+                return res.R;
+            }
+            catch (Exception ex)
+            {
+                BaseDAL.WriteError("post get_strongbox_list--->strongbox ex:", ex.Message);
+            }
+            return null;
+        }
         public List<QmallRecord> GetQmallRecord(Search<QmallRecordSearch> search, out int rowCount)
         {
             rowCount = 0;

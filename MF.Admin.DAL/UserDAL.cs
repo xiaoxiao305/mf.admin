@@ -261,7 +261,9 @@ namespace MF.Admin.DAL
         /// <returns></returns>
         public ClubsRes<Dictionary<string, object>> QueryUserList(string[] member_id)
         {
-            string param = "{\"module\":\"query\",\"func\":\"get\",\"args\":" + Json.SerializeObject(new Dictionary<string, object> { { "fields", new string[] { "Nickname", "Icon", "Account", "Regitime", "LastIp","GUID" } }, { "id", member_id } }) + "}";
+            string param = "{\"module\":\"query\",\"func\":\"get\",\"args\":" + 
+                Json.SerializeObject(new Dictionary<string, object> { { "fields", 
+                        new string[] { "Nickname", "Icon", "Account", "Regitime", "LastIp","GUID", "Identity", "Name" } }, { "id", member_id } }) + "}";
             var res = PostClubServer<ClubsRes<Dictionary<string, object>>>(RecordServerUrl + "do", param);
             if (res != null && res.ret == 0)
             {
@@ -278,7 +280,9 @@ namespace MF.Admin.DAL
                         Nickname = r2["Nickname"].ToString(),
                         Regitime = (r2["Regitime"] == null || r2["Regitime"].ToString() == "") ? 0 : int.Parse(r2["Regitime"].ToString()),
                         LastIp = r2["LastIp"].ToString(),
-                        GUID = r2["GUID"].ToString()
+                        GUID = r2["GUID"].ToString(),
+                        Identity = r2["Identity"].ToString(),
+                        Name = r2["Name"].ToString()
                     };
                     SetCacheAccountList(cacheUser.Account, cacheUser);
                     SetCacheChargeList(uid, cacheUser);
@@ -410,6 +414,15 @@ namespace MF.Admin.DAL
             if (Cache.CacheChargeidList != null && Cache.CacheChargeidList.Count > 0
                 && Cache.CacheChargeidList.ContainsKey(chargeId))
                 return Cache.CacheChargeidList[chargeId];
+            return null;
+        }
+        public Users GetCacheUserByAccountFromCache(string account)
+        {
+            if (string.IsNullOrEmpty(account)) return null;
+            account = account.ToLower();
+            if (Cache.CacheAccountList != null && Cache.CacheAccountList.Count > 0
+                && Cache.CacheAccountList.ContainsKey(account))
+                return Cache.CacheAccountList[account];
             return null;
         }
         public string GetAccByChargeId(string chargeId)

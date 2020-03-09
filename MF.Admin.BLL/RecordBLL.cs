@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using MF.Admin.DAL;
 using MF.Data;
+using System.Linq;
 
 namespace MF.Admin.BLL
 {
     public class RecordBLL : Base
     {
         private static RecordDAL dal = new RecordDAL();
+        private static UserDAL userDal = new UserDAL();
         public static List<CurrencyRecord> GetCurrcryRecord(long pageSize, long pageIndex, long gameid, long matchid, long type, string account, string chargeid, long checktime, long startTime, long overTime, long searchtype, out int rowCount)
         {
             chargeid = chargeid.ToUpper();
@@ -96,6 +98,38 @@ namespace MF.Admin.BLL
             }
             search.SearchObj = model;
             return dal.GetStrongBoxRecord(search, out rowCount);
+        }
+        public static List<StrongBoxRecord> GetAllStrongBoxRecord(long pageSize, long pageIndex, long type, long checktime, long startTime, long overTime, string chargeid, string account, out int rowCount)
+        {
+            rowCount = 0;
+            var search = new Search<StrongBoxRecord>();
+            search.PageSize = (int)pageSize;
+            search.PageIndex = (int)pageIndex;
+            StrongBoxRecord model = new StrongBoxRecord();
+            if (!string.IsNullOrEmpty(account))
+                model.Account = account;
+            if (!string.IsNullOrEmpty(chargeid))
+                model.ChargeId = chargeid;
+            if (type > 0)
+                model.Type = type;
+            if (checktime == 1)
+            {
+                search.IsChkTime = true;
+                search.StartTime = startTime;
+                search.OverTime = overTime;
+            }
+            search.SearchObj = model;
+             List<StrongBoxRecord> list= dal.GetAllStrongBoxRecord(search, out rowCount);
+            if (list == null || list.Count < 1) return null;
+            string[] chargeids = list.Select(t => t.ChargeId).ToArray();
+            userDal.QueryUserList(chargeids);
+            List<StrongBoxRecord> newList = new List<StrongBoxRecord>();
+            foreach (StrongBoxRecord record in list)
+            {
+                record.info = userDal.GetCacheUserByChargeIdFromCache(record.ChargeId);
+                newList.Add(record);
+            }
+            return newList;
         }
         public static List<CurrencyRecord> GetRoomCardRecord(long pageSize, long pageIndex, string account, long startTime, long overTime, out int rowCount)
         {

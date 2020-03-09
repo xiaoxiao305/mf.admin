@@ -13,6 +13,9 @@ namespace MF.Admin.DAL
 {
     public class RecordDAL : BaseDAL
     {
+        /// <summary>
+        /// 元宝变更记录、金豆记录、欢乐卡记录
+        /// </summary>  
         public List<CurrencyRecord> GetCurrcryRecord(Search<CurrencyRecord> search,long searchtype, out int rowCount)
         {
             rowCount = 0;
@@ -44,6 +47,10 @@ namespace MF.Admin.DAL
             }
             return null;
         }
+       
+        /// <summary>
+        ///j金豆记录
+        /// </summary>  
         public List<BeanRecord> GetUserBeanRecord(Search<BeanRecord> search, out int rowCount)
         {
             rowCount = 0; try
@@ -69,6 +76,10 @@ namespace MF.Admin.DAL
             }
             return null;
         }
+
+        /// <summary>
+        ///二级密码记录
+        /// </summary>  
         public List<CurrencyRecord> GetStrongBoxRecord(Search<CurrencyRecord> search, out int rowCount)
         {
             rowCount = 0; try
@@ -95,6 +106,10 @@ namespace MF.Admin.DAL
             }
             return null;
         }
+
+        /// <summary>
+        ///所有二级密码记录
+        /// </summary>  
         public List<StrongBoxRecord> GetAllStrongBoxRecord(Search<StrongBoxRecord> search, out int rowCount)
         {
             rowCount = 0; try

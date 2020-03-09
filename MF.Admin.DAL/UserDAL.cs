@@ -11,6 +11,7 @@ using MF.Common.Json;
 using MF.Common.Security;
 using MF.Protocol;
 
+
 namespace MF.Admin.DAL
 {
     public class R
@@ -20,6 +21,9 @@ namespace MF.Admin.DAL
     public class UserDAL : BaseDAL
     {
         #region 获取用户信息
+        /// <summary>
+        /// 备份库中查询用户信息列表
+        /// </summary>
         public List<Users> GetBackUserList(UserSearch search, out int rowCount)
         {
             rowCount = 0;
@@ -54,6 +58,9 @@ namespace MF.Admin.DAL
             }
             return list;
         }
+        /// <summary>
+        /// 生产服务器中查询用户信息列表
+        /// </summary>
         public List<Users> GetUserList(string account, string chargeid, out int rowCount)
         {
             rowCount = 0;
@@ -86,6 +93,9 @@ namespace MF.Admin.DAL
             }
             return null;
         }
+        /// <summary>
+        /// 查询单个用户信息
+        /// </summary>
         public Result<Users> GetUserInfo(DBSource dbsource, string account)
         {
             DataTable dt = null;
@@ -254,15 +264,14 @@ namespace MF.Admin.DAL
         }
         #endregion
 
+
         /// <summary>
-        /// 
+        /// 批量chargeid查询批量用户
         /// </summary>
-        /// <param name="member_id">USER  ID</param>
-        /// <returns></returns>
         public ClubsRes<Dictionary<string, object>> QueryUserList(string[] member_id)
         {
-            string param = "{\"module\":\"query\",\"func\":\"get\",\"args\":" + 
-                Json.SerializeObject(new Dictionary<string, object> { { "fields", 
+            string param = "{\"module\":\"query\",\"func\":\"get\",\"args\":" +
+                Json.SerializeObject(new Dictionary<string, object> { { "fields",
                         new string[] { "Nickname", "Icon", "Account", "Regitime", "LastIp","GUID", "Identity", "Name" } }, { "id", member_id } }) + "}";
             var res = PostClubServer<ClubsRes<Dictionary<string, object>>>(RecordServerUrl + "do", param);
             if (res != null && res.ret == 0)
@@ -290,44 +299,13 @@ namespace MF.Admin.DAL
             }
             return res;
         }
-
-        public List<Dictionary<string, object>> GetMemberInfo(string[] member_id)
-        {
-            var v = QueryUserList(member_id);
-            if (v == null || v.ret != 0) return null;
-            List<Dictionary<string, object>> list = new List<Dictionary<string, object>>();
-            foreach (string uid in v.msg.Keys)
-            {
-                var info = new Dictionary<string, object>();
-                var res = v.msg[uid] as IDictionary<string, Newtonsoft.Json.Linq.JToken>;
-                if (res == null || res.Count < 1) break;
-                info.Add("id", uid);
-                info.Add("nickname", res["Nickname"].ToString());
-                list.Add(info);
-            }
-            return list;
-        }
-        public Dictionary<string, string> GetMemberNickName(string[] member_id)
-        {
-            var v = QueryUserList(member_id);
-            if (v == null || v.ret != 0) return null;
-            Dictionary<string, string> list = new Dictionary<string, string>();
-            foreach (string uid in v.msg.Keys)
-            {
-                var info = new Dictionary<string, object>();
-                var res = v.msg[uid] as IDictionary<string, Newtonsoft.Json.Linq.JToken>;
-                if (res == null || res.Count < 1) break;
-                list.Add(uid, res["Nickname"].ToString());
-            }
-            return list;
-        }
         public List<Dictionary<string, string>> GetUserInfoList(string[] accounts)
         {
-            string param = "{\"module\":\"query\",\"func\":\"get\",\"args\":" + Json.SerializeObject(new Dictionary<string, object> { { "fields", new string[] { "Nickname", "ChargeId", "Account", "Regitime", "LastIp","GUID" } }, { "accounts", accounts } }) + "}";
+            string param = "{\"module\":\"query\",\"func\":\"get\",\"args\":" + Json.SerializeObject(new Dictionary<string, object> { { "fields", new string[] { "Nickname", "ChargeId", "Account", "Regitime", "LastIp", "GUID" } }, { "accounts", accounts } }) + "}";
             var v = PostClubServer<ClubsRes<Dictionary<string, object>>>(RecordServerUrl + "do", param);
             if (v == null || v.ret != 0) return null;
             List<Dictionary<string, string>> list = new List<Dictionary<string, string>>();
-            string acc = "", chargeid = "", nick = "",guid="";
+            string acc = "", chargeid = "", nick = "", guid = "";
             int regTime = 0;
             foreach (string uid in v.msg.Keys)
             {
@@ -361,6 +339,68 @@ namespace MF.Admin.DAL
             }
             return list;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public List<Dictionary<string, object>> GetMemberInfo(string[] member_id)
+        {
+            var v = QueryUserList(member_id);
+            if (v == null || v.ret != 0) return null;
+            List<Dictionary<string, object>> list = new List<Dictionary<string, object>>();
+            foreach (string uid in v.msg.Keys)
+            {
+                var info = new Dictionary<string, object>();
+                var res = v.msg[uid] as IDictionary<string, Newtonsoft.Json.Linq.JToken>;
+                if (res == null || res.Count < 1) break;
+                info.Add("id", uid);
+                info.Add("nickname", res["Nickname"].ToString());
+                list.Add(info);
+            }
+            return list;
+        }
+        public Dictionary<string, string> GetMemberNickName(string[] member_id)
+        {
+            var v = QueryUserList(member_id);
+            if (v == null || v.ret != 0) return null;
+            Dictionary<string, string> list = new Dictionary<string, string>();
+            foreach (string uid in v.msg.Keys)
+            {
+                var info = new Dictionary<string, object>();
+                var res = v.msg[uid] as IDictionary<string, Newtonsoft.Json.Linq.JToken>;
+                if (res == null || res.Count < 1) break;
+                list.Add(uid, res["Nickname"].ToString());
+            }
+            return list;
+        }
+
 
 
         public static void SetCacheAccountList(string account, Users cacheUser)
@@ -481,6 +521,62 @@ namespace MF.Admin.DAL
             List<Users> list = GetUserList(account, "", out row);
             if (list == null || list.Count < 1) return "";
             return list[0].Nickname;
+        }
+
+
+
+
+
+        /// <summary>
+        /// 批量chargeids获取批量用户
+        /// </summary>
+        /// <param name="chargeids">chargeid集合</param>
+        /// <param name="fields">需要查询字段数组集合</param>
+        /// <returns></returns>
+        public ClubsRes<List<Users>> GetUsersByChargeIds(string[] chargeids)
+        {
+            string param = "{\"module\":\"query\",\"func\":\"get\",\"args\":" + Json.SerializeObject(new Dictionary<string, object> { { "fields",
+                        new string[] {"ChargeId", "Nickname", "Icon", "Account", "Regitime", "LastIp","GUID", "Identity", "Name" } }, { "id", chargeids } }) + "}";
+            return QueryUserListByServers(param);
+        }
+        public ClubsRes<List<Users>> GetUsersByAccounts(string[] accounts)
+        {
+            string param = "{\"module\":\"query\",\"func\":\"get\",\"args\":" + Json.SerializeObject(new Dictionary<string, object> { { "fields", new string[] { "Nickname", "ChargeId", "Account", "Regitime", "LastIp", "GUID" } }, { "accounts", accounts } }) + "}";
+            return QueryUserListByServers(param);
+        }
+        public ClubsRes<List<Users>> QueryUserListByServers(string param)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(param)) return null;
+                var res = PostClubServer<ClubsRes<Dictionary<string, object>>>(RecordServerUrl + "do", param);
+                if (res == null || res.ret != 0 || res.msg == null || res.msg.Keys == null || res.msg.Keys.Count < 1) return null;
+                List<Users> list = new List<Users>();
+                foreach (string uid in res.msg.Keys)
+                {
+                    var r2 = res.msg[uid] as IDictionary<string, Newtonsoft.Json.Linq.JToken>;
+                    if (r2 == null || r2.Count < 1) continue;
+                    Users cacheUser = new Users()
+                    {
+                        Account = r2["Account"] == null ? "" : r2["Account"].ToString(),
+                        ChargeId = r2["ChargeId"] == null ? "" : r2["ChargeId"].ToString(),
+                        Nickname = r2["Nickname"] == null ? "" : r2["Nickname"].ToString(),
+                        Regitime = (r2["Regitime"] == null || r2["Regitime"].ToString() == "") ? 0 : int.Parse(r2["Regitime"].ToString()),
+                        LastIp = r2["LastIp"] == null ? "" : r2["LastIp"].ToString(),
+                        GUID = r2["GUID"] == null ? "" : r2["GUID"].ToString(),
+                        Identity = r2["Identity"] == null ? "" : r2["Identity"].ToString(),
+                        Name = r2["Name"] == null ? "" : r2["Name"].ToString(),
+                    };
+                    SetCacheAccountList(cacheUser.Account, cacheUser);
+                    SetCacheChargeList(cacheUser.ChargeId, cacheUser);
+                    list.Add(cacheUser);
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteError("QueryUserListByServers ex:", ex.Message);
+            }
+            return null;
         }
 
 

@@ -36,6 +36,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MF.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\MF.Common.DLL\MF.Common.dll</HintPath>
+    </Reference>
     <Reference Include="MF.Protocol">
       <HintPath>..\..\MF.Common.DLL\MF.Protocol.dll</HintPath>
     </Reference>
@@ -52,6 +56,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cache.cs" />
+    <Compile Include="ClubBLL.cs" />
+    <Compile Include="ClubDAL.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="GameBLL.cs" />
     <Compile Include="GameDAL.cs" />

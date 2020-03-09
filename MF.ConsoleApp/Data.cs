@@ -7,6 +7,52 @@ using System.Threading.Tasks;
 namespace MF.ConsoleApp
 {
     [Serializable]
+    public class ClubsRes<T>
+    {
+        public T msg;
+        public int ret;
+    }
+    //Log.WriteLog("俱乐部昵称", "  ", "俱乐部ID", "  ", "群主姓名", "  ", "群主身份证", "  ", "群成员总数", "  ", "群本周收益");
+
+    [Serializable]
+    public class ClubDividends
+    {
+       public string ClubId { get; set; }
+        public string ChargeId { get; set; }
+        /// <summary>
+        /// 本周收益
+        /// </summary>
+        public float Week { get; set; }
+        /// <summary>
+        /// 上周收益
+        /// </summary>
+        public float LastWeek { get; set; }
+
+    }
+        [Serializable]
+    public class ClubsModel
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Founder { get; set; }
+        public string Create_Date { get; set; }
+        public string Head_Img { get; set; }
+        public string Post { get; set; }
+        public int Status { get; set; }
+        public int Room_Card { get; set; }
+        public int Type { get; set; }
+
+        public string FounderName { get; set; }
+        public string Mobile { get; set; }
+        public string FounderIdentity { get; set; }
+        public int Members_Count { get; set; }
+        
+        /// <summary>
+        /// 俱乐部收益
+        /// </summary>
+        public ClubDividends dividends { get; set; }
+    }
+    [Serializable]
     public class Search<T>
     {
         /// <summary>

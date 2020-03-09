@@ -174,7 +174,7 @@ namespace MF.Admin.UI
                 Dictionary<string, string> dic = new Dictionary<string, string>();
                 foreach (Dictionary<string, string> item in res)
                 {
-                    if (item.ContainsKey("id") && item.ContainsKey("name"))
+                    if (item.ContainsKey("id") && item.ContainsKey("name") && !dic.ContainsKey(item["id"]))
                         dic.Add(item["id"], item["name"]);
                 }
                 return JsonConvert.SerializeObject(dic);

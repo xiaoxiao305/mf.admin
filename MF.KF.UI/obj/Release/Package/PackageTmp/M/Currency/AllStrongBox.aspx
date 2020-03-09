@@ -1,4 +1,4 @@
-﻿<%@ Title=" 游戏币管理 》 二级密码记录" MasterPageFile="~/M/main.Master" Page Language="C#" AutoEventWireup="true" CodeBehind="AllStrongBox.aspx.cs" Inherits="MF.KF.UI.M.Currency.AllStrongBox" %>
+﻿<%@ Page  Title=" 游戏币管理 》 二级密码记录" MasterPageFile="~/M/main.Master" Language="C#" AutoEventWireup="true" CodeBehind="AllStrongBox.aspx.cs" Inherits="MF.KF.UI.M.Currency.AllStrongBox" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="h" runat="server">
     <script language="javascript" type="text/javascript">

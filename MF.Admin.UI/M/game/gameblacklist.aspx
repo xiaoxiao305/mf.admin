@@ -27,7 +27,7 @@
             } else {
                 alert(data.msg);
             }
-        }
+        } 
         function insertRow(o, tr) {
             addCell = function (tr, text, i) {
                 var td = tr.insertCell(i);
@@ -37,7 +37,7 @@
             };
             var date = new Date("2012/10/1");
             addCell(tr, date.dateAdd("s", o.CreateDate).format("yyyy-MM-dd hh:mm:ss"), 0);
-            addCell(tr, GetGameName(o.GameId), 1);
+            addCell(tr, games[o.GameId], 1);
             addCell(tr, o.Account, 2);
             addCell(tr, "<a href='/M/currency/CurrencyRecord.aspx?chargeid=" + o.ChargeId + "' target='_blank'>" + o.ChargeId + "</a>", 3);
             addCell(tr, o.NickName, 4);

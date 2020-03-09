@@ -14,24 +14,20 @@ namespace MF.ConsoleApp
         {
             try
             {
-                int rowCount = 0;
-                DateTime baseTime = DateTime.Parse("2012-10-01");
-                long stime = (long)(DateTime.Parse("2019-01-01") - baseTime).TotalSeconds;
-                long etime = (long)(DateTime.Now - baseTime).TotalSeconds;
-                //List<CurrencyRecord> list = UserBLL.GetCurrcryRecord(10, 1, 0, 0, 0, "", "", 1, stime, etime, 4, out rowCount);
-                List<CurrencyRecord> list = UserBLL.GetCurrcryRecord(1000, 1, 0, 0, 0, "", "", 0, 0, 0, 4, out rowCount);
-                if (list == null || list.Count < 1)
+             List<ClubsModel> list=   new ClubBLL().GetAllClubsList();
+                if(list==null || list.Count < 1)
                 {
                     Console.WriteLine("list is null");
+                    return;
                 }
-                else
+                Console.WriteLine("list.count"+list.Count.ToString());
+                //俱乐部昵称，俱乐部ID，群主身份证，群主姓名，群成员总数，群本周收益。
+                Log.WriteLog("俱乐部昵称", "  ", "俱乐部ID", "  ", "群主姓名", "  ", "群主身份证", "  ", "手机号", "  ", "群成员总数", "  ", "群本周收益");
+                foreach (var item in list)
                 {
-                    foreach (var item in list)
-                    {
-                        Console.WriteLine("item:" + item.Account);
-                    }
-                    Console.WriteLine("search is ok");
-                }
+                    Log.WriteLog(item.Name, "  ", item.Id, "  ", item.FounderName, "  ", item.FounderIdentity, "  ", item.Mobile,
+                        "  ", item.Members_Count, "  ", item.dividends==null?0:item.dividends.Week);
+                } 
             }
             catch (Exception ex)
             {

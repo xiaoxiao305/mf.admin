@@ -11,14 +11,19 @@ namespace MF.ConsoleApp
    public class Log
     {
         private static string logPath = ConfigurationManager.AppSettings["logPath"];
-        public static void WriteLog(params object[] logs)
+        public static void WriteDebug(params object[] logs)
         {
             string path = string.Format("{0}Debug_{1}.txt", logPath, DateTime.Now.ToString("yyyy-MM-dd"));
             WriteContent(path, logs);
         }
+        public static void WriteLog(params object[] logs)
+        {
+            string path = string.Format("{0}Log_{1}.txt", logPath, DateTime.Now.ToString("yyyy-MM-dd"));
+            WriteContent(path, logs);
+        }
         public static void WriteError(params object[] errs)
         {
-            string path = string.Format("{0}Error_{1}.txt", logPath, DateTime.Now.ToString("yyyy-MM-dd"));
+            string path = string.Format("{0}Err_{1}.txt", logPath, DateTime.Now.ToString("yyyy-MM-dd"));
             WriteContent(path, errs);
         }
         public static void WriteContent(string path,params object[] pars)
@@ -34,12 +39,14 @@ namespace MF.ConsoleApp
                 {
                     using (StreamWriter sw = File.CreateText(path))
                     {
-                        sw.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff ") + " " + parStr + "\r\n");
+                        //sw.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff ") + " " + parStr + "\r\n");
+                        sw.WriteLine(parStr );
                     }
                 }
                 using (StreamWriter sw = File.AppendText(path))
                 {
-                    sw.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff ") + " " + parStr + "\r\n");
+                    //sw.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff ") + " " + parStr + "\r\n");
+                    sw.WriteLine(parStr);
                 }
             }
             catch (Exception)

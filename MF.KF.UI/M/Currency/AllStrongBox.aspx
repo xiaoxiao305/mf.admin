@@ -61,7 +61,7 @@
             return tr;
         }
         $(document).ready(function() {
-            attachCalenderbox('#starttime', '#overtime', null,new Date().Format("yyyy-MM-dd") , new Date().Format("yyyy-MM-dd"));
+            attachCalenderbox('#starttime', '#overtime', { minday: 2 },new Date().Format("yyyy-MM-dd") , new Date().Format("yyyy-MM-dd"));
             showTimeBox($$("time"));
             var pagerTitles = ["时间", "账号", "UID", "数量", "类型","保险箱号","身份证","姓名"];
             jsonPager.init(ajax.getAllStrongBoxRecord, [], searchResult, pagerTitles, "list_table", "container", "pager", insertRow);

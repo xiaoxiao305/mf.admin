@@ -115,6 +115,7 @@ namespace MF.Admin.BLL
             using (StreamReader file = File.OpenText(filePath))
             {
                 var jsonText = file.ReadToEnd();
+                WriteLog("readjson:", jsonText);
                 Dictionary<string, Dictionary<string, object>> jsonObj = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, object>>>(jsonText);
                 if (jsonObj != null && jsonObj.ContainsKey(key)) return jsonObj[key];
             }

@@ -8,6 +8,7 @@ using MF.Data;
 using MF.Admin.DAL;
 using System.Collections.Generic;
 using System.Data;
+using Newtonsoft.Json;
 
 namespace MF.Admin.BLL
 {
@@ -232,5 +233,25 @@ namespace MF.Admin.BLL
             }
         }
         #endregion
+
+
+
+        public static T Readjson<T>(string filePath)
+        {
+            try
+            {
+                using (StreamReader file = File.OpenText(filePath))
+                {
+                    var jsonText = file.ReadToEnd();
+                    WriteLog("Readjson:", jsonText);
+                    return JsonConvert.DeserializeObject<T>(jsonText);
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteError("Readjson ex:", ex.Message);
+            }
+            return default(T);
+        }
     }
 }

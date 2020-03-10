@@ -270,34 +270,42 @@ namespace MF.Admin.DAL
         /// </summary>
         public ClubsRes<Dictionary<string, object>> QueryUserList(string[] member_id)
         {
-            string param = "{\"module\":\"query\",\"func\":\"get\",\"args\":" +
-                Json.SerializeObject(new Dictionary<string, object> { { "fields",
-                        new string[] { "Nickname", "Icon", "Account", "Regitime", "LastIp","GUID", "Identity", "Name" } }, { "id", member_id } }) + "}";
-            var res = PostClubServer<ClubsRes<Dictionary<string, object>>>(RecordServerUrl + "do", param);
-            if (res != null && res.ret == 0)
+            try
             {
-                List<Dictionary<string, object>> list = new List<Dictionary<string, object>>();
-                foreach (string uid in res.msg.Keys)
+                string param = "{\"module\":\"query\",\"func\":\"get\",\"args\":" +
+                    Json.SerializeObject(new Dictionary<string, object> { { "fields",
+                        new string[] { "Nickname", "Icon", "Account", "Regitime", "LastIp","GUID", "Identity", "Name" } }, { "id", member_id } }) + "}";
+                var res = PostClubServer<ClubsRes<Dictionary<string, object>>>(RecordServerUrl + "do", param);
+                if (res != null && res.ret == 0)
                 {
-                    var r2 = res.msg[uid] as IDictionary<string, Newtonsoft.Json.Linq.JToken>;
-                    if (r2 == null || r2.Count < 1) continue;
-                    //cache
-                    Users cacheUser = new Users()
+                    List<Dictionary<string, object>> list = new List<Dictionary<string, object>>();
+                    foreach (string uid in res.msg.Keys)
                     {
-                        Account = r2["Account"].ToString(),
-                        ChargeId = uid,
-                        Nickname = r2["Nickname"].ToString(),
-                        Regitime = (r2["Regitime"] == null || r2["Regitime"].ToString() == "") ? 0 : int.Parse(r2["Regitime"].ToString()),
-                        LastIp = r2["LastIp"].ToString(),
-                        GUID = r2["GUID"].ToString(),
-                        Identity = r2["Identity"].ToString(),
-                        Name = r2["Name"].ToString()
-                    };
-                    SetCacheAccountList(cacheUser.Account, cacheUser);
-                    SetCacheChargeList(uid, cacheUser);
+                        var r2 = res.msg[uid] as IDictionary<string, Newtonsoft.Json.Linq.JToken>;
+                        if (r2 == null || r2.Count < 1) continue;
+                        //cache
+                        Users cacheUser = new Users()
+                        {
+                            Account = r2["Account"].ToString(),
+                            ChargeId = uid,
+                            Nickname = r2["Nickname"].ToString(),
+                            Regitime = (r2["Regitime"] == null || r2["Regitime"].ToString() == "") ? 0 : int.Parse(r2["Regitime"].ToString()),
+                            LastIp = r2["LastIp"].ToString(),
+                            GUID = r2["GUID"].ToString(),
+                            Identity = r2["Identity"].ToString(),
+                            Name = r2["Name"].ToString()
+                        };
+                        SetCacheAccountList(cacheUser.Account, cacheUser);
+                        SetCacheChargeList(uid, cacheUser);
+                    }
                 }
+                return res;
             }
-            return res;
+            catch (Exception ex)
+            {
+                WriteError("QueryUserList ex:", ex.Message, member_id);
+            }
+            return null;
         }
         public List<Dictionary<string, string>> GetUserInfoList(string[] accounts)
         {

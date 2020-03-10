@@ -14,6 +14,7 @@ namespace MF.ConsoleApp
         {
             try
             {
+                
              List<ClubsModel> list=   new ClubBLL().GetAllClubsList();
                 if(list==null || list.Count < 1)
                 {

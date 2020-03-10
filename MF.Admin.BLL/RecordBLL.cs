@@ -4,6 +4,9 @@ using System.Text;
 using MF.Admin.DAL;
 using MF.Data;
 using System.Linq;
+using System.Web;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace MF.Admin.BLL
 {
@@ -102,34 +105,81 @@ namespace MF.Admin.BLL
         public static List<StrongBoxRecord> GetAllStrongBoxRecord(long pageSize, long pageIndex, long type, long checktime, long startTime, long overTime, string chargeid, string account, out int rowCount)
         {
             rowCount = 0;
-            var search = new Search<StrongBoxRecord>();
-            search.PageSize = (int)pageSize;
-            search.PageIndex = (int)pageIndex;
-            StrongBoxRecord model = new StrongBoxRecord();
-            if (!string.IsNullOrEmpty(account))
-                model.Account = account;
-            if (!string.IsNullOrEmpty(chargeid))
-                model.ChargeId = chargeid;
-            if (type > 0)
-                model.Type = type;
-            if (checktime == 1)
+            try
             {
-                search.IsChkTime = true;
-                search.StartTime = startTime;
-                search.OverTime = overTime;
-            }
-            search.SearchObj = model;
-             List<StrongBoxRecord> list= dal.GetAllStrongBoxRecord(search, out rowCount);
-            if (list == null || list.Count < 1) return null;
-            string[] chargeids = list.Select(t => t.ChargeId).ToArray();
-            userDal.QueryUserList(chargeids);
-            List<StrongBoxRecord> newList = new List<StrongBoxRecord>();
-            foreach (StrongBoxRecord record in list)
+                var search = new Search<StrongBoxRecord>();
+                search.PageSize = (int)pageSize;
+                search.PageIndex = (int)pageIndex;
+                StrongBoxRecord model = new StrongBoxRecord();
+                if (!string.IsNullOrEmpty(account))
+                    model.Account = account;
+                if (!string.IsNullOrEmpty(chargeid))
+                    model.ChargeId = chargeid;
+                if (type > 0)
+                    model.Type = type;
+                if (checktime == 1)
+                {
+                    search.IsChkTime = true;
+                    search.StartTime = startTime;
+                    search.OverTime = overTime;
+                }
+                else
+                {
+                    InitCacheStrongBoxConfig();
+                    if (Cache.CacheStrongBoxConfig != null && Cache.CacheStrongBoxConfig.Count > 0)
+                    {
+                        search.IsChkTime = true;
+                        if (Cache.CacheStrongBoxConfig.ContainsKey("STime") && Cache.CacheStrongBoxConfig["STime"] != null)
+                            search.StartTime = (long)(DateTime.Parse(Cache.CacheStrongBoxConfig["STime"].ToString()) - DateTime.Parse("2012-10-01 00:00:00")).TotalSeconds;
+                        if (Cache.CacheStrongBoxConfig.ContainsKey("ETime") && Cache.CacheStrongBoxConfig["ETime"] != null)
+                            search.OverTime = (long)(DateTime.Parse(Cache.CacheStrongBoxConfig["ETime"].ToString()) - DateTime.Parse("2012-10-01 00:00:00")).TotalSeconds;
+                        else
+                            search.OverTime = (long)(DateTime.Now - DateTime.Parse("2012-10-01 00:00:00")).TotalSeconds;
+                    }
+                }
+                search.SearchObj = model;
+                List<StrongBoxRecord> list = dal.GetAllStrongBoxRecord(search, out rowCount);
+                if (list == null || list.Count < 1) return null;
+                string[] chargeids = list.Select(t => t.ChargeId).ToArray();
+                userDal.QueryUserList(chargeids);
+                List<StrongBoxRecord> newList = new List<StrongBoxRecord>();
+                foreach (StrongBoxRecord record in list)
+                {
+                    if (IsWhiteList(record.ChargeId)) continue;
+                    record.info = userDal.GetCacheUserByChargeIdFromCache(record.ChargeId);
+                    newList.Add(record);
+                }
+                return newList;
+            }catch(Exception ex)
             {
-                record.info = userDal.GetCacheUserByChargeIdFromCache(record.ChargeId);
-                newList.Add(record);
+                WriteError("GetAllStrongBoxRecord ex:", ex.Message);
             }
-            return newList;
+            return null;
+        }
+        private static void InitCacheStrongBoxConfig()
+        {
+            if (Cache.CacheStrongBoxConfig == null || Cache.CacheStrongBoxConfig.Count < 1)
+            {
+                string jsonPath = HttpContext.Current.Server.MapPath("/common/js/strongbox.json");
+                Cache.CacheStrongBoxConfig = Readjson<Dictionary<string, object>>(jsonPath);
+            }
+        }
+        private static bool IsWhiteList(string chargeid)
+        {
+            if (string.IsNullOrEmpty(chargeid)) return false;
+            InitCacheStrongBoxConfig();
+            if (Cache.CacheStrongBoxConfig == null || Cache.CacheStrongBoxConfig.Count < 1) return false;
+            if (!Cache.CacheStrongBoxConfig.ContainsKey("ChargeId")) return false;
+            var objs = Cache.CacheStrongBoxConfig["ChargeId"];
+            if (objs == null || objs.ToString() == "") return false;
+            string[] chargeids = objs.ToString().Split(',');
+            if (chargeids == null || chargeids.Length < 1) return false;
+            foreach (string chId in chargeids)
+            {
+                if (chId.Trim().ToUpper().Equals(chargeid.Trim().ToUpper()))
+                    return true;
+            }
+            return false;
         }
         public static List<CurrencyRecord> GetRoomCardRecord(long pageSize, long pageIndex, string account, long startTime, long overTime, out int rowCount)
         {

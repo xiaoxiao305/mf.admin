@@ -32,6 +32,11 @@ namespace MF.Admin.DAL
         public static Dictionary<string, string> CacheRedAlert = new Dictionary<string, string>();
 
         private static string configpath = ConfigurationManager.AppSettings["configpath"];
+        /// <summary>
+        /// 二级密码白名单等配置{参考js下、strongbox.json配置文件}
+        /// </summary>
+        public static Dictionary<string, object> CacheStrongBoxConfig = new Dictionary<string, object>();
+
         public static void LoadGameList()
         {
             try

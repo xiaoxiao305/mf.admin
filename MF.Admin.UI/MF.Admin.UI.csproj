@@ -593,6 +593,7 @@
     <Content Include="HandlerDownFile.ashx" />
     <Content Include="common\js\gameback.json" />
     <Content Include="common\js\gamerec.json" />
+    <Content Include="common\js\strongbox.json" />
     <None Include="Properties\PublishProfiles\admin.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>

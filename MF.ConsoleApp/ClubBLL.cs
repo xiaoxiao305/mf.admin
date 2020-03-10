@@ -32,6 +32,7 @@ namespace MF.ConsoleApp
                 item.Mobile = u == null ? "" : u.Mobile;
                 if (members != null && members.Count > 0 && members.ContainsKey(item.Id.ToString()))
                     item.Members_Count = int.Parse(members[item.Id.ToString()].ToString());
+                item.dividends = null;
                 if (dicDividends != null && dicDividends.Count > 0 && dicDividends.ContainsKey(item.Id.ToString()))
                 {
                     item.dividends = dicDividends[item.Id.ToString()];

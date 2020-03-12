@@ -117,7 +117,7 @@ namespace MF.Admin.BLL
                 functions.Add("setgamesetting", "SetGameSetting");
 
 
-                functions.Add("getgameblackusers", "GetGameBlackUsers2");
+                functions.Add("getgameblackusers", "GetGameBlackUsers");
                 functions.Add("addblackuser", "AddBlackUser");
                 functions.Add("delblackuser", "DelBlackUser");
                 functions.Add("setwinnmoney", "SetWinnMoney");
@@ -129,7 +129,7 @@ namespace MF.Admin.BLL
                 functions.Add("updateblackuser", "UpdateBlackUser");
                 functions.Add("confirmblackuser", "ConfirmBlackUser");
                 functions.Add("getusergamemoney", "GetUserGameMoney");
-                
+
 
 
                 functions.Add("getclubmemberslist", "GetClubmembersList");
@@ -146,12 +146,12 @@ namespace MF.Admin.BLL
 
             }
         }
-        public void GetGameMoney(long pageSize, long pageIndex,string gameTypes,string chargeId)
+        public void GetGameMoney(long pageSize, long pageIndex, string gameTypes, string chargeId)
         {
             try
             {
                 var res = new PagerResult<List<Dictionary<string, object>>>();
-                var list = GameBLL.GetGameMoney(gameTypes.Split(','),chargeId);
+                var list = GameBLL.GetGameMoney(gameTypes.Split(','), chargeId);
                 res.result = list;
                 res.code = 1;
                 res.msg = "";
@@ -166,12 +166,12 @@ namespace MF.Admin.BLL
                 WriteError("GetUserGameMoney ajax ex :", ex.Message);
             }
         }
-        public void GetRedAlertPlayer(long pageSize, long pageIndex, string gameIds, string gameTypes,long field,string value,long time)
+        public void GetRedAlertPlayer(long pageSize, long pageIndex, string gameIds, string gameTypes, long field, string value, long time)
         {
             try
             {
                 var res = new PagerResult<List<Dictionary<string, object>>>();
-                var list = GameBLL.GetRedAlertPlayer(gameIds.Split(','),gameTypes.Split(','), field,value,time);
+                var list = GameBLL.GetRedAlertPlayer(gameIds.Split(','), gameTypes.Split(','), field, value, time);
                 res.result = list;
                 res.code = 1;
                 res.msg = "";
@@ -266,7 +266,7 @@ namespace MF.Admin.BLL
                             msg += "成功";
                         }
                         else
-                            msg += "失败。"+r["msg"];
+                            msg += "失败。" + r["msg"];
                     }
                     else
                         msg += "失败";
@@ -274,9 +274,10 @@ namespace MF.Admin.BLL
                 AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "AjaxRequest.SetRedAlert", oprState, SystemLogEnum.SETREDALERT);
                 Response.Write("{\"code\":" + oprState + ",\"msg\":\"" + msg + "\"}");
                 return;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                WriteError("SetRedAlert ex:"+ex.Message+",gameType:", gameType, " value:", value);
+                WriteError("SetRedAlert ex:" + ex.Message + ",gameType:", gameType, " value:", value);
             }
         }
         public void GetClubmembersList(long pageSize, long pageIndex, string club_id, string member_id)
@@ -347,7 +348,7 @@ namespace MF.Admin.BLL
                 WriteError("GetDeskMates ajax ex :", ex.Message);
             }
         }
-        public void GetLastGameRecords(long pageSize, long pageIndex,string gameIds)
+        public void GetLastGameRecords(long pageSize, long pageIndex, string gameIds)
         {
             try
             {
@@ -367,24 +368,32 @@ namespace MF.Admin.BLL
                 WriteError("GetLastGameRecords ajax ex :", ex.Message);
             }
         }
+        //public void GetGameBlackUsers(long pageSize, long pageIndex, long gameId, long field, string value)
+        //{
+        //    var res = new PagerResult<List<GameBlackUserInfo>>();
+        //    var list = GameBLL.GetGameBlackUsers(gameId, field, value.Trim());
+        //    res.result = list;
+        //    res.code = 1;
+        //    res.msg = "";
+        //    res.index = (int)pageIndex;
+        //    if (list != null)
+        //        res.rowCount = list.Count;
+        //    string json = Json.SerializeObject(res);
+        //    Response.Write(json);
+        //}
+        /// <summary>
+        /// 获取黑名单用户
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="gameId">游戏ID</param>
+        /// <param name="field">1chargeid  2account</param>
+        /// <param name="value">查询对应值</param>
         public void GetGameBlackUsers(long pageSize, long pageIndex, long gameId, long field, string value)
         {
             var res = new PagerResult<List<GameBlackUserInfo>>();
-            var list = GameBLL.GetGameBlackUsers(gameId, field, value.Trim());
-            res.result = list;
-            res.code = 1;
-            res.msg = "";
-            res.index = (int)pageIndex;
-            if (list != null)
-                res.rowCount = list.Count;
-            string json = Json.SerializeObject(res);
-            Response.Write(json);
-        }
-        public void GetGameBlackUsers2(long pageSize, long pageIndex, long gameId, long field, string value)
-        {
-            var res = new PagerResult<List<GameBlackUserInfo>>();
-            var list = GameBLL.GetGameBlackUsersNew(pageSize, pageIndex, gameId, field, value.Trim());
-            res.result = (list == null || list.Items == null)?null:list.Items;
+            var list = GameBLL.GetGameBlackUsersNew(pageSize, pageIndex, gameId, field, value.Trim(), 1);
+            res.result = (list == null || list.Items == null) ? null : list.Items;
             res.code = 1;
             res.msg = "";
             res.index = (int)pageIndex;
@@ -392,11 +401,19 @@ namespace MF.Admin.BLL
                 res.rowCount = list.TotalCount;
             string json = Json.SerializeObject(res);
             Response.Write(json);
-        } 
+        }
+        /// <summary>
+        /// 获取待审核黑名单列表
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="gameId"></param>
+        /// <param name="field"></param>
+        /// <param name="value"></param>
         public void GetAuditBlackUsers(long pageSize, long pageIndex, long gameId, long field, string value)
         {
             var res = new PagerResult<List<GameBlackUserInfo>>();
-            var list = GameBLL.GetAuditBlackUsers(gameId,field,value);
+            var list = GameBLL.GetBlackUsers(gameId, field, value, 2);
             res.result = list;
             res.code = 1;
             res.msg = "";
@@ -435,27 +452,11 @@ namespace MF.Admin.BLL
                     return;
                 }
             }
-            Dictionary<string, object> r = GameBLL.SetWinnMoney(gameId, account, type, player_id, value);
-            int oprState = 0;
-            string msg = string.Format("设置账号{0}【{1}】输赢值为{2}", player_id, type, value);
-            if (r != null)
-            {
-                if (r.ContainsKey("ret"))
-                {
-                    if (r["ret"].ToString() == "0")
-                    {
-                        oprState = 1;
-                        msg += "成功";
-                    }
-                    else
-                        msg += "失败。" + r["msg"];
-                }
-                else
-                    msg += "失败";
-            }
-            msg = oprState == 1 ? account : msg;
-            AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "AjaxRequest.SetWinnMoney", oprState, SystemLogEnum.SETWINMONEY);
-            Response.Write("{\"code\":" + oprState + ",\"msg\":\"" + msg + "\"}");
+            Dictionary<string, object> r = GameBLL.DelBlackUser(gameId, account, type, player_id, value);
+            if (r != null && r.ContainsKey("ret") && r.ContainsKey("msg"))
+                Response.Write("{\"code\":" + r["ret"] + ",\"msg\":\"" + r["msg"] + "\"}");
+            else
+                Response.Write("{\"code\":0,\"msg\":\"删除黑名单失败\"}");
             return;
         }
         /// <summary>
@@ -625,9 +626,9 @@ namespace MF.Admin.BLL
         /// <summary>
         /// 添加游戏黑名单 [parseInt(game), acc, val, token], winresult);
         /// </summary> 
-        public void AddBlackUser(string gameIds,  string chargeId, string values, string levelStrs, string remark, long isConfirm)
+        public void AddBlackUser(string gameIds, string chargeId, string values, string levelStrs, string remark, long isConfirm)
         {
-            string[] gameidList = gameIds.Split('|'); 
+            string[] gameidList = gameIds.Split('|');
             string[] valueList = values.Split('|');
             string[] levelStrList = levelStrs.Split('|');
             if (gameidList.Length < 1)
@@ -639,7 +640,8 @@ namespace MF.Admin.BLL
             {
                 Response.Write("{\"code\":0,\"msg\":\"UID有误\"}");
                 return;
-            }else  if (valueList.Length < 1 || levelStrList.Length<1)
+            }
+            else if (valueList.Length < 1 || levelStrList.Length < 1)
             {
                 Response.Write("{\"code\":0,\"msg\":\"设置值有误\"}");
                 return;
@@ -660,7 +662,7 @@ namespace MF.Admin.BLL
             GameBLL.AddBlackUser(gameidList, chargeId, valueList, levelStrList, remark, isConfirm);
             Response.Write("{\"code\":1,\"msg\":\"\"}");
         }
-      
+
         public void SetGameSetting(string clubId)
         {
             if (string.IsNullOrEmpty(clubId))

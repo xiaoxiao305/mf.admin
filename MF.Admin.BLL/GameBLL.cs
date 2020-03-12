@@ -123,68 +123,68 @@ namespace MF.Admin.BLL
         }
 
         //黑名单
-        public static List<GameBlackUserInfo> GetBlackUsersDetail2(List<GameBlackUserInfo> list, string gameType)
-        {
-            try
-            {
-                if (list == null || list.Count < 1) return null;
-                List<string> accList = new List<string>();
-                foreach (var item in list)
-                {
-                    accList.Add(item.Account);
-                }
-                List<Dictionary<string, string>> infoList = userDal.GetUserInfoList(accList.ToArray());
-                if (infoList == null || infoList.Count < 1) return list;
-                List<GameBlackUserInfo> newList2 = new List<GameBlackUserInfo>();
-                foreach (GameBlackUserInfo info in list)
-                {
-                    foreach (Dictionary<string, string> dic in infoList)
-                    {
-                        if (info.Account.ToLower().Equals(dic["Account"].ToString()))
-                        {
-                            info.NickName = dic["Nickname"].ToString();
-                            if (dic["ChargeId"] != null && !string.IsNullOrEmpty(dic["ChargeId"].ToString()))
-                            {
-                                info.ChargeId = dic["ChargeId"].ToString();
-                                Dictionary<string, object> listinfos = guildDal.GetMembersList(dic["ChargeId"].ToString());
-                                if (listinfos != null && listinfos.Count > 0 && listinfos.ContainsKey("clubs"))
-                                {
-                                    List<string> club_ids = (listinfos["clubs"] as Newtonsoft.Json.Linq.JArray).ToObject<List<string>>();
-                                    if (club_ids != null && club_ids.Count > 0)
-                                        info.ClubId = "[" + String.Join(",", club_ids) + "]";
-                                    //money
-                                    //Base.WriteLog("gameType:", gameType);
-                                    if (string.IsNullOrEmpty(gameType))
-                                    {
-                                        //Base.WriteLog("jsonpath 111:", gameType);
-                                        string jsonPath = HttpContext.Current.Server.MapPath("/common/js/gameback.json");
-                                        //Base.WriteLog("jsonpath:", jsonPath);
-                                        Dictionary<string, object> gamebackObj = Readjson(info.GameId, jsonPath);
-                                        if (gamebackObj != null && gamebackObj.ContainsKey("type"))
-                                            gameType = gamebackObj["type"].ToString();
-                                        //Base.WriteLog("gameType:", gameType);
-                                    }
-                                    if (string.IsNullOrEmpty(gameType)) break;
-                                    Dictionary<string, object> moneyDic = dal.GetWinnMoney(gameType, dic["ChargeId"].ToString());
-                                    if (moneyDic != null && moneyDic.ContainsKey("lose"))
-                                    {
-                                        info.Money = moneyDic["lose"].ToString();
-                                    }
-                                }
-                            }
-                            break;
-                        }
-                    }
-                    newList2.Add(info);
-                }
-                return newList2;
-            }
-            catch (Exception ex)
-            {
-                Base.WriteError("GetBlackUsersDetail ex:", ex.Message);
-                return list;
-            }
-        }
+        //public static List<GameBlackUserInfo> GetBlackUsersDetail2(List<GameBlackUserInfo> list, string gameType)
+        //{
+        //    try
+        //    {
+        //        if (list == null || list.Count < 1) return null;
+        //        List<string> accList = new List<string>();
+        //        foreach (var item in list)
+        //        {
+        //            accList.Add(item.Account);
+        //        }
+        //        List<Dictionary<string, string>> infoList = userDal.GetUserInfoList(accList.ToArray());
+        //        if (infoList == null || infoList.Count < 1) return list;
+        //        List<GameBlackUserInfo> newList2 = new List<GameBlackUserInfo>();
+        //        foreach (GameBlackUserInfo info in list)
+        //        {
+        //            foreach (Dictionary<string, string> dic in infoList)
+        //            {
+        //                if (info.Account.ToLower().Equals(dic["Account"].ToString()))
+        //                {
+        //                    info.NickName = dic["Nickname"].ToString();
+        //                    if (dic["ChargeId"] != null && !string.IsNullOrEmpty(dic["ChargeId"].ToString()))
+        //                    {
+        //                        info.ChargeId = dic["ChargeId"].ToString();
+        //                        Dictionary<string, object> listinfos = guildDal.GetMembersList(dic["ChargeId"].ToString());
+        //                        if (listinfos != null && listinfos.Count > 0 && listinfos.ContainsKey("clubs"))
+        //                        {
+        //                            List<string> club_ids = (listinfos["clubs"] as Newtonsoft.Json.Linq.JArray).ToObject<List<string>>();
+        //                            if (club_ids != null && club_ids.Count > 0)
+        //                                info.ClubId = "[" + String.Join(",", club_ids) + "]";
+        //                            //money
+        //                            //Base.WriteLog("gameType:", gameType);
+        //                            if (string.IsNullOrEmpty(gameType))
+        //                            {
+        //                                //Base.WriteLog("jsonpath 111:", gameType);
+        //                                string jsonPath = HttpContext.Current.Server.MapPath("/common/js/gameback.json");
+        //                                //Base.WriteLog("jsonpath:", jsonPath);
+        //                                Dictionary<string, object> gamebackObj = Readjson(info.GameId, jsonPath);
+        //                                if (gamebackObj != null && gamebackObj.ContainsKey("type"))
+        //                                    gameType = gamebackObj["type"].ToString();
+        //                                //Base.WriteLog("gameType:", gameType);
+        //                            }
+        //                            if (string.IsNullOrEmpty(gameType)) break;
+        //                            Dictionary<string, object> moneyDic = dal.GetWinnMoney(gameType, dic["ChargeId"].ToString());
+        //                            if (moneyDic != null && moneyDic.ContainsKey("lose"))
+        //                            {
+        //                                info.Money = moneyDic["lose"].ToString();
+        //                            }
+        //                        }
+        //                    }
+        //                    break;
+        //                }
+        //            }
+        //            newList2.Add(info);
+        //        }
+        //        return newList2;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Base.WriteError("GetBlackUsersDetail ex:", ex.Message);
+        //        return list;
+        //    }
+        //}
         public static string GetUserGameMoney(string chargeId, string gameType)
         {
             try
@@ -206,38 +206,38 @@ namespace MF.Admin.BLL
             }
         }
 
-        public static List<GameBlackUserInfo> GetBlackUsersDetail(List<GameBlackUserInfo> list)
-        {
-            try
-            {
-                if (list == null || list.Count < 1) return null;
+        //public static List<GameBlackUserInfo> GetBlackUsersDetail(List<GameBlackUserInfo> list)
+        //{
+        //    try
+        //    {
+        //        if (list == null || list.Count < 1) return null;
 
-                List<string> accList = new List<string>();
-                foreach (var blackUser in list)
-                {
-                    if (Cache.CacheAccountList != null &&
-                        Cache.CacheAccountList.ContainsKey(blackUser.Account.ToLower()))
-                        continue;
-                    accList.Add(blackUser.Account);
-                }
-                if (accList.Count > 0)
-                    userDal.GetUserInfoList(accList.ToArray());
-                List<GameBlackUserInfo> newList2 = new List<GameBlackUserInfo>();
-                foreach (GameBlackUserInfo info in list)
-                {
-                    info.NickName = userDal.GetNickByAcc(info.Account);
-                    if (string.IsNullOrEmpty(info.ChargeId))
-                        info.ChargeId = userDal.GetChargeIdByAcc(info.Account);
-                    newList2.Add(info);
-                }
-                return newList2;
-            }
-            catch (Exception ex)
-            {
-                Base.WriteError("GetBlackUsersDetail ex:", ex.Message);
-                return list;
-            }
-        }
+        //        List<string> accList = new List<string>();
+        //        foreach (var blackUser in list)
+        //        {
+        //            if (Cache.CacheAccountList != null &&
+        //                Cache.CacheAccountList.ContainsKey(blackUser.Account.ToLower()))
+        //                continue;
+        //            accList.Add(blackUser.Account);
+        //        }
+        //        if (accList.Count > 0)
+        //            userDal.GetUserInfoList(accList.ToArray());
+        //        List<GameBlackUserInfo> newList2 = new List<GameBlackUserInfo>();
+        //        foreach (GameBlackUserInfo info in list)
+        //        {
+        //            info.NickName = userDal.GetNickByAcc(info.Account);
+        //            if (string.IsNullOrEmpty(info.ChargeId))
+        //                info.ChargeId = userDal.GetChargeIdByAcc(info.Account);
+        //            newList2.Add(info);
+        //        }
+        //        return newList2;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Base.WriteError("GetBlackUsersDetail ex:", ex.Message);
+        //        return list;
+        //    }
+        //}
         /// <summary>
         /// 获取黑名单列表
         /// </summary>
@@ -245,40 +245,40 @@ namespace MF.Admin.BLL
         /// <param name="gameType"></param>
         /// <param name="account"></param> 
         /// <returns></returns>
-        public static List<GameBlackUserInfo> GetGameBlackUsers(long gameId, long field, string value)
-        {
-            //if (gameId < 1 || string.IsNullOrEmpty(gameType))
-            //    return null;
-            string account = field == 2 ? value : "";
-            string chargeid = field == 1 ? value : "";
-            List<GameBlackUserInfo> list = GetGameBlackUsersData(gameId, account, chargeid);
-            if (list == null || list.Count < 1) return null;
-            //return list;
-            return GetBlackUsersDetail(list);
-        }
-        public static List<GameBlackUserInfo> GetAuditBlackUsers(long gameId, long field, string value)
-        {
-            string account = field == 2 ? value : "";
-            string chargeid = field == 1 ? value : "";
-            List<GameBlackUserInfo> list = dal.GetGameBlackUsers(gameId, account, chargeid, 2);
-            if (list == null || list.Count < 1) return null;
-            //return list;
-            return GetBlackUsersDetail(list);
-        }
-        
-        public static List<GameBlackUserInfo> GetGameBlackUsersData(long gameId, string account, string chargeid)
-        {
-            try
-            {
-                //if (gameId < 1) return null;
-                return dal.GetGameBlackUsers(gameId, account, chargeid, 1);
-            }
-            catch (Exception ex)
-            {
-                WriteError("GuildBLL GetGameBlackUsers ex:", ex.Message);
-            }
-            return null;
-        }
+        //public static List<GameBlackUserInfo> GetGameBlackUsers(long gameId, long field, string value)
+        //{
+        //    //if (gameId < 1 || string.IsNullOrEmpty(gameType))
+        //    //    return null;
+        //    string account = field == 2 ? value : "";
+        //    string chargeid = field == 1 ? value : "";
+        //    List<GameBlackUserInfo> list = GetGameBlackUsersData(gameId, account, chargeid);
+        //    if (list == null || list.Count < 1) return null;
+        //    //return list;
+        //    return GetBlackUsersDetail(list);
+        //}
+        //public static List<GameBlackUserInfo> GetAuditBlackUsers(long gameId, long field, string value)
+        //{
+        //    string account = field == 2 ? value : "";
+        //    string chargeid = field == 1 ? value : "";
+        //    List<GameBlackUserInfo> list = dal.GetGameBlackUsers(gameId, account, chargeid, 2);
+        //    if (list == null || list.Count < 1) return null;
+        //    //return list;
+        //    return GetBlackUsersDetail(list);
+        //}
+
+        //public static List<GameBlackUserInfo> GetGameBlackUsersData(long gameId, string account, string chargeid)
+        //{
+        //    try
+        //    {
+        //        //if (gameId < 1) return null;
+        //        return dal.GetGameBlackUsers(gameId, account, chargeid, 1);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        WriteError("GuildBLL GetGameBlackUsers ex:", ex.Message);
+        //    }
+        //    return null;
+        //}
         public static Dictionary<string, string> AddBlackUser(string[] gameidList, string chargeId,
             string[] valueList, string[] levelStrList, string remark, long isConfirm)
         {
@@ -299,7 +299,7 @@ namespace MF.Admin.BLL
                     value = valueList[i];
                     levelStr = levelStrList[i];
                     value = "[" + value + "]";
-                   var r= AddBlackUser(gameId, chargeId, value, levelStr, remark);
+                    var r = AddBlackUser(gameId, chargeId, value, levelStr, remark);
                     if (isConfirm == 1)
                     {
                         if (r != null)
@@ -337,6 +337,7 @@ namespace MF.Admin.BLL
                         {
                             msg = string.Format("操作游戏{0}，添加黑名单【{1}】值为【{2}】成功", gameId, chargeId, value);
                             AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "BLL.AddBlackUser", oprState, SystemLogEnum.ADDBLACKUSER);
+                            return r;
                         }
                         else
                             msg += r["message"];
@@ -412,43 +413,102 @@ namespace MF.Admin.BLL
 
         public static Dictionary<string, string> DelBlackUser(string gameId, string account)
         {
-            if (string.IsNullOrEmpty(gameId) || string.IsNullOrEmpty(account)) return null;
-            return dal.DelBlackUser(gameId, account);
+            try
+            {
+                if (string.IsNullOrEmpty(gameId) || string.IsNullOrEmpty(account)) return null;
+                Dictionary<string, string> r = dal.DelBlackUser(gameId, account);
+                int oprState = 0;
+                string msg = string.Format("操作游戏{0}，删除黑名单【{1}】失败。", gameId, account);
+                if (r != null)
+                {
+                    if (r.ContainsKey("succeed") && r.ContainsKey("message"))
+                    {
+                        if (bool.Parse(r["succeed"].ToString()))
+                        {
+                            oprState = 1;
+                            msg = string.Format("操作游戏{0}，删除黑名单【{1}】成功", gameId, account);
+                        }
+                        else
+                            msg += r["message"];
+                    }
+                    else
+                        msg += " res is err";
+                }
+                else
+                    msg += " res is null";
+                AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "BLL.DelBlackUser", oprState, SystemLogEnum.DELBLACKUSER);
+                return r;
+            }
+            catch (Exception ex)
+            {
+                WriteError("BLL DelBlackUser ex:", ex.Message, " gameid:", gameId, " account:", account);
+            }
+            return null;
         }
-        public static Dictionary<string, object> SetWinnMoney(string gameId, string account, string type, string player_id, string value)
+        public static Dictionary<string, object> SetWinnMoney(string type, string chargeid, string value)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(value) || string.IsNullOrEmpty(chargeid) || string.IsNullOrEmpty(type)) return null;
+                Dictionary<string, object> r = dal.SetWinnMoney(type, chargeid, value);
+                int oprState = 0;
+                string msg = string.Format("设置玩家{0}，游戏【{1}】，对应输赢值为{2}失败。", chargeid, type, value);
+                if (r != null)
+                {
+                    if (r.ContainsKey("ret"))
+                    {
+                        if (r["ret"].ToString() == "0")
+                        {
+                            oprState = 1;
+                            msg = string.Format("设置玩家{0}，游戏【{1}】，对应输赢值为{2}成功。", chargeid, type, value);
+                        }
+                        else
+                            msg += r["msg"];
+                    }
+                    else
+                        msg += "res is err";
+                }
+                else
+                    msg += "res is null";
+                AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "AjaxRequest.SetWinnMoney", oprState, SystemLogEnum.SETWINMONEY);
+                return r;
+            }
+            catch (Exception ex)
+            {
+                WriteError("BLL SetWinnMoney ex:", ex.Message, " chargeid:", chargeid, " type:", type, " value:", value);
+            }
+            return null;
+        }
+        //删除用户黑名单+设置输赢值
+        public static Dictionary<string, object> DelBlackUser(string gameId, string account, string type, string player_id, string value)
         {
             if (string.IsNullOrEmpty(gameId) || string.IsNullOrEmpty(account) || string.IsNullOrEmpty(type)) return null;
             //del
             Dictionary<string, string> r = DelBlackUser(gameId, account);
             int oprState = 0;
-            string msg = string.Format("操作游戏{0}，删除黑名单【{1}】失败。", gameId, account);
-            if (r != null)
+            string msg = "删除黑名单失败";
+            if (r != null && r.ContainsKey("succeed") && r.ContainsKey("message") && bool.Parse(r["succeed"].ToString()))
             {
-                if (r.ContainsKey("succeed") && r.ContainsKey("message"))
+                //set
+                if (!string.IsNullOrEmpty(value) && !string.IsNullOrEmpty(player_id))
                 {
-                    if (bool.Parse(r["succeed"].ToString()))
+                    var res = SetWinnMoney(type, player_id, value);
+                    if (res != null && res.ContainsKey("ret") && res["ret"].ToString() == "0")
                     {
                         oprState = 1;
-                        msg = string.Format("操作游戏{0}，删除黑名单【{1}】成功", gameId, account);
+                        msg = "删除黑名单成功";
                     }
                     else
-                        msg += r["message"];
+                        msg = "设置玩家输赢值失败";
                 }
                 else
-                    msg += " res is err";
+                {
+                    oprState = 1;
+                    msg = "删除黑名单成功";
+                }
             }
-            AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "AjaxRequest.DelBlackUser", oprState, SystemLogEnum.DELBLACKUSER);
-            //set
-            if (!string.IsNullOrEmpty(value) && !string.IsNullOrEmpty(player_id) && oprState == 1)
-                return dal.SetWinnMoney(type, player_id, value);
-            else
-            {
-                msg = oprState == 1 ? "" : msg;
-                return new Dictionary<string, object>() { { "ret", (oprState == 1 ? 0 : 1) }, { "msg", msg } };
-            }
+            return new Dictionary<string, object>() { { "ret", oprState }, { "msg", msg } };
         }
-
-
 
         private static List<ClubRoomSettingModel> GetRoomSetting(string playerId, string clubId)
         {
@@ -555,7 +615,7 @@ namespace MF.Admin.BLL
                     return null;
                 }
                 if (list == null || list.Count < 1) return list;
-                 //设置俱乐部+用户缓存
+                //设置俱乐部+用户缓存
                 List<List<string>> chargeIdList = list.Select(t => t.ChargeIdList).ToList();
                 if (chargeIdList != null && chargeIdList.Count > 0)
                 {
@@ -565,22 +625,22 @@ namespace MF.Admin.BLL
                         allChargeIds.AddRange(item);
                     }
                     userDal.QueryUserList(allChargeIds.ToArray());
-                } 
+                }
                 List<GameIncome> newList = new List<GameIncome>();
                 foreach (GameIncome income in list)
                 {
                     if (income == null) continue;
                     if (income.NickList.Count > 0)
                     {
-                        List<string> nickNewList = new List<string>(); 
+                        List<string> nickNewList = new List<string>();
                         for (int i = 0; i < income.NickList.Count; i++)
                         {
                             string newNick = income.NickList[i];
                             if (newNick.IndexOf("[emoji]") >= 0)
                                 newNick = newNick.Replace("[emoji]", "\\U000");
-                            nickNewList.Add(newNick); 
-                        } 
-                        income.NickList = nickNewList; 
+                            nickNewList.Add(newNick);
+                        }
+                        income.NickList = nickNewList;
                     }
                     newList.Add(income);
                 }
@@ -673,7 +733,7 @@ namespace MF.Admin.BLL
                 List<AutoPatrol> newList = new List<AutoPatrol>();
                 string nick = "";
                 foreach (AutoPatrol patrol in list)
-                { 
+                {
                     if (gameIds.Contains(patrol.GameId)) continue;
                     if (patrol == null) continue;
                     if ((patrol.ChargeIds == null || patrol.ChargeIds.Count < 1) && (patrol.NickNames == null || patrol.NickNames.Count < 1)) continue;
@@ -1058,28 +1118,24 @@ namespace MF.Admin.BLL
         }
         public static List<Dictionary<string, object>> GetRedAlertPlayer(string[] gameIds, string[] gameTypes, long field, string value, long time)
         {
-            //WriteLog("GetRedAlertPlayer parms. gameType:", gameTypes.ToString(), " field:", field.ToString(), " value:", value, "time:", time.ToString());
             List<Dictionary<string, object>> newList = new List<Dictionary<string, object>>();
             value = value.ToUpper();
             try
             {
                 //设置【游戏输赢值配置缓存】
-                foreach (var gameType in gameTypes)
-                {
-                    string gameValue = dal.GetCacheRedAlertFromCache(gameType);
-                    if (string.IsNullOrEmpty(gameValue))
-                    {
+                if(Cache.CacheRedAlert !=null && Cache.CacheRedAlert.Count > 0){
+                    List<string> newListGameTypes = gameTypes.ToList().Except(Cache.CacheRedAlert.Keys.ToArray()).ToList();
+                    if(newListGameTypes !=null && newListGameTypes.Count>0)//差集>0
                         dal.GetRedAlert();
-                        break;
-                    }
-                }
+                }else
+                    dal.GetRedAlert(); 
                 var index = 0;
                 foreach (var gameType in gameTypes)
                 {
                     string gameValue = dal.GetCacheRedAlertFromCache(gameType);
-                    gameValue = string.IsNullOrEmpty(gameValue) ? "0" : gameValue;
+                    if (string.IsNullOrEmpty(gameValue)) continue;
                     var res = dal.GetRedAlertPlayer(gameType, gameValue);
-                    if (res == null || !res.ContainsKey(gameType)) return newList;
+                    if (res == null || !res.ContainsKey(gameType)) continue;
                     List<Dictionary<string, object>> list = res[gameType];
                     //组装没有缓存的chargeid集合
                     List<object> chargeIdList = list.Select(t => t.ContainsKey("player_id") ? t["player_id"] : "").ToList();
@@ -1089,8 +1145,9 @@ namespace MF.Admin.BLL
                         userDal.QueryUserList(newChargeIdList.ToArray());
                         guildDal.GetClubByChargeId(newChargeIdList);
                     }
-                    List<GameBlackUserInfo> blackList = GetGameBlackUsersData(int.Parse(gameIds[index]), "", "");
-                    List<GameBlackUserInfo> auditBlackList = GetAuditBlackUsers(int.Parse(gameIds[index]), 0, "");
+                    List<GameBlackUserInfo> blackList = dal.GetGameBlackUsers(int.Parse(gameIds[index]), "", "", 1);
+                    List<GameBlackUserInfo> auditBlackList = dal.GetGameBlackUsers(int.Parse(gameIds[index]), "", "", 2);
+
                     index++;
                     //重组数据
                     Users cacheUser = new Users();
@@ -1098,6 +1155,7 @@ namespace MF.Admin.BLL
                     int regiTime = 0, blackType = 0;
                     foreach (var item in list)
                     {
+                        account = ""; nick = ""; regiTime = 0; blackType = 0;
                         if (!item.ContainsKey("player_id") || item["player_id"] == null
                             || item["player_id"].ToString() == "" || item["player_id"].ToString().ToUpper() == "NULL") continue;
                         player_id = item["player_id"].ToString().ToUpper();
@@ -1108,10 +1166,6 @@ namespace MF.Admin.BLL
                             nick = cacheUser.Nickname;
                             regiTime = cacheUser.Regitime;
                         }
-                        else
-                        {
-                            account = ""; nick = ""; regiTime = 0;
-                        }
                         if (time > 0 && regiTime < time) continue;
                         if (!string.IsNullOrEmpty(value))
                         {
@@ -1121,8 +1175,7 @@ namespace MF.Admin.BLL
                         item.Add("account", account);
                         item.Add("nick", nick);
                         item.Add("regTime", regiTime);
-                        List<string> clubIds = guildDal.GetCacheClubId(player_id);
-                        item.Add("clubId", clubIds);
+                        item.Add("clubId", guildDal.GetCacheClubId(player_id));
                         IEnumerable<GameBlackUserInfo> isBlackList = null;
                         if (blackList != null && blackList.Count > 0)
                             isBlackList = blackList.Where(a => a.ChargeId.ToUpper().Contains(player_id)).ToList();
@@ -1174,61 +1227,139 @@ namespace MF.Admin.BLL
         }
 
 
-        public static GameBlackUserInfoNew GetGameBlackUsersNew(long pageSize, long pageIndex, long gameId, long field, string value)
+
+        //public static GameBlackUserInfoNew GetGameBlackUsersDataNew(long pageSize, long pageIndex, long gameId, string account, string chargeid)
+        //{
+        //    try
+        //    {
+        //        //if (gameId < 1) return null;
+        //        return dal.GetGameBlackUsersNew(pageSize,  pageIndex, gameId, account, chargeid, 1);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        WriteError("GuildBLL GetGameBlackUsersDataNew ex:", ex.Message);
+        //    }
+        //    return null;
+        //}
+        //public static GameBlackUserInfoNew GetBlackUsersDetailNew(GameBlackUserInfoNew data)
+        //{
+        //    try
+        //    {
+        //        List<GameBlackUserInfo> list = data.Items;
+        //        if (list == null || list.Count < 1) return data;
+        //        List<string> accList = new List<string>();
+        //        foreach (var blackUser in list)
+        //        {
+        //            if (Cache.CacheAccountList != null &&
+        //                Cache.CacheAccountList.ContainsKey(blackUser.Account.ToLower()))
+        //                continue;
+        //            accList.Add(blackUser.Account);
+        //        }
+        //        if (accList.Count > 0)
+        //            userDal.GetUserInfoList(accList.ToArray());
+        //        List<GameBlackUserInfo> newList2 = new List<GameBlackUserInfo>();
+        //        foreach (GameBlackUserInfo info in list)
+        //        {
+        //            info.NickName = userDal.GetNickByAcc(info.Account);
+        //            if (string.IsNullOrEmpty(info.ChargeId))
+        //                info.ChargeId = userDal.GetChargeIdByAcc(info.Account);
+        //            newList2.Add(info);
+        //        }
+        //         data.Items= newList2; 
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Base.WriteError("GetBlackUsersDetail ex:", ex.Message);
+        //    }
+        //    return data;
+        //}
+
+
+
+
+        /// <summary>
+        /// 获取黑名单列表【不分页】
+        /// </summary>
+        /// <param name="gameId">游戏ID</param>
+        /// <param name="field">1chargeid  2account</param>
+        /// <param name="value">查询值</param>
+        /// <param name="type">1黑名单  2待审核黑名单</param>
+        /// <returns></returns>
+        public static List<GameBlackUserInfo> GetBlackUsers(long gameId, long field, string value, int type)
         {
-            //if (gameId < 1 || string.IsNullOrEmpty(gameType))
-            //    return null;
             string account = field == 2 ? value : "";
             string chargeid = field == 1 ? value : "";
-            GameBlackUserInfoNew list = GetGameBlackUsersDataNew(pageSize,pageIndex, gameId, account, chargeid);
-            if (list == null || list.Items==null || list.Items.Count < 1) return null;
-            //return list;
-            return GetBlackUsersDetailNew(list);
+            List<GameBlackUserInfo> list = dal.GetGameBlackUsers(gameId, account, chargeid, type);
+            if (list == null || list.Count < 1) return null;
+            return ResetBlackUserModel(list);
         }
-        public static GameBlackUserInfoNew GetGameBlackUsersDataNew(long pageSize, long pageIndex, long gameId, string account, string chargeid)
+
+        /// <summary>
+        /// 获取黑名单列表【分页】
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="gameId">游戏ID</param>
+        /// <param name="field">1chargeid  2account</param>
+        /// <param name="value">查询值</param>
+        /// <param name="type">1黑名单  2待审核黑名单</param>
+        /// <returns></returns>
+        public static GameBlackUserInfoNew GetGameBlackUsersNew(long pageSize, long pageIndex, long gameId, long field, string value, int type)
         {
             try
             {
-                //if (gameId < 1) return null;
-                return dal.GetGameBlackUsersNew(pageSize,  pageIndex, gameId, account, chargeid, 1);
+                //if (gameId < 1 || string.IsNullOrEmpty(gameType))
+                //    return null;
+                //获取数据
+                string account = field == 2 ? value : "";
+                string chargeid = field == 1 ? value : "";
+                GameBlackUserInfoNew res = dal.GetGameBlackUsersNew(pageSize, pageIndex, gameId, account, chargeid, type);
+                if (res == null || res.Items == null || res.Items.Count < 1) return null;
+                res.Items = ResetBlackUserModel(res.Items);
+                return res;
             }
             catch (Exception ex)
             {
-                WriteError("GuildBLL GetGameBlackUsersDataNew ex:", ex.Message);
+                WriteError("BLL GetGameBlackUsersNew ex:", ex.Message);
             }
             return null;
         }
-        public static GameBlackUserInfoNew GetBlackUsersDetailNew(GameBlackUserInfoNew data)
+
+        /// <summary>
+        /// 重组黑名单信息【添加昵称、chargeid的显示】
+        /// </summary>
+        /// <param name="list">原有黑名单集合</param>
+        /// <returns></returns>
+        public static List<GameBlackUserInfo> ResetBlackUserModel(List<GameBlackUserInfo> list)
         {
             try
             {
-                List<GameBlackUserInfo> list = data.Items;
-                if (list == null || list.Count < 1) return data;
-                List<string> accList = new List<string>();
-                foreach (var blackUser in list)
+                if (list == null || list.Count < 1) return null;
+                //找集 去重
+                List<string> accList = list.Select(s => s.Account).Distinct().ToList();
+                if (Cache.CacheAccountList != null && Cache.CacheAccountList.Count > 0)
                 {
-                    if (Cache.CacheAccountList != null &&
-                        Cache.CacheAccountList.ContainsKey(blackUser.Account.ToLower()))
-                        continue;
-                    accList.Add(blackUser.Account);
+                    //找差集
+                    accList = accList.Except(Cache.CacheAccountList.Keys.ToArray()).ToList();
                 }
-                if (accList.Count > 0)
+                if (accList != null && accList.Count > 0)
                     userDal.GetUserInfoList(accList.ToArray());
-                List<GameBlackUserInfo> newList2 = new List<GameBlackUserInfo>();
+                List<GameBlackUserInfo> newList = new List<GameBlackUserInfo>();
+                Users cacheUser = null;
                 foreach (GameBlackUserInfo info in list)
                 {
-                    info.NickName = userDal.GetNickByAcc(info.Account);
-                    if (string.IsNullOrEmpty(info.ChargeId))
-                        info.ChargeId = userDal.GetChargeIdByAcc(info.Account);
-                    newList2.Add(info);
+                    cacheUser = userDal.GetCacheUserByAccountFromCache(info.Account);
+                    info.NickName = cacheUser == null ? "" : cacheUser.Nickname;
+                    info.ChargeId = cacheUser == null ? "" : cacheUser.ChargeId;
+                    newList.Add(info);
                 }
-                 data.Items= newList2; 
+                return newList;
             }
             catch (Exception ex)
             {
-                Base.WriteError("GetBlackUsersDetail ex:", ex.Message);
+                Base.WriteError("ResetBlackUserModel ex:", ex.Message);
             }
-            return data;
+            return list;
         }
     }
 }

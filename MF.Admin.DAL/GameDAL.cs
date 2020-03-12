@@ -67,48 +67,8 @@ namespace MF.Admin.DAL
             return null;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="gameId"></param>
-        /// <param name="account"></param>
-        /// <param name="audit">1黑名单列表  2待审核黑名单列表</param>
-        /// <returns></returns>
-        public List<GameBlackUserInfo> GetGameBlackUsers(long gameId, string account, string chargeid, int audit)
-        {
-            string par = "gameId={0}&account={1}&chargeid={2}&audit={3}";
-            string gameid = gameId > 0 ? gameId.ToString() : "";
-            string auditTag = audit == 2 ? "NO" : "YES";
-            par = string.Format(par, gameid, account, chargeid, auditTag);
-            //WriteLog("getblackuser par:", par);
-            var res = Post<List<GameBlackUserInfo>>(BlackURI + "getusers", par);
-            return res;
-        }
-        public Dictionary<string, string> AddBlackUser(string gameId, string chargeId, string value, string levelStr, string remark)
-        {
-            string param = string.Format("gameId={0}&chargeid={1}&value={2}&level={3}&remark={4}", gameId, chargeId, value, levelStr, remark);
-            var res = Post<Dictionary<string, string>>(BlackURI + "adduser", param);
-            return res;
-        }
-        public Dictionary<string, string> UpdateBlackUser(string gameId, string account, string chargeid, string value, string levelStr, string remark)
-        {
-            string param = string.Format("gameId={0}&account={1}&chargeid={2}&value={3}&level={4}&remark={5}", gameId, account, chargeid, value, levelStr, remark);
-            var res = Post<Dictionary<string, string>>(BlackURI + "updateuser", param);
-            return res;
-        }
-        public Dictionary<string, string> ConfirmBlackUser(string account, string chargeid, string confirmData)
-        {
-            string param = string.Format("account={0}&chargeid={1}&indexs={2}", account, chargeid, confirmData);
-            var res = Post<Dictionary<string, string>>(ShiChuiURI + "api/game/shichui", param);
-            return res;
-        }
-        public Dictionary<string, string> DelBlackUser(string gameId, string account)
-        {
-            if (string.IsNullOrEmpty(gameId) || string.IsNullOrEmpty(account)) return null;
-            string param = string.Format("gameId={0}&account={1}", gameId, account);
-            var res = Post<Dictionary<string, string>>(BlackURI + "deleteuser", param);
-            return res;
-        }
+       
+       
         //设置输赢值
         public Dictionary<string, object> SetWinnMoney(string type, string player_id, string value)
         {
@@ -297,14 +257,67 @@ namespace MF.Admin.DAL
             }
             return null;
         }
-        public GameBlackUserInfoNew GetGameBlackUsersNew(long pageSize, long pageIndex, long gameId, string account, string chargeid, int audit)
+     
+        
+        
+        /// <summary>
+        ///  获取黑名单列表【不分页】
+        /// </summary>
+        /// <param name="gameId"></param>
+        /// <param name="account"></param>
+        /// <param name="type">1黑名单列表  2待审核黑名单列表</param>
+        /// <returns></returns>
+        public List<GameBlackUserInfo> GetGameBlackUsers(long gameId, string account, string chargeid, int type)
+        {
+            string par = "gameId={0}&account={1}&chargeid={2}&audit={3}";
+            string gameid = gameId > 0 ? gameId.ToString() : "";
+            string auditTag = type == 2 ? "NO" : "YES";
+            par = string.Format(par, gameid, account, chargeid, auditTag);
+            var res = Post<List<GameBlackUserInfo>>(BlackURI + "getusers", par);
+            return res;
+        }
+        /// <summary>
+        /// 获取黑名单列表【分页】
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="gameId"></param>
+        /// <param name="account"></param>
+        /// <param name="chargeid"></param>
+        /// <param name="type">1黑名单  2待审核黑名单</param>
+        /// <returns></returns>
+        public GameBlackUserInfoNew GetGameBlackUsersNew(long pageSize, long pageIndex, long gameId, string account, string chargeid, int type)
         {
             string par = "gameId={0}&account={1}&chargeid={2}&audit={3}&PageIndex={4}&PageSize={5}";
             string gameid = gameId > 0 ? gameId.ToString() : "";
-            string auditTag = audit == 2 ? "NO" : "YES";
+            string auditTag = type == 2 ? "NO" : "YES";
             par = string.Format(par, gameid, account, chargeid, auditTag,pageIndex,pageSize);
-            //WriteLog("getblackuser par:", par);
             var res = Post<GameBlackUserInfoNew>(BlackURI + "getuserpage", par);
+            return res;
+        }
+        public Dictionary<string, string> AddBlackUser(string gameId, string chargeId, string value, string levelStr, string remark)
+        {
+            string param = string.Format("gameId={0}&chargeid={1}&value={2}&level={3}&remark={4}", gameId, chargeId, value, levelStr, remark);
+            var res = Post<Dictionary<string, string>>(BlackURI + "adduser", param);
+            return res;
+        }
+        public Dictionary<string, string> UpdateBlackUser(string gameId, string account, string chargeid, string value, string levelStr, string remark)
+        {
+            string param = string.Format("gameId={0}&account={1}&chargeid={2}&value={3}&level={4}&remark={5}", gameId, account, chargeid, value, levelStr, remark);
+            var res = Post<Dictionary<string, string>>(BlackURI + "updateuser", param);
+            return res;
+        }
+        public Dictionary<string, string> ConfirmBlackUser(string account, string chargeid, string confirmData)
+        {
+            string param = string.Format("account={0}&chargeid={1}&indexs={2}", account, chargeid, confirmData);
+            var res = Post<Dictionary<string, string>>(ShiChuiURI + "api/game/shichui", param);
+            return res;
+        }
+        public Dictionary<string, string> DelBlackUser(string gameId, string account)
+        {
+            if (string.IsNullOrEmpty(gameId) || string.IsNullOrEmpty(account)) return null;
+            string param = string.Format("gameId={0}&account={1}", gameId, account);
+            var res = Post<Dictionary<string, string>>(BlackURI + "deleteuser", param);
             return res;
         }
     }

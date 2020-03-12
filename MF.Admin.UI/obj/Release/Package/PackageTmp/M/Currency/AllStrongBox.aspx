@@ -19,11 +19,6 @@
                     return;
                 }
             }
-            if (startTime < 1) {
-                checktime = 1;
-                startTime = new Date("2020-03-07 00:00:00").dateDiff("s");
-                overTime = new Date(new Date().Format("yyyy-MM-dd 23:59:59")).dateDiff("s");
-            }
             var chargeid = "", account = "", value = "";
             value = $("#value").val();
             if (value != "") {

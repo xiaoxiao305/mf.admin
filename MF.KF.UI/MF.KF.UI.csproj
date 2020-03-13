@@ -47,11 +47,21 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="1.html" />
     <Content Include="common\images\add.png" />
     <Content Include="common\images\del.png" />
     <Content Include="common\images\ok.png" />
     <Content Include="common\js\echarts.min.js" />
     <Content Include="common\js\game.js" />
+    <Content Include="common\js\jQuery-Timepicker-Addon\jquery-ui-timepicker-addon.js" />
+    <Content Include="common\js\jQuery-Timepicker-Addon\jquery-ui-timepicker-zh-CN.js" />
+    <Content Include="common\js\jQuery-Timepicker-Addon\jquery.ui.datepicker-zh-CN.js.js" />
+    <Content Include="jQuery-Timepicker-Addon\demo.html" />
+    <Content Include="jQuery-Timepicker-Addon\jQuery-Timepicker-Addon\demos.css" />
+    <Content Include="jQuery-Timepicker-Addon\jQuery-Timepicker-Addon\jquery-ui-timepicker-addon.css" />
+    <Content Include="jQuery-Timepicker-Addon\jQuery-Timepicker-Addon\jquery-ui-timepicker-addon.js" />
+    <Content Include="jQuery-Timepicker-Addon\js\jquery-ui-timepicker-zh-CN.js" />
+    <Content Include="jQuery-Timepicker-Addon\js\jquery.ui.datepicker-zh-CN.js.js" />
     <Content Include="M\Charge\RecordList.aspx" />
     <Content Include="M\club\clubactive.aspx" />
     <Content Include="M\club\clublink.aspx" />

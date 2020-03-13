@@ -23,19 +23,21 @@ namespace MF.ConsoleApp
         {
             try
             {
-
+                int t = 1584109410;
+                DateTime d = DateTime.Parse("1970/01/01").AddSeconds(t);
+                Console.WriteLine("d:" + d.ToString("yyyy-MM-dd HH:mm:ss"));
                 //broadcast
                 //send
                 //#{<<"unixtime">> := UT， <<"id">> :=  ID, <<"msg">> := Msg} 参数你发这个 
-                string msg = "sendbroadcast test";
-                long unixtime = DateTimeToUnixTime(DateTime.Now);
-                string param = "{\"module\":\"broadcast\",\"func\":\"send\",\"args\":" +
-    Json.SerializeObject(new Dictionary<string, object> { { "unixtime", unixtime }, { "msg", msg } }) + "}";
-                var res2 = PostHelper.PostClubServer<ClubsRes<object>>(AccountURI, param);
-                if (res2 != null && res2.ret==0)
-                    Console.WriteLine("res is ok");
-                else
-                    Console.WriteLine("res is err:"+res2.msg);
+    //            string msg = "sendbroadcast test";
+    //            long unixtime = DateTimeToUnixTime(DateTime.Now);
+    //            string param = "{\"module\":\"broadcast\",\"func\":\"send\",\"args\":" +
+    //Json.SerializeObject(new Dictionary<string, object> { { "unixtime", unixtime }, { "msg", msg } }) + "}";
+    //            var res2 = PostHelper.PostClubServer<ClubsRes<object>>(AccountURI, param);
+    //            if (res2 != null && res2.ret==0)
+    //                Console.WriteLine("res is ok");
+    //            else
+    //                Console.WriteLine("res is err:"+res2.msg);
             }
             catch (Exception ex)
             {

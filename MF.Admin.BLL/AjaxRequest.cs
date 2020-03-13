@@ -144,8 +144,34 @@ namespace MF.Admin.BLL
                 functions.Add("getgamemoney", "GetGameMoney");
 
 
+
+                functions.Add("sendbroadcast", "SendBroadCast");
+
+
             }
         }
+        public void SendBroadCast(long time, string content)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(content) || time<1)
+                {
+                    Response.Write("{\"code\":0,\"msg\":\"参数有误\"}");
+                    return;
+                }
+                DateTime dt = DateTime.Parse("1970/01/01").AddSeconds(time);
+                WriteLog("args time:", time.ToString(), " content:", content," convertime:",dt.ToString("yyyy-MM-dd HH:mm:ss"));
+                var t= (int)(dt - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1))).TotalSeconds;
+                ClubsRes<object> r = SettingBLL.SendBroadCast(t, content);
+                 Response.Write("{\"code\":" + (r!=null && r.ret == 0 ? "1" : "0") + ",\"msg\":\"" + (r==null?" err ":r.msg) + "\"}");
+                return;
+            }
+            catch (Exception ex)
+            {
+                WriteError("SendBroadCast ex:" + ex.Message + ",time:", time.ToString(), " content:", content);
+            }
+        }
+
         public void GetGameMoney(long pageSize, long pageIndex, string gameTypes, string chargeId)
         {
             try

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using MF.Common.Json;
 using MF.Data;
 using Newtonsoft.Json;
 
@@ -69,6 +70,21 @@ namespace MF.Admin.DAL
                 WriteError("SettingDAL SetPushNews ex:", ex.Message);
             }
 
+        }
+
+
+        public ClubsRes<object> SendBroadCast(long unixtime, string msg)
+        {
+            try
+            { 
+                string param = "{\"module\":\"broadcast\",\"func\":\"send\",\"args\":" +Json.SerializeObject(new Dictionary<string, object> { { "unixtime", unixtime }, { "msg", msg } }) + "}";
+                return PostClubServer<ClubsRes<object>>(RecordServerUrl+"do", param);
+            }
+            catch (Exception ex)
+            {
+                WriteError("SettingDAL SetPushNews ex:", ex.Message);
+            }
+            return null;
         }
     }
 }

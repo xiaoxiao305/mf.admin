@@ -141,6 +141,10 @@ namespace MF.Data
         /// <summary>
         /// 删除输赢值异常警报
         /// </summary>
-        DELREDALERT = 24
+        DELREDALERT = 24,
+        /// <summary>
+        /// 设置游戏系统广播
+        /// </summary>
+        SENDBROADCAST = 25
     }
 }

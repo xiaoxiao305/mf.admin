@@ -38,5 +38,31 @@ namespace MF.Admin.BLL
             string s = type == 1 ? "android" : type == 2 ? "ios" : "undifined";
             dal.SetPushNews(s, news);
         }
+        public static ClubsRes<object> SendBroadCast(long unixtime, string msg)
+        {
+            try
+            {
+                if (unixtime < 1 || string.IsNullOrEmpty(msg))
+                    return null;
+                ClubsRes<object> res = dal.SendBroadCast(unixtime, msg);
+                string log = string.Format("设置{0}系统广播{1}", unixtime, msg);
+                int oprState = 0;
+                if (res != null && res.ret == 0)
+                {
+                    oprState = 1;
+                    log += "成功";
+                }
+                else
+                {
+                    log += "失败：" + (res == null ? "" : res.msg);
+                }
+                AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "BLL.SendBroadCast", oprState, SystemLogEnum.SENDBROADCAST);
+                return res;
+            }catch(Exception ex)
+            {
+                WriteError("BLL.SendBroadCast ex:", ex.Message, " time:", unixtime.ToString(), " msg:", msg);
+            }
+            return null;
+        }
     }
 }

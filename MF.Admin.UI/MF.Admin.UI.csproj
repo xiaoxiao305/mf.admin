@@ -107,6 +107,9 @@
     <Content Include="common\js\ajax.js" />
     <Content Include="common\js\common.js" />
     <Content Include="common\js\game.js" />
+    <Content Include="common\js\jQuery-Timepicker-Addon\jquery-ui-timepicker-addon.js" />
+    <Content Include="common\js\jQuery-Timepicker-Addon\jquery-ui-timepicker-zh-CN.js" />
+    <Content Include="common\js\jQuery-Timepicker-Addon\jquery.ui.datepicker-zh-CN.js.js" />
     <Content Include="common\js\jquery-ui-1.8.18.custom.min.js" />
     <Content Include="common\js\jquery1.8.1.js" />
     <Content Include="common\js\json2.js" />
@@ -169,6 +172,7 @@
     <Content Include="M\SysManage\LoginLog.aspx" />
     <Content Include="M\SysManage\OprLog.aspx" />
     <Content Include="M\SysManage\PushNews.aspx" />
+    <Content Include="M\SysManage\sendbroadcast.aspx" />
     <Content Include="M\top.aspx" />
     <Content Include="M\Users\SubUserList.aspx" />
     <Content Include="M\Users\UserInfo.aspx" />
@@ -519,6 +523,13 @@
     <Compile Include="M\SysManage\PushNews.aspx.designer.cs">
       <DependentUpon>PushNews.aspx</DependentUpon>
     </Compile>
+    <Compile Include="M\SysManage\sendbroadcast.aspx.cs">
+      <DependentUpon>sendbroadcast.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\SysManage\sendbroadcast.aspx.designer.cs">
+      <DependentUpon>sendbroadcast.aspx</DependentUpon>
+    </Compile>
     <Compile Include="M\top.aspx.cs">
       <DependentUpon>top.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -594,6 +605,7 @@
     <Content Include="common\js\gameback.json" />
     <Content Include="common\js\gamerec.json" />
     <Content Include="common\js\strongbox.json" />
+    <Content Include="M\main2.Master" />
     <None Include="Properties\PublishProfiles\admin.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>

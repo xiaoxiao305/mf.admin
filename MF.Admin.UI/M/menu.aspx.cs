@@ -62,7 +62,8 @@ namespace MF.Admin.UI.M
             menuList.Add(5, @"<li class='menu_title'>系统管理</li> 
         <li class='menu_list'><a href ='/m/SysManage/oprlog.aspx' target='main' class='white'>操作日志</a></li>
         <li class='menu_list'><a href ='/m/SysManage/loginlog.aspx' target='main' class='white'>登录日志</a></li>
-        <li class='menu_list'><a href ='/m/SysManage/PushNews.aspx' target='main' class='white'>设置推送消息</a></li>");
+        <li class='menu_list'><a href ='/m/SysManage/PushNews.aspx' target='main' class='white'>设置推送消息</a></li>
+        <li class='menu_list'><a href ='/m/SysManage/sendbroadcast.aspx' target='main' class='white'>系统广播</a></li>");
         }
     }
 }

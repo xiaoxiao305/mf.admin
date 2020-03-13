@@ -10,34 +10,34 @@
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/MF.Admin.BLL.dll">
-      <publishTime>03/12/2020 12:55:50</publishTime>
+      <publishTime>03/13/2020 14:43:20</publishTime>
     </File>
     <File Include="bin/MF.Admin.BLL.pdb">
-      <publishTime>03/12/2020 12:55:50</publishTime>
+      <publishTime>03/13/2020 14:43:20</publishTime>
     </File>
     <File Include="bin/MF.Admin.DAL.dll">
-      <publishTime>03/12/2020 11:37:43</publishTime>
+      <publishTime>03/13/2020 14:10:13</publishTime>
     </File>
     <File Include="bin/MF.Admin.DAL.pdb">
-      <publishTime>03/12/2020 11:37:43</publishTime>
+      <publishTime>03/13/2020 14:10:13</publishTime>
     </File>
     <File Include="bin/MF.Admin.UI.dll">
-      <publishTime>03/12/2020 12:55:54</publishTime>
+      <publishTime>03/13/2020 14:43:22</publishTime>
     </File>
     <File Include="bin/MF.Admin.UI.pdb">
-      <publishTime>03/12/2020 12:55:54</publishTime>
+      <publishTime>03/13/2020 14:43:22</publishTime>
     </File>
     <File Include="bin/MF.Common.dll">
       <publishTime>06/21/2017 15:36:33</publishTime>
     </File>
     <File Include="bin/MF.Data.dll">
-      <publishTime>03/10/2020 09:58:28</publishTime>
+      <publishTime>03/13/2020 13:13:58</publishTime>
     </File>
     <File Include="bin/MF.Data.ExtendChannel.dll">
       <publishTime>02/25/2020 11:03:03</publishTime>
     </File>
     <File Include="bin/MF.Data.pdb">
-      <publishTime>03/10/2020 09:58:28</publishTime>
+      <publishTime>03/13/2020 13:13:58</publishTime>
     </File>
     <File Include="bin/MF.Enum.dll">
       <publishTime>12/19/2017 11:44:07</publishTime>
@@ -148,10 +148,10 @@
       <publishTime>11/11/2016 12:40:23</publishTime>
     </File>
     <File Include="common/js/ajax.js">
-      <publishTime>03/09/2020 10:47:48</publishTime>
+      <publishTime>03/13/2020 12:52:12</publishTime>
     </File>
     <File Include="common/js/common.js">
-      <publishTime>03/02/2020 18:59:34</publishTime>
+      <publishTime>03/13/2020 08:25:22</publishTime>
     </File>
     <File Include="common/js/echarts.min.js">
       <publishTime>01/03/2020 17:14:37</publishTime>
@@ -165,8 +165,17 @@
     <File Include="common/js/gamerec.json">
       <publishTime>02/23/2020 16:20:11</publishTime>
     </File>
+    <File Include="common/js/jQuery-Timepicker-Addon/jquery-ui-timepicker-addon.js">
+      <publishTime>03/13/2020 12:47:28</publishTime>
+    </File>
+    <File Include="common/js/jQuery-Timepicker-Addon/jquery-ui-timepicker-zh-CN.js">
+      <publishTime>03/13/2020 12:47:28</publishTime>
+    </File>
+    <File Include="common/js/jQuery-Timepicker-Addon/jquery.ui.datepicker-zh-CN.js.js">
+      <publishTime>03/13/2020 12:47:28</publishTime>
+    </File>
     <File Include="common/js/jquery-ui-1.8.18.custom.min.js">
-      <publishTime>11/11/2016 12:40:23</publishTime>
+      <publishTime>03/13/2020 08:25:17</publishTime>
     </File>
     <File Include="common/js/jquery1.8.1.js">
       <publishTime>11/11/2016 12:40:23</publishTime>
@@ -327,6 +336,9 @@
     <File Include="M/main.Master">
       <publishTime>03/01/2020 08:48:11</publishTime>
     </File>
+    <File Include="M/main2.Master">
+      <publishTime>03/13/2020 14:42:56</publishTime>
+    </File>
     <File Include="M/menu.aspx">
       <publishTime>11/11/2016 12:40:23</publishTime>
     </File>
@@ -374,6 +386,9 @@
     </File>
     <File Include="M/SysManage/PushNews.aspx">
       <publishTime>04/18/2018 16:39:10</publishTime>
+    </File>
+    <File Include="M/SysManage/sendbroadcast.aspx">
+      <publishTime>03/13/2020 14:42:15</publishTime>
     </File>
     <File Include="M/top.aspx">
       <publishTime>12/16/2019 19:07:25</publishTime>

@@ -256,7 +256,7 @@ function GetGameNameByType(gameType) {
     if (gameModel && gameModel != null)
         return gameModel.name;
     return "";
-} 
+}
 function GetGameRecModel(gameid) {
     if (gameid < 1) return null;
     for (var i = 0; i < gameRecInfo.length; i++) {
@@ -336,7 +336,8 @@ function setWinMoney(o) {
     showAddMoneyWin(2);
     $("#tgame2").text(games[o.GameId]);
     $("#tchargeid2").text(o.ChargeId);
-    $("#keepVal").val(o.Money);
+    if ($("#keepVal"))
+        $("#keepVal").val(o.Money);
     $("#msgtitle").text("设置输赢值");
 }
 function setWinMoneyConfirm() {
@@ -477,7 +478,7 @@ function addBlackUserConfirm() {
     if (!remark || remark == "") {
         $("#lblerr4").text("请输入备注");
         return;
-    } 
+    }
     var gameidsStr = gameids.join("|");
     var levelsStr = levels.join("|");
     var levelStrsStr = levelStrs.join("|");
@@ -590,7 +591,8 @@ function getGameMoney(o) {
             $("#lblaccount5").text(o.Account);
             $("#lblchargeid5").text(o.ChargeId);
             $("#lblMoney5").text(res.msg);
-            $("#lblRemark5").text(o.Remark);
+            if ($("#lblRemark5"))
+                $("#lblRemark5").text(o.Remark);
         } else
             alert("获取游戏输赢值出错");
     });
@@ -741,6 +743,86 @@ function delalertwinresult(res) {
         }
         dataOld.splice(index, 1);
         oprGameType = null;
+        jsonPager.data = dataOld;
+        jsonPager.dataBind(res.index, dataOld.length);
+    } else {
+        if (res.msg != "")
+            alert(res.msg);
+        else
+            alert("操作失败：" + res.code);
+    }
+}
+
+
+
+function setWinMoney2(o) {
+    oprObjTmp = o;
+    showAddMoneyWin(2);
+    $("#tgame2").text(GetGameNameByType(o.GameType));
+    $("#tchargeid2").text(o.player_id);
+    $("#tval2").val(o.lose);
+    $("#msgtitle").text("设置输赢值");
+}
+function setWinMoneyConfirm2() {
+    $("#lblerr2").text("");
+    if (!oprObjTmp || oprObjTmp == null) {
+        alert("数据错误，请重试");
+        return;
+    }
+    var type = oprObjTmp.GameType;
+    var chargeid = oprObjTmp.player_id;
+    var token = $("#token2").val();
+    var val = $("#tval2").val();
+    if (chargeid == "") {
+        $("#lblerr2").text("账号错误");
+        return;
+    }
+    else if (type == "") {
+        $("#lblerr2").text("游戏错误");
+        return;
+    }
+    else if (val == "") {
+        $("#lblerr2").text("请输入输赢值");
+        return;
+    }
+    else if (token == "") {
+        $("#lblerr2").text("请输入安全令");
+        return;
+    }
+    //保留时val可为空
+    ajax.setWinMoney("setwinnmoney2", [type, chargeid, val, token], setWinMoney2Result);
+}
+function setWinMoney2Result(res) {
+    $("#loading").hide();
+    console.log("res:", res);
+    if (res.code == 1) {
+        console.log("oprObjTmp:", oprObjTmp);
+        var oprChargeid = oprObjTmp.player_id.toUpperCase();
+        var oprGameType = oprObjTmp.type.toUpperCase();
+        console.log("oprChargeid:", oprChargeid);
+        console.log("type:", oprGameType);
+        oprObjTmp = null;
+        alert("操作成功");
+        $('.theme-popover-mask').hide();
+        $('.theme-popover').slideUp(200);
+        var dataOld = jsonPager.data;
+        var newModel = JSON.parse(res.msg);
+        console.log("dataOld:", dataOld);
+        console.log("newmodel:", newModel);
+        var oldModel;
+        var index = 0;
+        for (var i = 0; i < dataOld.length; i++) {
+            if (dataOld[i]["player_id"].trim().toUpperCase() == oprChargeid && dataOld[i]["type"].trim().toUpperCase() == oprGameType) {
+                oldModel = dataOld[i];
+                console.log("oldModel:", oldModel);
+                index = i;
+                break;
+            }
+        }
+        if (oldModel != null)
+            oldModel["lose"] = newModel["lose"];
+        console.log("set ok:");
+        dataOld[index] = oldModel;
         jsonPager.data = dataOld;
         jsonPager.dataBind(res.index, dataOld.length);
     } else {

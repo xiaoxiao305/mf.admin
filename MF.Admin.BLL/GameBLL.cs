@@ -321,6 +321,69 @@ namespace MF.Admin.BLL
             }
             return null;
         }
+        public static Dictionary<string, string> AddBlackUserRange(string[] gameidList, string[] chargeId,
+    string[] valueList, string[] levelStrList, string remark, long isConfirm)
+        {
+            try
+            {
+                if (gameidList == null || gameidList.Length < 1
+                    || chargeId == null || chargeId.Length < 1
+                || valueList == null || valueList.Length < 1
+                || levelStrList == null || levelStrList.Length < 1) return null;
+                Dictionary<string, string> r = AddBlackUserRange(gameidList, chargeId, valueList, levelStrList, remark);
+                if (r != null)
+                {
+                    if (r.ContainsKey("succeed") && r.ContainsKey("message"))
+                    {
+                        if (bool.Parse(r["succeed"].ToString()) && isConfirm == 1)
+                            ConfirmBlackUserRange(gameidList, chargeId);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteError("BLL AddBlackUserRange ex:", ex.Message, " gameidList:", String.Join(",", gameidList),
+                    " chargeId:", chargeId.ToString(), " valueList:", String.Join(",", valueList)
+                    , " levelStrList:", String.Join(",", levelStrList), " remark:", remark);
+            }
+            return null;
+        }
+        public static Dictionary<string, string> AddBlackUserRange(string[] gameidList, string[] chargeId,
+      string[] valueList, string[] levelStrList, string remark)
+        {
+            try
+            {
+                AjaxResult<bool> res = new AjaxResult<bool>() { code = 0, msg = "" };
+                Dictionary<string, string> r = dal.AddBlackUserRange(gameidList, chargeId, valueList, levelStrList, remark);
+                int oprState = 0;
+                string msg = string.Format("操作游戏{0}，添加黑名单【{1}】值为【{2}】", string.Join(",", gameidList)
+                    , string.Join(",", chargeId), string.Join(",", valueList));
+                if (r != null)
+                {
+                    if (r.ContainsKey("succeed") && r.ContainsKey("message"))
+                    {
+                        if (bool.Parse(r["succeed"].ToString()))
+                        {
+                            msg += "成功";
+                            oprState = 1;
+                        }
+                        else
+                            msg += "失败" + r["message"];
+                    }
+                    else
+                        msg += "失败 res is err";
+                }
+                AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "BLL.AddBlackUser", oprState, SystemLogEnum.ADDBLACKUSER);
+                return r;
+            }
+            catch (Exception ex)
+            {
+                WriteError("BLL AddBlackUserRange ex:", ex.Message, " gameId:", string.Join(",", gameidList)
+                    , " chargeId:", string.Join(",", chargeId), " value:", string.Join(",", valueList)
+                    , " levelStr:", string.Join(",", levelStrList), " remark:", remark);
+            }
+            return null;
+        }
         public static Dictionary<string, string> AddBlackUser(string gameId, string chargeId, string value, string levelStr, string remark)
         {
             try
@@ -400,6 +463,39 @@ namespace MF.Admin.BLL
                     }
                     else
                         msg += " res is err";
+                }
+                AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "GameBLL.ConfirmBlackUser", oprState, SystemLogEnum.CONFIRMBLACKUSER);
+                return r;
+            }
+            catch (Exception ex)
+            {
+                WriteError("BLL ConfirmBlackUser ex:", ex.Message);
+            }
+            return null;
+        }
+        public static Dictionary<string, string> ConfirmBlackUserRange(string[] gameids, string[] chargeids)
+        {
+            try
+            {
+                if (gameids == null || gameids.Length < 1
+                    || chargeids == null || chargeids.Length < 1) return null;
+                Dictionary<string, string> r = dal.ConfirmBlackUserRange(gameids, chargeids);
+                int oprState = 0;
+                string msg = string.Format("批量审核黑名单，游戏：{0},UID：{1}.确认实锤", string.Join(",", gameids), string.Join(",", chargeids));
+                if (r != null)
+                {
+                    if (r.ContainsKey("succeed") && r.ContainsKey("message"))
+                    {
+                        if (bool.Parse(r["succeed"].ToString()))
+                        {
+                            oprState = 1;
+                            msg += "成功。";
+                        }
+                        else
+                            msg += "失败" + r["message"];
+                    }
+                    else
+                        msg += "失败 res is err";
                 }
                 AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "GameBLL.ConfirmBlackUser", oprState, SystemLogEnum.CONFIRMBLACKUSER);
                 return r;
@@ -595,37 +691,43 @@ namespace MF.Admin.BLL
 
 
         //游戏收益
+        public static List<GameIncome> GetGameIncome2(long start, long end, string type, string chargeid, string roomid, string number)
+        {
+            try
+            {
+                string listStr = dal.GetGameIncome2(start, end, type, chargeid, roomid, number);
+                listStr = listStr.Replace("\\U000", "[emoji]").Replace("\\u000", "[emoji]");
+                List<GameIncome> list = new List<GameIncome>();
+                list = JsonConvert.DeserializeObject<List<GameIncome>>(listStr);
+                return list;
+            }
+            catch (Exception ex2)
+            {
+                Base.WriteError("GetGameIncome2 Deserialize Convert ex：", ex2.Message);
+            }
+            return null;
+        }
         public static List<GameIncome> GetGameIncome(long start, long end, string type, string chargeid, string roomid, string number)
         {
             try
             {
                 if (start < 1 || end < 1 || string.IsNullOrEmpty(type) || (string.IsNullOrEmpty(chargeid) && string.IsNullOrEmpty(roomid)))
                     return null;
-                //List<GameIncome> list= dal.GetGameIncome(start, end, type, chargeid, roomid, number);
-                string listStr = dal.GetGameIncome2(start, end, type, chargeid, roomid, number);
-                listStr = listStr.Replace("\\U000", "[emoji]").Replace("\\u000", "[emoji]");
-                List<GameIncome> list = new List<GameIncome>();
-                try
-                {
-                    list = JsonConvert.DeserializeObject<List<GameIncome>>(listStr);
-                }
-                catch (Exception ex2)
-                {
-                    Base.WriteError("GetGameIncome Deserialize Convert ex：", ex2.Message);
-                    return null;
-                }
+                List<GameIncome> list = GetGameIncome2(start, end, type, chargeid, roomid, number);
                 if (list == null || list.Count < 1) return list;
-                //设置俱乐部+用户缓存
-                List<List<string>> chargeIdList = list.Select(t => t.ChargeIdList).ToList();
-                if (chargeIdList != null && chargeIdList.Count > 0)
-                {
-                    List<string> allChargeIds = new List<string>();
-                    foreach (List<string> item in chargeIdList)
-                    {
-                        allChargeIds.AddRange(item);
-                    }
-                    userDal.QueryUserList(allChargeIds.ToArray());
-                }
+                //用户缓存
+                //List<List<string>> chargeIdList = list.Select(t => t.ChargeIdList).ToList();
+                //if (chargeIdList != null && chargeIdList.Count > 0)
+                //{
+                //    List<string> allChargeIds = new List<string>();
+                //    foreach (List<string> item in chargeIdList)
+                //    {
+                //        allChargeIds.AddRange(item);
+                //    }
+                //    allChargeIds = allChargeIds.ToList().Except(Cache.CacheChargeidList.Keys.ToArray()).ToList();
+                //    if (allChargeIds != null && allChargeIds.Count > 0)//差集>0
+                //        userDal.QueryUserList(allChargeIds.ToArray());
+                //}
                 List<GameIncome> newList = new List<GameIncome>();
                 foreach (GameIncome income in list)
                 {
@@ -645,34 +747,6 @@ namespace MF.Admin.BLL
                     newList.Add(income);
                 }
                 return newList;
-                //GameIncome gi = new GameIncome()
-                //{
-                //    ChargeIdList = new List<string> { "10A0000000000", "10A1111111111", "10A2222222222" },
-                //    Child_Game_Index = "childgameindex0000",
-                //    IncomeList = new List<string> { "income000", "income111", "income222" },
-                //    InterestList = new List<string> { "interest000", "interest111", "interest222" },
-                //    MatchId = "96421",
-                //    NickList = new List<string> { "nick000", "nick111", "nick222" },
-                //    Number = "number0",
-                //    RoomId = "room0",
-                //    Time = 229564799,
-                //};
-                //GameIncome gi2 = new GameIncome()
-                //{
-                //    ChargeIdList = new List<string> { "10A3333333333", "10A4444444444", "10A5555555555" },
-                //    Child_Game_Index = "childgameindex111",
-                //    IncomeList = new List<string> { "income333", "income444", "income555" },
-                //    InterestList = new List<string> { "interest333", "interest444", "interest555" },
-                //    MatchId = "96422",
-                //    NickList = new List<string> { "nick333", "nick444", "nick555" },
-                //    Number = "number2",
-                //    RoomId = "room2",
-                //    Time = 229564799,
-                //};
-                //List<GameIncome> list = new List<GameIncome>();
-                //list.Add(gi);
-                //list.Add(gi2);
-                //return list;
             }
             catch (Exception ex)
             {
@@ -1123,12 +1197,14 @@ namespace MF.Admin.BLL
             try
             {
                 //设置【游戏输赢值配置缓存】
-                if(Cache.CacheRedAlert !=null && Cache.CacheRedAlert.Count > 0){
+                if (Cache.CacheRedAlert != null && Cache.CacheRedAlert.Count > 0)
+                {
                     List<string> newListGameTypes = gameTypes.ToList().Except(Cache.CacheRedAlert.Keys.ToArray()).ToList();
-                    if(newListGameTypes !=null && newListGameTypes.Count>0)//差集>0
+                    if (newListGameTypes != null && newListGameTypes.Count > 0)//差集>0
                         dal.GetRedAlert();
-                }else
-                    dal.GetRedAlert(); 
+                }
+                else
+                    dal.GetRedAlert();
                 var index = 0;
                 foreach (var gameType in gameTypes)
                 {
@@ -1139,14 +1215,16 @@ namespace MF.Admin.BLL
                     List<Dictionary<string, object>> list = res[gameType];
                     //组装没有缓存的chargeid集合
                     List<object> chargeIdList = list.Select(t => t.ContainsKey("player_id") ? t["player_id"] : "").ToList();
+                    List<GameBlackUserInfo> blackList = null;
                     if (chargeIdList != null && chargeIdList.Count > 0)
                     {
                         List<string> newChargeIdList = chargeIdList.ConvertAll(obj => string.Format("{0}", obj));
                         userDal.QueryUserList(newChargeIdList.ToArray());
                         guildDal.GetClubByChargeId(newChargeIdList);
+                        blackList = dal.GetGameBlackUsersRange(new long[] { int.Parse(gameIds[index]) }, null, newChargeIdList.ToArray(), null, 0);
                     }
-                    List<GameBlackUserInfo> blackList = dal.GetGameBlackUsers(int.Parse(gameIds[index]), "", "", 1);
-                    List<GameBlackUserInfo> auditBlackList = dal.GetGameBlackUsers(int.Parse(gameIds[index]), "", "", 2);
+                    //List<GameBlackUserInfo> blackList = dal.GetGameBlackUsers(int.Parse(gameIds[index]), "", "", 1);
+                    //List<GameBlackUserInfo> auditBlackList = dal.GetGameBlackUsers(int.Parse(gameIds[index]), "", "", 2);
 
                     index++;
                     //重组数据
@@ -1181,14 +1259,14 @@ namespace MF.Admin.BLL
                             isBlackList = blackList.Where(a => a.ChargeId.ToUpper().Contains(player_id)).ToList();
                         if (isBlackList != null && isBlackList.Count() > 0)
                             blackType = 1;
-                        else
-                        {
-                            IEnumerable<GameBlackUserInfo> isAuditBlackList = null;
-                            if (auditBlackList != null && auditBlackList.Count > 0)
-                                isAuditBlackList = auditBlackList.Where(a => a.ChargeId.ToUpper().Contains(player_id)).ToList();
-                            if (isAuditBlackList != null && isAuditBlackList.Count() > 0)
-                                blackType = 2;
-                        }
+                        //else
+                        //{
+                        //    IEnumerable<GameBlackUserInfo> isAuditBlackList = null;
+                        //    if (auditBlackList != null && auditBlackList.Count > 0)
+                        //        isAuditBlackList = auditBlackList.Where(a => a.ChargeId.ToUpper().Contains(player_id)).ToList();
+                        //    if (isAuditBlackList != null && isAuditBlackList.Count() > 0)
+                        //        blackType = 2;
+                        //}
                         item.Add("blackType", blackType);
                         newList.Add(item);
                     }
@@ -1203,12 +1281,17 @@ namespace MF.Admin.BLL
         public static List<Dictionary<string, object>> GetGameMoney(string[] gameTypes, string chargeId)
         {
             if (string.IsNullOrEmpty(chargeId)) return null;
+            chargeId = chargeId.ToUpper();
             List<Dictionary<string, object>> list = new List<Dictionary<string, object>>();
+            var chargeids = new string[] { chargeId };
+            var chargeExcept = chargeids.Except(Cache.CacheChargeidList.Keys.ToArray()).ToArray();
+            if (chargeExcept != null && chargeExcept.Length > 0)
+                userDal.QueryUserList(chargeExcept);
+            Users u = userDal.GetCacheUserByChargeId(chargeId);
             foreach (string gameType in gameTypes)
             {
                 Dictionary<string, object> moneyDic = dal.GetWinnMoney(gameType, chargeId);
                 if (moneyDic == null) continue;
-                Users u = userDal.GetCacheUserByChargeId(chargeId);
                 if (u != null)
                 {
                     moneyDic.Add("Account", u.Account);
@@ -1360,6 +1443,67 @@ namespace MF.Admin.BLL
                 Base.WriteError("ResetBlackUserModel ex:", ex.Message);
             }
             return list;
+        }
+
+
+        public static List<NewGameUsers> GetNewGameUsers(long pageSize, long pageIndex,
+            long time, long gameId, long field, string value, out int rowCount)
+        {
+            rowCount = 0;
+            try
+            {
+                value = value.Trim();
+                var search = new NewGameUsersSearch();
+                search.PageSize = (int)pageSize;
+                search.PageIndex = (int)pageIndex;
+                search.Where = " 1=1 ";
+                if (!string.IsNullOrEmpty(value) && field == 1)
+                    search.Where += " and ChargeId='" + value + "'";
+                if (gameId > 0)
+                    search.Where += " and GameId=" + gameId;
+                if (time > 0)
+                {
+                    var s = (long)(DateTime.Parse(DateTime.Parse("2012-10-01").AddSeconds(time).ToString("yyyy-MM-dd") + " 00:00:00") - DateTime.Parse("2012-10-01")).TotalSeconds;
+                    var e = (long)(DateTime.Parse(DateTime.Parse("2012-10-01").AddSeconds(time).ToString("yyyy-MM-dd") + " 23:59:59") - DateTime.Parse("2012-10-01")).TotalSeconds; ;
+                    search.Where += " and RegDate between " + s + " and " + e;
+                }
+                List<NewGameUsers> list = dal.GetNewGameUsers(search, out rowCount);
+                if (list == null || list.Count < 1) return null;
+                string[] chargeids = list.Select(t => t.ChargeId).ToArray();
+                UserBLL.SetChargeIdCache(chargeids);
+                guildDal.GetClubByChargeId(chargeids.ToList());
+                List<NewGameUsers> newList = new List<NewGameUsers>();
+                foreach (NewGameUsers record in list)
+                {
+                    //Account NickName Guid  LoginIP
+                    Users u = userDal.GetCacheUserByChargeIdFromCache(record.ChargeId);
+                    if (u != null)
+                    {
+                        record.Account = u.Account;
+                        record.NickName = u.Nickname;
+                        record.Guid = u.GUID;
+                        record.LoginIP = u.LastIp;
+                    }
+                    else
+                    {
+                        record.Account = record.NickName = record.Guid = record.LoginIP = "";
+                    }
+                    if (!string.IsNullOrEmpty(value) && field == 2 && !record.Account.Equals(value)) continue;
+                    //ClubId
+                    List<string> clubs = guildDal.GetCacheClubIdFromCache(record.ChargeId);
+                    if (clubs != null && clubs.Count > 0)
+                        record.ClubId = String.Join(",", clubs);
+                    else
+                        record.ClubId = "";
+                    newList.Add(record);
+                }
+                return newList;
+            }
+            catch (Exception ex)
+            {
+                WriteError("bll GetNewGameUsers ex:", ex.Message);
+            }
+            return null;
         }
     }
 }

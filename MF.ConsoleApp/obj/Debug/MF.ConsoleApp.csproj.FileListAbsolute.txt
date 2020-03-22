@@ -11,3 +11,4 @@ E:\code\mf.admin\MF.ConsoleApp\obj\Debug\MF.ConsoleApp.csproj.CopyComplete
 E:\code\mf.admin\MF.ConsoleApp\obj\Debug\MF.ConsoleApp.exe
 E:\code\mf.admin\MF.ConsoleApp\obj\Debug\MF.ConsoleApp.pdb
 E:\code\mf.admin\MF.ConsoleApp\bin\Debug\MF.Data.xml
+E:\code\mf.admin\MF.ConsoleApp\obj\Debug\MF.ConsoleApp.csprojAssemblyReference.cache

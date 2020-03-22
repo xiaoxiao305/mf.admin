@@ -118,9 +118,10 @@ namespace MF.Admin.BLL
 
 
                 functions.Add("getgameblackusers", "GetGameBlackUsers");
-                functions.Add("addblackuser", "AddBlackUser");
+                functions.Add("addblackuser", "AddBlackUserRange");
                 functions.Add("delblackuser", "DelBlackUser");
                 functions.Add("setwinnmoney", "SetWinnMoney");
+                functions.Add("setwinnmoney2", "SetWinnMoney2");
                 functions.Add("getgameincome", "GetGameIncome");
                 functions.Add("getgamerec", "GetGameRec");
 
@@ -146,24 +147,45 @@ namespace MF.Admin.BLL
 
 
                 functions.Add("sendbroadcast", "SendBroadCast");
+                //新增有效用户
+                functions.Add("getnewgameusers", "GetNewGameUsers");
 
 
+            }
+        }
+        public void GetNewGameUsers(long PageSize, long pageIndex, long time, long gameId, long field, string value)
+        {
+            try
+            {
+                var res = new PagerResult<List<NewGameUsers>>();
+                var list = GameBLL.GetNewGameUsers(PageSize, pageIndex, time, gameId, field, value, out int rowCount);
+                res.result = list;
+                res.code = 1;
+                res.msg = "";
+                res.index = (int)pageIndex;
+                res.rowCount = rowCount;
+                string json = Json.SerializeObject(res);
+                Response.Write(json);
+            }
+            catch (Exception ex)
+            {
+                WriteError("ajax GetNewGameUsers ex:", ex.Message);
             }
         }
         public void SendBroadCast(long time, string content)
         {
             try
             {
-                if (string.IsNullOrEmpty(content) || time<1)
+                if (string.IsNullOrEmpty(content) || time < 1)
                 {
                     Response.Write("{\"code\":0,\"msg\":\"参数有误\"}");
                     return;
                 }
                 DateTime dt = DateTime.Parse("1970/01/01").AddSeconds(time);
-                WriteLog("args time:", time.ToString(), " content:", content," convertime:",dt.ToString("yyyy-MM-dd HH:mm:ss"));
-                var t= (int)(dt - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1))).TotalSeconds;
+                WriteLog("args time:", time.ToString(), " content:", content, " convertime:", dt.ToString("yyyy-MM-dd HH:mm:ss"));
+                var t = (int)(dt - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1))).TotalSeconds;
                 ClubsRes<object> r = SettingBLL.SendBroadCast(t, content);
-                 Response.Write("{\"code\":" + (r!=null && r.ret == 0 ? "1" : "0") + ",\"msg\":\"" + (r==null?" err ":r.msg) + "\"}");
+                Response.Write("{\"code\":" + (r != null && r.ret == 0 ? "1" : "0") + ",\"msg\":\"" + (r == null ? " err " : r.msg) + "\"}");
                 return;
             }
             catch (Exception ex)
@@ -465,7 +487,7 @@ namespace MF.Admin.BLL
                 Response.Write("{\"code\":0,\"msg\":\"账号有误\"}");
                 return;
             }
-            //else if (string.IsNullOrEmpty(value))
+            //else if (string.IsNullOrEmpty(value))//黑名单删除---设置输赢值---【保留】功能----value为空
             //{
             //    Response.Write("{\"code\":0,\"msg\":\"输赢值有误\"}");
             //    return;
@@ -483,6 +505,38 @@ namespace MF.Admin.BLL
                 Response.Write("{\"code\":" + r["ret"] + ",\"msg\":\"" + r["msg"] + "\"}");
             else
                 Response.Write("{\"code\":0,\"msg\":\"删除黑名单失败\"}");
+            return;
+        }
+        public void SetWinnMoney2(string type, string player_id, string value, string token)
+        {
+            AjaxResult<bool> res = new AjaxResult<bool>() { code = 0, msg = "" };
+            if (string.IsNullOrEmpty(type))
+            {
+                Response.Write("{\"code\":0,\"msg\":\"游戏ID有误\"}");
+                return;
+            }
+            else if (string.IsNullOrEmpty(value))
+            {
+                Response.Write("{\"code\":0,\"msg\":\"输赢值有误\"}");
+                return;
+            }
+            if (!string.IsNullOrEmpty(token) && !Base.IsDebug)
+            {
+                if (!Token.CheckToken(token, Base.CurrentUser.Token))
+                {
+                    Response.Write("{\"code\":0,\"msg\":\"安全令有误\"}");
+                    return;
+                }
+            }
+            Dictionary<string, object> r = GameBLL.SetWinnMoney(type, player_id, value);
+            if (r != null && r.ContainsKey("ret") && r.ContainsKey("msg"))
+            {
+                res.code = int.Parse(r["ret"].ToString()) == 0 ? 1 : 0;
+                res.msg = r["msg"].ToString();
+                Response.Write(Json.SerializeObject(res));
+            }
+            else
+                Response.Write("{\"code\":0,\"msg\":\"设置输赢值失败\"}");
             return;
         }
         /// <summary>
@@ -686,6 +740,42 @@ namespace MF.Admin.BLL
             //    }
             //}
             GameBLL.AddBlackUser(gameidList, chargeId, valueList, levelStrList, remark, isConfirm);
+            Response.Write("{\"code\":1,\"msg\":\"\"}");
+        }
+        public void AddBlackUserRange(string gameIds, string chargeId, string values, string levelStrs, string remark, long isConfirm)
+        {
+            string[] gameidList = gameIds.Split('|');
+            string[] valueList = values.Split('|');
+            string[] levelStrList = levelStrs.Split('|');
+            if (gameidList.Length < 1)
+            {
+                Response.Write("{\"code\":0,\"msg\":\"游戏ID有误\"}");
+                return;
+            }
+            else if (string.IsNullOrEmpty(chargeId))
+            {
+                Response.Write("{\"code\":0,\"msg\":\"UID有误\"}");
+                return;
+            }
+            else if (valueList.Length < 1 || levelStrList.Length < 1)
+            {
+                Response.Write("{\"code\":0,\"msg\":\"设置值有误\"}");
+                return;
+            }
+            else if (string.IsNullOrEmpty(remark))
+            {
+                Response.Write("{\"code\":0,\"msg\":\"备注为空\"}");
+                return;
+            }
+            //if (!string.IsNullOrEmpty(token) && !Base.IsDebug)
+            //{
+            //    if (!Token.CheckToken(token, Base.CurrentUser.Token))
+            //    {
+            //        Response.Write("{\"code\":0,\"msg\":\"安全令有误\"}");
+            //        return;
+            //    }
+            //}
+            GameBLL.AddBlackUserRange(gameidList, chargeId.Split(','), valueList, levelStrList, remark, isConfirm);
             Response.Write("{\"code\":1,\"msg\":\"\"}");
         }
 

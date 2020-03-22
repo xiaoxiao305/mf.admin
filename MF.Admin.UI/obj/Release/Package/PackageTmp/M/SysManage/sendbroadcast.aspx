@@ -28,7 +28,7 @@
             var d = $("#time").val();
             var check = $("#checked").is(":checked");
             if (check) {
-                d = new Date().setSeconds(30);
+                d = new Date();
             }
             if (d == "") {
                 $("#lblerr").text("请选择广播日期");

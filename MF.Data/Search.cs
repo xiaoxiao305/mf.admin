@@ -509,5 +509,18 @@ namespace MF.Data
             this.Where = " 1=1 ";
         }
     }
+    [Serializable]
+    public class NewGameUsersSearch : Search
+    {
+        public NewGameUsersSearch()
+        {
+            this.PageIndex = 1;
+            this.PageSize = 20;
+            this.PrimaryKey = "[ID]";
+            this.Table = "NewGameUsers";
+            this.Fields = "ID,RegDate,GameDate,GameId,ChargeId";
+            this.Where = "";
+        }
+    }
 
 }

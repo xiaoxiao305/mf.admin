@@ -4,6 +4,7 @@ using MF.Data;
 using MF.Admin.DAL;
 using System.Text.RegularExpressions;
 using MF.Common.Security;
+using System.Linq;
 
 namespace MF.Admin.BLL
 {
@@ -201,7 +202,10 @@ namespace MF.Admin.BLL
 
         public static ClubsRes<Dictionary<string,object>> SetChargeIdCache(string[] chargeids)
         {
-          return  dal.QueryUserList(chargeids);
+            var chargeidExcept = chargeids;
+            if (Cache.CacheChargeidList != null)
+                chargeidExcept = chargeids.Except(Cache.CacheChargeidList.Keys.ToArray()).ToArray();
+          return  dal.QueryUserList(chargeidExcept);
         }
         public static Users GetChargeIdCache(string chargeid)
         {

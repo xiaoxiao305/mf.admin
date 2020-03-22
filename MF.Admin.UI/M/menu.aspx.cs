@@ -52,6 +52,7 @@ namespace MF.Admin.UI.M
         <li class='menu_list'><a href = '/m/game/auditblacklist.aspx' target='main' class='white'>待审核黑名单</a></li>
         <li class='menu_list'><a href = '/m/game/gamealertplayer.aspx' target='main' class='white'>输赢值异常预警</a></li>
         <li class='menu_list'><a href = '/m/game/gamemoney.aspx' target='main' class='white'>游戏输赢值</a></li>
+        <li class='menu_list'><a href = '/m/game/newgameuser.aspx' target='main' class='white'>新增有效用户</a></li>
 ");
             menuList.Add(4, @"<li class='menu_title'>报表管理</li> 
         <li class='menu_list'><a href ='/m/report/RegReport.aspx' target='main' class='white'>注册报表</a></li>

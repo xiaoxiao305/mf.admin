@@ -1,7 +1,11 @@
-﻿using MF.Data;
+﻿using MF.Common.Json;
+using MF.Data;
 using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+
 namespace MF.Admin.DAL
 {
     public class GameDAL : BaseDAL
@@ -67,8 +71,8 @@ namespace MF.Admin.DAL
             return null;
         }
 
-       
-       
+
+
         //设置输赢值
         public Dictionary<string, object> SetWinnMoney(string type, string player_id, string value)
         {
@@ -127,7 +131,7 @@ namespace MF.Admin.DAL
             string res = GetServer(ShiChuiURI + "api/game/getdeskmates", "");
             return res;
         }
-        
+
         public string GetGameRec(long start, long end, string type, string chargeid, string roomid, string number)
         {
             string args = string.Format("start={0}&end={1}&gameid={2}&chargeid={3}&roomid={4}&number={5}", start, end, type, chargeid, roomid, number);
@@ -161,7 +165,7 @@ namespace MF.Admin.DAL
                 string param = "{\"module\":\"winner\",\"func\":\"del_red_alert\",\"args\":[\"" + gameType + "\"]}}";
                 var res = PostClubServer<Dictionary<string, object>>(GameCoinURI, param);
                 if (res != null && res.ContainsKey("ret") && res["ret"].ToString() == "0")
-                    SetCacheRedAlert(gameType,"");
+                    SetCacheRedAlert(gameType, "");
                 return res;
             }
             catch (Exception ex)
@@ -169,7 +173,7 @@ namespace MF.Admin.DAL
                 WriteError("post SetWinnMoney ex:", ex.Message);
             }
             return null;
-        } 
+        }
         public Dictionary<string, object> GetRedAlert()
         {
             try
@@ -246,7 +250,7 @@ namespace MF.Admin.DAL
             {
                 // {"msg":{"ddz_2":[{"bwin":3564000,"lose":12240000,"player_id":"10A002059773","type":"ddz_2","win":0}]},"ret":0}
                 string param = "{\"module\":\"winner\",\"func\":\"get_red_alert_player\",\"args\":{\"channel\":\"10A\",\"red_alert\":{\"" + gameType + "\":" + gameValue + "}}}";
-                var r = PostClubServer<ClubsRes<Dictionary<string, List<Dictionary<string,object>>>>>(GameCoinURI, param);
+                var r = PostClubServer<ClubsRes<Dictionary<string, List<Dictionary<string, object>>>>>(GameCoinURI, param);
                 if (r != null && r.ret == 0)
                     return r.msg;
                 return null;
@@ -257,9 +261,9 @@ namespace MF.Admin.DAL
             }
             return null;
         }
-     
-        
-        
+
+
+
         /// <summary>
         ///  获取黑名单列表【不分页】
         /// </summary>
@@ -276,6 +280,58 @@ namespace MF.Admin.DAL
             var res = Post<List<GameBlackUserInfo>>(BlackURI + "getusers", par);
             return res;
         }
+        public List<GameBlackUserInfo> GetGameBlackUsersRange(long[] gameIds, string[] accounts, string[] chargeids,
+            string[] guids, int type)
+        {
+            string audit = type == 1 ? "YES" : type == 2 ? "NO" : "";
+            string param = "";
+            if (gameIds != null)
+            {
+                object[] b = (object[])ArrayList.Adapter((Array)gameIds).ToArray(typeof(object));
+                param += MakeArgs("gameIds", b);
+            }
+            param += MakeArgs("accounts", accounts);
+            param += MakeArgs("chargeids", chargeids);
+            param += MakeArgs("guids", guids);
+            param += "&audit=" + audit;
+            WriteLog("GetGameBlackUsersRange parm:", param);
+            param = param.Substring(1);
+            WriteLog("GetGameBlackUsersRange parm222:", param);
+            var res = Post<List<GameBlackUserInfo>>(BlackURI + "queryuserbatch", param);
+            return res;
+        }
+        private string MakeGameArgs(string key, object[] vals)
+        {
+            if (vals == null || vals.Length < 1) return "";
+            string formArgs = "";
+            for (int i = 0; i < vals.Length; i++)
+            {
+                if (key == "value")
+                    vals[i] = "[" + vals[i] + "]";
+                formArgs += string.Format("&games[{0}].{1}={2}", i, key, vals[i]);
+            }
+            return formArgs;
+        }
+        private string MakeArgs(string key, object[] vals)
+        {
+            if (vals == null || vals.Length < 1) return "";
+            string formArgs = "";
+            for (int i = 0; i < vals.Length; i++)
+            {
+                formArgs += string.Format("&{0}[{1}]={2}", key, i, vals[i]);
+            }
+            return formArgs;
+        }
+        private string MakeArgs(string key, string[] vals)
+        {
+            if (vals == null || vals.Length < 1) return "";
+            string formArgs = "";
+            for (int i = 0; i < vals.Length; i++)
+            {
+                formArgs += string.Format("&{0}[{1}]={2}", key, i, vals[i]);
+            }
+            return formArgs;
+        }
         /// <summary>
         /// 获取黑名单列表【分页】
         /// </summary>
@@ -291,7 +347,7 @@ namespace MF.Admin.DAL
             string par = "gameId={0}&account={1}&chargeid={2}&audit={3}&PageIndex={4}&PageSize={5}";
             string gameid = gameId > 0 ? gameId.ToString() : "";
             string auditTag = type == 2 ? "NO" : "YES";
-            par = string.Format(par, gameid, account, chargeid, auditTag,pageIndex,pageSize);
+            par = string.Format(par, gameid, account, chargeid, auditTag, pageIndex, pageSize);
             var res = Post<GameBlackUserInfoNew>(BlackURI + "getuserpage", par);
             return res;
         }
@@ -299,6 +355,21 @@ namespace MF.Admin.DAL
         {
             string param = string.Format("gameId={0}&chargeid={1}&value={2}&level={3}&remark={4}", gameId, chargeId, value, levelStr, remark);
             var res = Post<Dictionary<string, string>>(BlackURI + "adduser", param);
+            return res;
+        }
+        public Dictionary<string, string> AddBlackUserRange(string[] gameIds, string[] chargeIds, string[] values,
+            string[] levelStr, string remark)
+        {
+            string param = MakeGameArgs("gameId", gameIds);
+            param += MakeGameArgs("value", values);
+            param += MakeGameArgs("level", levelStr);
+            param += MakeArgs("chargeids", chargeIds);
+            param += "&remark=" + remark;
+
+            WriteLog("addblackuserrange parm:", param);
+            param = param.Substring(1);
+            WriteLog("addblackuserrange parm222:", param);
+            var res = Post<Dictionary<string, string>>(BlackURI + "adduserrange", param);
             return res;
         }
         public Dictionary<string, string> UpdateBlackUser(string gameId, string account, string chargeid, string value, string levelStr, string remark)
@@ -313,12 +384,49 @@ namespace MF.Admin.DAL
             var res = Post<Dictionary<string, string>>(ShiChuiURI + "api/game/shichui", param);
             return res;
         }
+        public Dictionary<string, string> ConfirmBlackUserRange(string[] gameids, string[] chargeids)
+        {
+            string param = "";
+            param = MakeArgs("gameids", gameids);
+            param += MakeArgs("chargeids", chargeids);
+            WriteLog("ConfirmBlackUserRange parm:", param);
+            param = param.Substring(1);
+            WriteLog("ConfirmBlackUserRange parm222:", param);
+            var res = Post<Dictionary<string, string>>(BlackURI + "auditrange", param);
+            return res;
+        }
+
+
         public Dictionary<string, string> DelBlackUser(string gameId, string account)
         {
             if (string.IsNullOrEmpty(gameId) || string.IsNullOrEmpty(account)) return null;
             string param = string.Format("gameId={0}&account={1}", gameId, account);
             var res = Post<Dictionary<string, string>>(BlackURI + "deleteuser", param);
             return res;
+        }
+
+
+        public List<NewGameUsers> GetNewGameUsers(NewGameUsersSearch search, out int rowcount)
+        {
+            search.DBName = DBName.MF_RECORD_DY;
+            DataTable dt = BaseDAL.GetSearchData(search, search.DBName, out rowcount);
+            if (dt == null || dt.Rows == null || dt.Rows.Count < 1) return null;
+            List<NewGameUsers> list = new List<NewGameUsers>();
+            NewGameUsers model = null;
+            foreach (DataRow dr in dt.Rows)
+            {
+                model = new NewGameUsers();
+                if (dr["ChargeId"] != null && !string.IsNullOrEmpty(dr["ChargeId"].ToString()))
+                    model.ChargeId = dr["ChargeId"].ToString();
+                if (dr["RegDate"] != null && !string.IsNullOrEmpty(dr["RegDate"].ToString()))
+                    model.RegDate = long.Parse(dr["RegDate"].ToString());
+                if (dr["GameDate"] != null && !string.IsNullOrEmpty(dr["GameDate"].ToString()))
+                    model.GameDate = long.Parse(dr["GameDate"].ToString());
+                if (dr["GameId"] != null && !string.IsNullOrEmpty(dr["GameId"].ToString()))
+                    model.GameId = long.Parse(dr["GameId"].ToString());
+                list.Add(model);
+            }
+            return list;
         }
     }
 }

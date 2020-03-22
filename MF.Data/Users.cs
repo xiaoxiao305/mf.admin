@@ -164,4 +164,21 @@ namespace MF.Data
         /// </summary>
         public long Silver { get; set; }
     }
+
+
+    [Serializable]
+    public class NewGameUsers
+    {
+        public int ID { get; set; }
+        public long RegDate { get; set; }
+        public long GameDate { get; set; }
+        public long GameId { get; set; }
+        public string ChargeId { get; set; }
+        public string Account { get; set; }
+        public string NickName { get; set; }
+        public string ClubId { get; set; }
+        //public string Club { get; set; }
+        public string Guid { get; set; }
+        public string LoginIP { get; set; }
+    }
 }

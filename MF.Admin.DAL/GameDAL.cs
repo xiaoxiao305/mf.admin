@@ -408,7 +408,7 @@ namespace MF.Admin.DAL
 
         public List<NewGameUsers> GetNewGameUsers(NewGameUsersSearch search, out int rowcount)
         {
-            search.DBName = DBName.MF_RECORD_DY;
+            search.DBName = DBName.MF_RECORD;
             DataTable dt = BaseDAL.GetSearchData(search, search.DBName, out rowcount);
             if (dt == null || dt.Rows == null || dt.Rows.Count < 1) return null;
             List<NewGameUsers> list = new List<NewGameUsers>();
@@ -418,8 +418,6 @@ namespace MF.Admin.DAL
                 model = new NewGameUsers();
                 if (dr["ChargeId"] != null && !string.IsNullOrEmpty(dr["ChargeId"].ToString()))
                     model.ChargeId = dr["ChargeId"].ToString();
-                if (dr["RegDate"] != null && !string.IsNullOrEmpty(dr["RegDate"].ToString()))
-                    model.RegDate = long.Parse(dr["RegDate"].ToString());
                 if (dr["GameDate"] != null && !string.IsNullOrEmpty(dr["GameDate"].ToString()))
                     model.GameDate = long.Parse(dr["GameDate"].ToString());
                 if (dr["GameId"] != null && !string.IsNullOrEmpty(dr["GameId"].ToString()))

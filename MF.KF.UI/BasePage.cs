@@ -128,5 +128,20 @@ namespace MF.KF.UI
             }
             return date;
         }
+        public string matchMapList
+        {
+            get
+            {
+                try
+                {
+                    return JsonConvert.SerializeObject(GameBLL.GetMatchMap());
+                }
+                catch (Exception ex)
+                {
+                    Base.WriteError("basepage matchMapList config ex:", ex.Message);
+                }
+                return "{}";
+            }
+        }
     }
 }

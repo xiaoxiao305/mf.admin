@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="h" runat="server">
     <link href="/common/styles/layer.css" type="text/css" rel="Stylesheet" /> 
     <script language="javascript" type="text/javascript">
-        var games =  <%=blackGameList %>;
+        var games =  <%=blackGameList %>; 
         function search() {
             $("#loading").show();
             var gameid = parseInt($("#game").val());
@@ -31,17 +31,18 @@
             var date = new Date("2012/10/1");
             var regdate = date.dateAdd("s", o.RegDate);
             addCell(tr, regdate.format("yyyy-MM-dd hh:mm:ss"), 0);
-            addCell(tr, date.dateAdd("s", o.GameDate).format("yyyy-MM-dd hh:mm:ss"), 1);
+            addCell(tr, new Date("1970/01/01").dateAdd("s", (o.GameDate + 8 * 60 * 60)).format("yyyy-MM-dd hh:mm:ss"), 1);
             var s = new Date(regdate.format("yyyy-MM-dd 00:00:00")).dateDiff('s');
             var e = new Date(regdate.format("yyyy-MM-dd 23:59:59")).dateDiff('s');
-            addCell(tr, "<a href='/m/game/gameincome.aspx?time=" + s + "&etime=" + e + "&gameId=" + o.GameId + "&chargeId=" + o.ChargeId + "' target='_blank'>" + games[o.GameId] + "</a>", 2);
+            var g = games[o.GameId] ? games[o.GameId] == "undefined" ? o.GameId : games[o.GameId] : o.GameId;
+            addCell(tr, "<a href='/m/game/gameincome.aspx?time=" + s + "&etime=" + e + "&gameId=" + o.GameId + "&chargeId=" + o.ChargeId + "' target='_blank'>" + g + "</a>", 2);
             addCell(tr, "<a href='/M/currency/CurrencyRecord.aspx?chargeid=" + o.ChargeId + "' target='_blank'>" + o.ChargeId + "</a>", 3);
             addCell(tr, o.Account, 4);
             addCell(tr, o.NickName, 5);
             addCell(tr, o.ClubId, 6);
             addCell(tr, o.Guid, 7);
             addCell(tr, o.LoginIP, 8);
-            addCell(tr, "<a href='javascript:;' onclick='getGameMoney(" + JSON.stringify(o) + ")'>输赢值</a>", 9);
+            addCell(tr, "<a href='javascript:;' onclick='getGameMoney(" + JSON.stringify(o).replace(/\'/g, "&apos;") + ")'>输赢值</a>", 9);
             return tr;
         }
         $(document).ready(function () {

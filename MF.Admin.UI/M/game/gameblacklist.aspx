@@ -45,11 +45,11 @@
             addCell(tr, getBlackLevelStr(o.Level), 6);
             addCell(tr, o.Remark, 7);
             addCell(tr, o.Guid, 8);
-            addCell(tr, "<a href='javascript:;' onclick='updateBlackUser(" + JSON.stringify(o) + ")'>修改</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-                "<a href='javascript:;' onclick='setWinMoney(" + JSON.stringify(o) + ")'>删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-                "<a href='javascript:;' onclick='getGameMoney(" + JSON.stringify(o) + ")'>查看输赢值</a><br />" +
-                "<a href='javascript:;' onclick='downloadLog(" + JSON.stringify(o) + ",1)'>下载实锤</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-                "<a href='javascript:;' onclick='downloadLog(" + JSON.stringify(o) + ",2)'>全部录像</a><br/>", 9);
+            addCell(tr, "<a href='javascript:;' onclick='updateBlackUser(" + JSON.stringify(o).replace(/\'/g, "&apos;")  + ")'>修改</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+                "<a href='javascript:;' onclick='setWinMoney(" + JSON.stringify(o).replace(/\'/g, "&apos;")  + ")'>删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+                "<a href='javascript:;' onclick='getGameMoney(" + JSON.stringify(o).replace(/\'/g, "&apos;")  + ")'>查看输赢值</a><br />" +
+                "<a href='javascript:;' onclick='downloadLog(" + JSON.stringify(o).replace(/\'/g, "&apos;")  + ",1)'>下载实锤</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+                "<a href='javascript:;' onclick='downloadLog(" + JSON.stringify(o).replace(/\'/g, "&apos;")  + ",2)'>全部录像</a><br/>", 9);
             return tr;
         }
         $(document).ready(function () {
@@ -119,7 +119,7 @@
                 <input type="checkbox" id="inputVal1" onchange="showInputVal(1)" />输入值
             </li>
             <li id="valLi1" style="display:none;">　　输入值：<input class="ipt" type="text" id="tval11" style="width:20%" />　至　<input class="ipt" type="text" id="tval12"  style="width:20%"/></li>
-            <li style="height: 60px;">　　备　注：<textarea id="txtRemark" rows="5" cols="25"></textarea></li>
+            <li style="height: 60px;">　　备　注：<textarea id="txtRemark" rows="4" cols="25"></textarea></li>
             <li id="tokenLi1" style="display:none;">安　全　令：<input class="ipt" type="text" id="token" /></li>
             <li class="err red center" id="lblerr"></li>
             <li class="center"><input class="btn btn-primary" type="button" value=" 确 定" onclick="updateUserConfirm()" /></li>

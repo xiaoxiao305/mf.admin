@@ -80,6 +80,7 @@ namespace MF.Data
         ALL = -1,
         MF_DY = 1,
         MF_RECORD_DY = 2,
+        MF_RECORD = 20,
         Manage = 3,
         USER_0_DY = 100,
         USER_1_DY = 101,
@@ -518,7 +519,7 @@ namespace MF.Data
             this.PageSize = 20;
             this.PrimaryKey = "[ID]";
             this.Table = "NewGameUsers";
-            this.Fields = "ID,RegDate,GameDate,GameId,ChargeId";
+            this.Fields = "ID,GameDate,GameId,ChargeId";
             this.Where = "";
         }
     }

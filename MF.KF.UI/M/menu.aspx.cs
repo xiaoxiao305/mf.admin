@@ -42,7 +42,7 @@ namespace MF.KF.UI.M
         <li class='menu_list'><a href ='/m/game/gameincome.aspx' target='main' class='white'>游戏收益查询</a></li>
         <li class='menu_list'><a href ='/m/game/recsearch.aspx' target='main' class='white'>录像查询</a></li>
         <li class='menu_list'><a href ='/m/game/autopatrol.aspx' target='main' class='white'>自动巡场</a></li>
-        ";
+<li class='menu_list'><a href = '/m/game/newgameuser.aspx' target='main' class='white'>新增有效用户</a></li>        ";
             //<li class='menu_list'><a href ='/m/game/addblackuserlist.aspx' target='main' class='white'>批量添加黑名单</a></li>
             string back = "";
             if (isAdmin == 1)

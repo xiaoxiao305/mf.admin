@@ -152,13 +152,13 @@ namespace MF.Admin.UI
             switch (datepart)
             {
                 case "s":
-                   return date.AddSeconds(number);
+                    return date.AddSeconds(number);
                 case "m":
                     return date.AddMinutes(number);
                 case "h":
                     return date.AddHours(number);
                 case "d":
-                    return date.AddDays(number); 
+                    return date.AddDays(number);
             }
             return date;
         }
@@ -181,5 +181,35 @@ namespace MF.Admin.UI
             }
         }
 
+        public string gameMapList
+        {
+            get
+            {
+                try
+                {
+                    return JsonConvert.SerializeObject(GameBLL.GetGameMap());
+                }
+                catch (Exception ex)
+                {
+                    Base.WriteError("basepage getmaplist config ex:",ex.Message);
+                }
+                return "{}";
+            }
+        }
+        public string matchMapList
+        {
+            get
+            {
+                try
+                {
+                    return JsonConvert.SerializeObject(GameBLL.GetMatchMap());
+                }
+                catch (Exception ex)
+                {
+                    Base.WriteError("basepage matchMapList config ex:", ex.Message);
+                }
+                return "{}";
+            }
+        } 
     }
 }

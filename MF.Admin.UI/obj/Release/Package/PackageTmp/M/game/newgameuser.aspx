@@ -2,12 +2,14 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="h" runat="server">
     <link href="/common/styles/layer.css" type="text/css" rel="Stylesheet" /> 
     <script language="javascript" type="text/javascript">
-        var games =  <%=blackGameList %>;
+        var games =  <%=blackGameList %>; 
         function search() {
             $("#loading").show();
             var gameid = parseInt($("#game").val());
+            console.log(gameid);
             var field = parseInt($("#field").val());
-            var args = [$("#time").val(),gameid, field, $("#value").val()];
+            var s = new Date($("#time").val().replace(/-/g, "/")).dateDiff("s");
+            var args = [s, gameid, field, $("#value").val()];
             jsonPager.queryArgs = args;
             jsonPager.pageSize = 100;
             ajax.getNewGameUsers(jsonPager.makeArgs(1), searchResult);
@@ -20,25 +22,27 @@
             } else {
                 alert(data.msg);
             }
-        } 
+        }
         function insertRow(o, tr) {
             addCell = function (tr, text, i) {
                 var td = tr.insertCell(i);
-                if (i == 7)
-                    td.style.width = "200px";
                 td.innerHTML = text;
             };
             var date = new Date("2012/10/1");
-            addCell(tr, date.dateAdd("s", o.RegDate).format("yyyy-MM-dd hh:mm:ss"), 0);
-            addCell(tr, date.dateAdd("s", o.GameDate).format("yyyy-MM-dd hh:mm:ss"), 1);
-            addCell(tr, "<a href='/m/game/gameincome.aspx?time=" + o.regTime + "&etime=" + etime + "&gameId=" + o.GameId + "&chargeId=" + o.ChargeId + "' target='_blank'>" + games[o.GameId] + "</a>", 2); 
+            var regdate = date.dateAdd("s", o.RegDate);
+            addCell(tr, regdate.format("yyyy-MM-dd hh:mm:ss"), 0);
+            addCell(tr, new Date("1970/01/01").dateAdd("s", (o.GameDate + 8 * 60 * 60)).format("yyyy-MM-dd hh:mm:ss"), 1);
+            var s = new Date(regdate.format("yyyy-MM-dd 00:00:00")).dateDiff('s');
+            var e = new Date(regdate.format("yyyy-MM-dd 23:59:59")).dateDiff('s');
+            var g = games[o.GameId] ? games[o.GameId] == "undefined" ? o.GameId : games[o.GameId] : o.GameId;
+            addCell(tr, "<a href='/m/game/gameincome.aspx?time=" + s + "&etime=" + e + "&gameId=" + o.GameId + "&chargeId=" + o.ChargeId + "' target='_blank'>" + g + "</a>", 2);
             addCell(tr, "<a href='/M/currency/CurrencyRecord.aspx?chargeid=" + o.ChargeId + "' target='_blank'>" + o.ChargeId + "</a>", 3);
             addCell(tr, o.Account, 4);
             addCell(tr, o.NickName, 5);
-            addCell(tr, o.Club, 6);
+            addCell(tr, o.ClubId, 6);
             addCell(tr, o.Guid, 7);
             addCell(tr, o.LoginIP, 8);
-            addCell(tr, "<a href='javascript:;' onclick='getGameMoney(" + JSON.stringify(o) + ")'>查看输赢值</a>", 9);
+            addCell(tr, "<a href='javascript:;' onclick='getGameMoney(" + JSON.stringify(o).replace(/\'/g, "&apos;") + ")'>输赢值</a>", 9);
             return tr;
         }
         $(document).ready(function () {
@@ -48,7 +52,7 @@
             var pagerTitles = ["注册时间", "游戏时间", "游戏", "UID", "账号", "昵称", "友谊圈", "GUID", "登录IP", "操作"];
             jsonPager.init(ajax.getNewGameUsers, [], searchResult, pagerTitles, "list_table", "container", "pager", insertRow);
             jsonPager.dataBind(1, 0);
-            attachCalenderbox('#time', null, null, new Date().dateAdd("d", -2).Format("yyyy-MM-dd"), null);
+            attachCalenderbox('#time', null, null, null, null);
         });
     </script>
 </asp:Content>
@@ -83,7 +87,6 @@
             <li>　　账　号：<label id="lblaccount5"></label></li>
             <li>　　　UID:<label id="lblchargeid5"></label></li> 
             <li>　　输赢值：<label id="lblMoney5"></label></li>
-            <li>　　备　注：<label id="lblRemark5"></label></li>
         </ul>
     </div> 
 </asp:Content>

@@ -54,7 +54,7 @@
             addCell(tr, o.Account, 2);
             addCell(tr, o.Nickname, 3);
             addCell(tr, o.lose, 4);
-            addCell(tr, "<a href='javascript:;' onclick='setWinMoney2(" + JSON.stringify(o) + ")'>修改</a>", 5);
+            addCell(tr, "<a href='javascript:;' onclick='setWinMoney2(" + JSON.stringify(o).replace(/\'/g, "&apos;")  + ")'>修改</a>", 5);
             return tr;
         }
     </script>

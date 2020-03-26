@@ -527,7 +527,7 @@ function updateUserConfirm() {
         if ($("#tval11").val() != "" && $("#tval12").val() != "")
             val = "[" + $("#tval11").val() + "," + $("#tval12").val() + "]";
         //获取低中高的中文字符
-        levelStr = "";
+        levelStr = "UNDEFINED";
     }
     var gameid = oprUpdateObj.GameId;
     var acc = oprUpdateObj.Account;
@@ -591,7 +591,8 @@ function getGameMoney(o) {
             $("#lblaccount5").text(o.Account);
             $("#lblchargeid5").text(o.ChargeId);
             $("#lblMoney5").text(res.msg);
-            $("#lblRemark5").text(o.Remark);
+            if ($("#lblRemark5"))
+                $("#lblRemark5").text(o.Remark);
         } else
             alert("获取游戏输赢值出错");
     });

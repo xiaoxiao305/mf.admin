@@ -269,12 +269,14 @@ function GetGameRecModel(gameid) {
 function getBlackLevelStr(level) {
     if (!level || level == "") return "";
     level = level.toUpperCase();
-    if (level == "LOW")
+    if (level.toUpperCase() == "LOW")
         return "低";
-    else if (level == "MIDDLE")
+    else if (level.toUpperCase() == "MIDDLE")
         return "中";
-    else if (level == "HIGH")
+    else if (level.toUpperCase() == "HIGH")
         return "高";
+    else if (level.toUpperCase() == "DEFINE")
+        return "自定义";
     return level;
 }
 
@@ -526,7 +528,7 @@ function updateUserConfirm() {
         if ($("#tval11").val() != "" && $("#tval12").val() != "")
             val = "[" + $("#tval11").val() + "," + $("#tval12").val() + "]";
         //获取低中高的中文字符
-        levelStr = "";
+        levelStr = "DEFINE";
     }
     var gameid = oprUpdateObj.GameId;
     var acc = oprUpdateObj.Account;
@@ -590,6 +592,7 @@ function getGameMoney(o) {
             $("#lblaccount5").text(o.Account);
             $("#lblchargeid5").text(o.ChargeId);
             $("#lblMoney5").text(res.msg);
+            if ($("#lblRemark5"))
             $("#lblRemark5").text(o.Remark);
         } else
             alert("获取游戏输赢值出错");

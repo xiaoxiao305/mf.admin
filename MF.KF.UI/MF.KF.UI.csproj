@@ -80,6 +80,7 @@
     <Content Include="M\game\gameincome.aspx" />
     <Content Include="M\game\gamerec.aspx" />
     <Content Include="M\game\autopatrol.aspx" />
+    <Content Include="M\game\newgameuser.aspx" />
     <Content Include="M\game\recsearch.aspx" />
     <Content Include="M\Pager.ascx" />
     <Content Include="M\Users\UserInfo.aspx" />
@@ -277,6 +278,13 @@
     </Compile>
     <Compile Include="M\game\autopatrol.aspx.designer.cs">
       <DependentUpon>autopatrol.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\game\newgameuser.aspx.cs">
+      <DependentUpon>newgameuser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\game\newgameuser.aspx.designer.cs">
+      <DependentUpon>newgameuser.aspx</DependentUpon>
     </Compile>
     <Compile Include="M\game\recsearch.aspx.cs">
       <DependentUpon>recsearch.aspx</DependentUpon>

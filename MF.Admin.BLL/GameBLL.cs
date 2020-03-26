@@ -1461,12 +1461,6 @@ namespace MF.Admin.BLL
                     search.Where += " and ChargeId='" + value + "'";
                 if (gameId > 0)
                     search.Where += " and GameId=" + gameId;
-                if (time > 0)
-                {
-                    var s = (long)(DateTime.Parse(DateTime.Parse("2012-10-01").AddSeconds(time).ToString("yyyy-MM-dd") + " 00:00:00") - DateTime.Parse("2012-10-01")).TotalSeconds;
-                    var e = (long)(DateTime.Parse(DateTime.Parse("2012-10-01").AddSeconds(time).ToString("yyyy-MM-dd") + " 23:59:59") - DateTime.Parse("2012-10-01")).TotalSeconds; ;
-                    search.Where += " and RegDate between " + s + " and " + e;
-                }
                 List<NewGameUsers> list = dal.GetNewGameUsers(search, out rowCount);
                 if (list == null || list.Count < 1) return null;
                 string[] chargeids = list.Select(t => t.ChargeId).ToArray();
@@ -1483,12 +1477,20 @@ namespace MF.Admin.BLL
                         record.NickName = u.Nickname;
                         record.Guid = u.GUID;
                         record.LoginIP = u.LastIp;
+                        record.RegDate = u.Regitime;
                     }
                     else
                     {
                         record.Account = record.NickName = record.Guid = record.LoginIP = "";
+                        record.RegDate = 0;
                     }
                     if (!string.IsNullOrEmpty(value) && field == 2 && !record.Account.Equals(value)) continue;
+                    if (time > 0)
+                    {
+                        var s = (long)(DateTime.Parse(DateTime.Parse("2012-10-01").AddSeconds(time).ToString("yyyy-MM-dd") + " 00:00:00") - DateTime.Parse("2012-10-01")).TotalSeconds;
+                        var e = (long)(DateTime.Parse(DateTime.Parse("2012-10-01").AddSeconds(time).ToString("yyyy-MM-dd") + " 23:59:59") - DateTime.Parse("2012-10-01")).TotalSeconds; ;
+                        if (record.GameDate < s || record.GameDate > e) continue;
+                    }
                     //ClubId
                     List<string> clubs = guildDal.GetCacheClubIdFromCache(record.ChargeId);
                     if (clubs != null && clubs.Count > 0)

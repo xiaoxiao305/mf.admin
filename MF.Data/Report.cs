@@ -124,6 +124,10 @@ namespace MF.Data
         /// </summary>
         public decimal IosPayMoney { get; set; }
         /// <summary>
+        /// 大额充值金额
+        /// </summary>
+        public decimal MaxPayMoney { get; set; }
+        /// <summary>
         /// 
         /// </summary>
         public string ChannelId { get; set; }

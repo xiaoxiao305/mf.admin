@@ -48,10 +48,11 @@
             addCell(tr, o.Name == null ? "" : (o.Name + "<br/>" + o.Identity), 6);
             addCell(tr, deviceType(o.RegistDevice), 7);
             addCell(tr, o.RegistIp, 8);
+            addCell(tr, o.GUID, 9);
             return tr;
         }
         $(document).ready(function() {
-            var pagerTitles = ["账号信息", "状态/属性", "元宝", "金豆", "房卡", "欢乐卡", "身份信息", "注册设备", "注册IP"]
+            var pagerTitles = ["账号信息", "状态/属性", "元宝", "金豆", "房卡", "欢乐卡", "身份信息", "注册设备", "注册IP","GUID"]
             jsonPager.init(ajax.getUserList,[],searchResult,pagerTitles, "list_table", "container", "pager", insertRow);
             jsonPager.dataBind(1,0);
         });
@@ -74,6 +75,7 @@
 	                <option value="3">昵称</option>
 	                <option value="4">手机号码</option>
 	                <option value="5">身份证</option>
+	                <option value="6">GUID</option>
                 </select>
                 <input  type="text" id="key_s" class="box"/>
                 <input type="button" value="查询" onclick="search(1)" class="ui-button-icon-primary" />
@@ -83,6 +85,7 @@
                 &nbsp;&nbsp;<select id="filed">
                     <option value="1">UID</option>
 	                <option value="2" selected="selected">账　号</option>
+                    <option value="3">GUID</option>
                 </select>&nbsp;&nbsp;
                 <input  type="text" id="key" class="box"/>
                 <input type="button" value="查询" onclick="search(2)" class="ui-button-icon-primary" />

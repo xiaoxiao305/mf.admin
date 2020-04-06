@@ -459,6 +459,8 @@ namespace MF.Admin.BLL
                             reportmodel.WeixinPayMoney += model.PayMoney;
                         else if (model.PayChannel == 3)//苹果
                             reportmodel.IosPayMoney += model.PayMoney;
+                        else if (model.PayChannel == 5)//易支付
+                            reportmodel.MaxPayMoney += model.PayMoney;
                     }
                     //else//channel
                     //{
@@ -483,7 +485,8 @@ namespace MF.Admin.BLL
                             SubmitMoney = model.SubmitMoney,
                             AlipayPayMoney = (model.PayChannel == 10 || model.PayChannel == 11)?model.PayMoney:0,
                             WeixinPayMoney = (model.PayChannel == 40 || model.PayChannel == 41)?model.PayMoney:0,
-                            IosPayMoney = (model.PayChannel == 3)? model.PayMoney:0
+                            IosPayMoney = (model.PayChannel == 3)? model.PayMoney:0,
+                            MaxPayMoney = (model.PayChannel == 5) ? model.PayMoney : 0
                     };
                     }
                     //else//channel

@@ -1433,7 +1433,7 @@ namespace MF.Admin.BLL
                 {
                     cacheUser = userDal.GetCacheUserByAccountFromCache(info.Account);
                     info.NickName = cacheUser == null ? "" : cacheUser.Nickname;
-                    info.ChargeId = cacheUser == null ? "" : cacheUser.ChargeId;
+                    //info.ChargeId = cacheUser == null ? "" : cacheUser.ChargeId;
                     newList.Add(info);
                 }
                 return newList;

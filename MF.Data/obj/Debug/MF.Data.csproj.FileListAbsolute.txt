@@ -1,7 +1,7 @@
 E:\code\mf.admin\MF.Data\bin\Debug\MF.Data.dll
 E:\code\mf.admin\MF.Data\bin\Debug\MF.Data.pdb
 E:\code\mf.admin\MF.Data\bin\Debug\Newtonsoft.Json.dll
+E:\code\mf.admin\MF.Data\obj\Debug\MF.Data.csprojAssemblyReference.cache
 E:\code\mf.admin\MF.Data\obj\Debug\MF.Data.csproj.CopyComplete
 E:\code\mf.admin\MF.Data\obj\Debug\MF.Data.dll
 E:\code\mf.admin\MF.Data\obj\Debug\MF.Data.pdb
-E:\code\mf.admin\MF.Data\obj\Debug\MF.Data.csprojAssemblyReference.cache

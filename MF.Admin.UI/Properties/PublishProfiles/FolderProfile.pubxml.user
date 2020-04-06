@@ -10,34 +10,34 @@
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/MF.Admin.BLL.dll">
-      <publishTime>03/24/2020 13:55:50</publishTime>
+      <publishTime>04/06/2020 18:50:32</publishTime>
     </File>
     <File Include="bin/MF.Admin.BLL.pdb">
-      <publishTime>03/24/2020 13:55:50</publishTime>
+      <publishTime>04/06/2020 18:50:32</publishTime>
     </File>
     <File Include="bin/MF.Admin.DAL.dll">
-      <publishTime>03/24/2020 13:51:34</publishTime>
+      <publishTime>04/06/2020 18:50:31</publishTime>
     </File>
     <File Include="bin/MF.Admin.DAL.pdb">
-      <publishTime>03/24/2020 13:51:34</publishTime>
+      <publishTime>04/06/2020 18:50:31</publishTime>
     </File>
     <File Include="bin/MF.Admin.UI.dll">
-      <publishTime>03/25/2020 13:34:20</publishTime>
+      <publishTime>04/06/2020 19:00:13</publishTime>
     </File>
     <File Include="bin/MF.Admin.UI.pdb">
-      <publishTime>03/25/2020 13:34:20</publishTime>
+      <publishTime>04/06/2020 19:00:13</publishTime>
     </File>
     <File Include="bin/MF.Common.dll">
       <publishTime>06/21/2017 15:36:33</publishTime>
     </File>
     <File Include="bin/MF.Data.dll">
-      <publishTime>03/24/2020 13:51:33</publishTime>
+      <publishTime>04/06/2020 15:39:45</publishTime>
     </File>
     <File Include="bin/MF.Data.ExtendChannel.dll">
       <publishTime>02/25/2020 11:03:03</publishTime>
     </File>
     <File Include="bin/MF.Data.pdb">
-      <publishTime>03/24/2020 13:51:33</publishTime>
+      <publishTime>04/06/2020 15:39:45</publishTime>
     </File>
     <File Include="bin/MF.Enum.dll">
       <publishTime>12/19/2017 11:44:07</publishTime>
@@ -157,7 +157,7 @@
       <publishTime>01/03/2020 17:14:37</publishTime>
     </File>
     <File Include="common/js/game.js">
-      <publishTime>03/25/2020 13:28:41</publishTime>
+      <publishTime>03/25/2020 13:38:42</publishTime>
     </File>
     <File Include="common/js/gameback.json">
       <publishTime>03/09/2020 23:15:05</publishTime>
@@ -352,7 +352,7 @@
       <publishTime>08/17/2017 17:58:02</publishTime>
     </File>
     <File Include="M/Report/Charge.aspx">
-      <publishTime>01/17/2020 18:12:22</publishTime>
+      <publishTime>04/06/2020 18:59:55</publishTime>
     </File>
     <File Include="M/Report/Currency.aspx">
       <publishTime>01/17/2020 18:12:22</publishTime>
@@ -403,7 +403,7 @@
       <publishTime>11/15/2018 17:40:32</publishTime>
     </File>
     <File Include="M/Users/UserList.aspx">
-      <publishTime>03/07/2020 14:33:57</publishTime>
+      <publishTime>04/02/2020 13:53:54</publishTime>
     </File>
     <File Include="M/Users/usertest.aspx">
       <publishTime>03/02/2020 12:14:29</publishTime>

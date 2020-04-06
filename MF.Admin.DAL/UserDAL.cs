@@ -93,6 +93,27 @@ namespace MF.Admin.DAL
             }
             return null;
         }
+        public List<Users> GetUserList(Users user, out int rowCount)
+        {
+            rowCount = 0;
+            try
+            { 
+                if (!string.IsNullOrEmpty(user.GUID))
+                    user.GUID = user.GUID.ToUpper();
+                SearchCondition<Users> current = SearchCondition<Users>.Current;
+                current.Add(p => p.GUID, user.GUID);
+                var res = PostRecordServer<Users>(RecordServerUrl + "get_user_list", current.ToString());
+                if (res == null || res.Code < 1)
+                    return null;
+                rowCount = res.Code;
+                return res.R;
+            }
+            catch (Exception ex)
+            {
+                BaseDAL.WriteError("post GetUserList get_user_list ex:", ex.Message);
+            }
+            return null;
+        }
         /// <summary>
         /// 查询单个用户信息
         /// </summary>

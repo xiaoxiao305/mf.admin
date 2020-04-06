@@ -44,6 +44,12 @@ namespace MF.Admin.BLL
                     return dal.GetUserList("", keyword, out rowCount);
                 else if (queryFiled == 2)//账号
                     return dal.GetUserList(keyword, "", out rowCount);
+                else if (queryFiled == 3)//GUID
+                {
+                    Users user = new Users() { GUID=keyword};
+                    return dal.GetUserList(user, out rowCount);
+                }
+                
             }
             return null;
         }
@@ -69,7 +75,9 @@ namespace MF.Admin.BLL
                     else if (queryFiled == 4)
                         search.Where += string.Format(" and Mobile='{0}'", keyword);
                     else if (queryFiled == 5)
-                        search.Where += string.Format(" and [Identity]=='{0}'", keyword);
+                        search.Where += string.Format(" and [Identity]='{0}'", keyword);
+                    else if (queryFiled == 6)
+                        search.Where += string.Format(" and GUID='{0}'", keyword);
                 }
                 else
                 {
@@ -83,6 +91,8 @@ namespace MF.Admin.BLL
                         search.Where += string.Format(" and Mobile LIKE '%{0}%'", keyword);
                     else if (queryFiled == 5)
                         search.Where += string.Format(" and [Identity] LIKE '%{0}%'", keyword);
+                    else if (queryFiled == 6)
+                        search.Where += string.Format(" and GUID LIKE '%{0}%'", keyword);
                 }
             }
             search.DBName = (DBName)dbname;

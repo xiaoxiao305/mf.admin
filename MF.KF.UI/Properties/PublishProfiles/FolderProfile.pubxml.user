@@ -13,37 +13,37 @@
       <publishTime>03/13/2020 08:51:28</publishTime>
     </File>
     <File Include="bin/MF.Admin.BLL.dll">
-      <publishTime>03/24/2020 13:55:50</publishTime>
+      <publishTime>04/06/2020 18:50:32</publishTime>
     </File>
     <File Include="bin/MF.Admin.BLL.pdb">
-      <publishTime>03/24/2020 13:55:50</publishTime>
+      <publishTime>04/06/2020 18:50:32</publishTime>
     </File>
     <File Include="bin/MF.Admin.DAL.dll">
-      <publishTime>03/24/2020 13:51:34</publishTime>
+      <publishTime>04/06/2020 18:50:31</publishTime>
     </File>
     <File Include="bin/MF.Admin.DAL.pdb">
-      <publishTime>03/24/2020 13:51:34</publishTime>
+      <publishTime>04/06/2020 18:50:31</publishTime>
     </File>
     <File Include="bin/MF.Common.dll">
       <publishTime>06/21/2017 15:36:33</publishTime>
     </File>
     <File Include="bin/MF.Data.dll">
-      <publishTime>03/24/2020 13:51:33</publishTime>
+      <publishTime>04/06/2020 15:39:45</publishTime>
     </File>
     <File Include="bin/MF.Data.ExtendChannel.dll">
       <publishTime>02/25/2020 11:03:03</publishTime>
     </File>
     <File Include="bin/MF.Data.pdb">
-      <publishTime>03/24/2020 13:51:33</publishTime>
+      <publishTime>04/06/2020 15:39:45</publishTime>
     </File>
     <File Include="bin/MF.Enum.dll">
       <publishTime>12/19/2017 11:44:07</publishTime>
     </File>
     <File Include="bin/MF.KF.UI.dll">
-      <publishTime>03/25/2020 13:32:48</publishTime>
+      <publishTime>04/13/2020 13:03:10</publishTime>
     </File>
     <File Include="bin/MF.KF.UI.pdb">
-      <publishTime>03/25/2020 13:32:48</publishTime>
+      <publishTime>04/13/2020 13:03:10</publishTime>
     </File>
     <File Include="bin/MF.Protocol.dll">
       <publishTime>11/01/2018 16:01:14</publishTime>
@@ -163,7 +163,7 @@
       <publishTime>01/03/2020 17:14:37</publishTime>
     </File>
     <File Include="common/js/game.js">
-      <publishTime>03/25/2020 13:26:47</publishTime>
+      <publishTime>03/25/2020 13:38:52</publishTime>
     </File>
     <File Include="common/js/gameback.json">
       <publishTime>03/09/2020 23:15:05</publishTime>
@@ -238,7 +238,7 @@
       <publishTime>03/13/2020 08:43:51</publishTime>
     </File>
     <File Include="M/Charge/RecordList.aspx">
-      <publishTime>01/03/2020 17:14:37</publishTime>
+      <publishTime>04/13/2020 13:03:44</publishTime>
     </File>
     <File Include="M/club/clubactive.aspx">
       <publishTime>02/22/2020 16:28:09</publishTime>

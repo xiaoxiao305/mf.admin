@@ -60,6 +60,8 @@
                         return "微信(官网)";
                     case 41:
                         return "微信(App)";
+                    case 5:
+                        return "易支付";
                     default:
                         return "联运渠道";
                 }
@@ -197,7 +199,7 @@
 	        <option value="4">微信</option>
 	        <option value="40">微信(官网)</option>
 	        <option value="41">微信(App)</option>
-	        <option value="5">联运渠道</option>
+	        <option value="5">易支付</option>
         </select>
         <input id="exact" type="checkbox" checked="checked" /><label for="exact">精确查找</label>
         <select id="filed">

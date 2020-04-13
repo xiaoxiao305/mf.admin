@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MF.Common</name>
+    </assembly>
+    <members>
+        <member name="M:MF.Common.Array.Slice``1(``0[],System.UInt32,System.UInt32)">
+            <summary>
+            数组切片
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="arr"></param>
+            <param name="offset"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MF.Common.Base64.Encode(System.String)">
+            <summary>
+            对socure进行Base64编码
+            </summary>
+            <param name="socure"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MF.Common.Base64.Encode(System.String,System.Text.Encoding)">
+            <summary>
+            对socure进行Base64编码
+            </summary>
+            <param name="socure"></param>
+            <param name="coding"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MF.Common.Base64.Decode(System.String)">
+            <summary>
+            将经过base64编码的字符进行解码
+            </summary>
+            <param name="base64Str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MF.Common.Base64.Decode(System.String,System.Text.Encoding)">
+            <summary>
+            将经过base64编码的字符进行解码
+            </summary>
+            <param name="base64Str"></param>
+            <param name="coding"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

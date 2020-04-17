@@ -125,7 +125,6 @@ namespace MF.Admin.BLL
                 functions.Add("getgameincome", "GetGameIncome");
                 functions.Add("getgamerec", "GetGameRec");
 
-
                 functions.Add("getauditblackusers", "GetAuditBlackUsers");
                 functions.Add("updateblackuser", "UpdateBlackUser");
                 functions.Add("confirmblackuser", "ConfirmBlackUser");

@@ -11,6 +11,7 @@
         function searchResult(data) {
             $("#loading").hide();
             if (data.code == 1) {
+                console.log("data.result:", data.result);
                 jsonPager.data = data.result;
                 jsonPager.dataBind(data.index, data.rowCount);
             } else {
@@ -24,10 +25,17 @@
             };
             addCell(tr,o.Id, 0);
             addCell(tr, o.Name, 1);
+            //o.Founder临时存储当前查询用户chargeid
+            addCell(tr, "<a href='javascript:void (0);' onclick=\"kickClubMembers('" + o.Founder+"','" + o.Id + "');\">踢出俱乐部</a>", 2);
             return tr;
         }
+        function kickClubMembers(member_id, club_id) {
+            if (confirm("你确定要踢出 " + member_id + "?")) {
+                ajax.kickClubMembers("kickClubMembers", [member_id, club_id], winresult);
+            }
+        }
         $(document).ready(function() {
-            var pagerTitles = ["ID","俱乐部"];
+            var pagerTitles = ["ID","俱乐部","操作"];
             jsonPager.init(ajax.getMembersList, [], searchResult, pagerTitles, "list_table", "container", "pager", insertRow);
             jsonPager.dataBind(1, 0);
         });

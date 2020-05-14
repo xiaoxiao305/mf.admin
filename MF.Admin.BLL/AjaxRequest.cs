@@ -148,9 +148,20 @@ namespace MF.Admin.BLL
                 functions.Add("sendbroadcast", "SendBroadCast");
                 //新增有效用户
                 functions.Add("getnewgameusers", "GetNewGameUsers");
+                //踢出俱乐部成员
+                functions.Add("kickClubMembers", "KickClubMembers");
 
 
             }
+        }
+        public void KickClubMembers(string member_id, string club_id)
+        { 
+
+            ClubsServerRes cs = GuildBLL.ClubMemberOpt(member_id, club_id, "kick");
+            if (cs != null && cs.ret == 0)
+                Response.Write("{\"code\":1,\"msg\":\"操作成功\"}");
+            else
+                Response.Write("{\"code\":0,\"msg\":\"操作失败\"}");
         }
         public void GetNewGameUsers(long PageSize, long pageIndex, long time, long gameId, long field, string value)
         {

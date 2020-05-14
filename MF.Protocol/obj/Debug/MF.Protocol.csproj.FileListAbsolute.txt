@@ -1,0 +1,17 @@
+E:\code\mf.admin\MF.Protocol\bin\Debug\MF.Protocol.dll
+E:\code\mf.admin\MF.Protocol\bin\Debug\MF.Protocol.pdb
+E:\code\mf.admin\MF.Protocol\bin\Debug\MF.Common.dll
+E:\code\mf.admin\MF.Protocol\bin\Debug\MF.Data.dll
+E:\code\mf.admin\MF.Protocol\bin\Debug\MF.Enum.dll
+E:\code\mf.admin\MF.Protocol\bin\Debug\Newtonsoft.Json.dll
+E:\code\mf.admin\MF.Protocol\bin\Debug\TencentCloud.dll
+E:\code\mf.admin\MF.Protocol\bin\Debug\Pathoschild.Http.Client.dll
+E:\code\mf.admin\MF.Protocol\bin\Debug\System.Net.Http.Formatting.dll
+E:\code\mf.admin\MF.Protocol\bin\Debug\MF.Data.xml
+E:\code\mf.admin\MF.Protocol\bin\Debug\Newtonsoft.Json.xml
+E:\code\mf.admin\MF.Protocol\bin\Debug\TencentCloud.pdb
+E:\code\mf.admin\MF.Protocol\bin\Debug\Pathoschild.Http.Client.xml
+E:\code\mf.admin\MF.Protocol\bin\Debug\System.Net.Http.Formatting.xml
+E:\code\mf.admin\MF.Protocol\obj\Debug\MF.Protocol.csproj.CopyComplete
+E:\code\mf.admin\MF.Protocol\obj\Debug\MF.Protocol.dll
+E:\code\mf.admin\MF.Protocol\obj\Debug\MF.Protocol.pdb

@@ -178,6 +178,7 @@ namespace MF.Admin.BLL
                     ClubsModel club = new ClubsModel();
                     club.Name = (clubinfos[clubId] as IDictionary<string, Newtonsoft.Json.Linq.JToken>)["name"].ToString();
                     club.Id = int.Parse(clubId);
+                    club.Founder = member_id;//临时存储当前查询者
                     clubs.Add(club);
                 }
                 return clubs;
@@ -518,6 +519,14 @@ namespace MF.Admin.BLL
             if (string.IsNullOrEmpty(RoomId))
                 return null;
             return dal.CloseRoom(RoomId);
+        }
+
+
+        public static ClubsServerRes ClubMemberOpt(string member_id, string club_id , string func)
+        {
+           ClubsModelServer cms= dal.GetClubModelList("id", club_id);
+            if (cms == null || cms.ret != 0) return null;
+            return dal.ClubMemberOpt(member_id, club_id, cms.msg.Founder, func);
         }
     }
 }

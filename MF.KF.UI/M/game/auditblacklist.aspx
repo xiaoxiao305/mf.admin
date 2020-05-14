@@ -3,6 +3,7 @@
     <style type="text/css">
        li {display:block; text-align:left;padding-left:10%;}
        .center{text-align:center;}
+       td{word-wrap:break-word; }
    </style>
     <link href="/common/styles/layer.css" type="text/css" rel="Stylesheet" /> 
     <script language="javascript" type="text/javascript"> 
@@ -31,8 +32,10 @@
         function insertRow(o, tr) {
             addCell = function (tr, text, i) {
                 var td = tr.insertCell(i);
-                if (i == 7)
+                if (i == 7 || i == 8)
                     td.style.width = "200px";
+                else if (i == 9)
+                    td.style.width = "150px";
                 td.innerHTML = text;
             };
             var date = new Date("2012/10/1");
@@ -156,7 +159,7 @@
             <li>　　　　值：<label id="valTypeArea"></label>
                 <input type="checkbox" id="inputVal1" onchange="showInputVal(1)" />输入值
             </li>
-            <li id="valLi1" style="display:none;">　　输入值：<input class="ipt" type="text" id="tval11" style="width:20%" />　至　<input class="ipt" type="text" id="tval12"  style="width:20%"/></li>
+            <li id="valLi1" style="display:none;">　　输入值：<input class="ipt" type="text" id="tval11" style="width: 20%" />　至　<input class="ipt" type="text" id="tval12"  style="width:20%"/></li>
             <li style="height: 60px;">　　备　注：<textarea id="txtRemark" rows="4" cols="25"></textarea></li>
             <li id="tokenLi1" style="display:none;">安　全　令：<input class="ipt" type="text" id="token" /></li>
             <li class="err red center" id="lblerr"></li>

@@ -772,5 +772,21 @@ namespace MF.Admin.DAL
             }
         }
 
+
+        public ClubsServerRes ClubMemberOpt(string member_id, string club_id,string creater, string func)
+        {
+            try
+            {
+                string param = "{\"module\":\"club_member\",\"func\":\""+ func 
+                    + "\",\"args\":{\"club_id\":" + club_id + ",\"master\":\"" + creater + "\",\"member_list\":[\"" + member_id + "\"]}}";
+                Base.WriteDebug("ClubMemberOpt param:", param);
+                return PostClubServer<ClubsServerRes>(ClubsURI, param);
+            }
+            catch (Exception ex)
+            {
+                WriteError("post verify_club_status ex:", ex.Message);
+            }
+            return null;
+        }
     }
 }

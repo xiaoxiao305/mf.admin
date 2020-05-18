@@ -53,7 +53,7 @@ namespace MF.KF.UI
                         Admin.BLL.Base.WriteLog("DownConfirmBlackUserLog ALL filePath:", filePath);
                         byte[] bytes = GetBytesFromService(filePath);
                         if (bytes == null || bytes.Length < 1) continue;
-                        Admin.BLL.Base.WriteLog("DownConfirmBlackUserLog add start.:",filePath, bytes.Length.ToString());
+                        Admin.BLL.Base.WriteLog("DownConfirmBlackUserLog add start.:",filePath, " buffer.Count:", buffer.Count.ToString(), " bytes.Length:", bytes.Length.ToString());
                         for (int j = 0; j < bytes.Length; j++)
                         {
                             buffer.Add(bytes[j]);

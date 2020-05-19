@@ -34,7 +34,8 @@
         }
         var typearr = ["", "修改密码", "解绑手机号", "解绑安全令", "解除本机锁定", "解除安全令锁定", "冻结账号", "解冻账号", "充值补单", "设置俱乐部活跃", "推荐俱乐部", "处理保证金", "加元宝", "加金豆", "加用户房卡", "加俱乐部房卡",
             "开启充值活动", "关闭充值活动", "添加游戏黑名单", "删除游戏黑名单", "设置输赢值",
-            "修改游戏黑名单", "黑名单确认实锤", "设置输赢值警报配置", "删除输赢值警报配置"];
+            "修改游戏黑名单", "黑名单确认实锤", "设置输赢值警报配置", "删除输赢值警报配置"
+            , "设置游戏系统广播", "踢出俱乐部成员", "退出俱乐部联盟"];
         function insertRow(o,tr) {
             addCell = function(tr, text, i) {
                 var td = tr.insertCell(i);
@@ -85,7 +86,10 @@
                     <option value="21">修改游戏黑名单</option>
                     <option value="22">黑名单确认实锤</option>
                     <option value="23">设置输赢值警报配置</option>
-                    <option value="23">删除输赢值警报配置</option>
+                    <option value="24">删除输赢值异常警报</option>
+                    <option value="25">设置游戏系统广播</option>
+                    <option value="26">踢出俱乐部成员</option>
+                    <option value="27">退出俱乐部联盟</option>
                 </select>
                 <select id="flag">
 	                <option value="-1">操作状态</option>

@@ -784,7 +784,21 @@ namespace MF.Admin.DAL
             }
             catch (Exception ex)
             {
-                WriteError("post verify_club_status ex:", ex.Message);
+                WriteError("post ClubMemberOpt ex:", ex.Message);
+            }
+            return null;
+        }
+        public ClubsServerRes ExistLeague(string club_id)
+        {
+            try
+            {
+                string param = "{\"module\":\"club_league\",\"func\":\"exit_league\",\"args\":{\"club_id\":" + club_id + "}}";
+                Base.WriteDebug("ExistLeague param:", param);
+                return PostClubServer<ClubsServerRes>(ClubsURI, param);
+            }
+            catch (Exception ex)
+            {
+                WriteError("post ExistLeague ex:", ex.Message);
             }
             return null;
         }

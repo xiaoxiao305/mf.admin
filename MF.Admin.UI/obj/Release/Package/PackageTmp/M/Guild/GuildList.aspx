@@ -37,7 +37,8 @@
             addCell(tr, o.Type==1?"俱乐部":o.Type==2?"俱乐部":o.Type==3?"积分俱乐部":"", 8);
             addCell(tr, "<a href='javascript:void (0);' onclick=\"addClubRoomCard(" + o.Id + ",'" + o.Name + "');\">添加房卡</a>     " +
                 "<a href='javascript:void (0);' onclick=\"verifyGuildInfo(" + o.Id + ",'" + o.Name + "');\">俱乐部审核</a>     " +
-                "<a href='javascript:void (0);' onclick=\"deleteClub(" + o.Id + ");\">解散俱乐部</a>", 9);
+                "<a href='javascript:void (0);' onclick=\"deleteClub(" + o.Id + ");\">解散俱乐部</a>     " +
+                "<a href='javascript:void (0);' onclick=\"existLeague('" + o.Id + "');\">退出联盟</a>", 9);
             return tr;
         }
         $(document).ready(function() {
@@ -112,6 +113,11 @@
         function deleteClub(id) {
             if (confirm("确认要删除俱乐部【"+id+"】操作？")) {
                 ajax.verifyGuildStatus("verifyguildstatus", [id,10000], winresult);
+            }
+        }
+        function existLeague(id) {
+            if (confirm("确认要退出俱乐部【" + id + "】联盟操作？")) {
+                ajax.existLeague("existleague", [id], winresult);
             }
         }
         function verifyGuildStatus()

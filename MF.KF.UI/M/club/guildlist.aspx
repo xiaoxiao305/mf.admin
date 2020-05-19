@@ -35,7 +35,8 @@
             addCell(tr, o.Status==1?"生效":"失效", 7);
             addCell(tr, o.Type == 1 ? "俱乐部" : o.Type == 2 ? "俱乐部" : o.Type == 3 ? "积分俱乐部" : o.Type == 4 ? "金币俱乐部" : "", 8);
             if(<%=isAdmin%>)
-                addCell(tr, "<a href='javascript:void (0);' onclick=\"verifyGuildInfo(" + o.Id + ",'" + o.Name + "');\">俱乐部审核</a>     <a href='javascript:void (0);' onclick=\"deleteClub(" + o.Id + ");\">解散俱乐部</a>", 9);
+                addCell(tr, "<a href='javascript:void (0);' onclick=\"verifyGuildInfo(" + o.Id + ",'" + o.Name + "');\">俱乐部审核</a>     <a href='javascript:void (0);' onclick=\"deleteClub(" + o.Id + ");\">解散俱乐部</a>  " +
+                    "<a href='javascript:void (0);' onclick=\"existLeague('" + o.Id + "');\">退出联盟</a>", 9);
             else
                 addCell(tr, "",9);
             return tr;
@@ -46,6 +47,11 @@
             jsonPager.dataBind(1, 0);
             search();
         });
+        function existLeague(id) {
+            if (confirm("确认要退出俱乐部【" + id + "】联盟操作？")) {
+                ajax.existLeague("existleague", [id], winresult);
+            }
+        }
         function deleteClub(id) {
             if (confirm("确认要删除俱乐部【"+id+"】操作？")) {
                 ajax.verifyGuildStatus("verifyguildstatus", [id,10000], winresult);

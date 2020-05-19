@@ -528,5 +528,17 @@ namespace MF.Admin.BLL
             if (cms == null || cms.ret != 0) return null;
             return dal.ClubMemberOpt(member_id, club_id, cms.msg.Founder, func);
         }
+        public static ClubsServerRes ExistLeague(string club_id)
+        {
+            if (string.IsNullOrEmpty(club_id)) return null;
+            var cs= dal.ExistLeague( club_id);
+            var oprState = 0; var msg = "退出俱乐部【"+ club_id + "】联盟失败";
+            if (cs != null && cs.ret == 0){
+                oprState = 1;
+                msg = "退出俱乐部【" + club_id + "】联盟成功";
+            }
+            AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "AjaxRequest.ExistLeague", oprState, SystemLogEnum.EXISTLEAGUE);
+            return cs;
+        }
     }
 }

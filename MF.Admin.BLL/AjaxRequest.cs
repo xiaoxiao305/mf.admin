@@ -150,18 +150,32 @@ namespace MF.Admin.BLL
                 functions.Add("getnewgameusers", "GetNewGameUsers");
                 //踢出俱乐部成员
                 functions.Add("kickClubMembers", "KickClubMembers");
+                //退出俱乐部联盟
+                functions.Add("existleague", "ExistLeague");
 
 
             }
         }
+        public void ExistLeague(string club_id)
+        {
+            ClubsServerRes cs = GuildBLL.ExistLeague(club_id);
+            var oprState = 0; var msg = "操作失败";
+            if (cs != null && cs.ret == 0){
+                oprState = 1;
+                msg = "操作成功";
+            }
+            Response.Write("{\"code\":" + oprState + ",\"msg\":\"" + msg + "\"}");
+        }
         public void KickClubMembers(string member_id, string club_id)
         { 
-
             ClubsServerRes cs = GuildBLL.ClubMemberOpt(member_id, club_id, "kick");
-            if (cs != null && cs.ret == 0)
-                Response.Write("{\"code\":1,\"msg\":\"操作成功\"}");
-            else
-                Response.Write("{\"code\":0,\"msg\":\"操作失败\"}");
+            var oprState = 0;var  msg = "踢出俱乐部【"+ club_id + "】成员【"+ member_id + "】操作失败";
+            if (cs != null && cs.ret == 0){
+                oprState = 1;
+                msg = "踢出俱乐部【" + club_id + "】成员【" + member_id + "】操作成功";
+            }
+            AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "AjaxRequest.KickClubMembers", oprState, SystemLogEnum.KICKCLUBMEMBERS);
+            Response.Write("{\"code\":"+oprState+",\"msg\":\""+msg+"\"}");
         }
         public void GetNewGameUsers(long PageSize, long pageIndex, long time, long gameId, long field, string value)
         {

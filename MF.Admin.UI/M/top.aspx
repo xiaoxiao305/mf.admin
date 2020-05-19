@@ -10,7 +10,7 @@
         .line{background:url(/common/images/top_line.gif);}
     </style>
      <script language="javascript" type="text/javascript"  src="/common/js/jquery1.8.1.js"></script> 
-    <script language="javascript" type="text/javascript"  src="/common/js/ajax.js?v=1.1"></script>
+    <script language="javascript" type="text/javascript"  src="/common/js/ajax.js?v=1.4"></script>
    <script type="text/javascript" language="javascript">
        function selectMenu(index, defaultUrl) {
            parent.menu.location = "menu.aspx?do=" + index;

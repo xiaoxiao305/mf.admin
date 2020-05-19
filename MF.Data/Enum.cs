@@ -145,6 +145,15 @@ namespace MF.Data
         /// <summary>
         /// 设置游戏系统广播
         /// </summary>
-        SENDBROADCAST = 25
+        SENDBROADCAST = 25,
+        /// <summary>
+        /// 踢出俱乐部成员
+        /// </summary>
+        KICKCLUBMEMBERS=26,
+        /// <summary>
+        /// 退出俱乐部联盟
+        /// </summary>
+        EXISTLEAGUE = 27,
+
     }
 }

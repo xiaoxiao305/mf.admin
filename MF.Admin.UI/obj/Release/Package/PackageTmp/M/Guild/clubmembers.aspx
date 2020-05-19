@@ -24,7 +24,14 @@
             };
             addCell(tr,o.Id, 0);
             addCell(tr, o.Name, 1);
+            //o.Founder临时存储当前查询用户chargeid
+            addCell(tr, "<a href='javascript:void (0);' onclick=\"kickClubMembers('" + o.Founder + "','" + o.Id + "');\">踢出俱乐部</a>", 2);
             return tr;
+        }
+        function kickClubMembers(member_id, club_id) {
+            if (confirm("你确定要踢出 " + member_id + "?")) {
+                ajax.kickClubMembers("kickClubMembers", [member_id, club_id], winresult);
+            }
         }
         $(document).ready(function() {
             var pagerTitles = ["ID","俱乐部"];

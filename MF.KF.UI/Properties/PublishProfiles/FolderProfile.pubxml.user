@@ -40,10 +40,10 @@
       <publishTime>12/19/2017 11:44:07</publishTime>
     </File>
     <File Include="bin/MF.KF.UI.dll">
-      <publishTime>05/19/2020 19:17:47</publishTime>
+      <publishTime>05/27/2020 18:40:26</publishTime>
     </File>
     <File Include="bin/MF.KF.UI.pdb">
-      <publishTime>05/19/2020 19:17:47</publishTime>
+      <publishTime>05/27/2020 18:40:26</publishTime>
     </File>
     <File Include="bin/MF.Protocol.dll">
       <publishTime>11/01/2018 16:01:14</publishTime>

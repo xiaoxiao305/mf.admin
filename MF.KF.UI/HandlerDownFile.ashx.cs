@@ -49,7 +49,9 @@ namespace MF.KF.UI
                     for (int i = 0; i < days; i++)
                     {
                         string day= DateTime.Now.AddDays(-1*i).ToString("yyyy-MM-dd");
-                        string filePath = string.Format("{0}record/{1}/{2}/ALL/{3}_{4}.txt", recUri, gameId, chargeId, type,day);
+                        string filePath = string.Format("{0}record/{1}/{2}/ALL/{3}_{4}.txt", recUri, gameId, chargeId, type, day);
+                        if (type.ToLower().IndexOf("log")>=0)
+                            filePath= string.Format("{0}record/{1}/{2}/ALL/{3}_ERROR_{4}.txt", recUri, gameId, chargeId, type, day);//LOG_ERROR_2020-02-27.txt 异常LOG 2020-05-27 @李文波
                         Admin.BLL.Base.WriteLog("DownConfirmBlackUserLog ALL filePath:", filePath);
                         byte[] bytes = GetBytesFromService(filePath);
                         if (bytes == null || bytes.Length < 1) continue;

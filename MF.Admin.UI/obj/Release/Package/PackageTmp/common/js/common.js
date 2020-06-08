@@ -598,7 +598,7 @@ function showAddMoneyWin(type) {
     $('.theme-popover').slideDown(200);
     $('.theme-popover').css("width", 380);
     $('.theme-popover').css("left", "55%");
-    $('.theme-popover').css("top", "50%");
+    $('.theme-popover').css("top", "40%");
     $("#content").html($("#T" + type).html());
     $('.theme-poptit .close').click(function () { $('.theme-popover-mask').hide(); $('.theme-popover').slideUp(200); });
 }

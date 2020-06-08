@@ -213,13 +213,13 @@ var blackGameMap = [];
 initGameJsonData();
 function initGameJsonData() {
     $.ajaxSettings.async = false;
-    $.getJSON("/common/js/gameback.json?v=1.0.0", function (data) {
+    $.getJSON("/common/js/gameback.json?v=1.0.1", function (data) {
         $.each(eval(data), function (key, val) {
             blackGameInfo2.push(val);
             blackGameMap[key] = val;
         });
     });
-    $.getJSON("/common/js/gamerec.json?v=1.0.0", function (data) {
+    $.getJSON("/common/js/gamerec.json?v=1.0.1", function (data) {
         $.each(eval(data), function (key, val) {
             gameRecInfo.push(val);
         });

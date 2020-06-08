@@ -13,37 +13,37 @@
       <publishTime>03/13/2020 08:51:28</publishTime>
     </File>
     <File Include="bin/MF.Admin.BLL.dll">
-      <publishTime>05/19/2020 19:05:22</publishTime>
+      <publishTime>06/08/2020 15:27:32</publishTime>
     </File>
     <File Include="bin/MF.Admin.BLL.pdb">
-      <publishTime>05/19/2020 19:05:22</publishTime>
+      <publishTime>06/08/2020 15:27:32</publishTime>
     </File>
     <File Include="bin/MF.Admin.DAL.dll">
-      <publishTime>05/19/2020 18:52:03</publishTime>
+      <publishTime>06/08/2020 15:27:31</publishTime>
     </File>
     <File Include="bin/MF.Admin.DAL.pdb">
-      <publishTime>05/19/2020 18:52:03</publishTime>
+      <publishTime>06/08/2020 15:27:31</publishTime>
     </File>
     <File Include="bin/MF.Common.dll">
       <publishTime>06/21/2017 15:36:33</publishTime>
     </File>
     <File Include="bin/MF.Data.dll">
-      <publishTime>05/19/2020 18:52:00</publishTime>
+      <publishTime>06/08/2020 15:27:30</publishTime>
     </File>
     <File Include="bin/MF.Data.ExtendChannel.dll">
       <publishTime>02/25/2020 11:03:03</publishTime>
     </File>
     <File Include="bin/MF.Data.pdb">
-      <publishTime>05/19/2020 18:52:00</publishTime>
+      <publishTime>06/08/2020 15:27:30</publishTime>
     </File>
     <File Include="bin/MF.Enum.dll">
       <publishTime>12/19/2017 11:44:07</publishTime>
     </File>
     <File Include="bin/MF.KF.UI.dll">
-      <publishTime>05/27/2020 18:40:26</publishTime>
+      <publishTime>06/08/2020 15:42:18</publishTime>
     </File>
     <File Include="bin/MF.KF.UI.pdb">
-      <publishTime>05/27/2020 18:40:26</publishTime>
+      <publishTime>06/08/2020 15:42:18</publishTime>
     </File>
     <File Include="bin/MF.Protocol.dll">
       <publishTime>11/01/2018 16:01:14</publishTime>
@@ -157,19 +157,19 @@
       <publishTime>05/19/2020 18:40:19</publishTime>
     </File>
     <File Include="common/js/common.js">
-      <publishTime>02/27/2020 10:22:30</publishTime>
+      <publishTime>06/08/2020 15:35:16</publishTime>
     </File>
     <File Include="common/js/echarts.min.js">
       <publishTime>01/03/2020 17:14:37</publishTime>
     </File>
     <File Include="common/js/game.js">
-      <publishTime>03/25/2020 13:38:52</publishTime>
+      <publishTime>06/08/2020 15:22:04</publishTime>
     </File>
     <File Include="common/js/gameback.json">
-      <publishTime>03/09/2020 23:15:05</publishTime>
+      <publishTime>06/08/2020 15:23:37</publishTime>
     </File>
     <File Include="common/js/gamerec.json">
-      <publishTime>02/21/2020 10:42:34</publishTime>
+      <publishTime>06/08/2020 13:31:04</publishTime>
     </File>
     <File Include="common/js/jQuery-Timepicker-Addon/jquery-ui-timepicker-addon.js">
       <publishTime>03/13/2020 08:36:16</publishTime>
@@ -274,7 +274,7 @@
       <publishTime>03/07/2020 20:41:37</publishTime>
     </File>
     <File Include="M/game/auditblacklist.aspx">
-      <publishTime>05/14/2020 15:00:57</publishTime>
+      <publishTime>06/08/2020 15:34:26</publishTime>
     </File>
     <File Include="M/game/autopatrol.aspx">
       <publishTime>03/07/2020 16:49:29</publishTime>
@@ -286,7 +286,7 @@
       <publishTime>02/12/2020 13:59:22</publishTime>
     </File>
     <File Include="M/game/gameblacklist.aspx">
-      <publishTime>05/14/2020 14:59:17</publishTime>
+      <publishTime>06/08/2020 15:40:43</publishTime>
     </File>
     <File Include="M/game/gameincome.aspx">
       <publishTime>03/07/2020 14:29:25</publishTime>
@@ -301,7 +301,7 @@
       <publishTime>02/28/2020 22:37:03</publishTime>
     </File>
     <File Include="M/main.Master">
-      <publishTime>05/19/2020 19:17:34</publishTime>
+      <publishTime>06/08/2020 15:27:06</publishTime>
     </File>
     <File Include="M/menu.aspx">
       <publishTime>05/26/2017 18:07:44</publishTime>

@@ -1161,6 +1161,8 @@ namespace MF.Admin.BLL
             {
                 if (start < 1 || end < 1 || string.IsNullOrEmpty(type) || (string.IsNullOrEmpty(chargeid) && string.IsNullOrEmpty(roomid)))
                     return null;
+                if (type.ToLower().Equals("paodekuai"))//标准跑得快 数据源存的账号  2020-06-09 @李文波
+                    chargeid = new UserDAL().GetAccByChargeId(chargeid);
                 return dal.GetGameRec(start, end, type, chargeid, roomid, number);
                 //FileStream fsr = new FileStream("d:/1.txt", FileMode.Open);
                 //byte[] readBytes = new byte[1024 * 1024];

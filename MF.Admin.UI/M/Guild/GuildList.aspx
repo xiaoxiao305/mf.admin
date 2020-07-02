@@ -57,6 +57,7 @@
             $('#hidClubId').val(id);
             $('#lblName1').text(name);
             $('#lblName2').text(name);
+            $("#msgtitle").text("添加俱乐部房卡");
             showAddMoneyWin(1);
         }
         function SetRecomClubsWin()
@@ -77,6 +78,7 @@
                 alert("请选择需要设置的推荐俱乐部。");
                 return;
             }
+            $("#msgtitle").text("设置推荐俱乐部");
             showAddMoneyWin(3);
         }
         function SetRecomClubs()
@@ -108,6 +110,7 @@
         function verifyGuildInfo(id, name) {
             $('#lblClubId4').html(id);
             $('#lblName4').html(name);
+            $("#msgtitle").text("审核俱乐部");
             showAddMoneyWin(4);
         }
         function deleteClub(id) {
@@ -131,7 +134,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="p" runat="server">
-    <div class="toolbar">俱乐部保证金记录列表</div>
+    <div class="toolbar">俱乐部列表</div>
     <div class="search">&nbsp;&nbsp;
         <select id="filed">
             <option value="3">俱乐部Id</option>

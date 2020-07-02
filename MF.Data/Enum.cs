@@ -154,6 +154,18 @@ namespace MF.Data
         /// 退出俱乐部联盟
         /// </summary>
         EXISTLEAGUE = 27,
+        /// <summary>
+        /// 设置俱乐部状态（10000解散俱乐部 1设置俱乐部生效  2设置俱乐部失效）
+        /// </summary>
+        VERIFYGUILDSTATUS=28,
+        /// <summary>
+        /// 添加高税俱乐部
+        /// </summary>
+        ADDHIGHTAXCLUB = 29,
+        /// <summary>
+        /// 删除高税俱乐部
+        /// </summary>
+        DELHIGHTAXCLUB = 30,
 
     }
 }

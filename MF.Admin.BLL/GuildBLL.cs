@@ -4,6 +4,7 @@ using MF.Data;
 using MF.Admin.DAL;
 using Newtonsoft.Json;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace MF.Admin.BLL
 {
@@ -495,9 +496,25 @@ namespace MF.Admin.BLL
         }
         public static ClubsServerRes VerifyGuildStatus(long clubId, long status)
         {
-            if (clubId < 1)
-                return null;
-            return dal.VerifyGuildStatus(clubId, status);
+            try
+            {
+                if (clubId < 1)
+                    return null;
+                ClubsServerRes csr = dal.VerifyGuildStatus(clubId, status);
+                string msg = "";
+                string s = status == 10000 ? "解散俱乐部" : status == 1 ? "设置俱乐部生效" : status == 0 ? "设置俱乐部失效" : "";
+                if (csr != null && csr.ret == 0)
+                    msg = string.Format(s + "ID【{0}】成功", clubId);
+                else
+                    msg = string.Format(s + "ID【{0}】失败", clubId);
+                AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "GuildBLL.VerifyGuildStatus", (csr != null && csr.ret == 0) ? 1 : 0, SystemLogEnum.VERIFYGUILDSTATUS);
+                return csr;
+            }
+            catch (Exception ex)
+            {
+                WriteError("VerifyGuildStatus ex:", ex.Message);
+            }
+            return null;
         }
 
         public static List<ClubsStatistic> ClubStatisticDay(string time, long clubId)
@@ -522,23 +539,90 @@ namespace MF.Admin.BLL
         }
 
 
-        public static ClubsServerRes ClubMemberOpt(string member_id, string club_id , string func)
+        public static ClubsServerRes ClubMemberOpt(string member_id, string club_id, string func)
         {
-           ClubsModelServer cms= dal.GetClubModelList("id", club_id);
+            ClubsModelServer cms = dal.GetClubModelList("id", club_id);
             if (cms == null || cms.ret != 0) return null;
             return dal.ClubMemberOpt(member_id, club_id, cms.msg.Founder, func);
         }
         public static ClubsServerRes ExistLeague(string club_id)
         {
             if (string.IsNullOrEmpty(club_id)) return null;
-            var cs= dal.ExistLeague( club_id);
-            var oprState = 0; var msg = "退出俱乐部【"+ club_id + "】联盟失败";
-            if (cs != null && cs.ret == 0){
+            var cs = dal.ExistLeague(club_id);
+            var oprState = 0; var msg = "退出俱乐部【" + club_id + "】联盟失败";
+            if (cs != null && cs.ret == 0)
+            {
                 oprState = 1;
                 msg = "退出俱乐部【" + club_id + "】联盟成功";
             }
             AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "AjaxRequest.ExistLeague", oprState, SystemLogEnum.EXISTLEAGUE);
             return cs;
+        }
+
+
+        public static List<ClubsModel> GetHighTaxClub()
+        {
+            ClubsRes<object> res = dal.GetHighTaxClub();
+            if (res == null || res.msg == null) return null;
+            WriteLog("res json:", JsonConvert.SerializeObject(res));
+            WriteLog("res.msg json:", JsonConvert.SerializeObject(res.msg));
+            List<ClubsModel> list = new List<ClubsModel>();
+            var msgRes = res.msg as IDictionary<string,JToken>;
+            WriteLog("msgRes json:", JsonConvert.SerializeObject(msgRes));
+            if (msgRes == null || msgRes.Count < 1 || !msgRes.ContainsKey("Clubs")) return null;
+            List<int> clubs = (msgRes["Clubs"] as JArray).ToObject<List<int>>();
+            WriteLog("clubs json:", JsonConvert.SerializeObject(clubs));
+            ClubsModel model;
+            foreach (int clubId in clubs)
+            {
+                model = new ClubsModel();
+                model.Id =clubId;
+                model.Name = dal.GetCacheClubName(clubId.ToString());
+                list.Add(model);
+            }
+            return list;
+        }
+        public static ClubsServerRes AddHighTaxClub(int[] clubIds)
+        {
+            try
+            {
+                if (clubIds.Length < 1)
+                    return null;
+                ClubsServerRes csr = dal.AddHighTaxClub(clubIds);
+                string msg = "";
+                if (csr != null && csr.ret == 0)
+                    msg = string.Format("添加高税俱乐部ID【{0}】成功", JsonConvert.SerializeObject(clubIds));
+                else
+                    msg = string.Format("添加高税俱乐部ID【{0}】失败", JsonConvert.SerializeObject(clubIds));
+                AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "GuildBLL.AddHighTaxClub", (csr != null && csr.ret == 0) ? 1 : 0, SystemLogEnum.ADDHIGHTAXCLUB);
+                return csr;
+            }
+            catch (Exception ex)
+            {
+                WriteError("AddHighTaxClub ex:", ex.Message);
+            }
+            return null;
+        }
+        public static ClubsServerRes DelHighTaxClub(object[] clubIds)
+        {
+            try
+            {
+                if (clubIds.Length < 1)
+                    return null;
+                ClubsServerRes csr = dal.DelHighTaxClub(clubIds);
+                string msg = "";
+                if (csr != null && csr.ret == 0)
+                    msg = string.Format("删除高税俱乐部ID【{0}】成功", JsonConvert.SerializeObject(clubIds));
+                else
+                    msg = string.Format("删除高税俱乐部ID【{0}】失败", JsonConvert.SerializeObject(clubIds));
+                AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "GuildBLL.AddHighTaxClub", (csr != null && csr.ret == 0) ? 1 : 0, SystemLogEnum.DELHIGHTAXCLUB);
+                return csr;
+            }
+            catch (Exception ex)
+            {
+                WriteError("DelHighTaxClub ex:", ex.Message);
+            }
+            return null;
         }
     }
 }

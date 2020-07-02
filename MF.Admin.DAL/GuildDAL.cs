@@ -700,7 +700,7 @@ namespace MF.Admin.DAL
                 if (string.IsNullOrEmpty(clubId)) return "";
                 if (Cache.CacheClubName != null && Cache.CacheClubName.ContainsKey(clubId))
                     return Cache.CacheClubName[clubId];
-                ClubsModelServer gs = GetClubModelList("Id", clubId);
+                ClubsModelServer gs = GetClubModelList("id", clubId);
                 if (gs != null && gs.ret == 0 && gs.msg != null)
                     return gs.msg.Name;
             }
@@ -799,6 +799,51 @@ namespace MF.Admin.DAL
             catch (Exception ex)
             {
                 WriteError("post ExistLeague ex:", ex.Message);
+            }
+            return null;
+        }
+
+        public ClubsRes<object> GetHighTaxClub()
+        {
+            try
+            {
+                string param = "{\"module\":\"club_mgr\",\"func\":\"get_high_tax_clubs\",\"args\":[]}";
+                return PostClubServer<ClubsRes<object>>(ClubsURI, param);
+            }
+            catch (Exception ex)
+            {
+                WriteError("post GetHighTaxClub ex:", ex.Message);
+            }
+            return null;
+        }
+        public ClubsServerRes AddHighTaxClub(int[] clubIds)
+        {
+            try
+            {
+                if (clubIds.Length < 1)
+                    return null;
+                string param= "{\"module\":\"club_mgr\",\"func\":\"add_high_tax_clubs\",\"args\":{\"Clubs\":" + Json.SerializeObject(clubIds) + "}}";
+                WriteDebug("AddHighTaxClub param:" + param);
+                return PostClubServer<ClubsServerRes>(ClubsURI, param);
+            }
+            catch (Exception ex)
+            {
+                WriteError("post AddHighTaxClub ex:", ex.Message);
+            }
+            return null;
+        }
+        public ClubsServerRes DelHighTaxClub(Object[] clubIds)
+        {
+            try
+            {
+                if (clubIds.Length < 1)
+                    return null;
+                string param = "{\"module\":\"club_mgr\",\"func\":\"del_high_tax_clubs\",\"args\":{\"Clubs\":[" + String.Join(",", clubIds) + "]}}";
+                return PostClubServer<ClubsServerRes>(ClubsURI, param);
+            }
+            catch (Exception ex)
+            {
+                WriteError("post DelHighTaxClub ex:", ex.Message);
             }
             return null;
         }

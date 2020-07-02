@@ -152,6 +152,7 @@
     <Content Include="M\Guild\GuildInfo.aspx" />
     <Content Include="M\Guild\guildlink.aspx" />
     <Content Include="M\Guild\GuildList.aspx" />
+    <Content Include="M\Guild\hightaxclubs.aspx" />
     <Content Include="M\Guild\LeagueClubMembers.aspx" />
     <Content Include="M\Guild\memberactive.aspx" />
     <Content Include="M\Guild\RecomClubsList.aspx" />
@@ -412,6 +413,13 @@
     <Compile Include="M\Guild\GuildList.aspx.designer.cs">
       <DependentUpon>GuildList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="M\Guild\hightaxclubs.aspx.cs">
+      <DependentUpon>hightaxclubs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Guild\hightaxclubs.aspx.designer.cs">
+      <DependentUpon>hightaxclubs.aspx</DependentUpon>
+    </Compile>
     <Compile Include="M\Guild\LeagueClubMembers.aspx.cs">
       <DependentUpon>LeagueClubMembers.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -647,6 +655,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties common_4js_4gameback_1json__JsonSchema="https://carafe.fm/schema/draft-02/bundle.schema.json" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

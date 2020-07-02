@@ -140,7 +140,7 @@
     <div id="pager" class="pager"></div>
     <div class="loading" id="loading"></div>
      <!--弹出窗口开始-->
-    <div class="theme-popover" style="height: 480px;">
+    <div class="theme-popover" style="height: 500px;">
         <div class="theme-poptit">
             <a href="javascript:;" title="关闭" class="close">×</a>
             <h3 id="msgtitle"></h3>

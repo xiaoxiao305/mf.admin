@@ -1,0 +1,2 @@
+E:\code\mf.admin\TencentSmsApp\obj\Release\TencentSmsApp.csprojAssemblyReference.cache
+E:\code\mf.admin\TencentSmsApp\obj\Release\TencentSmsApp.exe.config

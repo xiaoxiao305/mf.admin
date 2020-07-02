@@ -153,8 +153,79 @@ namespace MF.Admin.BLL
                 //退出俱乐部联盟
                 functions.Add("existleague", "ExistLeague");
 
+                //高税俱乐部
+                functions.Add("gethightaxclub", "GetHighTaxClub");
+                functions.Add("addhightaxclub", "AddHighTaxClub");
+                functions.Add("delhightaxclub", "DelHighTaxClub");
+
 
             }
+        }
+        public void DelHighTaxClub(object[] clubsId)
+        {
+            try
+            {
+                if (clubsId == null || clubsId.Length < 1)
+                {
+                    Response.Write("{\"code\":0,\"msg\":\"参数有误\"}");
+                    return;
+                } 
+                //if (!CheckToken(token))
+                //{
+                //    Response.Write("{\"code\":0,\"msg\":\"安全令有误\"}");
+                //    return;
+                //}
+                //string[] clubIdsTmp = clubIds.Split(',');
+                //int[] newClubIds = Array.ConvertAll<string, int>(clubIdsTmp, delegate (string s) { return int.Parse(s); });
+                ClubsServerRes cs = GuildBLL.DelHighTaxClub(clubsId);
+                if (cs != null && cs.ret == 0)
+                    Response.Write("{\"code\":1,\"msg\":\"操作成功\"}");
+                else
+                    Response.Write("{\"code\":0,\"msg\":\"操作失败\"}");
+            }
+            catch (Exception ex)
+            {
+                Response.Write("{\"code\":0,\"msg\":\"操作失败:" + ex.Message + "\"}");
+            }
+        }
+        public void AddHighTaxClub(string clubIds, string token)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(clubIds) || string.IsNullOrEmpty(token))
+                {
+                    Response.Write("{\"code\":0,\"msg\":\"参数有误\"}");
+                    return;
+                }
+                if (!CheckToken(token))
+                {
+                    Response.Write("{\"code\":0,\"msg\":\"安全令有误\"}");
+                    return;
+                }
+                string[] clubIdsTmp = clubIds.Split(',');
+                int[] newClubIds = Array.ConvertAll<string, int>(clubIdsTmp, delegate (string s) { return int.Parse(s); });
+                ClubsServerRes cs = GuildBLL.AddHighTaxClub(newClubIds);
+                if (cs != null && cs.ret == 0)
+                    Response.Write("{\"code\":1,\"msg\":\"操作成功\"}");
+                else
+                    Response.Write("{\"code\":0,\"msg\":\"操作失败\"}");
+            }catch(Exception ex)
+            {
+                Response.Write("{\"code\":0,\"msg\":\"操作失败:"+ex.Message+"\"}");
+            }
+        }
+        public void GetHighTaxClub(long pageSize, long pageIndex)
+        {
+            var res = new PagerResult<List<ClubsModel>>();
+            var list = GuildBLL.GetHighTaxClub();
+            res.result = list;
+            res.code = 1;
+            res.msg = "";
+            res.index = (int)pageIndex;
+            if (list != null)
+                res.rowCount = list.Count;
+            string json = Json.SerializeObject(res);
+            Response.Write(json);
         }
         public void ExistLeague(string club_id)
         {

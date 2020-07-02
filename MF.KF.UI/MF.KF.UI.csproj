@@ -69,6 +69,7 @@
     <Content Include="M\club\club_statistic_day.aspx" />
     <Content Include="M\club\guildlink.aspx" />
     <Content Include="M\club\guildlist.aspx" />
+    <Content Include="M\club\hightaxclubs.aspx" />
     <Content Include="M\club\memberactive.aspx" />
     <Content Include="M\Currency\AllStrongBox.aspx" />
     <Content Include="M\Currency\CurrencyRecord.aspx" />
@@ -197,6 +198,13 @@
     </Compile>
     <Compile Include="M\club\guildlist.aspx.designer.cs">
       <DependentUpon>guildlist.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\club\hightaxclubs.aspx.cs">
+      <DependentUpon>hightaxclubs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\club\hightaxclubs.aspx.designer.cs">
+      <DependentUpon>hightaxclubs.aspx</DependentUpon>
     </Compile>
     <Compile Include="M\club\memberactive.aspx.cs">
       <DependentUpon>memberactive.aspx</DependentUpon>

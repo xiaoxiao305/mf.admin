@@ -34,9 +34,9 @@ namespace MF.Admin.DAL
         public static string BlackURI = ConfigurationManager.AppSettings["BlackURI"];
         public static string GameCoinURI = ConfigurationManager.AppSettings["GameCoinURI"];
         public static string GameIncome = ConfigurationManager.AppSettings["GameIncome"];
-        public static string RecURI = System.Configuration.ConfigurationManager.AppSettings["RecURI"];
-        public static string ShiChuiURI = System.Configuration.ConfigurationManager.AppSettings["ShiChuiURI"];
-
+        public static string RecURI = ConfigurationManager.AppSettings["RecURI"];
+        public static string ShiChuiURI = ConfigurationManager.AppSettings["ShiChuiURI"];
+        
 
         public BaseDAL()
         {

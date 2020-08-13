@@ -14,6 +14,7 @@ using MF.Admin.DAL;
 using Newtonsoft.Json;
 using System.Net;
 using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace MF.Admin.BLL
 {
@@ -157,9 +158,106 @@ namespace MF.Admin.BLL
                 functions.Add("gethightaxclub", "GetHighTaxClub");
                 functions.Add("addhightaxclub", "AddHighTaxClub");
                 functions.Add("delhightaxclub", "DelHighTaxClub");
+                //俱乐部税收列表
+                functions.Add("getclubtaxlist", "GetClubTaxList");
+                //禁止同桌玩家列表
+                functions.Add("getmutuallist", "GetMutualList");
+                functions.Add("addmutual", "AddMutual");
+                functions.Add("delmutual", "DelMutual");
 
 
             }
+        }
+        public void DelMutual(string players_id_0, string players_id_1)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(players_id_0) || string.IsNullOrEmpty(players_id_1 ))
+                {
+                    Response.Write("{\"code\":0,\"msg\":\"参数有误\"}");
+                    return;
+                }
+                WriteLog("del players_id_1:", players_id_1);
+                string[] players = Json.DeserializeObject<string[]>(players_id_1);
+                ClubsServerRes cs = null;
+                for (int i = 0; i < players.Length; i++)
+                {
+                    WriteLog("del iii:", players[i]);
+                    List<string> list = new List<string>() { players_id_0, players[i].Trim() };
+                    cs= GameBLL.DelMutual(list);
+                }
+                if (cs != null && cs.ret == 0)
+                    Response.Write("{\"code\":1,\"msg\":\"操作成功\"}");
+                else
+                    Response.Write("{\"code\":0,\"msg\":\"操作失败\"}");
+            }
+            catch (Exception ex)
+            {
+                Response.Write("{\"code\":0,\"msg\":\"操作失败:" + ex.Message + "\"}");
+            }
+        }
+
+        public void AddMutual(string players_id_0, string players_id_1, string token)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(players_id_0) || string.IsNullOrEmpty(players_id_1) || string.IsNullOrEmpty(token))
+                {
+                    Response.Write("{\"code\":0,\"msg\":\"参数有误\"}");
+                    return;
+                }
+                if (!CheckToken(token))
+                {
+                    Response.Write("{\"code\":0,\"msg\":\"安全令有误\"}");
+                    return;
+                }
+                string[] new_players_id_1=players_id_1.Split(',');
+                ClubsServerRes cs = null;
+                for (int i = 0; i < new_players_id_1.Length; i++)
+                {
+                    List<string> list = new List<string>() { players_id_0, new_players_id_1[i] };
+                    list.Sort();
+                    cs = GameBLL.AddMutual(list);
+                }
+                if (cs != null && cs.ret == 0)
+                    Response.Write("{\"code\":1,\"msg\":\"操作成功\"}");
+                else
+                    Response.Write("{\"code\":0,\"msg\":\"操作失败\"}");
+            }
+            catch (Exception ex)
+            {
+                Response.Write("{\"code\":0,\"msg\":\"操作失败:" + ex.Message + "\"}");
+            }
+        }
+        public void GetMutualList(long pageSize, long pageIndex, string players)
+        {
+            var res = new PagerResult<List<GameMutual>>(); 
+            string[] strs = new string[] { } ;
+            if (!string.IsNullOrEmpty(players))
+                strs = players.Split(',');
+            var list = GameBLL.GetMutualList(strs);
+            res.result = list;
+            res.code = 1;
+            res.msg = "";
+            res.index = (int)pageIndex;
+            if (list != null)
+                res.rowCount = list.Count;
+            string json = Json.SerializeObject(res);
+            WriteLog(" ajax GetMutualList json:", json);
+            Response.Write(json);
+        }
+        public void GetClubTaxList(long pageSize, long pageIndex, string club_id, long time)
+        {
+            var res = new PagerResult<List<ClubsModel>>();
+            var list = GuildBLL.GetClubTaxList(club_id, time);
+            res.result = list;
+            res.code = 1;
+            res.msg = "";
+            res.index = (int)pageIndex;
+            if (list != null)
+                res.rowCount = list.Count;
+            string json = Json.SerializeObject(res);
+            Response.Write(json);
         }
         public void DelHighTaxClub(object[] clubsId)
         {
@@ -169,7 +267,7 @@ namespace MF.Admin.BLL
                 {
                     Response.Write("{\"code\":0,\"msg\":\"参数有误\"}");
                     return;
-                } 
+                }
                 //if (!CheckToken(token))
                 //{
                 //    Response.Write("{\"code\":0,\"msg\":\"安全令有误\"}");
@@ -209,9 +307,10 @@ namespace MF.Admin.BLL
                     Response.Write("{\"code\":1,\"msg\":\"操作成功\"}");
                 else
                     Response.Write("{\"code\":0,\"msg\":\"操作失败\"}");
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                Response.Write("{\"code\":0,\"msg\":\"操作失败:"+ex.Message+"\"}");
+                Response.Write("{\"code\":0,\"msg\":\"操作失败:" + ex.Message + "\"}");
             }
         }
         public void GetHighTaxClub(long pageSize, long pageIndex)
@@ -231,22 +330,24 @@ namespace MF.Admin.BLL
         {
             ClubsServerRes cs = GuildBLL.ExistLeague(club_id);
             var oprState = 0; var msg = "操作失败";
-            if (cs != null && cs.ret == 0){
+            if (cs != null && cs.ret == 0)
+            {
                 oprState = 1;
                 msg = "操作成功";
             }
             Response.Write("{\"code\":" + oprState + ",\"msg\":\"" + msg + "\"}");
         }
         public void KickClubMembers(string member_id, string club_id)
-        { 
+        {
             ClubsServerRes cs = GuildBLL.ClubMemberOpt(member_id, club_id, "kick");
-            var oprState = 0;var  msg = "踢出俱乐部【"+ club_id + "】成员【"+ member_id + "】操作失败";
-            if (cs != null && cs.ret == 0){
+            var oprState = 0; var msg = "踢出俱乐部【" + club_id + "】成员【" + member_id + "】操作失败";
+            if (cs != null && cs.ret == 0)
+            {
                 oprState = 1;
                 msg = "踢出俱乐部【" + club_id + "】成员【" + member_id + "】操作成功";
             }
             AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "AjaxRequest.KickClubMembers", oprState, SystemLogEnum.KICKCLUBMEMBERS);
-            Response.Write("{\"code\":"+oprState+",\"msg\":\""+msg+"\"}");
+            Response.Write("{\"code\":" + oprState + ",\"msg\":\"" + msg + "\"}");
         }
         public void GetNewGameUsers(long PageSize, long pageIndex, long time, long gameId, long field, string value)
         {

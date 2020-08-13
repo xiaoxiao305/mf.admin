@@ -774,4 +774,57 @@
             }
         });
     },
+    getClubTaxList: function (args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: "getclubtaxlist", args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },
+    getMutualList: function (args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: "getmutuallist", args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },
+    addMutual: function (method, args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: method, args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },
+    delMutual: function (method, args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: method, args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },
+    
 };

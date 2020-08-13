@@ -107,6 +107,15 @@ Date.prototype.dateDiff = function(datepart) {
     }
     return 0;
 }
+Date.prototype.dateDiff2 = function (datepart) {
+    var date = new Date("1970/01/01 00:00:00");
+    if (datepart == "d" || datepart == "dd") {
+        return Math.floor(this.getTime() / 86400000) - Math.floor(date.getTime() / 86400000);
+    } else if (datepart == "s" || datepart == "ss") {
+        return Math.floor(this.getTime() / 1000) - Math.floor(date.getTime() / 1000);
+    }
+    return 0;
+}
 
 // 对Date的扩展，将 Date 转化为指定格式的String 
 // 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符， 

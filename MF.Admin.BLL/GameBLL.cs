@@ -1509,5 +1509,80 @@ namespace MF.Admin.BLL
             }
             return null;
         }
+
+        public static List<GameMutual> GetMutualList(string[] players)
+        {
+            try
+            {
+                WriteLog(" players.Length :", players.Length.ToString());
+                ClubsRes<object> res = null;
+                if (players == null || players.Length < 1)
+                    res = dal.GetAllMutualList();
+                else
+                {
+                    res = dal.GetMutualList(players);
+                }
+                if (res == null || res.ret != 0 || res.msg==null) return null;
+                var res2 = res.msg as IDictionary<string, JToken>;
+                if (res2 == null || res2.Keys==null ||res2.Keys.Count < 1) return null;
+                List<GameMutual> list = new List<GameMutual>();
+                foreach (string key in res2.Keys)
+                {
+                    GameMutual gm = new GameMutual();
+                    gm.player_id_0 = key;
+                    if (res2[key] == null || res2[key].ToString() == "[]") continue;
+                    gm.player_id_1 = res2[key].ToString();
+                    list.Add(gm);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                WriteError("GAMEBLL GetMutualList ex:", ex.Message);
+            }
+            return null;
+        }
+
+
+        public static ClubsServerRes AddMutual(List<string> players)
+        {
+            try
+            {
+                if (players == null || players.Count < 1) return null;
+                ClubsServerRes csr = dal.AddMutual(players);
+                string msg = "";
+                if (csr != null && csr.ret == 0)
+                    msg = string.Format("添加禁止同桌游戏ID【{0}】成功", JsonConvert.SerializeObject(players));
+                else
+                    msg = string.Format("添加禁止同桌游戏ID【{0}】失败", JsonConvert.SerializeObject(players));
+                AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "GameBLL.AddMutual", (csr != null && csr.ret == 0) ? 1 : 0, SystemLogEnum.ADDMUTUAL);
+                return csr;
+            }
+            catch (Exception ex)
+            {
+                WriteError("Gamebll AddMutual ex:", ex.Message);
+            }
+            return null;
+        }
+        public static ClubsServerRes DelMutual(List<string> players)
+        {
+            try
+            {
+                if (players == null || players.Count < 1) return null;
+                ClubsServerRes csr = dal.DelMutual(players);
+                string msg = "";
+                if (csr != null && csr.ret == 0)
+                    msg = string.Format("删除禁止同桌游戏ID【{0}】成功", JsonConvert.SerializeObject(players));
+                else
+                    msg = string.Format("删除禁止同桌游戏ID【{0}】失败", JsonConvert.SerializeObject(players));
+                AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "GameBLL.DelMutual", (csr != null && csr.ret == 0) ? 1 : 0, SystemLogEnum.DELMUTUAL);
+                return csr;
+            }
+            catch (Exception ex)
+            {
+                WriteError("Gamebll DelMutual ex:", ex.Message);
+            }
+            return null;
+        }
     }
 }

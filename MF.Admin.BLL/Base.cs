@@ -64,7 +64,11 @@ namespace MF.Admin.BLL
                     if (HttpContext.Current == null || HttpContext.Current.Request == null || HttpContext.Current.Request.ServerVariables == null) return "";
                     string customerIP = "";
                     //CDN加速后取到的IP
+                    var v = HttpContext.Current.Request.Headers;
                     customerIP = HttpContext.Current.Request.Headers["Cdn-Src-Ip"];
+                    if (!string.IsNullOrEmpty(customerIP))
+                        return customerIP;
+                    customerIP = HttpContext.Current.Request.Headers["X-Real-IP"];
                     if (!string.IsNullOrEmpty(customerIP))
                         return customerIP;
                     if (HttpContext.Current.Request.ServerVariables["HTTP_VIA"] != null)

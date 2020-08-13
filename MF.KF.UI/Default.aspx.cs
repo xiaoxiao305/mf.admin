@@ -23,67 +23,7 @@ namespace MF.KF.UI
             txtDyPwd.Attributes["autocomplete"] = "off";
             txtCode.Attributes["autocomplete"] = "off";
             txtAccount.Attributes["autocomplete"] = "off";
-        }
-     
-        //private void GetInfo()
-        //{
-        //    //黑名单数据
-        //    List<GameBlackUserInfo> black = GameBLL.GetGameBlackUsers(0, 1, "");
-        //    //待审核
-        //    List<GameBlackUserInfo> auditBlack = GameBLL.GetAuditBlackUsers(0, 1, "");
-        //    if (auditBlack != null && auditBlack.Count > 0)
-        //    {
-        //        if (black == null)
-        //            black = new List<GameBlackUserInfo>();
-        //        black.AddRange(auditBlack);
-        //    }
-        //    if (black == null)
-        //    {
-        //        Response.Write("data is null");
-        //        return;
-        //    }
-        //    //initData();
-        //    if (string.IsNullOrEmpty(chargeids))
-        //    {
-        //        Response.Write("parm is null");
-        //        return;
-        //    }
-        //    string[] chargeIdList = chargeids.Split(',');
-        //    UserBLL.SetChargeIdCache(chargeIdList);
-        //    for (int i = 0; i < chargeIdList.Length; i++)
-        //    {
-        //        bool isBlack = false;
-        //        foreach (var item in black)
-        //        {
-        //            if (item.ChargeId.Trim().ToUpper() == chargeIdList[i].Trim().ToUpper())
-        //            {
-        //                isBlack = true;
-        //                break;
-        //            }
-        //        }
-        //        string str = chargeIdList[i];
-        //        Admin.BLL.Base.WriteError(str);
-        //        //str = "";
-        //        //if (isBlack)
-        //        //    str += "黑名单"; 
-        //        //else
-        //        //    str += "";
-        //        //Admin.BLL.Base.WriteLog(str);
-        //        str = "";
-        //        Users u = UserBLL.GetChargeIdCache(chargeIdList[i]);
-        //        if (u != null)
-        //            str += u.GUID;
-        //        else
-        //            str += "";
-        //        Admin.BLL.Base.WriteLog(str);
-        //    }
-
-
-
-
-
-        //}
-
+        } 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             try

@@ -66,6 +66,7 @@
     <Content Include="M\club\clubactive.aspx" />
     <Content Include="M\club\clublink.aspx" />
     <Content Include="M\club\clubmembers.aspx" />
+    <Content Include="M\club\clubtax.aspx" />
     <Content Include="M\club\club_statistic_day.aspx" />
     <Content Include="M\club\guildlink.aspx" />
     <Content Include="M\club\guildlist.aspx" />
@@ -75,6 +76,7 @@
     <Content Include="M\Currency\CurrencyRecord.aspx" />
     <Content Include="M\game\addblackuserlist.aspx" />
     <Content Include="M\game\auditblacklist.aspx" />
+    <Content Include="M\game\bindtableuid.aspx" />
     <Content Include="M\game\closeroom.aspx" />
     <Content Include="M\game\flushgameserver.aspx" />
     <Content Include="M\game\gameblacklist.aspx" />
@@ -178,6 +180,13 @@
     <Compile Include="M\club\clubmembers.aspx.designer.cs">
       <DependentUpon>clubmembers.aspx</DependentUpon>
     </Compile>
+    <Compile Include="M\club\clubtax.aspx.cs">
+      <DependentUpon>clubtax.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\club\clubtax.aspx.designer.cs">
+      <DependentUpon>clubtax.aspx</DependentUpon>
+    </Compile>
     <Compile Include="M\club\club_statistic_day.aspx.cs">
       <DependentUpon>club_statistic_day.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -244,6 +253,13 @@
     </Compile>
     <Compile Include="M\game\auditblacklist.aspx.designer.cs">
       <DependentUpon>auditblacklist.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\game\bindtableuid.aspx.cs">
+      <DependentUpon>bindtableuid.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\game\bindtableuid.aspx.designer.cs">
+      <DependentUpon>bindtableuid.aspx</DependentUpon>
     </Compile>
     <Compile Include="M\game\closeroom.aspx.cs">
       <DependentUpon>closeroom.aspx</DependentUpon>
@@ -352,7 +368,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\MF.Common.DLL\MF.Common.dll</HintPath>
     </Reference>
-    <Reference Include="MF.WebControls">
+    <Reference Include="MF.WebControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\MF.Common.DLL\MF.WebControls.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">

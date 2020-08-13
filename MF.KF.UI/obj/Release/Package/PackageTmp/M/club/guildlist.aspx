@@ -34,15 +34,17 @@
             addCell(tr, o.Create_Date, 6); 
             addCell(tr, o.Status==1?"生效":"失效", 7);
             addCell(tr, o.Type == 1 ? "俱乐部" : o.Type == 2 ? "俱乐部" : o.Type == 3 ? "积分俱乐部" : o.Type == 4 ? "金币俱乐部" : "", 8);
+            addCell(tr, o.Tax, 9); 
+            addCell(tr, o.Tax_Round, 10); 
             if(<%=isAdmin%>)
                 addCell(tr, "<a href='javascript:void (0);' onclick=\"verifyGuildInfo(" + o.Id + ",'" + o.Name + "');\">俱乐部审核</a>     <a href='javascript:void (0);' onclick=\"deleteClub(" + o.Id + ");\">解散俱乐部</a>  " +
-                    "<a href='javascript:void (0);' onclick=\"existLeague('" + o.Id + "');\">退出联盟</a>", 9);
+                    "<a href='javascript:void (0);' onclick=\"existLeague('" + o.Id + "');\">退出联盟</a>", 11);
             else
-                addCell(tr, "",9);
+                addCell(tr, "",11);
             return tr;
         }
         $(document).ready(function() {
-            var pagerTitles = ["选择","Id", "名称", "人数", "房卡数量","创建者", "创建时间", "状态","类型","操作"];
+            var pagerTitles = ["选择", "Id", "名称", "人数", "房卡数量", "创建者", "创建时间", "状态", "类型", "自由局税", "固定局税","操作"];
             jsonPager.init(ajax.getGuildList, [], searchResult, pagerTitles, "list_table", "container", "pager", insertRow);
             jsonPager.dataBind(1, 0);
             search();

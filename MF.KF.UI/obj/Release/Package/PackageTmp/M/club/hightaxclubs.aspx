@@ -24,7 +24,15 @@
             addCell(tr, "<input type='checkbox' value='" + o.Id + "'>", 0);
             addCell(tr, o.Id, 1);
             addCell(tr, o.Name, 2);
+            var guildMembers = o.Members_Count > 0 ? "<a href='javascript:void (0);' onclick=\"showClubMembers(" + o.Id + ");\">" + o.Members_Count + "</a>" : "0";
+            addCell(tr, guildMembers, 3);
             return tr;
+        }
+
+        function showClubMembers(clubId) {
+            currentClubId = clubId;
+            var url = "/m/club/ClubMembersList.aspx?clubId=" + clubId;
+            window.location.href = url;
         }
         $(document).ready(function() {
             var pagerTitles = ["选择","Id", "名称"];

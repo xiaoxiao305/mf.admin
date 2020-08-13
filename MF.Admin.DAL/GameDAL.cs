@@ -1,6 +1,7 @@
 ﻿using MF.Common.Json;
 using MF.Data;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -426,5 +427,45 @@ namespace MF.Admin.DAL
             }
             return list;
         }
+
+        public ClubsRes<object> GetAllMutualList()
+        {
+            try
+            {
+                string param = "{\"module\":\"mutual\",\"func\":\"get_all\",\"args\":{}}";
+                return PostClubServer<ClubsRes<object>>(GameCoinURI, param);               
+            }
+            catch(Exception ex)
+            {
+                WriteError("GAMEDLL GetAllMutualList ex:", ex.Message);
+            }
+            return null;
+        }
+        public ClubsRes<object> GetMutualList(string[] players)
+        {
+            try
+            {
+                string param = "{\"module\":\"mutual\",\"func\":\"get\",\"args\":{\"players\":"+Json.SerializeObject(players)+"}}";
+                return PostClubServer<ClubsRes<object>>(GameCoinURI, param); 
+            }
+            catch (Exception ex)
+            {
+                WriteError("GAMEDLL GetMutualList ex:", ex.Message);
+            }
+            return null;
+        }
+        public ClubsServerRes AddMutual(List<string> players)
+        {
+            string param = "{\"module\":\"mutual\",\"func\":\"add\",\"args\":{\"players\":" + Json.SerializeObject(players) + "}}";
+            WriteDebug("AddMutual param:" + param);
+            return PostClubServer<ClubsServerRes>(GameCoinURI, param);
+        }
+        public ClubsServerRes DelMutual(List<string> players)
+        {
+            string param = "{\"module\":\"mutual\",\"func\":\"del\",\"args\":{\"players\":" + Json.SerializeObject(players) + "}}";
+            WriteDebug("DelMutual param:" + param);
+            return PostClubServer<ClubsServerRes>(GameCoinURI, param);
+        }
+        
     }
 }

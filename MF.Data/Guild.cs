@@ -53,6 +53,12 @@ namespace MF.Data
         public int Room_Card { get; set; }
         public int Members_Count { get; set; }
         public int Type { get; set; }
+
+        //关于税收
+        public string TaxTime { get; set; }
+        public long Activity_Member_Count { get; set; }
+        public long Tax { get; set; }
+        public long Tax_Round { get; set; }
     }
     [Serializable]
     public class ClubsLink
@@ -348,4 +354,17 @@ namespace MF.Data
         public bool IsNextPage { get; set; }
         public List<GameBlackUserInfo> Items { get; set; } 
     }
+
+
+    [Serializable]
+    public class GameMutual
+    {
+        public string create_date { get; set; }
+        public string player_id_0 { get; set; }
+        public string player_name_0 { get; set; }
+        public string player_id_1 { get; set; }
+        public string player_id_other { get; set; }
+        public string player_name_other { get; set; }
+    }
+
 }

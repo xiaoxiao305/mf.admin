@@ -307,6 +307,12 @@ namespace MF.Admin.BLL
                 return 0;
             return cm.Room_Card;
         }
+        private static ClubsRes<object> GetClubTax(int clubId, long time)
+        {
+            if (clubId < 1)
+                return null;
+            return dal.GetClubTax(clubId, time);
+        }
         private static int GetClubMembers(int clubId)
         {
             if (clubId < 1)
@@ -564,20 +570,17 @@ namespace MF.Admin.BLL
         {
             ClubsRes<object> res = dal.GetHighTaxClub();
             if (res == null || res.msg == null) return null;
-            WriteLog("res json:", JsonConvert.SerializeObject(res));
-            WriteLog("res.msg json:", JsonConvert.SerializeObject(res.msg));
             List<ClubsModel> list = new List<ClubsModel>();
-            var msgRes = res.msg as IDictionary<string,JToken>;
-            WriteLog("msgRes json:", JsonConvert.SerializeObject(msgRes));
+            var msgRes = res.msg as IDictionary<string, JToken>;
             if (msgRes == null || msgRes.Count < 1 || !msgRes.ContainsKey("Clubs")) return null;
             List<int> clubs = (msgRes["Clubs"] as JArray).ToObject<List<int>>();
-            WriteLog("clubs json:", JsonConvert.SerializeObject(clubs));
             ClubsModel model;
             foreach (int clubId in clubs)
             {
                 model = new ClubsModel();
-                model.Id =clubId;
+                model.Id = clubId;
                 model.Name = dal.GetCacheClubName(clubId.ToString());
+                model.Members_Count= GetClubMembers(clubId);
                 list.Add(model);
             }
             return list;
@@ -621,6 +624,42 @@ namespace MF.Admin.BLL
             catch (Exception ex)
             {
                 WriteError("DelHighTaxClub ex:", ex.Message);
+            }
+            return null;
+        }
+        public static List<ClubsModel> GetClubTaxList(string club_id, long time)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(club_id)) return null;
+                ClubsModelServer cms = dal.GetClubModelList("id", club_id);
+                if (cms == null || cms.ret != 0) return null;
+                List<ClubsModel> newClubsList = new List<ClubsModel>();
+                ClubsModel cm = cms.msg;
+                ClubsRes<object> taxRes = GetClubTax(cm.Id, time);
+                if (taxRes == null || taxRes.ret != 0) return null;
+                var msgRes = taxRes.msg as IDictionary<string, JToken>;
+                if (msgRes == null) return null;
+                foreach (string resTime in msgRes.Keys)
+                {
+                    ClubsModel cm3 = new ClubsModel();
+                    cm3.Id = cm.Id;
+                    cm3.Name = cm.Name;
+                    cm3.TaxTime = resTime;
+                    var timeRes = msgRes[resTime] as IDictionary<string, JToken>;
+                    if (timeRes.ContainsKey("Activity_member_count") && timeRes["Activity_member_count"] != null)
+                        cm.Activity_Member_Count = long.Parse(timeRes["Activity_member_count"].ToString());
+                    if (timeRes.ContainsKey("tax") && timeRes["tax"] != null)
+                        cm3.Tax = long.Parse(timeRes["tax"].ToString());
+                    if (timeRes.ContainsKey("tax_round") && timeRes["tax_round"] != null)
+                        cm3.Tax_Round = long.Parse(timeRes["tax_round"].ToString());
+                    newClubsList.Add(cm3);
+                } 
+                return newClubsList;
+            }
+            catch (Exception ex)
+            {
+                WriteError("GuildBLL GetClubTaxList ex:", ex.Message);
             }
             return null;
         }

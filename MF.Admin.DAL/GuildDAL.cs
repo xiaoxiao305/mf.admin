@@ -802,7 +802,23 @@ namespace MF.Admin.DAL
             }
             return null;
         }
-
+        public long GetTimestamp() { return (int)(DateTime.Now - DateTime.Parse("1970-01-01 08:00:00")).TotalSeconds; }
+        public ClubsRes<object> GetClubTax(int clubId,long time)
+        {
+            try
+            {
+                if (time < 1)
+                    time = GetTimestamp();
+                string param = "{\"module\":\"club_mgr\",\"func\":\"week_report\",\"args\":{\"club_id\":"+ clubId+",\"time\":"+ time+ "}}";
+                WriteLog("GetClubTax param:", param);
+                return PostClubServer<ClubsRes<object>>(ClubsURI, param);
+            }
+            catch (Exception ex)
+            {
+                WriteError("post GetClubTax ex:", ex.Message);
+            }
+            return null;
+        }
         public ClubsRes<object> GetHighTaxClub()
         {
             try

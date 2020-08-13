@@ -166,6 +166,14 @@ namespace MF.Data
         /// 删除高税俱乐部
         /// </summary>
         DELHIGHTAXCLUB = 30,
+        /// <summary>
+        /// 添加禁止同桌游戏ID
+        /// </summary>
+        ADDMUTUAL = 31,
+        /// <summary>
+        /// 删除禁止同桌游戏ID
+        /// </summary>
+        DELMUTUAL = 32,
 
     }
 }

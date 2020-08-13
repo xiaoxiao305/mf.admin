@@ -205,7 +205,6 @@
                     截止:<input type="text" id="overtime" class="box w100" readonly="readonly" />
                 </span>
                 <input type="button" value="查询" onclick="search()" class="ui-button-icon-primary" />
-                <input type="button" value="增加元宝" onclick="showAddMoneyWin(1)" class="ui-button-icon-primary oprbutton"/>
                 <span class="red">　　　　　普通游戏输赢：<label id="gameWin"></label>　　　　　德州游戏输赢：<label id="dzWin"></label></span>
             </div>
       <div id="lineChart" style="height: 400px;width:auto;background:white;margin:20px 0 0;"></div>
@@ -265,36 +264,7 @@
             myLineChart.setOption(lineChart);
         }
     </script>
-            <div id="container"></div>
-            <div id="pager" class="pager"></div>
-            <div class="loading" id="loading"></div>
-    <!--弹出窗口开始-->
-    <div class="theme-popover" style="height: 400px;">
-        <div class="theme-poptit">
-            <a href="javascript:;" title="关闭" class="close">×</a>
-            <h3 id="msgtitle">添加元宝</h3>
-        </div>
-        <div class="theme-popbod dform">
-            <div id="content"></div>
-        </div>
-    </div>
-    <div class="theme-popover-mask"></div>
-    <!--弹出窗口结束-->
-    <div class="hide">
-         <ul id="T1">
-            <li>元宝数量：<input class="ipt" type="text" id="num" /></li>
-            <li>安&nbsp;全&nbsp;令：<input class="ipt" type="text" id="token" /></li>
-            <li class="err red" id="lblerr"></li>
-            <li><input class="btn btn-primary" type="button" value=" 确 定" onclick="addusermoney('<%=account %>',1)" /></li>
-            <li class="err red">注：该元宝退还至用户邮件，请提醒用户领取。</li>
-        </ul>
-        <ul id="T2">
-            <li class="red">请仔细核对如下信息，确认是否添加元宝</li>
-            <li>　　　账&nbsp;&nbsp;&nbsp;&nbsp;号：<%=account %></li>
-            <li>元宝数量：<span id="confirmnum"></span></li>                
-            <li><input class="btn btn-primary" type="button" value=" 确 定" onclick="confirmopr('<%=account %>',1)" /></li>
-        </ul>
-        <input type="hidden"  id="hidNum" />
-        <input type="hidden"  id="hidToken" />
-    </div>
+        <div id="container"></div>
+        <div id="pager" class="pager"></div>
+        <div class="loading" id="loading"></div>
 </asp:Content>

@@ -4,3 +4,11 @@ E:\code\mf.admin\MF.Data\bin\Release\Newtonsoft.Json.dll
 E:\code\mf.admin\MF.Data\obj\Release\MF.Data.csproj.CopyComplete
 E:\code\mf.admin\MF.Data\obj\Release\MF.Data.dll
 E:\code\mf.admin\MF.Data\obj\Release\MF.Data.pdb
+E:\code\mf.admin\MF.Data\obj\Release\MF.Data.csprojAssemblyReference.cache
+D:\code\mf.admin\MF.Data\bin\Release\MF.Data.dll
+D:\code\mf.admin\MF.Data\bin\Release\MF.Data.pdb
+D:\code\mf.admin\MF.Data\bin\Release\Newtonsoft.Json.dll
+D:\code\mf.admin\MF.Data\obj\Release\MF.Data.csprojAssemblyReference.cache
+D:\code\mf.admin\MF.Data\obj\Release\MF.Data.csproj.CopyComplete
+D:\code\mf.admin\MF.Data\obj\Release\MF.Data.dll
+D:\code\mf.admin\MF.Data\obj\Release\MF.Data.pdb

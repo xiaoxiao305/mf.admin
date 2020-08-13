@@ -24,10 +24,11 @@
             addCell(tr, "<input type='checkbox' value='" + o.Id + "'>", 0);
             addCell(tr, o.Id, 1);
             addCell(tr, o.Name, 2);
+            addCell(tr, o.Members_Count, 3);
             return tr;
         }
         $(document).ready(function() {
-            var pagerTitles = ["选择","Id", "名称"];
+            var pagerTitles = ["选择", "Id", "名称", "人数"];
             jsonPager.init(ajax.getHighTaxClub, [], searchResult, pagerTitles, "list_table", "container", "pager", insertRow);
             jsonPager.dataBind(1, 0);
             search();

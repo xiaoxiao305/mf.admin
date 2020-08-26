@@ -761,6 +761,19 @@
             }
         });
     },
+    setHighTaxClub: function (method, args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: method, args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },
     delHighTaxClub: function (method, args, callback) {
         $.ajax({
             url: ajax.url,

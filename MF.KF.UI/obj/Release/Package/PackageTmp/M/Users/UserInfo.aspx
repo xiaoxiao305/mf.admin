@@ -10,7 +10,7 @@
                     aList[i].target="_self";
             }
             if (<%=isAdmin%>== 1) {
-                $("#currencyRecordTag").show();
+                //$("#currencyRecordTag").show();
                 $("#opreate-tag").show();
             }
         });
@@ -176,7 +176,7 @@
     </table>
     <div id="uinfodetailopreate" runat="server" class="hide">
         <ul>
-            <li>当前元宝数量　　　　<a href="/M/currency/CurrencyRecord.aspx?account=<%=user.Account %>" id="currencyRecordTag" style="display:none;">元宝变更详情</a>　　　<a href="/m/Charge/RecordList.aspx?account=<%=user.Account %>">充值记录</a></li>
+            <li>当前元宝数量　　　　<a href="/M/currency/CurrencyRecord.aspx?account=<%=user.Account %>" id="currencyRecordTag">元宝变更详情</a>　　　<a href="/m/Charge/RecordList.aspx?account=<%=user.Account %>">充值记录</a></li>
         </ul>
         <div class="opreate-a" id="opreate-tag" style="display:none;">
             <a href="javascript:;" onclick="showOpreateWin(1)">修改密码</a><a href="javascript:;" onclick="showOpreateWin(2)">解绑手机</a><a href="javascript:;" onclick="showOpreateWin(3)">解绑安全令</a><a href="javascript:;" onclick="showOpreateWin(4)">解除本机锁定</a><a href="javascript:;" onclick="showOpreateWin(5)">解除安全令锁定</a>

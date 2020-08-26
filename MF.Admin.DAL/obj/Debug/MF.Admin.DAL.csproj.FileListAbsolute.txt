@@ -28,3 +28,4 @@ D:\code\mf.admin\MF.Admin.DAL\obj\Debug\MF.Admin.DAL.csprojAssemblyReference.cac
 D:\code\mf.admin\MF.Admin.DAL\obj\Debug\MF.Admin.DAL.csproj.CopyComplete
 D:\code\mf.admin\MF.Admin.DAL\obj\Debug\MF.Admin.DAL.dll
 D:\code\mf.admin\MF.Admin.DAL\obj\Debug\MF.Admin.DAL.pdb
+D:\code\mf.admin\MF.Admin.DAL\obj\Debug\MF.Admin.DAL.csproj.CoreCompileInputs.cache

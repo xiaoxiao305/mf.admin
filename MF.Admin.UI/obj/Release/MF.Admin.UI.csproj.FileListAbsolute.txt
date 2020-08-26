@@ -50,3 +50,4 @@ D:\code\mf.admin\MF.Admin.UI\obj\Release\MF.Admin.UI.csprojAssemblyReference.cac
 D:\code\mf.admin\MF.Admin.UI\obj\Release\MF.Admin.UI.csproj.CopyComplete
 D:\code\mf.admin\MF.Admin.UI\obj\Release\MF.Admin.UI.dll
 D:\code\mf.admin\MF.Admin.UI\obj\Release\MF.Admin.UI.pdb
+D:\code\mf.admin\MF.Admin.UI\obj\Release\MF.Admin.UI.csproj.CoreCompileInputs.cache

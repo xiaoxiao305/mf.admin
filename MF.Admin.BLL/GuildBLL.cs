@@ -580,7 +580,15 @@ namespace MF.Admin.BLL
                 model = new ClubsModel();
                 model.Id = clubId;
                 model.Name = dal.GetCacheClubName(clubId.ToString());
-                model.Members_Count= GetClubMembers(clubId);
+                model.Members_Count = GetClubMembers(clubId);
+                //设置的最高税额
+                ClubsRes<object> r = dal.GetClubHighTax(clubId);
+                if (r.ret == 0)
+                {
+                    var msgRes2 = r.msg as IDictionary<string, JToken>;
+                    if (msgRes2 != null && msgRes2.Count > 0 && msgRes2.ContainsKey("Tax"))
+                        model.Max_Tax = long.Parse(msgRes2["Tax"].ToString());
+                }
                 list.Add(model);
             }
             return list;
@@ -603,6 +611,27 @@ namespace MF.Admin.BLL
             catch (Exception ex)
             {
                 WriteError("AddHighTaxClub ex:", ex.Message);
+            }
+            return null;
+        }
+        public static ClubsServerRes SetHighTaxClub(int clubId, long maxTax)
+        {
+            try
+            {
+                if (clubId < 1 || maxTax < 0)
+                    return null;
+                ClubsServerRes csr = dal.SetHighTaxClub(clubId, maxTax);
+                string msg = "";
+                if (csr != null && csr.ret == 0)
+                    msg = string.Format("设置高税俱乐部ID【{0}】最高税额为【{1}】成功", clubId, maxTax);
+                else
+                    msg = string.Format("设置高税俱乐部ID【{0}】最高税额为【{1}】失败", clubId, maxTax);
+                AdminBLL.WriteSystemLog(CurrentUser.Account, ClientIP, msg, "GuildBLL.SetHighTaxClub", (csr != null && csr.ret == 0) ? 1 : 0, SystemLogEnum.SETHIGHTAXCLUB);
+                return csr;
+            }
+            catch (Exception ex)
+            {
+                WriteError("SetHighTaxClub ex:", ex.Message);
             }
             return null;
         }
@@ -654,7 +683,7 @@ namespace MF.Admin.BLL
                     if (timeRes.ContainsKey("tax_round") && timeRes["tax_round"] != null)
                         cm3.Tax_Round = long.Parse(timeRes["tax_round"].ToString());
                     newClubsList.Add(cm3);
-                } 
+                }
                 return newClubsList;
             }
             catch (Exception ex)

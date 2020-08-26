@@ -8,7 +8,8 @@ E:\code\mf.admin\MF.Data\obj\Debug\MF.Data.pdb
 D:\code\mf.admin\MF.Data\bin\Debug\MF.Data.dll
 D:\code\mf.admin\MF.Data\bin\Debug\MF.Data.pdb
 D:\code\mf.admin\MF.Data\bin\Debug\Newtonsoft.Json.dll
-D:\code\mf.admin\MF.Data\obj\Debug\MF.Data.csprojAssemblyReference.cache
 D:\code\mf.admin\MF.Data\obj\Debug\MF.Data.csproj.CopyComplete
 D:\code\mf.admin\MF.Data\obj\Debug\MF.Data.dll
 D:\code\mf.admin\MF.Data\obj\Debug\MF.Data.pdb
+D:\code\mf.admin\MF.Data\bin\Debug\Newtonsoft.Json.xml
+D:\code\mf.admin\MF.Data\obj\Debug\MF.Data.csproj.CoreCompileInputs.cache

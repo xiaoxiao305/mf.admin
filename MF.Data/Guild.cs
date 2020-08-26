@@ -59,6 +59,8 @@ namespace MF.Data
         public long Activity_Member_Count { get; set; }
         public long Tax { get; set; }
         public long Tax_Round { get; set; }
+        //设置的最高税额
+        public long Max_Tax { get; set; }
     }
     [Serializable]
     public class ClubsLink

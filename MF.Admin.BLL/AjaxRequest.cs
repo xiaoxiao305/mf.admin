@@ -158,6 +158,7 @@ namespace MF.Admin.BLL
                 functions.Add("gethightaxclub", "GetHighTaxClub");
                 functions.Add("addhightaxclub", "AddHighTaxClub");
                 functions.Add("delhightaxclub", "DelHighTaxClub");
+                functions.Add("sethightaxclub", "SetHighTaxClub");
                 //俱乐部税收列表
                 functions.Add("getclubtaxlist", "GetClubTaxList");
                 //禁止同桌玩家列表
@@ -172,7 +173,7 @@ namespace MF.Admin.BLL
         {
             try
             {
-                if (string.IsNullOrEmpty(players_id_0) || string.IsNullOrEmpty(players_id_1 ))
+                if (string.IsNullOrEmpty(players_id_0) || string.IsNullOrEmpty(players_id_1))
                 {
                     Response.Write("{\"code\":0,\"msg\":\"参数有误\"}");
                     return;
@@ -184,7 +185,7 @@ namespace MF.Admin.BLL
                 {
                     WriteLog("del iii:", players[i]);
                     List<string> list = new List<string>() { players_id_0, players[i].Trim() };
-                    cs= GameBLL.DelMutual(list);
+                    cs = GameBLL.DelMutual(list);
                 }
                 if (cs != null && cs.ret == 0)
                     Response.Write("{\"code\":1,\"msg\":\"操作成功\"}");
@@ -211,7 +212,7 @@ namespace MF.Admin.BLL
                     Response.Write("{\"code\":0,\"msg\":\"安全令有误\"}");
                     return;
                 }
-                string[] new_players_id_1=players_id_1.Split(',');
+                string[] new_players_id_1 = players_id_1.Split(',');
                 ClubsServerRes cs = null;
                 for (int i = 0; i < new_players_id_1.Length; i++)
                 {
@@ -231,8 +232,8 @@ namespace MF.Admin.BLL
         }
         public void GetMutualList(long pageSize, long pageIndex, string players)
         {
-            var res = new PagerResult<List<GameMutual>>(); 
-            string[] strs = new string[] { } ;
+            var res = new PagerResult<List<GameMutual>>();
+            string[] strs = new string[] { };
             if (!string.IsNullOrEmpty(players))
                 strs = players.Split(',');
             var list = GameBLL.GetMutualList(strs);
@@ -286,11 +287,12 @@ namespace MF.Admin.BLL
                 Response.Write("{\"code\":0,\"msg\":\"操作失败:" + ex.Message + "\"}");
             }
         }
-        public void AddHighTaxClub(string clubIds, string token)
+        public void AddHighTaxClub(string clubIds, long maxTax, string token)
         {
             try
             {
-                if (string.IsNullOrEmpty(clubIds) || string.IsNullOrEmpty(token))
+                //maxTax 单位【2255游戏币】
+                if (string.IsNullOrEmpty(clubIds) || maxTax < 0 || string.IsNullOrEmpty(token))
                 {
                     Response.Write("{\"code\":0,\"msg\":\"参数有误\"}");
                     return;
@@ -304,7 +306,13 @@ namespace MF.Admin.BLL
                 int[] newClubIds = Array.ConvertAll<string, int>(clubIdsTmp, delegate (string s) { return int.Parse(s); });
                 ClubsServerRes cs = GuildBLL.AddHighTaxClub(newClubIds);
                 if (cs != null && cs.ret == 0)
+                {
+                    for (int i = 0; i < newClubIds.Length; i++)
+                    {
+                        GuildBLL.SetHighTaxClub(newClubIds[i], maxTax);
+                    }
                     Response.Write("{\"code\":1,\"msg\":\"操作成功\"}");
+                }
                 else
                     Response.Write("{\"code\":0,\"msg\":\"操作失败\"}");
             }
@@ -313,6 +321,33 @@ namespace MF.Admin.BLL
                 Response.Write("{\"code\":0,\"msg\":\"操作失败:" + ex.Message + "\"}");
             }
         }
+        public void SetHighTaxClub(long clubId, long maxTax, string token)
+        {
+            try
+            {
+                //maxTax 单位【2255游戏币】
+                if (clubId < 1 || maxTax < 0 || string.IsNullOrEmpty(token))
+                {
+                    Response.Write("{\"code\":0,\"msg\":\"参数有误\"}");
+                    return;
+                }
+                if (!CheckToken(token))
+                {
+                    Response.Write("{\"code\":0,\"msg\":\"安全令有误\"}");
+                    return;
+                }
+                ClubsServerRes cs = GuildBLL.SetHighTaxClub(int.Parse(clubId.ToString()), maxTax);
+                if (cs != null && cs.ret == 0)
+                    Response.Write("{\"code\":1,\"msg\":\"操作成功\"}");
+
+                else
+                    Response.Write("{\"code\":0,\"msg\":\"操作失败\"}");
+            }
+            catch (Exception ex)
+            {
+                Response.Write("{\"code\":0,\"msg\":\"操作失败:" + ex.Message + "\"}");
+            }
+        } 
         public void GetHighTaxClub(long pageSize, long pageIndex)
         {
             var res = new PagerResult<List<ClubsModel>>();

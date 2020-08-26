@@ -48,3 +48,4 @@ D:\code\mf.admin\MF.Admin.BLL\obj\Release\MF.Admin.BLL.csprojAssemblyReference.c
 D:\code\mf.admin\MF.Admin.BLL\obj\Release\MF.Admin.BLL.csproj.CopyComplete
 D:\code\mf.admin\MF.Admin.BLL\obj\Release\MF.Admin.BLL.dll
 D:\code\mf.admin\MF.Admin.BLL\obj\Release\MF.Admin.BLL.pdb
+D:\code\mf.admin\MF.Admin.BLL\obj\Release\MF.Admin.BLL.csproj.CoreCompileInputs.cache

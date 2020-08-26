@@ -24,22 +24,39 @@
             addCell(tr, "<input type='checkbox' value='" + o.Id + "'>", 0);
             addCell(tr, o.Id, 1);
             addCell(tr, o.Name, 2);
-            var guildMembers = o.Members_Count > 0 ? "<a href='javascript:void (0);' onclick=\"showClubMembers(" + o.Id + ");\">" + o.Members_Count + "</a>" : "0";
-            addCell(tr, guildMembers, 3);
+            addCell(tr, o.Members_Count, 3);
+            addCell(tr, parseFloat(o.Max_Tax / 10000).toFixed(2), 4);
+            addCell(tr, "<a href='javascript:;' onclick=\"showSetHighTaxClubWin(" + o.Id + "," + o.Max_Tax + ")\">设置税额</a>", 5);
             return tr;
         }
-
-        function showClubMembers(clubId) {
-            currentClubId = clubId;
-            var url = "/m/guild/ClubMembersList.aspx?clubId=" + clubId;
-            window.location.href = url;
-        }
         $(document).ready(function() {
-            var pagerTitles = ["选择","Id", "名称","人数"];
+            var pagerTitles = ["选择", "Id", "名称", "人数","最高税额（元）","操作"];
             jsonPager.init(ajax.getHighTaxClub, [], searchResult, pagerTitles, "list_table", "container", "pager", insertRow);
             jsonPager.dataBind(1, 0);
             search();
-        }); 
+        });
+        function showSetHighTaxClubWin(clubId,maxTax) {
+            $("#lblClubId").text(clubId);             
+			$("#txtMaxTax2").attr('value',parseFloat(maxTax / 10000).toFixed(2))
+            $("#msgtitle").text("设置最高税额"); 
+            showAddMoneyWin(2);
+        }
+        function sethightaxclub() { 
+            var clubId = $("#lblClubId").text();		 
+            var maxTax = $("#txtMaxTax2").val();		 
+            var token = $("#token2").val();
+            if (clubId == "") {
+                $("#lblerr2").text("俱乐部ID错误");
+                return;
+            }else if (parseFloat(maxTax)<0) {
+                $("#lblerr2").text("请输入最高税额");
+                return;
+            }else if (token == "") {
+                $("#lblerr2").text("请输入安全令");
+                return;
+            }
+            ajax.setHighTaxClub("sethightaxclub", [parseInt(clubId),parseFloat(maxTax)*10000, token], winresult);
+        }
         function delhightaxclub()
         {
             if ($(":checkbox").length < 1) {
@@ -64,16 +81,19 @@
         } 
         function addhightaxclub() {
             var clubId = $("#txtClubId").val();
+            var maxTax = $("#txtMaxTax").val();
             var token = $("#token").val();
             if (clubId == "") {
                 $("#lblerr").text("请输入俱乐部ID");
                 return;
-            }
-            else if (token == "") {
+            }else if (parseFloat(maxTax)<0) {
+                $("#lblerr").text("请输入最高税额");
+                return;
+            }else if (token == "") {
                 $("#lblerr").text("请输入安全令");
                 return;
             }
-            ajax.addHighTaxClub("addhightaxclub", [clubId, token], winresult);
+            ajax.addHighTaxClub("addhightaxclub", [clubId,maxTax*10000,token], winresult);
         }
         
     </script>
@@ -104,9 +124,19 @@
          <ul id="T1">
             <li>俱乐部ID：<input class="ipt" type="text" id="txtClubId" /></li>
             <li class="err red">注：多个俱乐部ID，以英文逗号（,）分隔。</li>
+            <li>最高税额：<input class="ipt" type="text" id="txtMaxTax" value="200.00" />元</li>
+            <li class="err red">最高税额单位为人民币（元）</li>
             <li>安&nbsp;全&nbsp;令：<input class="ipt" type="text" id="token" /></li>
             <li class="err red" id="lblerr"></li>
             <li><input class="btn btn-primary" type="button" value=" 确 定" onclick="addhightaxclub()" /></li>
+        </ul> 
+         <ul id="T2">
+            <li>俱乐部ID：<label id="lblClubId"></label></li>
+            <li>最高税额：<input class="ipt" type="text" id="txtMaxTax2" />元</li>
+            <li class="err red">最高税额单位为人民币（元）</li>
+            <li>安&nbsp;全&nbsp;令：<input class="ipt" type="text" id="token2" /></li>
+            <li class="err red" id="lblerr2"></li>
+            <li><input class="btn btn-primary" type="button" value=" 确 定" onclick="sethightaxclub()" /></li>
         </ul>  
     </div>
 </asp:Content>

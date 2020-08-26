@@ -174,6 +174,10 @@ namespace MF.Data
         /// 删除禁止同桌游戏ID
         /// </summary>
         DELMUTUAL = 32,
+        /// <summary>
+        /// 设置高税俱乐部最高税额
+        /// </summary>
+        SETHIGHTAXCLUB = 33,
 
     }
 }

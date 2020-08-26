@@ -13,325 +13,325 @@
       <publishTime>03/13/2020 08:51:28</publishTime>
     </File>
     <File Include="bin/MF.Admin.BLL.dll">
-      <publishTime>08/13/2020 15:36:25</publishTime>
+      <publishTime>08/26/2020 17:15:46</publishTime>
     </File>
     <File Include="bin/MF.Admin.BLL.pdb">
-      <publishTime>08/13/2020 15:36:25</publishTime>
+      <publishTime>08/26/2020 17:15:46</publishTime>
     </File>
     <File Include="bin/MF.Admin.DAL.dll">
-      <publishTime>08/13/2020 15:36:23</publishTime>
+      <publishTime>08/26/2020 17:15:45</publishTime>
     </File>
     <File Include="bin/MF.Admin.DAL.pdb">
-      <publishTime>08/13/2020 15:36:23</publishTime>
+      <publishTime>08/26/2020 17:15:45</publishTime>
     </File>
     <File Include="bin/MF.Common.dll">
-      <publishTime>06/21/2017 15:36:33</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="bin/MF.Data.dll">
-      <publishTime>08/13/2020 15:36:21</publishTime>
+      <publishTime>08/26/2020 16:48:42</publishTime>
     </File>
     <File Include="bin/MF.Data.ExtendChannel.dll">
-      <publishTime>02/25/2020 11:03:03</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="bin/MF.Data.pdb">
-      <publishTime>08/13/2020 15:36:21</publishTime>
+      <publishTime>08/26/2020 16:48:42</publishTime>
     </File>
     <File Include="bin/MF.Enum.dll">
-      <publishTime>12/19/2017 11:44:07</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="bin/MF.KF.UI.dll">
-      <publishTime>08/13/2020 16:08:11</publishTime>
+      <publishTime>08/26/2020 17:49:48</publishTime>
     </File>
     <File Include="bin/MF.KF.UI.pdb">
-      <publishTime>08/13/2020 16:08:11</publishTime>
+      <publishTime>08/26/2020 17:49:48</publishTime>
     </File>
     <File Include="bin/MF.Protocol.dll">
-      <publishTime>11/01/2018 16:01:14</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="bin/MF.WebControls.dll">
-      <publishTime>06/21/2017 15:36:33</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>12/19/2017 11:44:07</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="bin/RedisManager.dll">
-      <publishTime>02/12/2018 12:50:23</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="bin/ServiceStack.Common.dll">
-      <publishTime>06/21/2017 15:36:33</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="bin/ServiceStack.Interfaces.dll">
-      <publishTime>06/21/2017 15:36:33</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="bin/ServiceStack.Redis.dll">
-      <publishTime>06/21/2017 15:36:33</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="bin/ServiceStack.Text.dll">
-      <publishTime>06/21/2017 15:36:33</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/add.png">
-      <publishTime>10/26/2018 16:44:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/ajax_loading.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/bg_list.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/bg_main.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/bg_title.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/del.png">
-      <publishTime>10/26/2018 16:44:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/icon_drop.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/icon_edit.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/loading.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/logo.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/logo.jpg">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/no.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/ok.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/ok.png">
-      <publishTime>10/26/2018 16:44:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/pager/first.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/pager/first1.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/pager/last.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/pager/last1.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/pager/next.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/pager/next1.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/pager/pre.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/pager/pre1.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/reset.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/submit.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/top_line.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/top_menu_01.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/top_menu_02.gif">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/images/window.jpg">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/js/ajax.js">
-      <publishTime>07/08/2020 19:17:33</publishTime>
+      <publishTime>08/26/2020 17:04:17</publishTime>
     </File>
     <File Include="common/js/common.js">
-      <publishTime>07/07/2020 09:30:31</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/js/echarts.min.js">
-      <publishTime>01/03/2020 17:14:37</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/js/game.js">
-      <publishTime>06/08/2020 15:22:04</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/js/gameback.json">
-      <publishTime>06/24/2020 15:52:17</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/js/gamerec.json">
-      <publishTime>06/22/2020 17:53:23</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/js/jQuery-Timepicker-Addon/jquery-ui-timepicker-addon.js">
-      <publishTime>03/13/2020 08:36:16</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/js/jQuery-Timepicker-Addon/jquery-ui-timepicker-zh-CN.js">
-      <publishTime>03/13/2020 08:36:16</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/js/jQuery-Timepicker-Addon/jquery.ui.datepicker-zh-CN.js.js">
-      <publishTime>03/13/2020 08:36:16</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/js/jquery-ui-1.8.18.custom.min.js">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/js/jquery1.8.1.js">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/js/json2.js">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/js/JsonPager.js">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/js/MD5.js">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/styles/jquery-ui-1.8.18.custom.css">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/styles/layer.css">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/styles/main.css">
-      <publishTime>01/03/2020 17:14:37</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/styles/Menu.css">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/styles/style.css">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="db.config">
-      <publishTime>10/18/2018 11:25:20</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="Default.aspx">
-      <publishTime>03/03/2020 20:40:47</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="HandlerDownFile.ashx">
-      <publishTime>02/19/2020 10:09:29</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="jQuery-Timepicker-Addon/demo.html">
-      <publishTime>03/13/2020 08:43:51</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="jQuery-Timepicker-Addon/jQuery-Timepicker-Addon/demos.css">
-      <publishTime>03/13/2020 08:43:51</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="jQuery-Timepicker-Addon/jQuery-Timepicker-Addon/jquery-ui-timepicker-addon.css">
-      <publishTime>03/13/2020 08:43:51</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="jQuery-Timepicker-Addon/jQuery-Timepicker-Addon/jquery-ui-timepicker-addon.js">
-      <publishTime>03/13/2020 08:43:51</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="jQuery-Timepicker-Addon/js/jquery-ui-timepicker-zh-CN.js">
-      <publishTime>03/13/2020 08:43:51</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="jQuery-Timepicker-Addon/js/jquery.ui.datepicker-zh-CN.js.js">
-      <publishTime>03/13/2020 08:43:51</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/Charge/RecordList.aspx">
-      <publishTime>04/13/2020 13:03:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/club/clubactive.aspx">
-      <publishTime>02/22/2020 16:28:09</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/club/clublink.aspx">
-      <publishTime>02/11/2019 15:43:01</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/club/clubmembers.aspx">
-      <publishTime>05/13/2020 16:41:53</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/club/clubtax.aspx">
-      <publishTime>07/07/2020 10:01:31</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/club/club_statistic_day.aspx">
-      <publishTime>02/29/2020 19:50:05</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/club/guildlink.aspx">
-      <publishTime>03/01/2020 08:46:46</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/club/guildlist.aspx">
-      <publishTime>07/06/2020 10:15:16</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/club/hightaxclubs.aspx">
-      <publishTime>08/13/2020 16:07:24</publishTime>
+      <publishTime>08/26/2020 17:34:24</publishTime>
     </File>
     <File Include="M/club/memberactive.aspx">
-      <publishTime>07/07/2020 10:00:16</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/Currency/AllStrongBox.aspx">
-      <publishTime>03/10/2020 00:11:09</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/Currency/CurrencyRecord.aspx">
-      <publishTime>07/25/2020 12:13:58</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/Default.aspx">
-      <publishTime>06/23/2017 18:25:18</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/game/addblackuserlist.aspx">
-      <publishTime>03/07/2020 20:41:37</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/game/auditblacklist.aspx">
-      <publishTime>06/22/2020 18:04:41</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/game/autopatrol.aspx">
-      <publishTime>03/07/2020 16:49:29</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/game/bindtableuid.aspx">
-      <publishTime>07/09/2020 10:20:04</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/game/closeroom.aspx">
-      <publishTime>12/25/2019 15:33:51</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/game/flushgameserver.aspx">
-      <publishTime>02/12/2020 13:59:22</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/game/gameblacklist.aspx">
-      <publishTime>06/22/2020 18:04:51</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/game/gameincome.aspx">
-      <publishTime>03/07/2020 14:29:25</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/game/gamerec.aspx">
-      <publishTime>02/19/2020 18:50:12</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/game/newgameuser.aspx">
-      <publishTime>03/24/2020 17:21:04</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/game/recsearch.aspx">
-      <publishTime>02/28/2020 22:37:03</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/main.Master">
-      <publishTime>06/08/2020 15:27:06</publishTime>
+      <publishTime>08/26/2020 17:49:12</publishTime>
     </File>
     <File Include="M/menu.aspx">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/Pager.ascx">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/top.aspx">
-      <publishTime>05/19/2020 19:17:15</publishTime>
+      <publishTime>08/26/2020 17:49:27</publishTime>
     </File>
     <File Include="M/Users/UserInfo.aspx">
-      <publishTime>07/25/2020 11:51:11</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/Users/UserList.aspx">
-      <publishTime>03/07/2020 14:35:56</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/wellcome.aspx">
-      <publishTime>05/26/2017 18:07:44</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/09/2020 10:27:17</publishTime>
+      <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -47,7 +47,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="1.html" />
     <Content Include="common\images\add.png" />
     <Content Include="common\images\del.png" />
     <Content Include="common\images\ok.png" />

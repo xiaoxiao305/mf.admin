@@ -241,7 +241,7 @@ namespace MF.Admin.DAL
             p.func = "select";
             p.args = clubIds;
             var res = PostClubServer<ClubsRes<List<List<ClubsLink>>>>(ClubsURI, Json.SerializeObject(p));
-            if (res ==null || res.ret != 0) return null;
+            if (res == null || res.ret != 0) return null;
             Dictionary<string, ClubsLink> dic = new Dictionary<string, ClubsLink>();
             foreach (List<ClubsLink> items in res.msg)
             {
@@ -677,7 +677,7 @@ namespace MF.Admin.DAL
         {
             try
             {
-                if (chargeId==null || chargeId.Count < 1) return null;
+                if (chargeId == null || chargeId.Count < 1) return null;
                 string param = "{\"module\":\"club_member\",\"func\":\"get_player_clubs\",\"args\":{\"player_id_list\":" + JsonConvert.SerializeObject(chargeId) + "}}";
                 var res = PostClubServer<ClubsRes<Dictionary<string, List<string>>>>(ClubsURI, param);
                 if (res == null || res.ret != 0) return null;
@@ -773,11 +773,11 @@ namespace MF.Admin.DAL
         }
 
 
-        public ClubsServerRes ClubMemberOpt(string member_id, string club_id,string creater, string func)
+        public ClubsServerRes ClubMemberOpt(string member_id, string club_id, string creater, string func)
         {
             try
             {
-                string param = "{\"module\":\"club_member\",\"func\":\""+ func 
+                string param = "{\"module\":\"club_member\",\"func\":\"" + func
                     + "\",\"args\":{\"club_id\":" + club_id + ",\"master\":\"" + creater + "\",\"member_list\":[\"" + member_id + "\"]}}";
                 Base.WriteDebug("ClubMemberOpt param:", param);
                 return PostClubServer<ClubsServerRes>(ClubsURI, param);
@@ -803,13 +803,13 @@ namespace MF.Admin.DAL
             return null;
         }
         public long GetTimestamp() { return (int)(DateTime.Now - DateTime.Parse("1970-01-01 08:00:00")).TotalSeconds; }
-        public ClubsRes<object> GetClubTax(int clubId,long time)
+        public ClubsRes<object> GetClubTax(int clubId, long time)
         {
             try
             {
                 if (time < 1)
                     time = GetTimestamp();
-                string param = "{\"module\":\"club_mgr\",\"func\":\"week_report\",\"args\":{\"club_id\":"+ clubId+",\"time\":"+ time+ "}}";
+                string param = "{\"module\":\"club_mgr\",\"func\":\"week_report\",\"args\":{\"club_id\":" + clubId + ",\"time\":" + time + "}}";
                 WriteLog("GetClubTax param:", param);
                 return PostClubServer<ClubsRes<object>>(ClubsURI, param);
             }
@@ -819,6 +819,7 @@ namespace MF.Admin.DAL
             }
             return null;
         }
+        //获取高税俱乐部列表
         public ClubsRes<object> GetHighTaxClub()
         {
             try
@@ -838,13 +839,45 @@ namespace MF.Admin.DAL
             {
                 if (clubIds.Length < 1)
                     return null;
-                string param= "{\"module\":\"club_mgr\",\"func\":\"add_high_tax_clubs\",\"args\":{\"Clubs\":" + Json.SerializeObject(clubIds) + "}}";
+                string param = "{\"module\":\"club_mgr\",\"func\":\"add_high_tax_clubs\",\"args\":{\"Clubs\":" + Json.SerializeObject(clubIds) + "}}";
                 WriteDebug("AddHighTaxClub param:" + param);
                 return PostClubServer<ClubsServerRes>(ClubsURI, param);
             }
             catch (Exception ex)
             {
                 WriteError("post AddHighTaxClub ex:", ex.Message);
+            }
+            return null;
+        }
+        public ClubsServerRes SetHighTaxClub(int clubId, long maxTax)
+        {
+            try
+            {
+                if (clubId < 1 || maxTax < 0)
+                    return null;
+                string param = "{\"module\":\"club_mgr\",\"func\":\"set_high_tax_club\",\"args\":{\"ClubID\":" + clubId + ",\"Tax\":" + maxTax + "}}";
+                WriteDebug("SetHighTaxClub param:" + param);
+                return PostClubServer<ClubsServerRes>(ClubsURI, param);
+            }
+            catch (Exception ex)
+            {
+                WriteError("post SetHighTaxClub ex:", ex.Message);
+            }
+            return null;
+        }
+        //获取俱乐部设置的最高税额
+        public ClubsRes<object> GetClubHighTax(int clubId)
+        {
+            try
+            {
+                ////{"module":"club_mgr","func":"get_high_tax_club","args":{"ClubID":123936}}　
+                //17:10:15.902  sever'res is 　{"msg":{"ClubID":123936,"Tax":2000001},"ret":0}　
+                string param = "{\"module\":\"club_mgr\",\"func\":\"get_high_tax_club\",\"args\":{\"ClubID\":" + clubId + "}}";
+                return PostClubServer<ClubsRes<object>>(ClubsURI, param);
+            }
+            catch (Exception ex)
+            {
+                WriteError("post GetClubHighTax ex:", ex.Message);
             }
             return null;
         }

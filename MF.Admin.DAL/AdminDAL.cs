@@ -80,7 +80,7 @@ namespace MF.Admin.DAL
         {
             administartors = new Dictionary<string, Administrator>();
             //var sql = "select ID,Account, [Password], Flag, Name, LastIP, LastLogin, Token, Powers,[Type],hd from [Admin]";
-            var sql = "select ID,Account, [Password], Flag, Name, LastIP, LastLogin, Token, Powers,[Type],IsAdmin from [Admin]";
+            var sql = "select ID,Account, [Password], Flag, Name, LastIP, LastLogin, Token, Powers,[Type],IsAdmin,ExtraPowers from [Admin]";
             var dt = GetDataTable(sql, DBName.Manage);
             if (dt == null || dt.Rows.Count < 1)
                 return;
@@ -106,6 +106,9 @@ namespace MF.Admin.DAL
                 if (dr["IsAdmin"] != null && !string.IsNullOrEmpty(dr["IsAdmin"].ToString()))
                     admin.IsAdmin = int.Parse(dr["IsAdmin"].ToString());
                 // admin.hd = dr["hd"].ToString();
+                admin.ExtraPowers = null;
+                if (dr["ExtraPowers"] != null && !string.IsNullOrEmpty(dr["ExtraPowers"].ToString()))
+                    admin.ExtraPowers = Array.ConvertAll<string, int>(dr["ExtraPowers"].ToString().Split(','), delegate (string s) { return int.Parse(s); });
                 if (administartors.ContainsKey(admin.Account.ToLower()))
                     administartors[admin.Account.ToLower()] = admin;
                 else
@@ -219,7 +222,7 @@ namespace MF.Admin.DAL
                 }
             }
             log.WriteLoginLog(acc, ip, 1, "");
-            var admin = new Administrator { LastIP = administartors[acc].LastIP, Account = administartors[acc].Account, Flag = administartors[acc].Flag, ID = administartors[acc].ID, LastLogin = administartors[acc].LastLogin, Name = administartors[acc].Name, Token = administartors[acc].Token, Type = administartors[acc].Type ,IsAdmin=administartors[acc].IsAdmin};
+            var admin = new Administrator { LastIP = administartors[acc].LastIP, Account = administartors[acc].Account, Flag = administartors[acc].Flag, ID = administartors[acc].ID, LastLogin = administartors[acc].LastLogin, Name = administartors[acc].Name, Token = administartors[acc].Token, Type = administartors[acc].Type ,IsAdmin=administartors[acc].IsAdmin, ExtraPowers = administartors[acc].ExtraPowers };
             administartors[acc].LastIP = ip;
             administartors[acc].LastLogin = ConvertDateToSpan(DateTime.Now, "s");
             return admin;

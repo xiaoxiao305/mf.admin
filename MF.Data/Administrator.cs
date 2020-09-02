@@ -68,6 +68,10 @@ namespace MF.Data
         /// 用户设备信息
         /// </summary>
         public string hd { get; set; }
+        /// <summary>
+        /// 该用户除本身账号类型外有的其他权限
+        /// </summary>
+        public int[] ExtraPowers { get; set; }
 
     }
 }

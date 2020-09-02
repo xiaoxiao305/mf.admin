@@ -13,37 +13,37 @@
       <publishTime>03/13/2020 08:51:28</publishTime>
     </File>
     <File Include="bin/MF.Admin.BLL.dll">
-      <publishTime>08/26/2020 17:15:46</publishTime>
+      <publishTime>09/02/2020 15:37:56</publishTime>
     </File>
     <File Include="bin/MF.Admin.BLL.pdb">
-      <publishTime>08/26/2020 17:15:46</publishTime>
+      <publishTime>09/02/2020 15:37:56</publishTime>
     </File>
     <File Include="bin/MF.Admin.DAL.dll">
-      <publishTime>08/26/2020 17:15:45</publishTime>
+      <publishTime>09/02/2020 15:37:56</publishTime>
     </File>
     <File Include="bin/MF.Admin.DAL.pdb">
-      <publishTime>08/26/2020 17:15:45</publishTime>
+      <publishTime>09/02/2020 15:37:56</publishTime>
     </File>
     <File Include="bin/MF.Common.dll">
       <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="bin/MF.Data.dll">
-      <publishTime>08/26/2020 16:48:42</publishTime>
+      <publishTime>09/02/2020 15:37:55</publishTime>
     </File>
     <File Include="bin/MF.Data.ExtendChannel.dll">
       <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="bin/MF.Data.pdb">
-      <publishTime>08/26/2020 16:48:42</publishTime>
+      <publishTime>09/02/2020 15:37:55</publishTime>
     </File>
     <File Include="bin/MF.Enum.dll">
       <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="bin/MF.KF.UI.dll">
-      <publishTime>08/26/2020 17:49:48</publishTime>
+      <publishTime>09/02/2020 15:48:05</publishTime>
     </File>
     <File Include="bin/MF.KF.UI.pdb">
-      <publishTime>08/26/2020 17:49:48</publishTime>
+      <publishTime>09/02/2020 15:48:05</publishTime>
     </File>
     <File Include="bin/MF.Protocol.dll">
       <publishTime>08/25/2020 12:01:19</publishTime>
@@ -154,7 +154,7 @@
       <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="common/js/ajax.js">
-      <publishTime>08/26/2020 17:04:17</publishTime>
+      <publishTime>09/02/2020 15:12:56</publishTime>
     </File>
     <File Include="common/js/common.js">
       <publishTime>08/25/2020 12:01:19</publishTime>
@@ -312,14 +312,20 @@
     <File Include="M/main.Master">
       <publishTime>08/26/2020 17:49:12</publishTime>
     </File>
+    <File Include="M/main2.Master">
+      <publishTime>09/02/2020 15:08:03</publishTime>
+    </File>
     <File Include="M/menu.aspx">
       <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
     <File Include="M/Pager.ascx">
       <publishTime>08/25/2020 12:01:19</publishTime>
     </File>
+    <File Include="M/SysManage/sendbroadcast.aspx">
+      <publishTime>09/02/2020 15:06:49</publishTime>
+    </File>
     <File Include="M/top.aspx">
-      <publishTime>08/26/2020 17:49:27</publishTime>
+      <publishTime>09/02/2020 15:09:50</publishTime>
     </File>
     <File Include="M/Users/UserInfo.aspx">
       <publishTime>08/25/2020 12:01:19</publishTime>

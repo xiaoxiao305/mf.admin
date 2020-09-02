@@ -85,6 +85,7 @@
     <Content Include="M\game\newgameuser.aspx" />
     <Content Include="M\game\recsearch.aspx" />
     <Content Include="M\Pager.ascx" />
+    <Content Include="M\SysManage\sendbroadcast.aspx" />
     <Content Include="M\Users\UserInfo.aspx" />
     <Content Include="M\main.Master" />
     <Content Include="db.config" />
@@ -320,6 +321,13 @@
       <DependentUpon>main.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="M\main2.Master.cs">
+      <DependentUpon>main2.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\main2.Master.designer.cs">
+      <DependentUpon>main2.Master</DependentUpon>
+    </Compile>
     <Compile Include="M\menu.aspx.cs">
       <DependentUpon>menu.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -330,6 +338,13 @@
     </Compile>
     <Compile Include="M\Pager.ascx.designer.cs">
       <DependentUpon>Pager.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="M\SysManage\sendbroadcast.aspx.cs">
+      <DependentUpon>sendbroadcast.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\SysManage\sendbroadcast.aspx.designer.cs">
+      <DependentUpon>sendbroadcast.aspx</DependentUpon>
     </Compile>
     <Compile Include="M\top.aspx.cs">
       <DependentUpon>top.aspx</DependentUpon>
@@ -393,6 +408,7 @@
     <Content Include="common\js\gameback.json" />
     <Content Include="HandlerDownFile.ashx" />
     <Content Include="common\js\gamerec.json" />
+    <Content Include="M\main2.Master" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>
   <ItemGroup />

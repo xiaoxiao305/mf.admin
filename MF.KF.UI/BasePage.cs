@@ -32,6 +32,15 @@ namespace MF.KF.UI
                 return administrator.IsAdmin;
             }
         }
+        public int[] isExtraPowers
+        {
+            get
+            {
+                MF.Data.Administrator administrator = Session["administrator"] as MF.Data.Administrator;
+                if (administrator == null) return null;
+                return administrator.ExtraPowers;
+            }
+        }
         public string blackGameList
         {
             get

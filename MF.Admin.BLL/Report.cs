@@ -66,7 +66,7 @@ namespace MF.Admin.BLL
                 try
                 {
                     //WriteLog("checktime:",checktime.ToString());
-                    List <ExtendChannel> list = RedisManager.ChannelRedis.CountRedisData(DateTime.Now);//统计今日及时数据
+                    List<ExtendChannel> list = RedisManager.ChannelRedis.CountRedisData(DateTime.Now);//统计今日及时数据
                     if (list == null)
                         return list;
                     if (string.IsNullOrEmpty(channel) || channel.Trim().Equals("-1"))
@@ -174,7 +174,8 @@ namespace MF.Admin.BLL
                     case "zywystatic":
                         return dal.GetZywyStaticReport(start, over, channel);
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Base.WriteError("report ex:", ex.Message, "m:", method, " ps:", pageSize.ToString(), " pz:", pageIndex.ToString(), " start:", start.ToString(), " over:", over.ToString(), " channel:", channel);
             }
@@ -186,7 +187,7 @@ namespace MF.Admin.BLL
             if (!string.IsNullOrEmpty(channel) && channel != "-1")
                 promot.Where += string.Format(" AND ChannelId = '{0}'", channel);
             var dt = BaseDAL.GetSearchData(promot, DBName.MF_RECORD_DY, out rowCount);
-            if (rowCount < 1 || dt==null || dt.Rows ==null || dt.Rows.Count <1)
+            if (rowCount < 1 || dt == null || dt.Rows == null || dt.Rows.Count < 1)
                 return null;
             var currency = new CurrencyReportSearch() { PageIndex = 1, PageSize = 10000, PrimaryKey = "[Day]", Where = string.Format("[Day] between {0} and {1}", start, over) };
             if (!string.IsNullOrEmpty(channel) && channel != "-1")
@@ -198,16 +199,16 @@ namespace MF.Admin.BLL
             {
                 foreach (DataRow dr in dt.Rows)
                 {
-                    var model=dal.GetAdReportModel(dr);
+                    var model = dal.GetAdReportModel(dr);
                     if (model == null) continue;
-                    if (rowCount2 > 0 && dt2 !=null && dt2.Rows !=null)
+                    if (rowCount2 > 0 && dt2 != null && dt2.Rows != null)
                     {
                         foreach (DataRow dr2 in dt2.Rows)
                         {
                             var cm = dal.GetCurrencyModel(dr2);
                             if (cm == null || cm.Day != model.Day) continue;
                             model.TakeCurrency = cm.TakeCurrency;
-                        }                     
+                        }
                     }
                     items.Add(model);
                 }
@@ -449,6 +450,8 @@ namespace MF.Admin.BLL
                     reportmodel = dic[model.Day];
                     if (channelbefore.Equals(mychannel.ToUpper())) //2255
                     {
+                        if (model.PayChannel == 5)//易支付 [暂时不显示易支付相关 2020-09-03 @赵凯]
+                            continue;
                         reportmodel.PayNum += model.PayNum;
                         reportmodel.PayMoney += model.PayMoney;
                         reportmodel.SubmitNum += model.SubmitNum;
@@ -476,6 +479,8 @@ namespace MF.Admin.BLL
                 {
                     if (channelbefore.Equals(mychannel.ToUpper()))//2255
                     {
+                        if (model.PayChannel == 5)//易支付 [暂时不显示易支付相关 2020-09-03 @赵凯]
+                            continue;
                         reportmodel = new NewChannelChargeReport()
                         {
                             Day = model.Day,
@@ -483,11 +488,11 @@ namespace MF.Admin.BLL
                             PayMoney = model.PayMoney,
                             SubmitNum = model.SubmitNum,
                             SubmitMoney = model.SubmitMoney,
-                            AlipayPayMoney = (model.PayChannel == 10 || model.PayChannel == 11)?model.PayMoney:0,
-                            WeixinPayMoney = (model.PayChannel == 40 || model.PayChannel == 41)?model.PayMoney:0,
-                            IosPayMoney = (model.PayChannel == 3)? model.PayMoney:0,
+                            AlipayPayMoney = (model.PayChannel == 10 || model.PayChannel == 11) ? model.PayMoney : 0,
+                            WeixinPayMoney = (model.PayChannel == 40 || model.PayChannel == 41) ? model.PayMoney : 0,
+                            IosPayMoney = (model.PayChannel == 3) ? model.PayMoney : 0,
                             MaxPayMoney = (model.PayChannel == 5) ? model.PayMoney : 0
-                    };
+                        };
                     }
                     //else//channel
                     //{

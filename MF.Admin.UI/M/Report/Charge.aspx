@@ -51,8 +51,9 @@
             addCell(tr, o.AlipayPayMoney > 0 ? o.AlipayPayMoney : "", 4);
             addCell(tr, o.WeixinPayMoney > 0 ? o.WeixinPayMoney : "", 5);
             addCell(tr, o.IosPayMoney > 0 ? o.IosPayMoney : "", 6);
-            addCell(tr, o.MaxPayMoney > 0 ? o.MaxPayMoney : "", 7);
-            addCell(tr, o.PayMoney > 0 ? o.PayMoney : "", 8);
+            //addCell(tr, o.MaxPayMoney > 0 ? o.MaxPayMoney : "", 7);
+            //addCell(tr, o.PayMoney > 0 ? o.PayMoney : "", 8);
+            addCell(tr, o.PayMoney > 0 ? o.PayMoney : "", 7);
             return tr;
         }
         $(document).ready(function() {
@@ -61,7 +62,8 @@
                 var checked = id.toUpperCase() == "10A"?" selected":"";
                 $("#ddlchannel").append("<option value=\"" + id + "\" " + checked + ">" + channellist[id] + "</option>");
             }
-            var pagerTitles = ["日期", "提交笔数", "提交总额", "支付笔数", "支付宝(元)", "微信(元)", "苹果(元)", "易支付（元）", "支付总额(元)"];
+            //var pagerTitles = ["日期", "提交笔数", "提交总额", "支付笔数", "支付宝(元)", "微信(元)", "苹果(元)", "易支付（元）", "支付总额(元)"];
+            var pagerTitles = ["日期", "提交笔数", "提交总额", "支付笔数", "支付宝(元)", "微信(元)", "苹果(元)", "支付总额(元)"];
             jsonPager.init(ajax.getReportList, [], searchResult, pagerTitles, "list_table", "container", "pager", insertRow);
             jsonPager.dataBind(1, 0);
         });

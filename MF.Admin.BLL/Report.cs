@@ -55,6 +55,8 @@ namespace MF.Admin.BLL
                 search.Where += string.Format(" and RuleId={0}", ruleid);
             if (start > 0 && over > 0)
                 search.Where += string.Format(" and [Day] between {0} and {1}", start, over);
+            //不显示包间游戏 2020-10-21 @赵凯
+            //search.Where += " and matchid not in (94261,97761,96161,98861,99261,99461,99061,99561,99661,99761,91161,91561,99861,98161) ";
             return dal.GetGameReport(search, out rowCount);
         }
         public static List<ExtendChannel> GetExtendChannelRecord(long pageSize, long pageIndex,

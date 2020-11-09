@@ -24,7 +24,7 @@ namespace MF.Admin.UI.M.Users
                     Base.WriteError(ClientIP, " getuserSubUserList(account:", Request["account"], ") err.args is err.", Request.Url.PathAndQuery);
                     return;
                 }
-                account = Request["account"];
+                account = System.Web.HttpUtility.UrlEncode(Request["account"]);
             }
             catch (Exception ex)
             {

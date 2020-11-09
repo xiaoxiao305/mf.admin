@@ -1,0 +1,4 @@
+D:\code\mf.admin\MF.Admin.Token\obj\Debug\netcoreapp2.1\MF.Admin.Token.csprojAssemblyReference.cache
+D:\code\mf.admin\MF.Admin.Token\obj\Debug\netcoreapp2.1\MF.Admin.Token.csproj.CoreCompileInputs.cache
+D:\code\mf.admin\MF.Admin.Token\obj\Debug\netcoreapp2.1\MF.Admin.Token.AssemblyInfoInputs.cache
+D:\code\mf.admin\MF.Admin.Token\obj\Debug\netcoreapp2.1\MF.Admin.Token.AssemblyInfo.cs

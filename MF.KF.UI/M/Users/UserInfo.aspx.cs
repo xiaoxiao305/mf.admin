@@ -13,7 +13,6 @@ namespace MF.KF.UI.M.Users
                 return;
             try
             {
-                string account = "";
                 int dbsource = 0;
                 if (Request.QueryString.Count != 2 || Request.QueryString.GetKey(0) != "db")
                 {
@@ -31,7 +30,7 @@ namespace MF.KF.UI.M.Users
                 DBSource db_source = (DBSource)dbsource;
                 if (db_source == DBSource.DBNOW)//显示操作区域
                     uinfodetailopreate.Attributes["Class"] = "show";
-                var res = UserBLL.GetUserInfo(db_source, Request["acc"]);
+                var res = UserBLL.GetUserInfo(db_source, System.Web.HttpUtility.UrlEncode(Request["acc"]));
                 if (res.Code == 1)
                     user = res.R;
                 else
@@ -39,7 +38,6 @@ namespace MF.KF.UI.M.Users
                     ShowMessage("获取用户信息失败:" + res.Message);
                     Base.WriteError("getuinfo(", user.Account, ") err'msg is ", res.Message, Request.Url.PathAndQuery);
                 }
-
             }
             catch (Exception ex)
             {

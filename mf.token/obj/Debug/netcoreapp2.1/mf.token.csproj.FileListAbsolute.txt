@@ -1,0 +1,3 @@
+D:\code\mf.admin\mf.token\obj\Debug\netcoreapp2.1\mf.token.csproj.CoreCompileInputs.cache
+D:\code\mf.admin\mf.token\obj\Debug\netcoreapp2.1\mf.token.AssemblyInfoInputs.cache
+D:\code\mf.admin\mf.token\obj\Debug\netcoreapp2.1\mf.token.AssemblyInfo.cs

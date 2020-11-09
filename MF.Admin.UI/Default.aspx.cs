@@ -34,7 +34,7 @@ namespace MF.Admin.UI
             catch (Exception ex)
             {
                 Base.WriteError("账号", txtAccount.Text, "登录异常:", ex.Message);
-                ShowMessage("错误的账号或密码");
+                ShowMessage("错误的账号或密码!!!");
             }
         }
         bool checkInput()

@@ -24,7 +24,7 @@ namespace MF.Admin.UI.M.Currency
                     Base.WriteError(ClientIP, " getuserStrongBox(account:", Request["account"], ") err.args is err.", Request.Url.PathAndQuery);
                     return;
                 }
-                account = Request["account"];
+                account = System.Web.HttpUtility.UrlEncode(Request["account"]);
             }
             catch (Exception ex)
             {

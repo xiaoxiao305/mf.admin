@@ -28,7 +28,7 @@ namespace MF.Admin.UI.M.Currency
                     Base.WriteError(ClientIP, " getuserDZCurrencyRecord(account:", Request["account"], ") err.args is err.", Request.Url.PathAndQuery);
                     return;
                 }
-                account = Request["account"];
+                account = System.Web.HttpUtility.UrlEncode(Request["account"]);
                 InitGameInfo();//加载游戏
             }
             catch (Exception ex)

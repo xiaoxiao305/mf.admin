@@ -256,6 +256,12 @@ namespace MF.Data
         public string Memo { get; set; }
     }
     [Serializable]
+    public class TotalWinLose
+    {
+        public int ID { get; set; }
+        public long Value { get; set; }
+    }
+        [Serializable]
     public class CurrencyRecord
     {
         public int ID { get; set; }

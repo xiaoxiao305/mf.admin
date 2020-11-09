@@ -49,10 +49,11 @@
             addCell(tr, deviceType(o.RegistDevice), 7);
             addCell(tr, o.RegistIp, 8);
             addCell(tr, o.GUID, 9);
+            addCell(tr, o.TotalWinLoseValue, 10);
             return tr;
         }
         $(document).ready(function() {
-            var pagerTitles = ["账号信息", "状态/属性", "元宝", "金豆", "房卡", "欢乐卡", "身份信息", "注册设备", "注册IP","GUID"]
+            var pagerTitles = ["账号信息", "状态/属性", "元宝", "金豆", "房卡", "欢乐卡", "身份信息", "注册设备", "注册IP","GUID","总输赢值"]
             jsonPager.init(ajax.getUserList,[],searchResult,pagerTitles, "list_table", "container", "pager", insertRow);
             jsonPager.dataBind(1,0);
         });

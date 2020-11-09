@@ -38,7 +38,6 @@ namespace MF.Admin.UI.M.Users
                     ShowMessage("获取用户信息失败:" + res.Message);
                     Base.WriteError("getuinfo(", user.Account, ") err'msg is ", res.Message, Request.Url.PathAndQuery);
                 }
-
             }
             catch (Exception ex)
             {

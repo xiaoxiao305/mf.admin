@@ -38,7 +38,7 @@ namespace MF.Admin.DAL
                 //全库查询
                 foreach (DBConst dbconst in dbconfig)
                 {
-                    if (dbconst.dbname >= 100)//user库
+                    if (dbconst.dbname >= 100 && dbconst.dbname <= 199)//user备份库
                     {
                         dt = BaseDAL.GetSearchData(search, (DBName)dbconst.dbname, out rowCount);
                         if (rowCount > 0)
@@ -55,6 +55,69 @@ namespace MF.Admin.DAL
             {
                 var u = makeUsers(dr);
                 list.Add(u);
+            }
+            return list;
+        }
+        public List<TotalWinLose> GetTotalWinLoseList(List<int> ids, long dbsource, DBName db)
+        {
+            string sql = "select id,sum(value) as value from total_win_lose where 1=1 and id in (";
+            foreach (int id in ids)
+            {
+                sql += id + ",";
+            }
+            sql = sql.Substring(0, sql.Length - 1);
+            sql += ") group by id";
+            WriteDebug("GetBackTotalWinLoseList sql:", sql," dbsource:",dbsource.ToString()," db:",db.ToString());
+            DataTable dt = null;
+            if (dbsource == 1 && db != DBName.ALL)//单库查询
+                dt = BaseDAL.GetDataTable(sql, db);
+            else
+            {
+                //全库查询
+                foreach (DBConst dbconst in dbconfig)
+                {
+                    if (dbsource == 1)
+                    {
+                        if (dbconst.dbname >= 100 && dbconst.dbname <= 199)//user备份库
+                            dt = BaseDAL.GetDataTable(sql, (DBName)dbconst.dbname);
+                    }
+                    else if (dbsource == 2)
+                    {
+                        if (dbconst.dbname >= 400 && dbconst.dbname <= 499)//user生产库
+                        {
+                            dt = BaseDAL.GetDataTable(sql, (DBName)dbconst.dbname);
+                            if (dt == null)
+                                WriteDebug("400 getdatatable1111 dt is null");
+                            else if(dt.Rows==null)
+                                WriteDebug("400 getdatatable1111 dt.Rows is null");
+                            else if (dt.Rows.Count<1)
+                                WriteDebug("400 getdatatable1111 dt.Rows.Count<1");
+                            if (dt != null && dt.Rows != null && dt.Rows[0] !=null && dt.Rows[0]["value"] !=null)
+                                WriteDebug("400 getdatatable1111:", dt.Rows[0]["value"].ToString());
+
+                        }
+                    }
+                    if (dt != null && dt.Rows != null && dt.Rows.Count > 0)
+                    {
+                        WriteDebug("400 getdatatable:", dt.Rows[0]["value"].ToString());
+                        break;
+                    }
+                }
+            }
+            if (dt == null || dt.Rows == null || dt.Rows.Count < 1) return null;
+            var list = new List<TotalWinLose>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                var u = new TotalWinLose();
+                if (dr["value"] != null && !string.IsNullOrEmpty(dr["value"].ToString()))
+                    u.Value = long.Parse(dr["value"].ToString());
+                if (dr["id"] != null && !string.IsNullOrEmpty(dr["id"].ToString()))
+                    u.ID = int.Parse(dr["id"].ToString());
+                list.Add(u);
+            }
+            foreach (TotalWinLose twl in list)
+            {
+                Base.WriteDebug("TotalWinLose LIST twl:", twl.Value.ToString());
             }
             return list;
         }
@@ -97,7 +160,7 @@ namespace MF.Admin.DAL
         {
             rowCount = 0;
             try
-            { 
+            {
                 if (!string.IsNullOrEmpty(user.GUID))
                     user.GUID = user.GUID.ToUpper();
                 SearchCondition<Users> current = SearchCondition<Users>.Current;

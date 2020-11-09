@@ -18,7 +18,7 @@ namespace MF.KF.UI.M.Charge
             try
             {
                 if (Request.QueryString.Count == 1 && Request["account"] != null && !string.IsNullOrEmpty(Request["account"].ToString()))
-                    account = Request["account"];
+                    account = System.Web.HttpUtility.UrlEncode(Request["account"]);
             }
             catch (Exception ex)
             {

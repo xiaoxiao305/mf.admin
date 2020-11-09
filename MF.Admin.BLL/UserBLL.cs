@@ -30,7 +30,7 @@ namespace MF.Admin.BLL
         /// <param name="keyword"></param>
         /// <param name="rowCount"></param>
         /// <returns></returns>
-        public static List<Users> GetUserList(long pageSize, long pageIndex, long dbsource, long dbname,
+        public static List<Users> GetUserList2(long pageSize, long pageIndex, long dbsource, long dbname,
             long exact, long queryFiled, string keyword, out int rowCount)
         {
             rowCount = 0;
@@ -52,6 +52,35 @@ namespace MF.Admin.BLL
                 
             }
             return null;
+        }
+        public static List<Users> GetUserList(long pageSize, long pageIndex, long dbsource, long dbname,
+          long exact, long queryFiled, string keyword, out int rowCount)
+        {
+            rowCount = 0;
+            List<Users>  list=GetUserList2(pageSize, pageIndex, dbsource, dbname,exact, queryFiled, keyword,out rowCount);
+            if (list == null || list.Count < 1) return list;
+            List<int> ids = list.Select(t => t.ID).ToList();
+            if (ids == null || ids.Count < 1) return list;
+            List<TotalWinLose> totalList = dal.GetTotalWinLoseList(ids,dbsource,(DBName)dbname); 
+            if     (totalList == null || totalList.Count < 1) return list;
+            List<Users> newList = new List<Users>();
+            foreach (Users u in list)
+            {
+                foreach (TotalWinLose twl in totalList)
+                {
+                    if (u.ID == twl.ID)
+                    {
+                        u.TotalWinLoseValue = twl.Value;
+                        break;
+                    }
+                }
+                newList.Add(u);
+            }
+            foreach (Users uuu in newList)
+            {
+                WriteError("newList LIST uuu:", uuu.TotalWinLoseValue.ToString());
+            }
+            return newList;
         }
         private static List<Users> GetBackUserList(long pageSize, long pageIndex, long dbname,
             long exact, long queryFiled, string keyword, out int rowCount)

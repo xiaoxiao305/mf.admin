@@ -27,7 +27,7 @@ namespace MF.Admin.UI.M.Currency
                     Base.WriteError(ClientIP, " getuserqmallrecord(account:", Request["account"], ") err.args is err.", Request.Url.PathAndQuery);
                     return;
                 }
-                account = Request["account"];
+                account = System.Web.HttpUtility.UrlEncode(Request["account"]);
                 if (Request["uid"] == null || string.IsNullOrEmpty(Request["uid"]))
                     UIDFirst = "1";
                 else

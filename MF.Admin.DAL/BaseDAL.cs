@@ -177,6 +177,7 @@ namespace MF.Admin.DAL
         /// <returns></returns>
         public static DataTable GetDataTable(string sql, DBName db)
         {
+            WriteDebug("GetDataTable sql:", sql," db:",db.ToString());
             BaseDAL.dbname = db;
             return DataHelper.GetDataTable(sql);
         }

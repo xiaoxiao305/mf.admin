@@ -18,7 +18,7 @@ namespace MF.KF.UI.M.Currency
             try
             {
                 if (Request["account"] != null && !string.IsNullOrEmpty(Request["account"].ToString()))
-                    account = Request["account"];
+                    account = System.Web.HttpUtility.UrlEncode(Request["account"]);
                 if (Request["chargeid"] != null && !string.IsNullOrEmpty(Request["chargeid"].ToString()))
                     chargeId = Request["chargeid"];
                 InitGameInfo();//加载游戏

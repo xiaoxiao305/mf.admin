@@ -1159,6 +1159,7 @@ namespace MF.Admin.BLL
         {
             try
             {
+
                 if (start < 1 || end < 1 || string.IsNullOrEmpty(type) || (string.IsNullOrEmpty(chargeid) && string.IsNullOrEmpty(roomid)))
                     return null;
                 if (type.ToLower().Equals("paodekuai"))//标准跑得快 数据源存的账号  2020-06-09 @李文波

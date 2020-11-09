@@ -84,7 +84,9 @@ namespace MF.Data
         Manage = 3,
         USER_0_DY = 100,
         USER_1_DY = 101,
-        USER_21_DY = 121
+        USER_21_DY = 121,
+        USER_0 = 400,
+        USER_1 = 401
     }
     public enum DBSource
     {
@@ -315,21 +317,7 @@ namespace MF.Data
             this.Fields = "ID,Account,NickName,[Name],[Identity],Sex,Flag,Mobile,PhoneKey,Lock,Relief,[GUID],Lv,[Exp],Guest,ChargeId,ADID,Regitime,RegistIp,RegistDevice,RegistArea,LastIp,LastLogin,LoginDevice,LoginCount,DeviceCode,Currency,Bean,RoomCard,Silver";
             this.Where = "";
         }
-    }
-    //[Serializable]
-    //public class CurrencyRecordSearch : Search<CurrencyRecord>
-    //{
-    //    public CurrencyRecordSearch()
-    //    {
-    //        this.PageIndex = 1;
-    //        this.PageSize = 30;
-    //        this.PrimaryKey = "[ID]";
-    //        this.Table = "CurrcryRecord";
-    //        this.Fields = "[Time],Account,GameId,MatchId,[Type],Num,Original,IP";
-    //       // this.Where = "";
-    //        this.OrderBy = "";
-    //    }
-    //}
+    } 
     [Serializable]
     public class BeanRecordSearch : Search
     {

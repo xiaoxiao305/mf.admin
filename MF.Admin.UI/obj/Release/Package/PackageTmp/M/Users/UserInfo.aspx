@@ -174,7 +174,7 @@
             <td><%=user.Currency%></td>
             <th>金豆</th>
             <td><%=user.Bean%></td>
-        </tr>
+        </tr> 
     </table>
     <div id="uinfodetailopreate" runat="server" class="hide">
         <ul>

@@ -1,4 +1,4 @@
-﻿<%@ Page Title=" 报表管理 》 游戏收益" MasterPageFile="~/M/main.Master" Language="C#" AutoEventWireup="true" CodeBehind="gameincome.aspx.cs" Inherits="MF.KF.UI.M.game.gameincome" %>
+﻿<%@ Page Title=" 游戏管理 》 游戏收益" MasterPageFile="~/M/main.Master" Language="C#" AutoEventWireup="true" CodeBehind="gameincome.aspx.cs" Inherits="MF.KF.UI.M.game.gameincome" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="h" runat="server"> 
 <script language="javascript" type="text/javascript">
     var games =  <%=blackGameList %>;
@@ -135,7 +135,8 @@
         addCell(tr, initNick(o.NickList.toString()), 6);
         addCell(tr, o.IncomeList.toString().replace(/,/gi, "<br/>"), 7);
         addCell(tr, o.InterestList.toString().replace(/,/gi, "<br/>"), 8);
-        addCell(tr, "<a href='javascript:;' onclick=\"downUIDLog(" + o.Time + ",'" + o.ChargeIdList[0] + "','" + o.RoomId + "','" + o.Number + "')\">下载</a>", 9);
+		var t =new Date(new Date("2012/10/01").dateAdd("s", o.Time).Format("yyyy-MM-dd")).dateDiff("s")-28800;//time yyyy-MM-dd 0:00:00
+        addCell(tr, "<a href='javascript:;' onclick=\"downUIDLog(" + t+ ",'" + o.ChargeIdList[0] + "','" + o.RoomId + "','" + o.Number + "')\">下载</a>", 9);
         return tr;
     }
     function downUIDLog(time, chargeid, roomid, number) {
@@ -143,7 +144,8 @@
         if (oprGame == null || oprGame == "") return;
         var gameInfo = GetGameRecModel(oprGame);
         if (gameInfo == null) return;
-        var args = [time, time, gameInfo.recurl, chargeid, roomid, number];
+        var endtime=time+86399;//time yyyy-MM-dd 0:00:00 endtime yyyy-MM-dd 23:59:59
+        var args = [time, endtime, gameInfo.recurl, chargeid, roomid, number];
         jsonPager.queryArgs = args;
         jsonPager.pageSize = 1000;
         ajax.getGameRec(jsonPager.makeArgs(1), searchLogResult);

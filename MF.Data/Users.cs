@@ -163,6 +163,10 @@ namespace MF.Data
         /// 获取或设置用户欢乐卡数量
         /// </summary>
         public long Silver { get; set; }
+        /// <summary>
+        /// 用户从注册到当前的总输赢值
+        /// </summary>
+        public long TotalWinLoseValue { get; set; }
     }
 
 

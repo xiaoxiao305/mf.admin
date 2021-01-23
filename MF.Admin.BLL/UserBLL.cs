@@ -61,8 +61,8 @@ namespace MF.Admin.BLL
             if (list == null || list.Count < 1) return list;
             List<int> ids = list.Select(t => t.ID).ToList();
             if (ids == null || ids.Count < 1) return list;
-            List<TotalWinLose> totalList = dal.GetTotalWinLoseList(ids,dbsource,(DBName)dbname); 
-            if     (totalList == null || totalList.Count < 1) return list;
+            List<TotalWinLose> totalList = dal.GetTotalWinLoseList(ids,dbsource,(DBName)dbname);
+            if (totalList == null || totalList.Count < 1) return list; 
             List<Users> newList = new List<Users>();
             foreach (Users u in list)
             {
@@ -75,10 +75,6 @@ namespace MF.Admin.BLL
                     }
                 }
                 newList.Add(u);
-            }
-            foreach (Users uuu in newList)
-            {
-                WriteError("newList LIST uuu:", uuu.TotalWinLoseValue.ToString());
             }
             return newList;
         }

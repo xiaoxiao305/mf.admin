@@ -40,20 +40,20 @@
                 addCell(tr, "&nbsp;账号:" + o.Account + "　<a href='/M/users/userinfo.aspx?db=2&acc=" + encodeURI(o.Account) + "' target='_blank'>实时</a><br/>&nbsp;昵称:" + o.Nickname + "<br/>&nbsp;UID:" + o.ChargeId, 0);
             else
                 addCell(tr, "&nbsp;账号:" + o.Account + "　<a href='/M/users/userinfo.aspx?db=1&acc=" + encodeURI(o.Account) + "' target='_blank'>备份</a><br/>&nbsp;昵称:" + o.Nickname + "<br/>&nbsp;UID:" + o.ChargeId, 0);
-            addCell(tr, state(o.Flag) + "<br/>" + guest(o.Guest), 1);
-            addCell(tr, o.Currency, 2);
-            addCell(tr, o.Bean, 3);
-            addCell(tr, o.RoomCard, 4);
-            addCell(tr, o.Silver, 5);
-            addCell(tr, o.Name == null ? "" : (o.Name + "<br/>" + o.Identity), 6);
-            addCell(tr, deviceType(o.RegistDevice), 7);
-            addCell(tr, o.RegistIp, 8);
-            addCell(tr, o.GUID, 9);
-            addCell(tr, o.TotalWinLoseValue, 10);
+            addCell(tr, o.TotalWinLoseValue, 1);
+            addCell(tr, state(o.Flag) + "<br/>" + guest(o.Guest),2);
+            addCell(tr, o.Currency,3);
+            addCell(tr, o.Bean, 4);
+            addCell(tr, o.RoomCard, 5);
+            addCell(tr, o.Silver, 6);
+            addCell(tr, o.Name == null ? "" : (o.Name + "<br/>" + o.Identity), 7);
+            addCell(tr, deviceType(o.RegistDevice), 8);
+            addCell(tr, o.RegistIp, 9);
+            addCell(tr, o.GUID, 10);
             return tr;
         }
         $(document).ready(function() {
-            var pagerTitles = ["账号信息", "状态/属性", "元宝", "金豆", "房卡", "欢乐卡", "身份信息", "注册设备", "注册IP","GUID","总输赢值"]
+            var pagerTitles = ["账号信息","总输赢", "状态/属性", "元宝", "金豆", "房卡", "欢乐卡", "身份信息", "注册设备", "注册IP","GUID"]
             jsonPager.init(ajax.getUserList,[],searchResult,pagerTitles, "list_table", "container", "pager", insertRow);
             jsonPager.dataBind(1,0);
         });

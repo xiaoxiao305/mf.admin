@@ -60,7 +60,8 @@ namespace MF.Admin.DAL
         }
         public List<TotalWinLose> GetTotalWinLoseList(List<int> ids, long dbsource, DBName db)
         {
-            string sql = "select id,sum(value) as value from total_win_lose where 1=1 and id in (";
+            //屏蔽ttxhj0-ttxhj99账号 @土豆 2020-01-05
+            string sql = "select id,sum(value) as value from total_win_lose where 1=1 and id not in (select id from users where account like 'ttxhj[0-9]%') and id in (";
             foreach (int id in ids)
             {
                 sql += id + ",";
@@ -84,27 +85,11 @@ namespace MF.Admin.DAL
                     else if (dbsource == 2)
                     {
                         if (dbconst.dbname >= 400 && dbconst.dbname <= 499)//user生产库
-                        {
                             dt = BaseDAL.GetDataTable(sql, (DBName)dbconst.dbname);
-                            if (dt == null)
-                                WriteDebug("400 getdatatable1111 dt is null");
-                            else if(dt.Rows==null)
-                                WriteDebug("400 getdatatable1111 dt.Rows is null");
-                            else if (dt.Rows.Count<1)
-                                WriteDebug("400 getdatatable1111 dt.Rows.Count<1");
-                            if (dt != null && dt.Rows != null && dt.Rows[0] !=null && dt.Rows[0]["value"] !=null)
-                                WriteDebug("400 getdatatable1111:", dt.Rows[0]["value"].ToString());
-
-                        }
                     }
-                    if (dt != null && dt.Rows != null && dt.Rows.Count > 0)
-                    {
-                        WriteDebug("400 getdatatable:", dt.Rows[0]["value"].ToString());
-                        break;
-                    }
+                    if (dt != null && dt.Rows != null && dt.Rows.Count > 0)break;
                 }
             }
-            if (dt == null || dt.Rows == null || dt.Rows.Count < 1) return null;
             var list = new List<TotalWinLose>();
             foreach (DataRow dr in dt.Rows)
             {
@@ -114,10 +99,6 @@ namespace MF.Admin.DAL
                 if (dr["id"] != null && !string.IsNullOrEmpty(dr["id"].ToString()))
                     u.ID = int.Parse(dr["id"].ToString());
                 list.Add(u);
-            }
-            foreach (TotalWinLose twl in list)
-            {
-                Base.WriteDebug("TotalWinLose LIST twl:", twl.Value.ToString());
             }
             return list;
         }

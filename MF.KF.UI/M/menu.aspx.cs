@@ -57,8 +57,9 @@ namespace MF.KF.UI.M
             //        "<li class='menu_list'><a href ='/m/game/auditblacklist.aspx' target='main' class='white'>待审核黑名单</a></li>";
             //} 
             menuList.Add(2,gameLi);
-
-            menuList.Add(3, @"<li class='menu_title'>系统管理</li>
+            menuList.Add(3, @"<li class='menu_title'>报表管理</li> 
+        <li class='menu_list'><a href ='/m/report/promot.aspx' target='main' class='white'>推广报表</a></li>");
+            menuList.Add(4, @"<li class='menu_title'>系统管理</li>
         <li class='menu_list'><a href ='/m/SysManage/sendbroadcast.aspx' target='main' class='white'>系统广播</a></li>");
         }
     }

@@ -166,7 +166,6 @@ namespace MF.Admin.BLL
                             bean.Where += string.Format(" AND ChannelId = '{0}'", channel);
                         return dal.GetBeanReport(bean, out rowCount);
                     case "promot":
-
                         return GetPromotReport(pageSize, pageIndex, start, over, channel, out rowCount);
                     case "happycard":
                         var happyrecord = new HappyRecordReportSearch() { PageIndex = pageIndex, PageSize = pageSize, PrimaryKey = "[Day]", Where = string.Format("[Day] between {0} and {1}", start, over) };

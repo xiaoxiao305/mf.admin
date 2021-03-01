@@ -1,4 +1,5 @@
 ﻿using MF.Admin.BLL;
+using MF.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -55,9 +56,43 @@ namespace MF.KF.UI
                 }
                 return JsonConvert.SerializeObject(dic);  
             }
-        } 
+        }
 
 
+        #region 渠道码
+        public string channellist
+        {
+            get
+            {
+                if (Session["channellist"] == null)
+                    Session["channellist"] = JsonConvert.SerializeObject(ChannelList);
+                if (Session["channellist"] == null)
+                    return "{}";
+                return Session["channellist"] as string;
+            }
+        }
+        public Dictionary<string, string> ChannelList
+        {
+            get
+            {
+                List<CPSUsers> list = CPSUsersBLL.GetALLChannelList();
+                if (list == null || list.Count < 1)
+                    return null;
+                Dictionary<string, string> dic = new Dictionary<string, string>();
+                foreach (CPSUsers model in list)
+                {
+                    if (!dic.ContainsKey(model.channel.ToUpper()))
+                    {
+                        if (!string.IsNullOrEmpty(model.channel_name))
+                            dic.Add(model.channel.ToUpper(), model.channel.ToUpper() + "_" + model.channel_name);
+                        else
+                            dic.Add(model.channel.ToUpper(), model.channel.ToUpper());
+                    }
+                }
+                return dic;
+            }
+        }
+        #endregion
 
 
         #region 是否登录

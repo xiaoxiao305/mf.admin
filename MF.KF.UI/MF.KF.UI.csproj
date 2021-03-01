@@ -85,6 +85,7 @@
     <Content Include="M\game\newgameuser.aspx" />
     <Content Include="M\game\recsearch.aspx" />
     <Content Include="M\Pager.ascx" />
+    <Content Include="M\report\Promot.aspx" />
     <Content Include="M\SysManage\sendbroadcast.aspx" />
     <Content Include="M\Users\UserInfo.aspx" />
     <Content Include="M\main.Master" />
@@ -338,6 +339,13 @@
     </Compile>
     <Compile Include="M\Pager.ascx.designer.cs">
       <DependentUpon>Pager.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="M\report\Promot.aspx.cs">
+      <DependentUpon>Promot.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\report\Promot.aspx.designer.cs">
+      <DependentUpon>Promot.aspx</DependentUpon>
     </Compile>
     <Compile Include="M\SysManage\sendbroadcast.aspx.cs">
       <DependentUpon>sendbroadcast.aspx</DependentUpon>

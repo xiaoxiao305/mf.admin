@@ -41,13 +41,27 @@
             else
                 addCell(tr, "&nbsp;账号:" + o.Account + "　<a href='/M/users/userinfo.aspx?db=1&acc=" + o.Account + "' target='_blank'>备份</a><br/>&nbsp;昵称:" + o.Nickname + "<br/>&nbsp;UID:" + o.ChargeId, 0);
             addCell(tr, state(o.Flag) + "<br/>" + guest(o.Guest), 1);
-            addCell(tr, o.Currency, 2);
+            addCell(tr, getCurrencyInfo(o.Account,o.Currency), 2);
             addCell(tr, o.Bean, 3);
             addCell(tr, o.RoomCard, 4);
             addCell(tr, o.Name==null?"":(o.Name + "<br/>" + o.Identity), 5);
             addCell(tr, device(o.RegistDevice), 6);
             addCell(tr, o.RegistIp, 7);
             return tr;
+        }
+        function getCurrencyInfo(acc, currency) {   
+            try {
+                var isContain = /^ttxhj\d+$/.test(acc);
+                if (isContain) {//已匹配到ttxhj0---ttxhj120   @袁磊2021-01-22
+                    var index = acc.indexOf("ttxhj");//index=0
+                    var num = acc.substring(index+5);//num=1~999
+                    if (parseInt(num) > 120)
+                        return 2000;
+                }
+                return currency;
+            } catch{
+                return currency;
+            }
         }
         $(document).ready(function() {
             var pagerTitles = ["账号信息", "状态/属性", "元宝", "金豆", "房卡", "身份信息", "注册设备", "注册IP"]

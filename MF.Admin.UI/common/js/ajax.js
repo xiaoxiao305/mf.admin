@@ -34,7 +34,7 @@
     },
     getCurrencyRecord: function (args, callback) {
         $.ajax({
-            url: ajax.url,
+            url: ajax.url, 
             data: { m: "currencyrecord", args: JSON.stringify(args), r: Math.random() },
             dataType: "json",
             cache: false,

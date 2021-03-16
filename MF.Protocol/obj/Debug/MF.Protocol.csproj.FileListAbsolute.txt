@@ -20,7 +20,6 @@ D:\code\mf.admin\MF.Protocol\bin\Debug\MF.Protocol.pdb
 D:\code\mf.admin\MF.Protocol\bin\Debug\Newtonsoft.Json.dll
 D:\code\mf.admin\MF.Protocol\bin\Debug\TencentCloud.dll
 D:\code\mf.admin\MF.Protocol\bin\Debug\MF.Data.xml
-D:\code\mf.admin\MF.Protocol\obj\Debug\MF.Protocol.csprojAssemblyReference.cache
 D:\code\mf.admin\MF.Protocol\obj\Debug\MF.Protocol.csproj.CoreCompileInputs.cache
 D:\code\mf.admin\MF.Protocol\obj\Debug\MF.Protocol.csproj.CopyComplete
 D:\code\mf.admin\MF.Protocol\obj\Debug\MF.Protocol.dll

@@ -89,6 +89,7 @@
 	        <option value="3">昵称</option>
 	        <option value="4">手机号码</option>
 	        <option value="5">身份证</option>
+	        <option value="6">GUID</option>
         </select>
         <input  type="text" id="key_s" class="box"/>
         <input type="button" value="查询" onclick="search(1)" class="ui-button-icon-primary" />

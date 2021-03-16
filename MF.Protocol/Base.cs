@@ -141,19 +141,19 @@ namespace MF.Protocol
 
 
                 //admin---kf
-                //if (!File.Exists(path))
-                //{
-                //    using (StreamWriter sw = File.CreateText(path))
-                //    {
-                ////sw.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff ") + " " + parmsstr + "\r\n");
-                //        sw.WriteLine(parmsstr);
-                //    }
-                //}
-                //using (StreamWriter sw = File.AppendText(path))
-                //{
-                ////sw.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff ") + " " + parmsstr + "\r\n");
-                //    sw.WriteLine(parmsstr);
-                //}
+                if (!File.Exists(path))
+                {
+                    using (StreamWriter sw = File.CreateText(path))
+                    {
+                        //sw.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff ") + " " + parmsstr + "\r\n");
+                        sw.WriteLine(parmsstr);
+                    }
+                }
+                using (StreamWriter sw = File.AppendText(path))
+                {
+                    //sw.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff ") + " " + parmsstr + "\r\n");
+                    sw.WriteLine(parmsstr);
+                }
 
 
 

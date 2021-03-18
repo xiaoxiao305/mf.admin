@@ -81,7 +81,6 @@
             alert("请输入查询UID或包间号");
             return;
         }
-        if (chargeid.substring(0, 3).trim().toUpperCase() == "AAA") return;//2021-03-17 不能查询AAA账号 @赵凯
         $("#loading").show();
         var sh = $("#ddlshour").val() == "-1" ? "0" : $("#ddlshour").val();
         var sm = $("#ddlsmin").val() == "-1" ? "0" : $("#ddlsmin").val();

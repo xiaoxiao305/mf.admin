@@ -16,3 +16,17 @@ E:\code\mf.admin\MF.Protocol\obj\Release\MF.Protocol.csprojAssemblyReference.cac
 E:\code\mf.admin\MF.Protocol\obj\Release\MF.Protocol.csproj.CopyComplete
 E:\code\mf.admin\MF.Protocol\obj\Release\MF.Protocol.dll
 E:\code\mf.admin\MF.Protocol\obj\Release\MF.Protocol.pdb
+D:\coding\mf.admin\MF.Protocol\bin\Release\MF.Protocol.dll
+D:\coding\mf.admin\MF.Protocol\bin\Release\MF.Protocol.pdb
+D:\coding\mf.admin\MF.Protocol\bin\Release\Newtonsoft.Json.dll
+D:\coding\mf.admin\MF.Protocol\bin\Release\TencentCloud.dll
+D:\coding\mf.admin\MF.Protocol\bin\Release\Pathoschild.Http.Client.dll
+D:\coding\mf.admin\MF.Protocol\bin\Release\System.Net.Http.Formatting.dll
+D:\coding\mf.admin\MF.Protocol\bin\Release\MF.Data.xml
+D:\coding\mf.admin\MF.Protocol\bin\Release\Pathoschild.Http.Client.xml
+D:\coding\mf.admin\MF.Protocol\bin\Release\System.Net.Http.Formatting.xml
+D:\coding\mf.admin\MF.Protocol\obj\Release\MF.Protocol.csprojAssemblyReference.cache
+D:\coding\mf.admin\MF.Protocol\obj\Release\MF.Protocol.csproj.CoreCompileInputs.cache
+D:\coding\mf.admin\MF.Protocol\obj\Release\MF.Protocol.csproj.CopyComplete
+D:\coding\mf.admin\MF.Protocol\obj\Release\MF.Protocol.dll
+D:\coding\mf.admin\MF.Protocol\obj\Release\MF.Protocol.pdb

@@ -34,7 +34,7 @@ namespace MF.Admin.DAL
                 string protocolname = searchtype == 1 ? "get_currency_list" 
                     : searchtype == 2 ? "get_bean_list" :
                     searchtype == 3 ? "get_happycard_list" : "";
-                if (string.IsNullOrEmpty(protocolname)) return null;
+                if (string.IsNullOrEmpty(protocolname)) return null; 
                 var res = PostRecordServer<CurrencyRecord>(RecordServerUrl + protocolname, current.ToString());
                 if (res == null || res.Code < 1)
                     return null;

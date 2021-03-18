@@ -1,35 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "D:\\code\\mf.admin\\mf.token\\mf.token.csproj": {}
+    "D:\\coding\\mf.admin\\mf.token\\mf.token.csproj": {}
   },
   "projects": {
-    "D:\\code\\mf.admin\\mf.token\\mf.token.csproj": {
+    "D:\\coding\\mf.admin\\mf.token\\mf.token.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\code\\mf.admin\\mf.token\\mf.token.csproj",
+        "projectUniqueName": "D:\\coding\\mf.admin\\mf.token\\mf.token.csproj",
         "projectName": "mf.token",
-        "projectPath": "D:\\code\\mf.admin\\mf.token\\mf.token.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\code\\mf.admin\\mf.token\\obj\\",
+        "projectPath": "D:\\coding\\mf.admin\\mf.token\\mf.token.csproj",
+        "packagesPath": "C:\\Users\\009\\.nuget\\packages\\",
+        "outputPath": "D:\\coding\\mf.admin\\mf.token\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\009\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.1"
+          "netcoreapp2.1"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.1": {
+          "netcoreapp2.1": {
+            "targetAlias": "netcoreapp2.1",
             "projectReferences": {}
           }
         },
@@ -40,23 +37,14 @@
         }
       },
       "frameworks": {
-        "netcoreapp3.1": {
+        "netcoreapp2.1": {
+          "targetAlias": "netcoreapp2.1",
           "dependencies": {
-            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[3.0.0, )"
-            },
-            "System.Configuration.ConfigurationManager": {
-              "target": "Package",
-              "version": "[4.7.0, )"
-            },
-            "System.IO": {
-              "target": "Package",
-              "version": "[4.3.0, )"
-            },
-            "System.Text.Encoding.CodePages": {
-              "target": "Package",
-              "version": "[4.7.1, )"
+              "version": "[2.1.0, )",
+              "autoReferenced": true
             }
           },
           "imports": [
@@ -69,15 +57,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

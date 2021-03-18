@@ -216,6 +216,113 @@ namespace MF.Protocol
         /// <param name="requestUrl">请求服务器URL，其后追加protocol</param>
         /// <param name="param">包括sign在内的，已封装的json格式参数字符串</param>
         ///<remarks>返回Result<List<T>>数据类型</remarks>
+        //public static PostResult<List<T>> PostRecordServer<T>(string requestUrl, string param)
+        //{
+        //    try
+        //    {
+        //        if (string.IsNullOrEmpty(requestUrl))
+        //        {
+        //            Base.WriteError("PostRecordServer requestUrl is empty.");
+        //            return null;
+        //        }
+        //        Base.WriteDebug("requestServerUrl22222 is ", requestUrl, ".param is ", param);
+        //        var request = WebRequest.Create(requestUrl) as HttpWebRequest;
+        //        var buffer = Encoding.UTF8.GetBytes(param);
+                
+
+
+
+        //        request.Method = "POST";
+        //        request.Timeout = 600000;
+        //        request.ReadWriteTimeout = 600000;
+        //        request.AllowWriteStreamBuffering = false;
+        //        request.SendChunked = true;
+        //        Base.WriteDebug("111111");
+        //        using (var reqStream = request.GetRequestStream())
+        //        {
+        //            Base.WriteDebug("22222222");
+        //            reqStream.Write(buffer, 0, buffer.Length);
+        //            Base.WriteDebug("33333");
+        //            if (request != null) {
+        //                var response = (HttpWebResponse)request.GetResponse();
+        //                Base.WriteDebug("request != null");
+        //                using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+        //                {
+        //                    var res = reader.ReadToEnd();
+        //                    Base.WriteDebug("recordserver'res1111 is ", res);
+        //                    try
+        //                    {
+        //                        var jarry = JsonConvert.DeserializeObject(res) as JArray;
+        //                        if (jarry == null)
+        //                        {
+        //                            Base.WriteError("DeserializeRecord JsonConvert.DeserializeObject(res) is null");
+        //                            return default(PostResult<List<T>>);
+        //                        }
+        //                        List<object> list = new List<object>();
+        //                        foreach (JToken item in jarry)
+        //                        {
+        //                            JTokenResolver.Resolve(list, item);
+        //                        }
+        //                        if (list == null || list.Count < 1)
+        //                        {
+        //                            Base.WriteError("DeserializeRecord JTokenResolver.Resolve'list is null.");
+        //                            return default(PostResult<List<T>>);
+        //                        }
+        //                        if (list[0] == null || string.IsNullOrEmpty(list[0].ToString()))
+        //                        {
+        //                            Base.WriteError("DeserializeRecord res not has data.");//返回约定格式有误
+        //                            return default(PostResult<List<T>>);
+        //                        }
+        //                        if (int.Parse(list[0].ToString()) < 1)
+        //                        {
+        //                            //Base.WriteError("DeserializeRecord res has'data is err.");//无数据
+        //                            return default(PostResult<List<T>>);
+        //                        }
+        //                        if (list.Count != 3)
+        //                        {
+        //                            // Base.WriteError("DeserializeRecord res'num is bad count.");//无数据
+        //                            return default(PostResult<List<T>>);
+        //                        }
+        //                        PostResult<List<T>> r = new PostResult<List<T>>() { Code = int.Parse(list[0].ToString()) };
+        //                        var keys = list[1] as List<object>;
+        //                        var values = list[2] as List<object>;
+        //                        List<object> valuelist = null;
+        //                        var sb = new StringBuilder();
+        //                        sb.Append("[");
+        //                        for (int i = 0; i < values.Count; i++)
+        //                        {
+        //                            valuelist = values[i] as List<object>;
+        //                            sb.Append("{");
+        //                            for (int j = 0; j < valuelist.Count; j++)
+        //                            {
+        //                                if (valuelist[j] != null && !string.IsNullOrEmpty(valuelist[j].ToString()))
+        //                                    sb.AppendFormat("\"{0}\":\"{1}\",", keys[j], valuelist[j]);
+        //                            }
+        //                            sb = new StringBuilder(sb.ToString().Substring(0, sb.Length - 1));
+        //                            sb.Append("},");
+        //                        }
+        //                        sb = new StringBuilder(sb.ToString().Substring(0, sb.Length - 1));
+        //                        sb.Append("]");
+        //                        r.R = JsonConvert.DeserializeObject<List<T>>(sb.ToString());
+        //                        response.Close();
+        //                        return r;
+        //                    }
+        //                    catch (Exception ex)
+        //                    {
+        //                        Base.WriteError("DeserializeRecord convert ex:", ex.Message, ";URL: ", request.RequestUri.PathAndQuery, ";res：", res);
+        //                        response.Close();
+        //                    }
+        //                }
+        //            }
+        //        } 
+        //    }
+        //    catch (Exception ex2)
+        //    {
+        //        Base.WriteError("PostRecordServer ex:", ex2.Message, "url:", requestUrl + "?" + param);
+        //    }
+        //    return default(PostResult<List<T>>);
+        //}
+
         public static PostResult<List<T>> PostRecordServer<T>(string requestUrl, string param)
         {
             try
@@ -224,7 +331,7 @@ namespace MF.Protocol
                 {
                     Base.WriteError("PostRecordServer requestUrl is empty.");
                     return null;
-                }
+                } 
                 WebRequest request = requestServerUrl(requestUrl, param);
                 if (request != null)
                     return DeserializeRecord<T>(request);
@@ -286,10 +393,12 @@ namespace MF.Protocol
         {
             try
             {
-                Base.WriteDebug("requestUrl is ", requestUrl, ".param is ", param);
+                Base.WriteDebug("requestServerUrl is ", requestUrl, ".param is ", param);
                 var request = WebRequest.Create(requestUrl) as HttpWebRequest;
                 var buffer = Encoding.UTF8.GetBytes(param);
                 request.Method = "POST";
+                request.Timeout = 1200000;
+                request.ReadWriteTimeout = 1200000;
                 using (var reqStream = request.GetRequestStream())
                 {
                     reqStream.Write(buffer, 0, buffer.Length);
@@ -301,7 +410,7 @@ namespace MF.Protocol
                 Base.WriteError("PostServer requestUrl ex:", ex.Message, ",requestUrl:", requestUrl, ",param:", param);
             }
             return null;
-        }
+        } 
         static T Deserialize<T>(HttpWebRequest request)
         {
             try
@@ -408,7 +517,7 @@ namespace MF.Protocol
             }
             catch (Exception ex2)
             {
-                Base.WriteError("DeserializeRecord ex:", ex2.Message, ";URL: ", request.RequestUri.PathAndQuery);
+                Base.WriteError("DeserializeRecord ex222:", ex2.Message, ";URL: ", request.RequestUri.PathAndQuery);
             }
             return default(PostResult<List<T>>);
         }

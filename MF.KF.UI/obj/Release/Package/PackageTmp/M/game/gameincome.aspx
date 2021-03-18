@@ -81,10 +81,6 @@
             alert("请输入查询UID或包间号");
             return;
         }
-        if (chargeid.substring(0, 3).trim().toUper == "AAA") {
-            alert("请输入正确的UID");
-            return;
-        }
         $("#loading").show();
         var sh = $("#ddlshour").val() == "-1" ? "0" : $("#ddlshour").val();
         var sm = $("#ddlsmin").val() == "-1" ? "0" : $("#ddlsmin").val();

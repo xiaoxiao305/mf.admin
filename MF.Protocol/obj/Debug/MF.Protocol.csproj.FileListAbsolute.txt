@@ -32,3 +32,16 @@ D:\code\mf.admin\MF.Protocol\bin\Debug\System.Net.Http.Formatting.dll
 D:\code\mf.admin\MF.Protocol\bin\Debug\Newtonsoft.Json.xml
 D:\code\mf.admin\MF.Protocol\bin\Debug\Pathoschild.Http.Client.xml
 D:\code\mf.admin\MF.Protocol\bin\Debug\System.Net.Http.Formatting.xml
+D:\coding\mf.admin\MF.Protocol\bin\Debug\MF.Protocol.dll
+D:\coding\mf.admin\MF.Protocol\bin\Debug\MF.Protocol.pdb
+D:\coding\mf.admin\MF.Protocol\bin\Debug\Newtonsoft.Json.dll
+D:\coding\mf.admin\MF.Protocol\bin\Debug\TencentCloud.dll
+D:\coding\mf.admin\MF.Protocol\bin\Debug\Pathoschild.Http.Client.dll
+D:\coding\mf.admin\MF.Protocol\bin\Debug\System.Net.Http.Formatting.dll
+D:\coding\mf.admin\MF.Protocol\bin\Debug\Pathoschild.Http.Client.xml
+D:\coding\mf.admin\MF.Protocol\bin\Debug\System.Net.Http.Formatting.xml
+D:\coding\mf.admin\MF.Protocol\obj\Debug\MF.Protocol.csproj.CoreCompileInputs.cache
+D:\coding\mf.admin\MF.Protocol\obj\Debug\MF.Protocol.csproj.CopyComplete
+D:\coding\mf.admin\MF.Protocol\obj\Debug\MF.Protocol.dll
+D:\coding\mf.admin\MF.Protocol\obj\Debug\MF.Protocol.pdb
+D:\coding\mf.admin\MF.Protocol\obj\Debug\MF.Protocol.csprojAssemblyReference.cache

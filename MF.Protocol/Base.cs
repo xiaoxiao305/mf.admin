@@ -145,14 +145,14 @@ namespace MF.Protocol
                 {
                     using (StreamWriter sw = File.CreateText(path))
                     {
-                //sw.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff ") + " " + parmsstr + "\r\n");
-                        sw.WriteLine(parmsstr);
+                        sw.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff ") + " " + parmsstr + "\r\n");
+                        //sw.WriteLine(parmsstr);
                     }
                 }
                 using (StreamWriter sw = File.AppendText(path))
                 {
-                //sw.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff ") + " " + parmsstr + "\r\n");
-                    sw.WriteLine(parmsstr);
+                    sw.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff ") + " " + parmsstr + "\r\n");
+                    //sw.WriteLine(parmsstr);
                 }
 
 

@@ -45,12 +45,9 @@
     <Reference Include="MF.Data.ExtendChannel">
       <HintPath>..\..\MF.Common.DLL\MF.Data.ExtendChannel.dll</HintPath>
     </Reference>
-    <Reference Include="MF.Protocol">
-      <HintPath>..\..\MF.Common.DLL\MF.Protocol.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\MF.Common.DLL\Newtonsoft.Json.dll</HintPath>
+      <HintPath>C:\Users\009\Desktop\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -88,6 +85,10 @@
     <ProjectReference Include="..\MF.Data\MF.Data.csproj">
       <Project>{c870302c-31e4-43fe-b1b3-a092402072d5}</Project>
       <Name>MF.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MF.Protocol\MF.Protocol.csproj">
+      <Project>{cba6c3c5-3533-4170-a481-ac74823c49f7}</Project>
+      <Name>MF.Protocol</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

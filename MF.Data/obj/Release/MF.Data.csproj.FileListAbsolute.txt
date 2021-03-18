@@ -14,3 +14,11 @@ D:\code\mf.admin\MF.Data\obj\Release\MF.Data.dll
 D:\code\mf.admin\MF.Data\obj\Release\MF.Data.pdb
 D:\code\mf.admin\MF.Data\bin\Release\Newtonsoft.Json.xml
 D:\code\mf.admin\MF.Data\obj\Release\MF.Data.csproj.CoreCompileInputs.cache
+D:\coding\mf.admin\MF.Data\bin\Release\MF.Data.dll
+D:\coding\mf.admin\MF.Data\bin\Release\MF.Data.pdb
+D:\coding\mf.admin\MF.Data\bin\Release\Newtonsoft.Json.dll
+D:\coding\mf.admin\MF.Data\obj\Release\MF.Data.csprojAssemblyReference.cache
+D:\coding\mf.admin\MF.Data\obj\Release\MF.Data.csproj.CoreCompileInputs.cache
+D:\coding\mf.admin\MF.Data\obj\Release\MF.Data.csproj.CopyComplete
+D:\coding\mf.admin\MF.Data\obj\Release\MF.Data.dll
+D:\coding\mf.admin\MF.Data\obj\Release\MF.Data.pdb

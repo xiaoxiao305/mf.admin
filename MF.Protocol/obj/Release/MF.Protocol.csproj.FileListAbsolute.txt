@@ -30,3 +30,17 @@ D:\coding\mf.admin\MF.Protocol\obj\Release\MF.Protocol.csproj.CoreCompileInputs.
 D:\coding\mf.admin\MF.Protocol\obj\Release\MF.Protocol.csproj.CopyComplete
 D:\coding\mf.admin\MF.Protocol\obj\Release\MF.Protocol.dll
 D:\coding\mf.admin\MF.Protocol\obj\Release\MF.Protocol.pdb
+D:\code\mf.admin\MF.Protocol\bin\Release\MF.Protocol.dll
+D:\code\mf.admin\MF.Protocol\bin\Release\MF.Protocol.pdb
+D:\code\mf.admin\MF.Protocol\bin\Release\Newtonsoft.Json.dll
+D:\code\mf.admin\MF.Protocol\bin\Release\TencentCloud.dll
+D:\code\mf.admin\MF.Protocol\bin\Release\Pathoschild.Http.Client.dll
+D:\code\mf.admin\MF.Protocol\bin\Release\System.Net.Http.Formatting.dll
+D:\code\mf.admin\MF.Protocol\bin\Release\MF.Data.xml
+D:\code\mf.admin\MF.Protocol\bin\Release\Pathoschild.Http.Client.xml
+D:\code\mf.admin\MF.Protocol\bin\Release\System.Net.Http.Formatting.xml
+D:\code\mf.admin\MF.Protocol\obj\Release\MF.Protocol.csprojAssemblyReference.cache
+D:\code\mf.admin\MF.Protocol\obj\Release\MF.Protocol.csproj.CoreCompileInputs.cache
+D:\code\mf.admin\MF.Protocol\obj\Release\MF.Protocol.csproj.CopyComplete
+D:\code\mf.admin\MF.Protocol\obj\Release\MF.Protocol.dll
+D:\code\mf.admin\MF.Protocol\obj\Release\MF.Protocol.pdb

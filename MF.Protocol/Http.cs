@@ -445,7 +445,7 @@ namespace MF.Protocol
         static PostResult<List<T>> DeserializeRecord<T>(WebRequest request)
         {
             try
-            {
+            { 
                 var response = (HttpWebResponse)request.GetResponse();
                 using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                 {
@@ -517,7 +517,7 @@ namespace MF.Protocol
             }
             catch (Exception ex2)
             {
-                Base.WriteError("DeserializeRecord ex222:", ex2.Message, ";URL: ", request.RequestUri.PathAndQuery);
+                Base.WriteError("DeserializeRecord ex333:", ex2.Message, ";URL: ", request.RequestUri.PathAndQuery);
             }
             return default(PostResult<List<T>>);
         }

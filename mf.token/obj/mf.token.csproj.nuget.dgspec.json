@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\coding\\mf.admin\\mf.token\\mf.token.csproj": {}
+    "D:\\code\\mf.admin\\mf.token\\mf.token.csproj": {}
   },
   "projects": {
-    "D:\\coding\\mf.admin\\mf.token\\mf.token.csproj": {
+    "D:\\code\\mf.admin\\mf.token\\mf.token.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\coding\\mf.admin\\mf.token\\mf.token.csproj",
+        "projectUniqueName": "D:\\code\\mf.admin\\mf.token\\mf.token.csproj",
         "projectName": "mf.token",
-        "projectPath": "D:\\coding\\mf.admin\\mf.token\\mf.token.csproj",
+        "projectPath": "D:\\code\\mf.admin\\mf.token\\mf.token.csproj",
         "packagesPath": "C:\\Users\\009\\.nuget\\packages\\",
-        "outputPath": "D:\\coding\\mf.admin\\mf.token\\obj\\",
+        "outputPath": "D:\\code\\mf.admin\\mf.token\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\009\\AppData\\Roaming\\NuGet\\NuGet.Config",

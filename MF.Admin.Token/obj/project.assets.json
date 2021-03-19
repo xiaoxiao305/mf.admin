@@ -693,11 +693,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\coding\\mf.admin\\MF.Admin.Token\\MF.Admin.Token.csproj",
+      "projectUniqueName": "D:\\code\\mf.admin\\MF.Admin.Token\\MF.Admin.Token.csproj",
       "projectName": "MF.Admin.Token",
-      "projectPath": "D:\\coding\\mf.admin\\MF.Admin.Token\\MF.Admin.Token.csproj",
+      "projectPath": "D:\\code\\mf.admin\\MF.Admin.Token\\MF.Admin.Token.csproj",
       "packagesPath": "C:\\Users\\009\\.nuget\\packages\\",
-      "outputPath": "D:\\coding\\mf.admin\\MF.Admin.Token\\obj\\",
+      "outputPath": "D:\\code\\mf.admin\\MF.Admin.Token\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\009\\AppData\\Roaming\\NuGet\\NuGet.Config",

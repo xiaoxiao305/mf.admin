@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "AJrbn1X49mDN0oociHz2yGtptRN/4aCgJ4zYqTeeaPWZzdtnFilkeVyDvCGrlJ1R1eORD/wIESYH/2dUbTtuUg==",
+  "dgSpecHash": "jYcslTTdaBZhA2CVqKEHGINuuZIvM/2FDz+okSdX5ZSxrzg2wUyLKnZcvfAjFrahYCGqOPbgGG8tIgGH5RkNQQ==",
   "success": true,
-  "projectFilePath": "D:\\coding\\mf.admin\\MF.Admin.Token\\MF.Admin.Token.csproj",
+  "projectFilePath": "D:\\code\\mf.admin\\MF.Admin.Token\\MF.Admin.Token.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\009\\.nuget\\packages\\microsoft.netcore.app\\2.1.0\\microsoft.netcore.app.2.1.0.nupkg.sha512",
     "C:\\Users\\009\\.nuget\\packages\\microsoft.netcore.dotnetapphost\\2.1.0\\microsoft.netcore.dotnetapphost.2.1.0.nupkg.sha512",

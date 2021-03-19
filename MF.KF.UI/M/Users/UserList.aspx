@@ -40,13 +40,17 @@
                 addCell(tr, "&nbsp;账号:" + o.Account + "　<a href='/M/users/userinfo.aspx?db=2&acc=" + o.Account + "' target='_blank'>实时</a><br/>&nbsp;昵称:" + o.Nickname + "<br/>&nbsp;UID:" + o.ChargeId, 0);
             else
                 addCell(tr, "&nbsp;账号:" + o.Account + "　<a href='/M/users/userinfo.aspx?db=1&acc=" + o.Account + "' target='_blank'>备份</a><br/>&nbsp;昵称:" + o.Nickname + "<br/>&nbsp;UID:" + o.ChargeId, 0);
-            addCell(tr, state(o.Flag) + "<br/>" + guest(o.Guest), 1);
-            addCell(tr, getCurrencyInfo(o.Account,o.Currency), 2);
-            addCell(tr, o.Bean, 3);
-            addCell(tr, o.RoomCard, 4);
-            addCell(tr, o.Name==null?"":(o.Name + "<br/>" + o.Identity), 5);
-            addCell(tr, device(o.RegistDevice), 6);
-            addCell(tr, o.RegistIp, 7);
+            if("<%=isAdmin%>"==1)
+                addCell(tr, o.TotalWinLoseValue, 1);
+            else
+                addCell(tr, "/", 1);
+            addCell(tr, state(o.Flag) + "<br/>" + guest(o.Guest), 2);
+            addCell(tr, getCurrencyInfo(o.Account,o.Currency), 3);
+            addCell(tr, o.Bean, 4);
+            addCell(tr, o.RoomCard, 5);
+            addCell(tr, o.Name==null?"":(o.Name + "<br/>" + o.Identity), 6);
+            addCell(tr, device(o.RegistDevice), 7);
+            addCell(tr, o.RegistIp, 8);
             return tr;
         }
         function getCurrencyInfo(acc, currency) {   
@@ -64,7 +68,7 @@
             }
         }
         $(document).ready(function() {
-            var pagerTitles = ["账号信息", "状态/属性", "元宝", "金豆", "房卡", "身份信息", "注册设备", "注册IP"]
+            var pagerTitles = ["账号信息", "总输赢", "状态/属性", "元宝", "金豆", "房卡", "身份信息", "注册设备", "注册IP"]
             jsonPager.init(ajax.getUserList,[],searchResult,pagerTitles, "list_table", "container", "pager", insertRow);
             jsonPager.dataBind(1,0);
         });

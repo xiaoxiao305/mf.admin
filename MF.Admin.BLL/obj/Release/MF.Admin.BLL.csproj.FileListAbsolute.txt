@@ -25,15 +25,9 @@ E:\code\mf.admin\MF.Admin.BLL\obj\Release\MF.Admin.BLL.dll
 E:\code\mf.admin\MF.Admin.BLL\obj\Release\MF.Admin.BLL.pdb
 D:\code\mf.admin\MF.Admin.BLL\bin\Release\MF.Admin.BLL.dll
 D:\code\mf.admin\MF.Admin.BLL\bin\Release\MF.Admin.BLL.pdb
-D:\code\mf.admin\MF.Admin.BLL\bin\Release\LitJson.dll
 D:\code\mf.admin\MF.Admin.BLL\bin\Release\MF.Admin.DAL.dll
-D:\code\mf.admin\MF.Admin.BLL\bin\Release\MF.Common.dll
 D:\code\mf.admin\MF.Admin.BLL\bin\Release\MF.Data.dll
-D:\code\mf.admin\MF.Admin.BLL\bin\Release\MF.Data.ExtendChannel.dll
 D:\code\mf.admin\MF.Admin.BLL\bin\Release\Newtonsoft.Json.dll
-D:\code\mf.admin\MF.Admin.BLL\bin\Release\RedisHelp.dll
-D:\code\mf.admin\MF.Admin.BLL\bin\Release\RedisManager.dll
-D:\code\mf.admin\MF.Admin.BLL\bin\Release\ServiceStack.Redis.dll
 D:\code\mf.admin\MF.Admin.BLL\bin\Release\MF.Protocol.dll
 D:\code\mf.admin\MF.Admin.BLL\bin\Release\StackExchange.Redis.dll
 D:\code\mf.admin\MF.Admin.BLL\bin\Release\ServiceStack.Interfaces.dll
@@ -43,7 +37,6 @@ D:\code\mf.admin\MF.Admin.BLL\bin\Release\MF.Enum.dll
 D:\code\mf.admin\MF.Admin.BLL\bin\Release\MF.Admin.DAL.pdb
 D:\code\mf.admin\MF.Admin.BLL\bin\Release\MF.Data.pdb
 D:\code\mf.admin\MF.Admin.BLL\bin\Release\MF.Data.ExtendChannel.xml
-D:\code\mf.admin\MF.Admin.BLL\bin\Release\Newtonsoft.Json.xml
 D:\code\mf.admin\MF.Admin.BLL\obj\Release\MF.Admin.BLL.csprojAssemblyReference.cache
 D:\code\mf.admin\MF.Admin.BLL\obj\Release\MF.Admin.BLL.csproj.CopyComplete
 D:\code\mf.admin\MF.Admin.BLL\obj\Release\MF.Admin.BLL.dll
@@ -75,3 +68,10 @@ D:\coding\mf.admin\MF.Admin.BLL\bin\Release\TencentCloud.pdb
 D:\coding\mf.admin\MF.Admin.BLL\bin\Release\Pathoschild.Http.Client.xml
 D:\coding\mf.admin\MF.Admin.BLL\bin\Release\System.Net.Http.Formatting.xml
 D:\coding\mf.admin\MF.Admin.BLL\obj\Release\MF.Admin.BLL.csproj.CopyComplete
+D:\code\mf.admin\MF.Admin.BLL\bin\Release\TencentCloud.dll
+D:\code\mf.admin\MF.Admin.BLL\bin\Release\Pathoschild.Http.Client.dll
+D:\code\mf.admin\MF.Admin.BLL\bin\Release\System.Net.Http.Formatting.dll
+D:\code\mf.admin\MF.Admin.BLL\bin\Release\MF.Protocol.pdb
+D:\code\mf.admin\MF.Admin.BLL\bin\Release\TencentCloud.pdb
+D:\code\mf.admin\MF.Admin.BLL\bin\Release\Pathoschild.Http.Client.xml
+D:\code\mf.admin\MF.Admin.BLL\bin\Release\System.Net.Http.Formatting.xml

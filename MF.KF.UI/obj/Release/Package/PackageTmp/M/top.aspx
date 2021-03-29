@@ -48,7 +48,7 @@
 			                <li><span onclick="selectMenu(1,'/m/club/club_statistic_day.aspx')">俱乐部管理</span></li>
 			                <li><span onclick="selectMenu(2,'/m/game/closeroom.aspx')">游戏管理</span></li>
                             <li id="reportLi" style="display:none"><span onclick="selectMenu(3,'/m/report/promot.aspx')">报表管理</span></li>
-                            <li id="systemLi"><span onclick="selectMenu(4,'/m/SysManage/sendbroadcast.aspx')">系统管理</span></li>
+                            <li id="systemLi" style="display:none"><span onclick="selectMenu(4,'/m/SysManage/sendbroadcast.aspx')">系统管理</span></li>
 			            </ul>
 			        </div>
 			    </td>

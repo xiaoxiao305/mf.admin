@@ -3,6 +3,7 @@
     <link href="/common/styles/layer.css" type="text/css" rel="Stylesheet" />
     <script language="javascript" type="text/javascript">
         function search() {
+            if (parseInt($("#filed").val()) == 1 && $("#key").val().trim().substring(0, 3).toUpperCase() == "AAA") return;//2021-03-29 不能查询AAA账号 @赵凯
             var args = [parseInt($("#filed").val()), $("#key").val()];
             jsonPager.queryArgs = args;
             $("#loading").show();

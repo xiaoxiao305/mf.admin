@@ -6,6 +6,7 @@
             var club_id = "<%=club_ids%>"; 
             if (club_id!="") $("#key").val(club_id);
             if ($("#filed").val() == "" || $("#key").val() == "") return;
+            if (parseInt($("#filed").val()) == 2 && $("#key").val().trim().substring(0, 3).toUpperCase() == "AAA") return;//2021-03-29 不能查询AAA账号 @赵凯
             var args = [parseInt($("#filed").val()), $("#key").val()];
             jsonPager.queryArgs = args;
             $("#loading").show();

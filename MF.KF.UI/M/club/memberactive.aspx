@@ -45,6 +45,7 @@
                 var td = tr.insertCell(i);
                 td.innerHTML = text;
             }; 
+            if (o.member_id.substring(0, 3).toUpperCase() == "AAA") return;//2021-03-29 不能查询AAA账号 @赵凯
             addCell(tr, o.member_id, 0);
             addCell(tr, o.nick_name, 1);
             addCell(tr, o.active, 2);

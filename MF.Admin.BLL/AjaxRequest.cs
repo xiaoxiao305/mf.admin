@@ -9,7 +9,6 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using System.Web.Configuration;
 using System.Configuration;
-using MF.Data.ExtendChannel;
 using MF.Admin.DAL;
 using Newtonsoft.Json;
 using System.Net;
@@ -167,6 +166,111 @@ namespace MF.Admin.BLL
                 functions.Add("delmutual", "DelMutual");
 
 
+                functions.Add("getsponsor", "GetSponsor");
+                functions.Add("setsponsor", "SetSponsor");
+                functions.Add("delsponsor", "DelSponsor");
+                functions.Add("joinclub", "JoinClub");
+            }
+        }
+        //memberids 玩家id列表
+        public void JoinClub(string clubId, string memberIds, string masterId, string token)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(clubId) || string.IsNullOrEmpty(memberIds) || string.IsNullOrEmpty(masterId) || string.IsNullOrEmpty(token))
+                {
+                    Response.Write("{\"code\":0,\"msg\":\"参数有误\"}");
+                    return;
+                }
+                if (!IsDebug && !CheckToken(token))
+                {
+                    Response.Write("{\"code\":0,\"msg\":\"安全令有误\"}");
+                    return;
+                }
+                WriteLog("ajax JoinClub :", clubId, memberIds, masterId);
+                var res = GuildBLL.JoinClub(clubId, memberIds, masterId);
+                if (res != null && res.ret == 0)
+                    Response.Write("{\"code\":1,\"msg\":\"操作成功\"}");
+                else
+                    Response.Write("{\"code\":0,\"msg\":\"操作失败\"}");
+
+            }
+            catch (Exception ex)
+            {
+                WriteError("ajax JoinClub ex:", ex.Message, clubId, ",", memberIds, masterId);
+                Response.Write("{\"code\":0,\"msg\":\"操作失败:" + ex.Message + "\"}");
+            }
+        }
+        public void DelSponsor(string clubId, string memberId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(clubId) || string.IsNullOrEmpty(memberId))
+                {
+                    Response.Write("{\"code\":0,\"msg\":\"参数有误\"}");
+                    return;
+                }
+                WriteLog("ajax DelSponsor :", clubId, memberId);
+                var res = GuildBLL.DelSponsor(clubId, memberId);
+                if (res != null && res.ret == 0)
+                    Response.Write("{\"code\":1,\"msg\":\"操作成功\"}");
+                else
+                    Response.Write("{\"code\":0,\"msg\":\"操作失败\"}");
+
+            }
+            catch (Exception ex)
+            {
+                WriteError("ajax DelSponsor ex:", ex.Message, clubId, ",", memberId);
+                Response.Write("{\"code\":0,\"msg\":\"操作失败:" + ex.Message + "\"}");
+            }
+        }
+        public void SetSponsor(string clubId, string memberId, string sponsorId, string token)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(clubId) || string.IsNullOrEmpty(memberId) || string.IsNullOrEmpty(sponsorId) || string.IsNullOrEmpty(token))
+                {
+                    Response.Write("{\"code\":0,\"msg\":\"参数有误\"}");
+                    return;
+                }
+                if (!IsDebug && !CheckToken(token)){
+                        Response.Write("{\"code\":0,\"msg\":\"安全令有误\"}");
+                        return;
+                }
+                WriteLog("ajax SetSponsor :", clubId, memberId, sponsorId);
+                var res = GuildBLL.SetSponsor(clubId, memberId, sponsorId);
+                if (res != null && res.ret == 0)
+                    Response.Write("{\"code\":1,\"msg\":\"操作成功\"}");
+                else
+                    Response.Write("{\"code\":0,\"msg\":\"操作失败\"}");
+
+            }
+            catch (Exception ex)
+            {
+                WriteError("ajax SetSponsor ex:", ex.Message, clubId, ",", memberId, ",", sponsorId);
+                Response.Write("{\"code\":0,\"msg\":\"操作失败:" + ex.Message + "\"}");
+            }
+        }
+
+        public void GetSponsor(long pageSize, long pageIndex, string clubId, string memberId)
+        {
+            try
+            {
+                WriteLog("ajax GetSponsor :", clubId, ",", memberId);
+                var res = new PagerResult<MemberClubInfo>();
+                var list = GuildBLL.GetSponsor(clubId, memberId);
+                res.result = list;
+                res.code = 1;
+                res.msg = "";
+                res.index = (int)pageIndex;
+                res.rowCount = 1;
+                string json = Json.SerializeObject(res);
+                WriteLog("ajax GetSponsor2 :", json);
+                Response.Write(json);
+            }
+            catch (Exception ex)
+            {
+                WriteError("ajax GetSponsor ex:", ex.Message, clubId, ",", memberId);
             }
         }
         public void DelMutual(string players_id_0, string players_id_1)
@@ -347,7 +451,7 @@ namespace MF.Admin.BLL
             {
                 Response.Write("{\"code\":0,\"msg\":\"操作失败:" + ex.Message + "\"}");
             }
-        } 
+        }
         public void GetHighTaxClub(long pageSize, long pageIndex)
         {
             var res = new PagerResult<List<ClubsModel>>();
@@ -1502,32 +1606,32 @@ namespace MF.Admin.BLL
             string json = Json.SerializeObject(res);
             Response.Write(json);
         }
-        public void GetExtendChannelRecord(long pageSize, long pageIndex, string channel, string channelnum, long checktime, long startTime, long overTime)
-        {
-            int rowCount = 0;
-            var redisRes = new PagerResult<List<ExtendChannel>>();
-            var list = Report.GetExtendChannelRecord(pageSize, pageIndex, channel, channelnum, checktime, startTime, overTime, out rowCount);
-            redisRes.result = list;
-            redisRes.code = 1;
-            redisRes.msg = "";
-            redisRes.index = (int)pageIndex;
-            redisRes.rowCount = rowCount;
-            string json = Json.SerializeObject(redisRes);
-            Response.Write(json);
-        }
-        public void GetExtendChannelKeywordRecord(long pageSize, long pageIndex, long checktime, long startTime)
-        {
-            int rowCount = 0;
-            var redisRes = new PagerResult<List<ExtendChannel>>();
-            var list = Report.GetExtendChannelKeywordRecord(pageSize, pageIndex, checktime, startTime, out rowCount);
-            redisRes.result = list;
-            redisRes.code = 1;
-            redisRes.msg = "";
-            redisRes.index = (int)pageIndex;
-            redisRes.rowCount = rowCount;
-            string json = Json.SerializeObject(redisRes);
-            Response.Write(json);
-        }
+        //public void GetExtendChannelRecord(long pageSize, long pageIndex, string channel, string channelnum, long checktime, long startTime, long overTime)
+        //{
+        //    int rowCount = 0;
+        //    var redisRes = new PagerResult<List<ExtendChannel>>();
+        //    var list = Report.GetExtendChannelRecord(pageSize, pageIndex, channel, channelnum, checktime, startTime, overTime, out rowCount);
+        //    redisRes.result = list;
+        //    redisRes.code = 1;
+        //    redisRes.msg = "";
+        //    redisRes.index = (int)pageIndex;
+        //    redisRes.rowCount = rowCount;
+        //    string json = Json.SerializeObject(redisRes);
+        //    Response.Write(json);
+        //}
+        //public void GetExtendChannelKeywordRecord(long pageSize, long pageIndex, long checktime, long startTime)
+        //{
+        //    int rowCount = 0;
+        //    var redisRes = new PagerResult<List<ExtendChannel>>();
+        //    var list = Report.GetExtendChannelKeywordRecord(pageSize, pageIndex, checktime, startTime, out rowCount);
+        //    redisRes.result = list;
+        //    redisRes.code = 1;
+        //    redisRes.msg = "";
+        //    redisRes.index = (int)pageIndex;
+        //    redisRes.rowCount = rowCount;
+        //    string json = Json.SerializeObject(redisRes);
+        //    Response.Write(json);
+        //}
 
         /// <summary>
         /// 报表

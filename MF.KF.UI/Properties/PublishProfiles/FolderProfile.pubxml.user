@@ -7,56 +7,74 @@
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <_PublishTargetUrl>D:\code\public\kf.2255-web.com</_PublishTargetUrl>
-    <History>True|2021-03-29T01:46:28.8095818Z;True|2021-03-19T12:15:16.2050471+08:00;True|2021-03-19T12:13:06.1170721+08:00;True|2021-03-19T12:10:38.6991590+08:00;True|2021-03-19T10:07:11.4058455+08:00;False|2021-03-19T10:06:47.8643849+08:00;True|2021-03-19T09:41:37.5557139+08:00;True|2021-03-17T14:15:44.5755682+08:00;True|2021-03-17T13:51:31.4880757+08:00;True|2021-03-17T13:44:23.5279686+08:00;True|2021-03-17T13:36:11.1273711+08:00;</History>
+    <History>True|2021-04-27T08:03:59.4309504Z;True|2021-04-27T16:01:55.9038369+08:00;True|2021-04-27T15:30:00.7228975+08:00;True|2021-04-27T15:21:14.0493706+08:00;True|2021-04-27T15:01:39.0287487+08:00;True|2021-04-27T14:57:28.0315759+08:00;True|2021-04-14T15:27:04.8033215+08:00;True|2021-04-14T15:23:31.4056623+08:00;True|2021-03-29T09:46:28.8095818+08:00;True|2021-03-19T12:15:16.2050471+08:00;True|2021-03-19T12:13:06.1170721+08:00;True|2021-03-19T12:10:38.6991590+08:00;True|2021-03-19T10:07:11.4058455+08:00;False|2021-03-19T10:06:47.8643849+08:00;True|2021-03-19T09:41:37.5557139+08:00;True|2021-03-17T14:15:44.5755682+08:00;True|2021-03-17T13:51:31.4880757+08:00;True|2021-03-17T13:44:23.5279686+08:00;True|2021-03-17T13:36:11.1273711+08:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="1.html">
       <publishTime>03/13/2020 08:51:28</publishTime>
     </File>
     <File Include="bin/MF.Admin.BLL.dll">
-      <publishTime>03/29/2021 09:46:26</publishTime>
+      <publishTime>04/27/2021 16:01:55</publishTime>
+    </File>
+    <File Include="bin/MF.Admin.BLL.dll.config">
+      <publishTime>04/27/2021 14:45:55</publishTime>
     </File>
     <File Include="bin/MF.Admin.BLL.pdb">
-      <publishTime>03/29/2021 09:46:26</publishTime>
+      <publishTime>04/27/2021 16:01:55</publishTime>
     </File>
     <File Include="bin/MF.Admin.DAL.dll">
-      <publishTime>03/29/2021 09:46:26</publishTime>
+      <publishTime>04/27/2021 16:01:55</publishTime>
+    </File>
+    <File Include="bin/MF.Admin.DAL.dll.config">
+      <publishTime>04/27/2021 14:44:43</publishTime>
     </File>
     <File Include="bin/MF.Admin.DAL.pdb">
-      <publishTime>03/29/2021 09:46:26</publishTime>
+      <publishTime>04/27/2021 16:01:55</publishTime>
     </File>
     <File Include="bin/MF.Common.dll">
-      <publishTime>03/19/2021 16:19:42</publishTime>
+      <publishTime>04/15/2021 10:51:20</publishTime>
+    </File>
+    <File Include="bin/MF.Common.pdb">
+      <publishTime>04/15/2021 10:51:20</publishTime>
     </File>
     <File Include="bin/MF.Data.dll">
-      <publishTime>03/19/2021 16:19:42</publishTime>
+      <publishTime>04/27/2021 15:29:58</publishTime>
     </File>
     <File Include="bin/MF.Data.ExtendChannel.dll">
       <publishTime>03/19/2021 16:19:42</publishTime>
     </File>
     <File Include="bin/MF.Data.pdb">
-      <publishTime>03/19/2021 16:19:42</publishTime>
+      <publishTime>04/27/2021 15:29:58</publishTime>
     </File>
     <File Include="bin/MF.Enum.dll">
-      <publishTime>03/19/2021 16:19:42</publishTime>
+      <publishTime>04/12/2021 10:19:14</publishTime>
+    </File>
+    <File Include="bin/MF.Enum.pdb">
+      <publishTime>04/12/2021 10:19:14</publishTime>
     </File>
     <File Include="bin/MF.KF.UI.dll">
-      <publishTime>03/29/2021 09:46:27</publishTime>
+      <publishTime>04/27/2021 16:01:55</publishTime>
     </File>
     <File Include="bin/MF.KF.UI.pdb">
-      <publishTime>03/29/2021 09:46:27</publishTime>
+      <publishTime>04/27/2021 16:01:55</publishTime>
     </File>
     <File Include="bin/MF.Protocol.dll">
-      <publishTime>03/29/2021 09:46:26</publishTime>
+      <publishTime>04/27/2021 14:57:27</publishTime>
+    </File>
+    <File Include="bin/MF.Protocol.dll.config">
+      <publishTime>04/27/2021 14:31:19</publishTime>
     </File>
     <File Include="bin/MF.Protocol.pdb">
-      <publishTime>03/29/2021 09:46:26</publishTime>
+      <publishTime>04/27/2021 14:57:27</publishTime>
     </File>
     <File Include="bin/MF.WebControls.dll">
-      <publishTime>03/19/2021 16:19:42</publishTime>
+      <publishTime>04/27/2021 14:55:05</publishTime>
+    </File>
+    <File Include="bin/MF.WebControls.pdb">
+      <publishTime>04/27/2021 14:55:05</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>03/19/2021 16:19:42</publishTime>
+      <publishTime>03/17/2021 20:03:36</publishTime>
     </File>
     <File Include="bin/Pathoschild.Http.Client.dll">
       <publishTime>03/19/2021 16:19:42</publishTime>
@@ -170,7 +188,7 @@
       <publishTime>03/19/2021 16:19:42</publishTime>
     </File>
     <File Include="common/js/ajax.js">
-      <publishTime>03/19/2021 16:19:42</publishTime>
+      <publishTime>04/27/2021 15:51:11</publishTime>
     </File>
     <File Include="common/js/common.js">
       <publishTime>03/19/2021 16:19:42</publishTime>
@@ -283,6 +301,9 @@
     <File Include="M/club/memberactive.aspx">
       <publishTime>03/29/2021 09:41:34</publishTime>
     </File>
+    <File Include="M/club/sponsorlist.aspx">
+      <publishTime>04/27/2021 15:51:30</publishTime>
+    </File>
     <File Include="M/Currency/AllStrongBox.aspx">
       <publishTime>03/19/2021 16:19:42</publishTime>
     </File>
@@ -359,7 +380,7 @@
       <publishTime>03/17/2021 15:13:18</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>03/19/2021 16:19:42</publishTime>
+      <publishTime>04/27/2021 14:57:00</publishTime>
     </File>
   </ItemGroup>
 </Project>

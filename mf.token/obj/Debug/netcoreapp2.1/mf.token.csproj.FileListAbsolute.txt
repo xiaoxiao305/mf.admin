@@ -5,3 +5,4 @@ D:\coding\mf.admin\mf.token\obj\Debug\netcoreapp2.1\mf.token.csprojAssemblyRefer
 D:\coding\mf.admin\mf.token\obj\Debug\netcoreapp2.1\mf.token.AssemblyInfoInputs.cache
 D:\coding\mf.admin\mf.token\obj\Debug\netcoreapp2.1\mf.token.AssemblyInfo.cs
 D:\coding\mf.admin\mf.token\obj\Debug\netcoreapp2.1\mf.token.csproj.CoreCompileInputs.cache
+D:\code\mf.admin\mf.token\obj\Debug\netcoreapp2.1\mf.token.csprojAssemblyReference.cache

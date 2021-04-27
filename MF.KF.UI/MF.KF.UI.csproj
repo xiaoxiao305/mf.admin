@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MF.KF.UI</RootNamespace>
     <AssemblyName>MF.KF.UI</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -71,6 +71,7 @@
     <Content Include="M\club\guildlist.aspx" />
     <Content Include="M\club\hightaxclubs.aspx" />
     <Content Include="M\club\memberactive.aspx" />
+    <Content Include="M\club\sponsorlist.aspx" />
     <Content Include="M\Currency\AllStrongBox.aspx" />
     <Content Include="M\Currency\CurrencyRecord.aspx" />
     <Content Include="M\game\addblackuserlist.aspx" />
@@ -222,6 +223,13 @@
     </Compile>
     <Compile Include="M\club\memberactive.aspx.designer.cs">
       <DependentUpon>memberactive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="M\club\sponsorlist.aspx.cs">
+      <DependentUpon>sponsorlist.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\club\sponsorlist.aspx.designer.cs">
+      <DependentUpon>sponsorlist.aspx</DependentUpon>
     </Compile>
     <Compile Include="M\Currency\AllStrongBox.aspx.cs">
       <DependentUpon>AllStrongBox.aspx</DependentUpon>
@@ -386,17 +394,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="MF.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\MF.Common.DLL\MF.Common.dll</HintPath>
+    <Reference Include="MF.Common">
+      <HintPath>..\..\www\MF.Common\bin\Debug\MF.Common.dll</HintPath>
     </Reference>
-    <Reference Include="MF.WebControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\MF.Common.DLL\MF.WebControls.dll</HintPath>
+    <Reference Include="MF.WebControls">
+      <HintPath>..\..\www\MF.WebControls\bin\Debug\MF.WebControls.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Users\009\Desktop\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -417,6 +422,7 @@
     <Content Include="HandlerDownFile.ashx" />
     <Content Include="common\js\gamerec.json" />
     <Content Include="M\main2.Master" />
+    <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>
   <ItemGroup />

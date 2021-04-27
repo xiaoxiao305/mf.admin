@@ -3,7 +3,6 @@ using MF.Data;
 using MF.Admin.DAL;
 using System;
 using System.Linq;
-using MF.Data.ExtendChannel;
 using System.Data;
 
 namespace MF.Admin.BLL
@@ -59,74 +58,74 @@ namespace MF.Admin.BLL
             //search.Where += " and matchid not in (94261,97761,96161,98861,99261,99461,99061,99561,99661,99761,91161,91561,99861,98161) ";
             return dal.GetGameReport(search, out rowCount);
         }
-        public static List<ExtendChannel> GetExtendChannelRecord(long pageSize, long pageIndex,
-            string channel, string channelnum, long checktime, long startTime, long overTime, out int rowCount)
-        {
-            rowCount = 0;
-            if (checktime == 2)//redis
-            {
-                try
-                {
-                    //WriteLog("checktime:",checktime.ToString());
-                    List<ExtendChannel> list = RedisManager.ChannelRedis.CountRedisData(DateTime.Now);//统计今日及时数据
-                    if (list == null)
-                        return list;
-                    if (string.IsNullOrEmpty(channel) || channel.Trim().Equals("-1"))
-                    {
-                        if (list != null)
-                            rowCount = list.Count;
-                        return list;
-                    }
-                    List<ExtendChannel> new_list = new List<ExtendChannel>();
-                    foreach (ExtendChannel model in list)
-                    {
-                        if (channel.Trim().ToUpper().Equals(model.Channel.Trim().ToUpper()))
-                        {
-                            new_list.Add(model);
-                        }
-                    }
-                    if (new_list != null)
-                        rowCount = new_list.Count;
-                    return new_list;
-                }
-                catch (Exception ex)
-                {
-                    WriteError("get today redisdata ex:", ex.Message);
-                    return null;
-                }
-            }
-            else//mf_record
-            {
-                var search = new ExtendChannelSearch() { PageIndex = (int)pageIndex, PageSize = (int)pageSize, PrimaryKey = "[Day]" };
-                if (startTime > 0 && overTime > 0)
-                    search.Where += string.Format(" and [Day] between {0} and {1}", startTime, overTime);
-                if (!string.IsNullOrEmpty(channel))
-                    search.Where += string.Format(" and [Channel]='{0}'", channel);
-                if (!string.IsNullOrEmpty(channelnum))
-                    search.Where += string.Format(" and [ChannelNum]='{0}'", channelnum);
-                return dal.GetExtendChannelRecord(search, out rowCount);
-            }
-        }
-        public static List<ExtendChannel> GetExtendChannelKeywordRecord(long pageSize, long pageIndex,
-          long checktime, long startTime, out int rowCount)
-        {
-            rowCount = 0;
-            try
-            {
-                DateTime time = DateTime.Now;
-                if (checktime == 1 && startTime > 0)
-                    time = BaseDAL.ConvertSpanToDate("d", (int)startTime);
-                List<ExtendChannel> list = RedisManager.ChannelRedis.CountRedisKeywordData(time);//统计今日及时数据
-                if (list != null)
-                    rowCount = list.Count;
-                return list;
-            }
-            catch (Exception ex)
-            {
-                WriteError("get today rediskeyworddata ex:", ex.Message);
-                return null;
-            }
-        }
+        //public static List<ExtendChannel> GetExtendChannelRecord(long pageSize, long pageIndex,
+        //    string channel, string channelnum, long checktime, long startTime, long overTime, out int rowCount)
+        //{
+        //    rowCount = 0;
+        //    if (checktime == 2)//redis
+        //    {
+        //        try
+        //        {
+        //            //WriteLog("checktime:",checktime.ToString());
+        //            List<ExtendChannel> list = RedisManager.ChannelRedis.CountRedisData(DateTime.Now);//统计今日及时数据
+        //            if (list == null)
+        //                return list;
+        //            if (string.IsNullOrEmpty(channel) || channel.Trim().Equals("-1"))
+        //            {
+        //                if (list != null)
+        //                    rowCount = list.Count;
+        //                return list;
+        //            }
+        //            List<ExtendChannel> new_list = new List<ExtendChannel>();
+        //            foreach (ExtendChannel model in list)
+        //            {
+        //                if (channel.Trim().ToUpper().Equals(model.Channel.Trim().ToUpper()))
+        //                {
+        //                    new_list.Add(model);
+        //                }
+        //            }
+        //            if (new_list != null)
+        //                rowCount = new_list.Count;
+        //            return new_list;
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            WriteError("get today redisdata ex:", ex.Message);
+        //            return null;
+        //        }
+        //    }
+        //    else//mf_record
+        //    {
+        //        var search = new ExtendChannelSearch() { PageIndex = (int)pageIndex, PageSize = (int)pageSize, PrimaryKey = "[Day]" };
+        //        if (startTime > 0 && overTime > 0)
+        //            search.Where += string.Format(" and [Day] between {0} and {1}", startTime, overTime);
+        //        if (!string.IsNullOrEmpty(channel))
+        //            search.Where += string.Format(" and [Channel]='{0}'", channel);
+        //        if (!string.IsNullOrEmpty(channelnum))
+        //            search.Where += string.Format(" and [ChannelNum]='{0}'", channelnum);
+        //        return dal.GetExtendChannelRecord(search, out rowCount);
+        //    }
+        //}
+        //public static List<ExtendChannel> GetExtendChannelKeywordRecord(long pageSize, long pageIndex,
+        //  long checktime, long startTime, out int rowCount)
+        //{
+        //    rowCount = 0;
+        //    try
+        //    {
+        //        DateTime time = DateTime.Now;
+        //        if (checktime == 1 && startTime > 0)
+        //            time = BaseDAL.ConvertSpanToDate("d", (int)startTime);
+        //        List<ExtendChannel> list = RedisManager.ChannelRedis.CountRedisKeywordData(time);//统计今日及时数据
+        //        if (list != null)
+        //            rowCount = list.Count;
+        //        return list;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        WriteError("get today rediskeyworddata ex:", ex.Message);
+        //        return null;
+        //    }
+        //}
 
         public static List<ExtendKeywords> GetGameKeywordsList(out int rowCount)
         {

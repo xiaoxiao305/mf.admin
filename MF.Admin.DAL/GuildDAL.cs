@@ -896,5 +896,62 @@ namespace MF.Admin.DAL
             }
             return null;
         }
+
+
+        public MemberClubInfoServer GetSponsor(string clubId, string memberId)
+        { 
+            try
+            { 
+                string param = "{\"module\":\"club_dividends\",\"func\":\"get_sponsor\",\"args\":{\"club_id\":\""+clubId+ "\",\"member_id\":\""+ memberId + "\"}}";
+                return PostClubServer<MemberClubInfoServer>(ClubsURI, param);
+            }
+            catch (Exception ex)
+            {
+                WriteError("post GetSponsor ex:", ex.Message);
+            }
+            return null;
+        }
+        public ClubsServerRes SetSponsor(string clubId, string memberId, string sponsorId)
+        {
+            try
+            { 
+                string param = "{\"module\":\"club_dividends\",\"func\":\"set_sponsor\",\"args\":{\"club_id\":\"" + clubId + "\",\"member_id\":\"" + memberId + "\",\"sponsor_id\":\"" + sponsorId + "\"}}";
+                return PostClubServer<ClubsServerRes>(ClubsURI, param);
+            }
+            catch (Exception ex)
+            {
+                WriteError("post SetSponsor ex:", ex.Message);
+            }
+            return null;
+
+        }
+        public ClubsServerRes DelSponsor(string clubId, string memberId )
+        {
+            try
+            {
+                string param = "{\"module\":\"club_dividends\",\"func\":\"del_sponsor\",\"args\":{\"club_id\":\"" + clubId + "\",\"member_id\":\"" + memberId + "\"}}";
+                return PostClubServer<ClubsServerRes>(ClubsURI, param);
+            }
+            catch (Exception ex)
+            {
+                WriteError("post DelSponsor ex:", ex.Message);
+            }
+            return null;
+
+        }
+        public ClubsServerRes JoinClub(string clubId, string memberList, string masterId)
+        {
+            try
+            { 
+                string param = "{\"module\":\"club_member\",\"func\":\"join\",\"args\":{\"club_id\":\"" + clubId + "\",\"member_list\":[\"" + String.Join(",", memberList) + "\"],\"master\":\""+masterId+"\"}}";
+                return PostClubServer<ClubsServerRes>(ClubsURI, param);
+            }
+            catch (Exception ex)
+            {
+                WriteError("post JoinClub ex:", ex.Message);
+            }
+            return null;
+
+        } 
     }
 }

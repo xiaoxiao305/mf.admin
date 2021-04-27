@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MF.Admin.BLL</RootNamespace>
     <AssemblyName>MF.Admin.BLL</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -39,28 +39,11 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LitJson">
-      <HintPath>..\..\MF.Common.DLL\LitJson.dll</HintPath>
+    <Reference Include="MF.Common">
+      <HintPath>..\..\www\MF.Common\bin\Debug\MF.Common.dll</HintPath>
     </Reference>
-    <Reference Include="MF.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\MF.Common.DLL\MF.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="MF.Data.ExtendChannel">
-      <HintPath>..\..\MF.Common.DLL\MF.Data.ExtendChannel.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Users\009\Desktop\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="RedisHelp">
-      <HintPath>..\..\MF.Common.DLL\RedisHelp.dll</HintPath>
-    </Reference>
-    <Reference Include="RedisManager">
-      <HintPath>..\..\MF.Common.DLL\RedisManager.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.Redis">
-      <HintPath>..\..\MF.Common.DLL\ServiceStack.Redis.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -102,6 +85,10 @@
       <Project>{c870302c-31e4-43fe-b1b3-a092402072d5}</Project>
       <Name>MF.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

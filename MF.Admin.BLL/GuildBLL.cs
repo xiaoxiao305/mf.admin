@@ -692,5 +692,26 @@ namespace MF.Admin.BLL
             }
             return null;
         }
+
+        public static MemberClubInfo GetSponsor(string clubId,string chargeId)
+        {
+            var r=dal.GetSponsor(clubId, chargeId);
+            if (r != null) return r.msg;
+            return null;
+        }
+        public static ClubsServerRes SetSponsor(string clubId, string memberId, string sponsorId)
+        {
+            return dal.SetSponsor(clubId, memberId, sponsorId);
+        }
+        public static ClubsServerRes DelSponsor(string clubId, string memberId)
+        {
+            return dal.DelSponsor(clubId, memberId);
+        }
+        public static ClubsServerRes JoinClub(string clubId,string memberList,string masterId)
+        {
+            return dal.JoinClub(clubId, memberList,masterId);
+        }
+        
+
     }
 }

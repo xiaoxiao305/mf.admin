@@ -2,8 +2,7 @@
 using MF.Data;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
-using MF.Data.ExtendChannel;
+using System.Data.SqlClient; 
 using System.Configuration;
 using System.Net;
 using System.IO;
@@ -512,100 +511,100 @@ namespace MF.Admin.DAL
             }
             return list;
         }
-        public List<ExtendChannel> GetExtendChannelRecord(ExtendChannelSearch search, out int rowCount)
-        {
-            var dt = GetSearchData(search, DBName.MF_RECORD_DY, out rowCount);
-            if (rowCount < 1)
-                return null;
-            var list = new List<ExtendChannel>();
-            try
-            {
-                foreach (DataRow dr in dt.Rows)
-                {
-                    var report = new ExtendChannel();
-                    if (dr["AndroidDown"] != null && !string.IsNullOrEmpty(dr["AndroidDown"].ToString()))
-                        report.AndroidDown = int.Parse(dr["AndroidDown"].ToString());
-                    if (dr["AndroidFirstActive"] != null && !string.IsNullOrEmpty(dr["AndroidFirstActive"].ToString()))
-                        report.AndroidFirstActive = int.Parse(dr["AndroidFirstActive"].ToString());
-                    if (dr["AndroidLoad"] != null && !string.IsNullOrEmpty(dr["AndroidLoad"].ToString()))
-                        report.AndroidLoad = int.Parse(dr["AndroidLoad"].ToString());
-                    report.Channel = dr["Channel"].ToString();
-                    report.ChannelNum = dr["ChannelNum"].ToString();
-                    if (dr["Day"] != null && !string.IsNullOrEmpty(dr["Day"].ToString()))
-                        report.Day = int.Parse(dr["Day"].ToString());
-                    if (dr["iOSDown"] != null && !string.IsNullOrEmpty(dr["iOSDown"].ToString()))
-                        report.iOSDown = int.Parse(dr["iOSDown"].ToString());
-                    if (dr["iOSFirstActive"] != null && !string.IsNullOrEmpty(dr["iOSFirstActive"].ToString()))
-                        report.iOSFirstActive = int.Parse(dr["iOSFirstActive"].ToString());
-                    if (dr["iOSLoad"] != null && !string.IsNullOrEmpty(dr["iOSLoad"].ToString()))
-                        report.iOSLoad = int.Parse(dr["iOSLoad"].ToString());
-                    if (dr["LoadTimeAvg"] != null && !string.IsNullOrEmpty(dr["LoadTimeAvg"].ToString()))
-                        report.LoadTimeAvg = int.Parse(dr["LoadTimeAvg"].ToString());
-                    if (dr["PCDown"] != null && !string.IsNullOrEmpty(dr["PCDown"].ToString()))
-                        report.PCDown = int.Parse(dr["PCDown"].ToString());
-                    if (dr["PCFirstActive"] != null && !string.IsNullOrEmpty(dr["PCFirstActive"].ToString()))
-                        report.PCFirstActive = int.Parse(dr["PCFirstActive"].ToString());
-                    if (dr["PCLoad"] != null && !string.IsNullOrEmpty(dr["PCLoad"].ToString()))
-                        report.PCLoad = int.Parse(dr["PCLoad"].ToString());
-                    if (dr["SecondDown"] != null && !string.IsNullOrEmpty(dr["SecondDown"].ToString()))
-                        report.SecondDown = int.Parse(dr["SecondDown"].ToString());
-                    if (dr["SecondDownTimeAvg"] != null && !string.IsNullOrEmpty(dr["SecondDownTimeAvg"].ToString()))
-                        report.SecondDownTimeAvg = int.Parse(dr["SecondDownTimeAvg"].ToString());
-                    if (dr["Stay"] != null && !string.IsNullOrEmpty(dr["Stay"].ToString()))
-                        report.Stay = int.Parse(dr["Stay"].ToString());
-                    if (dr["Register"] != null && !string.IsNullOrEmpty(dr["Register"].ToString()))
-                        report.Register = int.Parse(dr["Register"].ToString());
-                    if (dr["NetWifi"] != null && !string.IsNullOrEmpty(dr["NetWifi"].ToString()))
-                        report.NetWifi = int.Parse(dr["NetWifi"].ToString());
-                    if (dr["NetMobileData"] != null && !string.IsNullOrEmpty(dr["NetMobileData"].ToString()))
-                        report.NetMobileData = int.Parse(dr["NetMobileData"].ToString());
-                    list.Add(report);
-                }
-            }
-            catch (Exception ex)
-            {
-                WriteError("ReportDAL.GetExtendChannelRecord Error:", ex.Message, ex.StackTrace, ex.Source);
-            }
-            return list;
-        }
-        public void StoreTodayExtendChannelData(List<ExtendChannel> list)
-        {
-            try
-            {
-                string log = "";
-                foreach (ExtendChannel model in list)
-                {
-                    log += string.Format("{0}_{1}_{2}_{3}_{4}_{5}_{6}_{7}_{8}_{9}_{10}_{11}_{12}_{13}_{14}_{15}"
-                        , model.AndroidDown, model.AndroidFirstActive, model.AndroidLoad,
-                       model.Channel, model.ChannelNum, model.Day, model.iOSDown, model.iOSFirstActive, model.iOSLoad,
-                       model.LoadTimeAvg, model.PCDown, model.PCFirstActive, model.PCLoad, model.SecondDown, model.SecondDownTimeAvg, model.Stay);
-                    WriteDebug("StoreTodayExtendChannelData log is ", log);
-                    var args = new SqlParameter[] {
-                    new SqlParameter("@AndroidDown",model.AndroidDown),
-                    new SqlParameter("@AndroidFirstActive",model.AndroidFirstActive),
-                        new SqlParameter("@AndroidLoad",model.AndroidLoad),
-                        new SqlParameter("@Channel",model.Channel),
-                        new SqlParameter("@ChannelNum",model.ChannelNum),
-                        new SqlParameter("@Day",model.Day),
-                        new SqlParameter("@iOSDown",model.iOSDown),
-                        new SqlParameter("@iOSFirstActive",model.iOSFirstActive),
-                        new SqlParameter("@iOSLoad",model.iOSLoad),
-                        new SqlParameter("@LoadTimeAvg",model.LoadTimeAvg),
-                        new SqlParameter("@PCDown",model.PCDown),
-                        new SqlParameter("@PCFirstActive",model.PCFirstActive),
-                        new SqlParameter("@PCLoad",model.PCLoad),
-                        new SqlParameter("@SecondDown",model.SecondDown),
-                        new SqlParameter("@SecondDownTimeAvg",model.SecondDownTimeAvg),
-                        new SqlParameter("@Stay",model.Stay)
-                };
-                    DataHelper.ExecuteProcedure("mf_P_ExtendChannel", args);
-                }
-            }
-            catch (Exception e)
-            {
-                BaseDAL.WriteError("写入数据库【每日redis推广渠道】数据异常:", e.Message);
-            }
-        }
+        //public List<ExtendChannel> GetExtendChannelRecord(ExtendChannelSearch search, out int rowCount)
+        //{
+        //    var dt = GetSearchData(search, DBName.MF_RECORD_DY, out rowCount);
+        //    if (rowCount < 1)
+        //        return null;
+        //    var list = new List<ExtendChannel>();
+        //    try
+        //    {
+        //        foreach (DataRow dr in dt.Rows)
+        //        {
+        //            var report = new ExtendChannel();
+        //            if (dr["AndroidDown"] != null && !string.IsNullOrEmpty(dr["AndroidDown"].ToString()))
+        //                report.AndroidDown = int.Parse(dr["AndroidDown"].ToString());
+        //            if (dr["AndroidFirstActive"] != null && !string.IsNullOrEmpty(dr["AndroidFirstActive"].ToString()))
+        //                report.AndroidFirstActive = int.Parse(dr["AndroidFirstActive"].ToString());
+        //            if (dr["AndroidLoad"] != null && !string.IsNullOrEmpty(dr["AndroidLoad"].ToString()))
+        //                report.AndroidLoad = int.Parse(dr["AndroidLoad"].ToString());
+        //            report.Channel = dr["Channel"].ToString();
+        //            report.ChannelNum = dr["ChannelNum"].ToString();
+        //            if (dr["Day"] != null && !string.IsNullOrEmpty(dr["Day"].ToString()))
+        //                report.Day = int.Parse(dr["Day"].ToString());
+        //            if (dr["iOSDown"] != null && !string.IsNullOrEmpty(dr["iOSDown"].ToString()))
+        //                report.iOSDown = int.Parse(dr["iOSDown"].ToString());
+        //            if (dr["iOSFirstActive"] != null && !string.IsNullOrEmpty(dr["iOSFirstActive"].ToString()))
+        //                report.iOSFirstActive = int.Parse(dr["iOSFirstActive"].ToString());
+        //            if (dr["iOSLoad"] != null && !string.IsNullOrEmpty(dr["iOSLoad"].ToString()))
+        //                report.iOSLoad = int.Parse(dr["iOSLoad"].ToString());
+        //            if (dr["LoadTimeAvg"] != null && !string.IsNullOrEmpty(dr["LoadTimeAvg"].ToString()))
+        //                report.LoadTimeAvg = int.Parse(dr["LoadTimeAvg"].ToString());
+        //            if (dr["PCDown"] != null && !string.IsNullOrEmpty(dr["PCDown"].ToString()))
+        //                report.PCDown = int.Parse(dr["PCDown"].ToString());
+        //            if (dr["PCFirstActive"] != null && !string.IsNullOrEmpty(dr["PCFirstActive"].ToString()))
+        //                report.PCFirstActive = int.Parse(dr["PCFirstActive"].ToString());
+        //            if (dr["PCLoad"] != null && !string.IsNullOrEmpty(dr["PCLoad"].ToString()))
+        //                report.PCLoad = int.Parse(dr["PCLoad"].ToString());
+        //            if (dr["SecondDown"] != null && !string.IsNullOrEmpty(dr["SecondDown"].ToString()))
+        //                report.SecondDown = int.Parse(dr["SecondDown"].ToString());
+        //            if (dr["SecondDownTimeAvg"] != null && !string.IsNullOrEmpty(dr["SecondDownTimeAvg"].ToString()))
+        //                report.SecondDownTimeAvg = int.Parse(dr["SecondDownTimeAvg"].ToString());
+        //            if (dr["Stay"] != null && !string.IsNullOrEmpty(dr["Stay"].ToString()))
+        //                report.Stay = int.Parse(dr["Stay"].ToString());
+        //            if (dr["Register"] != null && !string.IsNullOrEmpty(dr["Register"].ToString()))
+        //                report.Register = int.Parse(dr["Register"].ToString());
+        //            if (dr["NetWifi"] != null && !string.IsNullOrEmpty(dr["NetWifi"].ToString()))
+        //                report.NetWifi = int.Parse(dr["NetWifi"].ToString());
+        //            if (dr["NetMobileData"] != null && !string.IsNullOrEmpty(dr["NetMobileData"].ToString()))
+        //                report.NetMobileData = int.Parse(dr["NetMobileData"].ToString());
+        //            list.Add(report);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        WriteError("ReportDAL.GetExtendChannelRecord Error:", ex.Message, ex.StackTrace, ex.Source);
+        //    }
+        //    return list;
+        //}
+        //public void StoreTodayExtendChannelData(List<ExtendChannel> list)
+        //{
+        //    try
+        //    {
+        //        string log = "";
+        //        foreach (ExtendChannel model in list)
+        //        {
+        //            log += string.Format("{0}_{1}_{2}_{3}_{4}_{5}_{6}_{7}_{8}_{9}_{10}_{11}_{12}_{13}_{14}_{15}"
+        //                , model.AndroidDown, model.AndroidFirstActive, model.AndroidLoad,
+        //               model.Channel, model.ChannelNum, model.Day, model.iOSDown, model.iOSFirstActive, model.iOSLoad,
+        //               model.LoadTimeAvg, model.PCDown, model.PCFirstActive, model.PCLoad, model.SecondDown, model.SecondDownTimeAvg, model.Stay);
+        //            WriteDebug("StoreTodayExtendChannelData log is ", log);
+        //            var args = new SqlParameter[] {
+        //            new SqlParameter("@AndroidDown",model.AndroidDown),
+        //            new SqlParameter("@AndroidFirstActive",model.AndroidFirstActive),
+        //                new SqlParameter("@AndroidLoad",model.AndroidLoad),
+        //                new SqlParameter("@Channel",model.Channel),
+        //                new SqlParameter("@ChannelNum",model.ChannelNum),
+        //                new SqlParameter("@Day",model.Day),
+        //                new SqlParameter("@iOSDown",model.iOSDown),
+        //                new SqlParameter("@iOSFirstActive",model.iOSFirstActive),
+        //                new SqlParameter("@iOSLoad",model.iOSLoad),
+        //                new SqlParameter("@LoadTimeAvg",model.LoadTimeAvg),
+        //                new SqlParameter("@PCDown",model.PCDown),
+        //                new SqlParameter("@PCFirstActive",model.PCFirstActive),
+        //                new SqlParameter("@PCLoad",model.PCLoad),
+        //                new SqlParameter("@SecondDown",model.SecondDown),
+        //                new SqlParameter("@SecondDownTimeAvg",model.SecondDownTimeAvg),
+        //                new SqlParameter("@Stay",model.Stay)
+        //        };
+        //            DataHelper.ExecuteProcedure("mf_P_ExtendChannel", args);
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        BaseDAL.WriteError("写入数据库【每日redis推广渠道】数据异常:", e.Message);
+        //    }
+        //}
         public List<NewQmallReport> GetExchangeReport(NewQmallReportSearch search, out int rowCount)
         {
             var dt = GetSearchData(search, DBName.MF_RECORD_DY, out rowCount);

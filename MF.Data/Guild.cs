@@ -368,5 +368,17 @@ namespace MF.Data
         public string player_id_other { get; set; }
         public string player_name_other { get; set; }
     }
-
+    [Serializable]
+    public class MemberClubInfo
+    { 
+        public string club_id { get; set; }
+        public string member_id { get; set; }
+        public string sponsor_id { get; set; }
+    }
+    [Serializable]
+    public class MemberClubInfoServer
+    {
+        public MemberClubInfo msg;
+        public int ret;
+    }
 }

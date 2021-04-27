@@ -20,7 +20,6 @@ D:\code\mf.admin\MF.Admin.DAL\bin\Release\MF.Protocol.dll
 D:\code\mf.admin\MF.Admin.DAL\bin\Release\Newtonsoft.Json.dll
 D:\code\mf.admin\MF.Admin.DAL\bin\Release\MF.Enum.dll
 D:\code\mf.admin\MF.Admin.DAL\bin\Release\MF.Data.pdb
-D:\code\mf.admin\MF.Admin.DAL\bin\Release\MF.Data.ExtendChannel.xml
 D:\code\mf.admin\MF.Admin.DAL\obj\Release\MF.Admin.DAL.csprojAssemblyReference.cache
 D:\code\mf.admin\MF.Admin.DAL\obj\Release\MF.Admin.DAL.csproj.CopyComplete
 D:\code\mf.admin\MF.Admin.DAL\obj\Release\MF.Admin.DAL.dll
@@ -53,3 +52,9 @@ D:\code\mf.admin\MF.Admin.DAL\bin\Release\MF.Protocol.pdb
 D:\code\mf.admin\MF.Admin.DAL\bin\Release\TencentCloud.pdb
 D:\code\mf.admin\MF.Admin.DAL\bin\Release\Pathoschild.Http.Client.xml
 D:\code\mf.admin\MF.Admin.DAL\bin\Release\System.Net.Http.Formatting.xml
+D:\code\mf.admin\MF.Admin.DAL\bin\Release\MF.Admin.DAL.dll.config
+D:\code\mf.admin\MF.Admin.DAL\bin\Release\MF.Common.dll
+D:\code\mf.admin\MF.Admin.DAL\bin\Release\MF.Protocol.dll.config
+D:\code\mf.admin\MF.Admin.DAL\bin\Release\MF.Common.pdb
+D:\code\mf.admin\MF.Admin.DAL\bin\Release\Newtonsoft.Json.xml
+D:\code\mf.admin\MF.Admin.DAL\bin\Release\MF.Enum.pdb

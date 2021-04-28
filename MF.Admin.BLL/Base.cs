@@ -44,6 +44,10 @@ namespace MF.Admin.BLL
         {
             BaseDAL.WriteLog(log);
         }
+        public static void WriteDebug(params string[] log)
+        {
+            BaseDAL.WriteDebug(log);
+        }
         public static bool VerificationIp(string ip)
         {
             if (string.IsNullOrEmpty(ip) || ip.Length < 7 || ip.Length > 15) return false;

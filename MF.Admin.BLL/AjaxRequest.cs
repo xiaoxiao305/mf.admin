@@ -187,7 +187,7 @@ namespace MF.Admin.BLL
                     Response.Write("{\"code\":0,\"msg\":\"安全令有误\"}");
                     return;
                 }
-                WriteLog("ajax JoinClub :", clubId, memberIds, masterId);
+                WriteDebug("ajax JoinClub :", clubId, memberIds, masterId);
                 var res = GuildBLL.JoinClub(clubId, memberIds, masterId);
                 if (res != null && res.ret == 0)
                     Response.Write("{\"code\":1,\"msg\":\"操作成功\"}");
@@ -210,7 +210,7 @@ namespace MF.Admin.BLL
                     Response.Write("{\"code\":0,\"msg\":\"参数有误\"}");
                     return;
                 }
-                WriteLog("ajax DelSponsor :", clubId, memberId);
+                WriteDebug("ajax DelSponsor :", clubId, memberId);
                 var res = GuildBLL.DelSponsor(clubId, memberId);
                 if (res != null && res.ret == 0)
                     Response.Write("{\"code\":1,\"msg\":\"操作成功\"}");
@@ -237,7 +237,7 @@ namespace MF.Admin.BLL
                         Response.Write("{\"code\":0,\"msg\":\"安全令有误\"}");
                         return;
                 }
-                WriteLog("ajax SetSponsor :", clubId, memberId, sponsorId);
+                WriteDebug("ajax SetSponsor :", clubId, memberId, sponsorId);
                 var res = GuildBLL.SetSponsor(clubId, memberId, sponsorId);
                 if (res != null && res.ret == 0)
                     Response.Write("{\"code\":1,\"msg\":\"操作成功\"}");
@@ -256,16 +256,16 @@ namespace MF.Admin.BLL
         {
             try
             {
-                WriteLog("ajax GetSponsor :", clubId, ",", memberId);
-                var res = new PagerResult<MemberClubInfo>();
-                var list = GuildBLL.GetSponsor(clubId, memberId);
-                res.result = list;
+                WriteDebug("ajax GetSponsor :", clubId, ",", memberId);
+                var res = new PagerResult<List<MemberClubInfo>>();
+                var model = GuildBLL.GetSponsor(clubId, memberId);
+                res.result = new List<MemberClubInfo>() { model };
                 res.code = 1;
                 res.msg = "";
                 res.index = (int)pageIndex;
                 res.rowCount = 1;
                 string json = Json.SerializeObject(res);
-                WriteLog("ajax GetSponsor2 :", json);
+                WriteDebug("ajax GetSponsor2 :", json);
                 Response.Write(json);
             }
             catch (Exception ex)
@@ -282,12 +282,12 @@ namespace MF.Admin.BLL
                     Response.Write("{\"code\":0,\"msg\":\"参数有误\"}");
                     return;
                 }
-                WriteLog("del players_id_1:", players_id_1);
+                WriteDebug("del players_id_1:", players_id_1);
                 string[] players = Json.DeserializeObject<string[]>(players_id_1);
                 ClubsServerRes cs = null;
                 for (int i = 0; i < players.Length; i++)
                 {
-                    WriteLog("del iii:", players[i]);
+                    WriteDebug("del iii:", players[i]);
                     List<string> list = new List<string>() { players_id_0, players[i].Trim() };
                     cs = GameBLL.DelMutual(list);
                 }
@@ -348,7 +348,7 @@ namespace MF.Admin.BLL
             if (list != null)
                 res.rowCount = list.Count;
             string json = Json.SerializeObject(res);
-            WriteLog(" ajax GetMutualList json:", json);
+            WriteDebug(" ajax GetMutualList json:", json);
             Response.Write(json);
         }
         public void GetClubTaxList(long pageSize, long pageIndex, string club_id, long time)
@@ -517,7 +517,7 @@ namespace MF.Admin.BLL
                     return;
                 }
                 DateTime dt = DateTime.Parse("1970/01/01").AddSeconds(time);
-                WriteLog("args time:", time.ToString(), " content:", content, " convertime:", dt.ToString("yyyy-MM-dd HH:mm:ss"));
+                WriteDebug("args time:", time.ToString(), " content:", content, " convertime:", dt.ToString("yyyy-MM-dd HH:mm:ss"));
                 var t = (int)(dt - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1))).TotalSeconds;
                 ClubsRes<object> r = SettingBLL.SendBroadCast(t, content);
                 Response.Write("{\"code\":" + (r != null && r.ret == 0 ? "1" : "0") + ",\"msg\":\"" + (r == null ? " err " : r.msg) + "\"}");
@@ -665,7 +665,7 @@ namespace MF.Admin.BLL
         }
         public void GetClubmembersList(long pageSize, long pageIndex, string club_id, string member_id)
         {
-            //Base.WriteLog("ajax getclubmembers club_id:", club_id, " uid:", member_id);
+            //Base.WriteDebug("ajax getclubmembers club_id:", club_id, " uid:", member_id);
             var res = new PagerResult<List<Dictionary<string, object>>>();
             var list = GuildBLL.GetClubmembersList(club_id.Trim(), member_id.Trim());
             res.result = list;
@@ -675,7 +675,7 @@ namespace MF.Admin.BLL
             if (list != null)
                 res.rowCount = list.Count;
             string json = Json.SerializeObject(res);
-            //Base.WriteLog("ajax getclubmembers end:", json);
+            //Base.WriteDebug("ajax getclubmembers end:", json);
             Response.Write(json);
         }
 
@@ -1031,9 +1031,9 @@ namespace MF.Admin.BLL
                 Response.Write("{\"code\":" + resCode + ",\"msg\":" + msg + "}");
                 return;
 
-                //Base.WriteLog("update msg:", msg);
+                //Base.WriteDebug("update msg:", msg);
                 //msg = string.Format("{\"Account\":\"{0}\",\"Value\":\"{1}\",\"Level\":\"{2}\",\"Remark\":\"{3}\"}", account, value, levelStr, remark);
-                //Base.WriteLog("update msg2222:", msg);
+                //Base.WriteDebug("update msg2222:", msg);
                 msg = "{'Account':'" + account + "','Value':'" + value + "','Level':'" + levelStr + "','Remark':'" + remark + "'}";
             }
             Response.Write("{\"code\":" + resCode + ",\"msg\":\"" + msg + "\"}");

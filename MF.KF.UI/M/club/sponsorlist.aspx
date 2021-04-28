@@ -26,7 +26,7 @@
             addCell(tr, o.club_id, 0);
             addCell(tr, o.member_id, 1);
             addCell(tr, o.sponsor_id, 2);
-            addCell(tr, "<a href='javascript:;' onclick=\"javascript:goDelSponsor(\"" + o.clubId + "\",\"" + o.memberId + "\",\"" + o.sponsorId + "\")\">删除</a>", 3);
+            addCell(tr, "<a href='javascript:;' onclick=\"goDelSponsor('" + o.club_id + "','" + o.member_id + "')\">删除</a>", 3);
             return tr;
         }
         $(document).ready(function() {
@@ -52,11 +52,11 @@
             if (token2 == "") { alert("请输入安全令"); return; }
             ajax.joinClub("joinclub", [clubId2, member2, sponsor2, token2], winresult);
         }        
-        function goDelSponsor(clubId,memberId,sponsorId)
+        function goDelSponsor(clubId,memberId)
         {
-            if (clubId == "" || memberId == "" || sponsorId == "") { alert("数据有误"); return;}
+            if (clubId == "" || memberId == "") { alert("数据有误"); return;}
             if (confirm("确认删除此信息？")) {
-                ajax.delSponsor("delsponsor", [clubId, memberId, sponsorId], winresult);
+                ajax.delSponsor("delsponsor", [clubId, memberId], winresult);
             } 
         }   
     </script>
@@ -68,7 +68,7 @@
          玩家ID<input  type="text" id="txtMemberId" class="box" />
         <input type="button" value="查询" onclick="search()" class="ui-button-icon-primary" />
         <input type="button" value="设置管理员" onclick="showAddMoneyWin(1);" class="ui-button-icon-primary oprbutton"/>
-        <input type="button" value="设置俱乐部" onclick="showAddMoneyWin(2);" class="ui-button-icon-primary oprbutton"/>
+        <input type="button" value="加入俱乐部" onclick="showAddMoneyWin(2);" class="ui-button-icon-primary oprbutton"/>
     </div>
     <div id="container"></div>
     <div id="pager" class="pager"></div>

@@ -1138,4 +1138,58 @@
             }
         });
     },
+    getSponsor: function (args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: {
+                m: "getsponsor",
+                args: JSON.stringify(args),
+                r: Math.random()
+            },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },
+    setSponsor: function (method, args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: method, args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    }, delSponsor: function (method, args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: method, args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    }, joinClub: function (method, args, callback) {
+        $.ajax({
+            url: ajax.url,
+            data: { m: method, args: JSON.stringify(args), r: Math.random() },
+            dataType: "json",
+            cache: false,
+            success: callback,
+            error: function (xhr, status, err) {
+                $("#loading").hide();
+                alert(err);
+            }
+        });
+    },
 };

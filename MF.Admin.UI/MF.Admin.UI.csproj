@@ -12,7 +12,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MF.Admin.UI</RootNamespace>
     <AssemblyName>MF.Admin.UI</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -49,7 +49,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MF.Common">
-      <HintPath>..\..\MF.Common.DLL\MF.Common.dll</HintPath>
+      <HintPath>..\..\www\MF.Common\bin\Debug\MF.Common.dll</HintPath>
     </Reference>
     <Reference Include="MF.Data.ExtendChannel">
       <HintPath>..\..\MF.Common.DLL\MF.Data.ExtendChannel.dll</HintPath>
@@ -57,9 +57,8 @@
     <Reference Include="MF.WebControls">
       <HintPath>..\..\MF.Common.DLL\MF.WebControls.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\MF.Common.DLL\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -157,6 +156,7 @@
     <Content Include="M\Guild\memberactive.aspx" />
     <Content Include="M\Guild\RecomClubsList.aspx" />
     <Content Include="M\Guild\SetSuggestGuild.aspx" />
+    <Content Include="M\Guild\sponsorlist.aspx" />
     <Content Include="M\Guild\UserList.aspx" />
     <Content Include="M\menu.aspx" />
     <Content Include="M\Pager.ascx" />
@@ -448,6 +448,13 @@
     <Compile Include="M\Guild\SetSuggestGuild.aspx.designer.cs">
       <DependentUpon>SetSuggestGuild.aspx</DependentUpon>
     </Compile>
+    <Compile Include="M\Guild\sponsorlist.aspx.cs">
+      <DependentUpon>sponsorlist.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="M\Guild\sponsorlist.aspx.designer.cs">
+      <DependentUpon>sponsorlist.aspx</DependentUpon>
+    </Compile>
     <Compile Include="M\Guild\UserList.aspx.cs">
       <DependentUpon>UserList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -622,6 +629,7 @@
     <Content Include="common\js\gamerec.json" />
     <Content Include="common\js\strongbox.json" />
     <Content Include="M\main2.Master" />
+    <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\admin.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>

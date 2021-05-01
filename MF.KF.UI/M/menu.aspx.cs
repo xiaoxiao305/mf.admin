@@ -31,15 +31,15 @@ namespace MF.KF.UI.M
             menuList.Add(0, @"<li class='menu_title'>用户管理</li><li class='menu_list'><a href ='/m/users/userlist.aspx' target='main' class='white'>玩家数据</a></li>
 <li class='menu_list'><a href ='/m/currency/AllStrongBox.aspx' target='main' class='white'>二级密码记录</a></li>");
             string clubStr = @"<li class='menu_title'>俱乐部管理</li><li class='menu_list'><a href ='/m/club/club_statistic_day.aspx' target='main' class='white'>俱乐部每日统计</a></li>
-        <li class='menu_list'><a href ='/m/club/guildlist.aspx' target='main' class='white'>俱乐部列表</a></li>
+        <li class='menu_list'><a href ='/m/club/guildlist.aspx?club_id=''' target='main' class='white'>俱乐部列表</a></li>
         <li class='menu_list'><a href ='/m/club/guildlink.aspx' target='main' class='white'>俱乐部游戏设置</a></li>
         <li class='menu_list'><a href ='/m/club/memberactive.aspx' target='main' class='white'>俱乐部成员活跃</a></li>
         <li class='menu_list'><a href ='/m/club/clubactive.aspx' target='main' class='white'>俱乐部活跃</a></li>
-        <li class='menu_list'><a href ='/m/club/clubmembers.aspx' target='main' class='white'>成员所在俱乐部</a></li>
-        <li class='menu_list'><a href ='/m/club/sponsorlist.aspx' target='main' class='white'>设置管理员</a></li>";
+        <li class='menu_list'><a href ='/m/club/clubmembers.aspx' target='main' class='white'>成员所在俱乐部</a></li>";
             if (isAdmin == 1)
             {
-                clubStr += @"<li class='menu_list'><a href = '/m/club/hightaxclubs.aspx' target='main' class='white'>高税俱乐部</a></li>";
+                clubStr += @"<li class='menu_list'><a href = '/m/club/hightaxclubs.aspx' target='main' class='white'>高税俱乐部</a></li>
+                            <li class='menu_list'><a href ='/m/club/sponsorlist.aspx' target='main' class='white'>设置管理员</a></li>";
             }
             menuList.Add(1, clubStr);
             string gameLi = @"<li class='menu_title'>游戏管理</li><li class='menu_list'><a href ='/m/game/closeroom.aspx' target='main' class='white'>解散游戏</a></li>

@@ -11,6 +11,8 @@ namespace MF.Admin.UI.M.Guild
             {
                 club_ids = Request["club_id"].ToString();
             }
+            else
+                club_ids = "";
         }
     }
 }

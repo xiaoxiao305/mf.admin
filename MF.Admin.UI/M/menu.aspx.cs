@@ -33,13 +33,14 @@ namespace MF.Admin.UI.M
         <li class='menu_list'><a href ='/m/guild/ClubStatisticDay.aspx' target='main' class='white'>俱乐部每日统计</a></li>
         <li class='menu_list'><a href ='/m/guild/memberactive.aspx' target='main' class='white'>俱乐部成员活跃</a></li>
         <li class='menu_list'><a href ='/m/guild/guildlink.aspx' target='main' class='white'>俱乐部游戏设置</a></li>
-        <li class='menu_list'><a href ='/m/guild/guildlist.aspx' target='main' class='white'>俱乐部列表</a></li>
+        <li class='menu_list'><a href ='/m/guild/guildlist.aspx?club_id=''' target='main' class='white'>俱乐部列表</a></li>
         <li class='menu_list'><a href ='/m/guild/clublink.aspx' target='main' class='white'>俱乐部关联</a></li>
         <li class='menu_list'><a href ='/m/guild/leagueclubmembers.aspx' target='main' class='white'>联盟俱乐部成员</a></li>
         <li class='menu_list'><a href ='/m/guild/clubmembers.aspx' target='main' class='white'>成员所在俱乐部</a></li>
         <li class='menu_list'><a href ='/m/guild/clubactive.aspx' target='main' class='white'>俱乐部活跃</a></li>
         <li class='menu_list'><a href ='/m/guild/clubmemberslist.aspx' target='main' class='white'>俱乐部成员</a></li>
-        <li class='menu_list'><a href ='/m/guild/hightaxclubs.aspx' target='main' class='white'>高税俱乐部</a></li>");
+        <li class='menu_list'><a href ='/m/guild/hightaxclubs.aspx' target='main' class='white'>高税俱乐部</a></li>
+        <li class='menu_list'><a href ='/m/guild/sponsorlist.aspx' target='main' class='white'>设置管理员</a></li>");
             menuList.Add(3, @"<li class='menu_title'>游戏管理</li> 
         <li class='menu_list'><a href ='/m/report/game.aspx' target='main' class='white'>游戏报表</a></li>
         <li class='menu_list'><a href ='/m/report/scene.aspx' target='main' class='white'>场数据</a></li>

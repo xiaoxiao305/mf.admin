@@ -16,6 +16,8 @@ namespace MF.KF.UI.M.club
             {
                 club_ids = Request["club_id"].ToString();
             }
+            else
+                club_ids = "";
         }
     }
 }

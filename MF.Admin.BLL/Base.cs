@@ -242,8 +242,6 @@ namespace MF.Admin.BLL
         }
         #endregion
 
-
-
         public static T Readjson<T>(string filePath)
         {
             try
@@ -261,5 +259,43 @@ namespace MF.Admin.BLL
             }
             return default(T);
         }
+
+        /// <summary>
+        /// 操作系统类型 1admin  2kf
+        /// </summary>
+        public static int ApplicationType
+        {
+            get
+            {
+                try
+                {
+                    return int.Parse(System.Configuration.ConfigurationManager.AppSettings["appType"]);
+                }
+                catch (Exception ex)
+                {
+                    Base.WriteError("appType config is null.", ex.Message); return 1;
+                }
+            }
+        }
+        /// <summary>
+        /// 俱乐部黑名单  
+        /// 2021-05-08 添加客服系统不能查询的俱乐部黑名单功能  @赵凯
+        /// </summary>
+        public static bool IsClubBlock(string clubId)
+        {
+            try
+            {
+                string clubs = System.Configuration.ConfigurationManager.AppSettings["clubBlackList"];
+                foreach (string item in clubs.Split(','))
+                {
+                    if (item.Trim().Equals(clubId)) return true;
+                }
+                return false;
+            }catch(Exception ex)
+            {
+                Base.WriteError("clubBlackList config is null.", ex.Message); return false;
+            }            
+        }
+
     }
 }

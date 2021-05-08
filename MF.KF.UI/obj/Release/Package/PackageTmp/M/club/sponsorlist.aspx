@@ -1,5 +1,5 @@
 ﻿<%@ Page Title=" 俱乐部管理 》 管理员列表" Language="C#" MasterPageFile="~/M/main.Master"  AutoEventWireup="true" CodeBehind="sponsorlist.aspx.cs" Inherits="MF.KF.UI.M.club.sponsorlist" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="h" runat="server">
+ <asp:Content ID="Content1" ContentPlaceHolderID="h" runat="server">
    
     <link href="/common/styles/layer.css" type="text/css" rel="Stylesheet" />
     <script language="javascript" type="text/javascript">
@@ -89,17 +89,19 @@
         <ul id="T1">
             <li class="red" style="font-weight:bold;">设置管理员</li>
             <li>俱乐部Id：<input class="ipt" type="text" id="txtClubId1" /></li>
-            <li>玩家Id：<input class="ipt" type="text" id="txtMemberId1" /></li>
+            <li>&nbsp;&nbsp;玩家Id：<input class="ipt" type="text" id="txtMemberId1" /></li>
             <li>管理员Id：<input class="ipt" type="text" id="txtSponsorId1" /></li>
-            <li>安　全　令：<input class="ipt" type="text" id="txtToken1" /></li> 
+            <li>安全令：<input class="ipt" type="text" id="txtToken1" /></li> 
+            <li style="color:red">该功能用于设置某玩家至某管理员名下</li> 
             <li class="center"><input class="btn btn-primary" type="button" value=" 确 定" onclick="setSponsor()" /></li>
         </ul>
         <ul id="T2">
-            <li class="red" style="font-weight:bold;">设置俱乐部成员</li>
+            <li class="red" style="font-weight:bold;">加入俱乐部</li>
             <li>俱乐部Id：<input class="ipt" type="text" id="txtClubId2" /></li>
-            <li>玩家Id：<input class="ipt" type="text" id="txtMemberId2" />(多个以,分隔)</li>
-            <li>管理员Id：<input class="ipt" type="text" id="txtSponsorId2" /></li>
-            <li>安　全　令：<input class="ipt" type="text" id="txtToken2" /></li> 
+            <li>&nbsp;&nbsp;玩家Id：<input class="ipt" type="text" id="txtMemberId2" /></li>
+            <li>&nbsp;&nbsp;会长Id：<input class="ipt" type="text" id="txtSponsorId2" /></li>
+            <li>安全令：<input class="ipt" type="text" id="txtToken2" /></li> 
+            <li style="color:red">该功能用于添加某玩家进入某俱乐部</li> 
             <li class="center"><input class="btn btn-primary" type="button" value=" 确 定" onclick="joinClub()" /></li>
         </ul> 
     </div> 

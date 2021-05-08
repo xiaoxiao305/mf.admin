@@ -165,7 +165,7 @@ namespace MF.Admin.BLL
                 functions.Add("addmutual", "AddMutual");
                 functions.Add("delmutual", "DelMutual");
 
-
+                //设置俱乐部管理员
                 functions.Add("getsponsor", "GetSponsor");
                 functions.Add("setsponsor", "SetSponsor");
                 functions.Add("delsponsor", "DelSponsor");
@@ -256,7 +256,7 @@ namespace MF.Admin.BLL
         {
             try
             {
-                WriteDebug("ajax GetSponsor :", clubId, ",", memberId);
+                if (Base.ApplicationType != 1 && IsClubBlock(clubId)) { return; }
                 var res = new PagerResult<List<MemberClubInfo>>();
                 var model = GuildBLL.GetSponsor(clubId, memberId);
                 res.result = new List<MemberClubInfo>() { model };
@@ -1152,7 +1152,8 @@ namespace MF.Admin.BLL
             Response.Write("{\"code\":1,\"msg\":\"删除成功\"}");
         }
         public void ClubStatisticDay(long pageSize, long pageIndex, string tt, long clubId)
-        {
+        {            
+            if (Base.ApplicationType !=1 && IsClubBlock(clubId.ToString())) { return; }
             string time = DateTime.Parse(tt).ToString("yyyyMMdd");
             if ((clubId != -1 && clubId < 1) || string.IsNullOrEmpty(tt))
             {
@@ -1732,6 +1733,7 @@ namespace MF.Admin.BLL
         /// <param name="key">查询字段值</param>
         public void GetGuildList(long pageSize, long pageIndex, long filed, string key)
         {
+            if(filed==3 && Base.ApplicationType != 1 && IsClubBlock(key)) { return; }
             var res = new PagerResult<List<ClubsModel>>();
             var list = GuildBLL.GetGuildList(filed, key);
             res.result = list;
@@ -1745,6 +1747,7 @@ namespace MF.Admin.BLL
         }
         public void GetMemberActive(long pageSize, long pageIndex, string club_id, string day)
         {
+            if (Base.ApplicationType != 1 && IsClubBlock(club_id)) { return; }
             var res = new PagerResult<List<MembersActivity>>();
             var list = GuildBLL.GetMemberActive(club_id, day);
             res.result = list;

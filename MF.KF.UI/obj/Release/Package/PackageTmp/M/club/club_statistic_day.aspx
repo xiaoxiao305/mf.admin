@@ -19,7 +19,7 @@
     cursor:pointer; 
     border:none;
 }  
-.list_table th,td {width:25%;}
+.list_table th,td {width:16%;}
     </style>
     <script language="javascript" type="text/javascript">
         function search() {
@@ -27,11 +27,11 @@
             $("#container").show();
             $("#tbcon").hide(); 
             $(".tb").hide(); 
-            var args = [$("#starttime").val(),-1];
+            var args = [$("#starttime").val(),$("#endtime").val(),-1];
             jsonPager.queryArgs = args; 
             ajax.getClubStatisticDay(jsonPager.makeArgs(1), searchResult);
         }
-        function searchResult(data) {
+        function searchResult(data) { 
             $("#loading").hide(); 
             if (data.code == 1) {
                 jsonPager.data = data.result;
@@ -53,15 +53,18 @@
                 var td = tr.insertCell(i);
                 td.innerHTML = text;
             }; 
-            addCell(tr, o.clubid + "<img src='/common/images/del.png' class='add' onclick='DelClub("+o.clubid+")'/>", 0);
-            addCell(tr, o.clubname, 1);
-            addCell(tr, o.round, 2);
-            addCell(tr, o.online,3);
+            addCell(tr, o.date,0);
+            addCell(tr, o.club_id + "<img src='/common/images/del.png' class='add' onclick='DelClub("+o.club_id+")'/>", 1);
+            addCell(tr, o.clubname, 2);
+            addCell(tr, o.round, 3);
+            addCell(tr, o.online,4);
+            addCell(tr, o.tax,5);
             return tr;
         }
         $(document).ready(function() {
             attachCalenderbox('#starttime', '', null, new Date().Format("yyyy-MM-dd"), new Date().Format("yyyy-MM-dd"));
-            var pagerTitles = ["俱乐部ID", "俱乐部名称", "总局数","成员上线数"]
+            attachCalenderbox('#endtime', '', null, new Date().Format("yyyy-MM-dd"), new Date().Format("yyyy-MM-dd"));
+            var pagerTitles = ["日期", "俱乐部ID", "俱乐部名称", "总局数","成员上线数","总收益"]
             jsonPager.init(ajax.getClubStatisticDay,[],searchResult,pagerTitles, "list_table", "container", "pager", insertRow);
             jsonPager.dataBind(1,0);
         });
@@ -79,21 +82,30 @@
             }
             else
                 return;
-            var args = [$("#starttime").val(), parseInt(clubid)];
+            var args = [$("#starttime").val(),$("#endtime").val(), parseInt(clubid)];
             jsonPager.queryArgs = args; 
             ajax.getClubStatisticDay(jsonPager.makeArgs(1), searchResult2);
             $("#txtclubid").val("");
         }
-          function searchResult2(data) {
+        function searchResult2(data) {
               $("#loading").hide(); 
-              if (data.code == 1) { 
-                  if (data.rowCount != 0 && data.result[0] != null && data.result[0].clubid >0) {
-                      var con = "<tr class='tr'><td>" + data.result[0].clubid + "<img src='/common/images/del.png' class='add' onclick='DelClub("+ data.result[0].clubid+")'/></td><td>" + data.result[0].clubname + "</td><td>" + data.result[0].round + "</td><td>" + data.result[0].online + "</td></tr>";
+            if (data.code == 1) {
+                if (data.rowCount == 0) return;
+                for (var i = 0; i < data.result.length; i++) {
+                    var resObj = data.result[i];
+                    if (resObj != null && resObj.club_id > 0) {
+                        var con = "<tr class='tr'><td>" + resObj.date
+                          + "</td><td>" + resObj.club_id
+                          + "<img src='/common/images/del.png' class='add' onclick='DelClub(" + resObj.club_id
+                          + ")'/></td><td>" + resObj.clubname + "</td><td>" + resObj.round
+                            + "</td><td>" + resObj.online
+                            + "</td><td>" + resObj.tax + "</td></tr>";
                       if ($("#container").is(':hidden') && !$("#tbcon").is(':hidden'))
                           $("#tbcon").append(con);
                       else if (!$("#container").is(':hidden') && $("#tbcon").is(':hidden'))
                           $("#container").append("<table class='list_table tb'>" + con + "</table>");
                   }
+                }
             } else {
                 alert(data.msg);
             }
@@ -111,15 +123,20 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="p" runat="server">
     <div class="toolbar">俱乐部统计数据</div>
     <div class="search">&nbsp;&nbsp; 
-            统计时间<input type="text" id="starttime" class="box w100" readonly="readonly" />
+            统计时间<input type="text" id="starttime" class="box w100" readonly="readonly" />&nbsp;&nbsp;&nbsp;至&nbsp;&nbsp;&nbsp;
+        <input type="text" id="endtime" class="box w100" readonly="readonly" />
             <input type="button" value="查询" onclick="search()" class="ui-button-icon-primary" id="btnsearch" /> 
     </div>
     <div id="container" style="display:none;"></div>
     <table class="list_table" style="border-bottom:none;" id="tbcon">
-        <tr><th>俱乐部ID</th><th>俱乐部名称</th><th>总局数</th><th>成员上线数</th></tr>
+        <tr><th>日期</th><th>俱乐部ID</th><th>俱乐部名称</th><th>总局数</th><th>成员上线数</th><th>总收益</th></tr>
     </table>  
     <table class="list_table" style="border-top:none;">
-        <tr><td><input type="text"  class="box" id="txtclubid" /><img src="/common/images/ok.png" class="add" onclick="SearchClub()"/><label style="color:#616161;"> &nbsp;&nbsp;&nbsp;&nbsp;输入俱乐部ID即可</label></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td>
+            <input type="text"  class="box" id="txtclubid" />
+            <img src="/common/images/ok.png" class="add" onclick="SearchClub()"/>
+            <label style="color:#616161;"> &nbsp;&nbsp;&nbsp;&nbsp;输入俱乐部ID即可</label></td>
+            <td></td><td></td><td></td><td></td></tr>
     </table>
     <div id="pager" class="pager"></div>
     <div class="loading" id="loading"></div>

@@ -544,10 +544,19 @@ namespace MF.Admin.DAL
         }
 
 
-        public List<ClubsStatistic> ClubStatisticDay(string time, long clubId, string account)
+        public List<ClubsStatistic> ClubStatisticDay(string time, string etime, long clubId, string account)
         {
             try
             {
+                List<string> timeList = new List<string>();
+                string timeArray = "";
+                for (var date = DateTime.Parse(time); date <= DateTime.Parse(etime); date = date.AddDays(1))
+                {
+                    timeArray += "\"" + date.ToString("yyyyMMdd") + "\",";
+                }
+                timeArray = timeArray.Substring(0, timeArray.Length-1);
+
+                //-1查询全部
                 if ((clubId != -1 && clubId < 1) || string.IsNullOrEmpty(time) || string.IsNullOrEmpty(account))
                     return null;
                 List<ClubsStatistic> clubslist = new List<ClubsStatistic>();
@@ -571,18 +580,23 @@ namespace MF.Admin.DAL
                         clubnameres = PostClubServer<ClubsModelServer>(ClubsURI, param);
                         if (clubnameres == null || clubnameres.ret != 0 || clubnameres.msg == null)
                             continue;
-                        info = new ClubsStatistic();
-                        info.clubid = id;
-                        info.clubname = clubnameres.msg.Name;
                         //clubinfo
-                        param = "{\"module\":\"club_log\",\"func\":\"day_statistic\",\"args\":{\"club_id\":" + id + ",\"ymd\":\"" + time + "\"}}";
+
+                        param = "{\"module\":\"club_log\",\"func\":\"day_statistic\",\"args\":{\"club_id\":" + id + ",\"ymd\":[" + timeArray + "]}}";
                         serverres = PostClubServer<ClubsStatisticRes>(ClubsURI, param);
                         if (serverres == null || serverres.ret != 0 || serverres.msg == null)
                             continue;
-                        info.online = serverres.msg.online;
-                        info.round = serverres.msg.round;
-
-                        clubslist.Add(info);
+                        foreach (string ymd in serverres.msg.statistic.Keys)
+                        {
+                            info = new ClubsStatistic();
+                            info.club_id = id;
+                            info.clubname = clubnameres.msg.Name;
+                            info.date = ymd;
+                            info.online = serverres.msg.statistic[ymd].online;
+                            info.round = serverres.msg.statistic[ymd].round;
+                            info.tax = serverres.msg.statistic[ymd].tax;
+                            clubslist.Add(info);
+                        }
                     }
                     return clubslist;
                 }
@@ -596,25 +610,30 @@ namespace MF.Admin.DAL
                         clubslist.Add(info);
                         return clubslist;
                     }
-                    info = new ClubsStatistic();
-                    info.clubid = clubId;
-                    info.clubname = clubnameres.msg.Name;
                     //clubinfo
-                    param = "{\"module\":\"club_log\",\"func\":\"day_statistic\",\"args\":{\"club_id\":" + clubId + ",\"ymd\":\"" + time + "\"}}";
+                    param = "{\"module\":\"club_log\",\"func\":\"day_statistic\",\"args\":{\"club_id\":" + clubId + ",\"ymd\":[" + timeArray + "]}}";
                     serverres = PostClubServer<ClubsStatisticRes>(ClubsURI, param);
                     if (serverres == null || serverres.ret != 0 || serverres.msg == null)
                         return null;
-                    info.online = serverres.msg.online;
-                    info.round = serverres.msg.round;
+                    foreach (string ymd in serverres.msg.statistic.Keys)
+                    {
+                        info = new ClubsStatistic();
+                        info.club_id = clubId;
+                        info.clubname = clubnameres.msg.Name;
+                        info.date = ymd;
+                        info.online = serverres.msg.statistic[ymd].online;
+                        info.round = serverres.msg.statistic[ymd].round;
+                        info.tax = serverres.msg.statistic[ymd].tax;
+                        clubslist.Add(info);
+                    } 
                     //addclubdata
-                    AddClubStatistic(clubId, account);
-                    clubslist.Add(info);
+                    AddClubStatistic(clubId, account);                   
                     return clubslist;
                 }
             }
             catch (Exception ex)
             {
-                WriteError("ClubStatisticDay ex:", ex.Message);
+                WriteError("ClubStatisticDay ex2:", ex.Message);
             }
             return null;
         }
@@ -648,7 +667,7 @@ namespace MF.Admin.DAL
                 var args = new SqlParameter[] {
                     new SqlParameter("@account",account),
                     new SqlParameter("@clubid",clubid) };
-                BaseDAL.dbname = DBName.Manage;//必须优先设置需要使用数据库
+                BaseDAL.dbname = DBName.Manage;//必须优先设置所需要使用的数据库
                 DataHelper.ExecuteProcedure("mf_P_AddClubStatistic", args);
             }
             catch (Exception e)

@@ -85,10 +85,10 @@ namespace MF.Data
     {
         public int club_id { get; set; }
         public string ymd { get; set; }
-        public Dictionary<string,object> activity { get; set; }
+        public Dictionary<string, object> activity { get; set; }
 
 
-        public string member_id { get; set; }        
+        public string member_id { get; set; }
         public string active { get; set; }
         public string nick_name { get; set; }
     }
@@ -99,7 +99,7 @@ namespace MF.Data
         public object[] args;
 
     }
-    [Serializable]  
+    [Serializable]
     public class ClubsModelServer
     {
         public ClubsModel msg;
@@ -144,10 +144,21 @@ namespace MF.Data
     [Serializable]
     public class ClubsStatistic
     {
-        public long clubid;
+        public long club_id;
         public string clubname;
+        public string date;
         public int online;
         public int round;
+        public long tax;
+
+        public Dictionary<string, ClubStaticDetail> statistic; 
+    }
+    [Serializable]
+    public class ClubStaticDetail
+    {
+        public int online;
+        public int round;
+        public long tax;
     }
     [Serializable]
     public class ClubMembers

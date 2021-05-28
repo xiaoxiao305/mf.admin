@@ -1151,17 +1151,18 @@ namespace MF.Admin.BLL
             GuildBLL.DelClubStatisticClubId(clubId, CurrentUser.Account);
             Response.Write("{\"code\":1,\"msg\":\"删除成功\"}");
         }
-        public void ClubStatisticDay(long pageSize, long pageIndex, string tt, long clubId)
+        public void ClubStatisticDay(long pageSize, long pageIndex, string tt, string ee, long clubId)
         {            
             if (Base.ApplicationType !=1 && IsClubBlock(clubId.ToString())) { return; }
-            string time = DateTime.Parse(tt).ToString("yyyyMMdd");
+            string sTime = DateTime.Parse(tt).ToString("yyyy-MM-dd");
+            string eTime = DateTime.Parse(ee).ToString("yyyy-MM-dd");
             if ((clubId != -1 && clubId < 1) || string.IsNullOrEmpty(tt))
             {
                 Response.Write("{\"code\":0,\"msg\":\"参数有误\"}");
                 return;
             }
             var res = new PagerResult<List<ClubsStatistic>>();
-            List<ClubsStatistic> list = GuildBLL.ClubStatisticDay(time, clubId);
+            List<ClubsStatistic> list = GuildBLL.ClubStatisticDay(sTime, eTime, clubId);
             res.result = list;
             res.code = 1;
             res.msg = "";

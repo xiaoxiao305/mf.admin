@@ -523,11 +523,11 @@ namespace MF.Admin.BLL
             return null;
         }
 
-        public static List<ClubsStatistic> ClubStatisticDay(string time, long clubId)
+        public static List<ClubsStatistic> ClubStatisticDay(string time, string etime, long clubId)
         {
             if ((clubId != -1 && clubId < 1) || string.IsNullOrEmpty(time))
                 return null;
-            return dal.ClubStatisticDay(time, clubId, CurrentUser.Account);
+            return dal.ClubStatisticDay(time, etime, clubId, CurrentUser.Account);
         }
 
 
